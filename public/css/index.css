@@ -1,0 +1,52 @@
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:white;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+::placeholder {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 0.8em;
+    color: #e1d4ff78 !important;
+} 
+
+#form-login{
+    margin-top: 50%;
+}
+
+.form-control{
+    text-align: center;
+    color: #9379ce !important;
+}
+
+.form-control:focus {
+    transition: 0.5s;
+    box-shadow: none !important;
+    border: 1px solid #9379ce !important;
+    outline: 0;
+} 
+
+#inputEmail, #inputPassword{
+    transition: 0.25s;
+    height: 44px;
+    border-radius: 24px;
+    border: 1px solid #d9d1f9;
+}
+
+#click-a{
+    font-size: 0.9em;
+    font-weight: bolder;
+    height: 44px;
+    border-radius: 24px;
+    background-image: linear-gradient(to right, #9379ce , #8a55ea, #5a82f2);
+    border: none;
+}
