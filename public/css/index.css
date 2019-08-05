@@ -1,52 +1,179 @@
 
+html{
+	width: 100%;
+	background: url("https://i.imgur.com/w1aCOPC.png");
+	background-attachment: fixed;
+	height: 100%;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:white;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
     font-size:12px;
-    height:100%;
+	background: none !important;
     margin:0px;
     padding:0px;
     width:100%;
+	height: 100%;
 }
 
 ::placeholder {
-    font-weight: bolder;
-    text-align: center;
     font-size: 0.8em;
-    color: #e1d4ff78 !important;
+    color: rgb(177, 159, 200) !important;
+	letter-spacing: 1px;
 } 
 
+#logo-div{
+	display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+	width: 100%;
+	box-sizing: border-box;
+}
+
 #form-login{
-    margin-top: 50%;
+	background-color: rgba(0,0,20,0.4);
+	padding: 16px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .form-control{
+	transition: 0.25s;
     text-align: center;
-    color: #9379ce !important;
+    color: white !important;
+	font-size: 1em !important;
+	border: none !important;
+	border-left: 6px solid #e672a380 !important;
 }
 
 .form-control:focus {
-    transition: 0.5s;
+    transition: 0.25s;
     box-shadow: none !important;
-    border: 1px solid #9379ce !important;
+	border: none !important;
+	border-radius: 0px !important;
+    border-left: 6px solid white !important;
+	border-right: 6px solid white !important;
     outline: 0;
 } 
 
-#inputEmail, #inputPassword{
+#inputEmail, #inputPassword, #inputName, #inputLogin, #fullname-div{
     transition: 0.25s;
-    height: 44px;
-    border-radius: 24px;
-    border: 1px solid #d9d1f9;
+	height: 42px;
+	border-radius: 48px;
+	border: 2px solid RGBA(219, 74, 135, 0.4);
+	background-color: RGBA(219, 74, 135, 0.4);
+	font-weight: bolder;
+	letter-spacing: 1px;
+	background-repeat:no-repeat;
+	background-position-x: 16px;
+	background-position-y: 6px;
+	text-align: left;
+	padding-left: 64px;
 }
 
-#click-a{
-    font-size: 0.9em;
-    font-weight: bolder;
-    height: 44px;
-    border-radius: 24px;
-    background-image: linear-gradient(to right, #9379ce , #8a55ea, #5a82f2);
-    border: none;
+#inputEmail{
+	/*background-image: url('login-input.png');*/
+}
+
+#inputPassword{
+	/*background-image: url('senha-input.png');*/
+}
+
+#btn-all{
+    font-size: 0.8em;
+	font-weight: bolder;
+	height: 54px;
+	border-radius: 48px;
+	background: RGBA(230, 114, 163, 0);
+	border: 2px solid white;
+	letter-spacing: 1px;
+}
+
+a{
+	color: white !important;
+	font-size: 0.9em;
+}
+
+/* create-account.html */
+
+#form-account{
+	background-color: rgba(0,0,20,0.4);
+	padding: 16px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#create-title{
+	font-weight: bolder;
+	color: white;
+	margin-bottom: 12px;
+	display: block;
+}
+
+#create-subtitle{
+	font-size: 0.6em;
+	font-weight: bolder;
+	color: white;
+	display: block;
+}
+
+#btn-facebook-2, #btn-twitter-2, #btn-google-2{
+	color: white;
+	font-weight: bolder;
+	height: 48px;
+	width: 48px;
+	border-radius: 48px;
+	background: #fff0;
+	border: 2px solid white;
+	display: inline;
+	margin-left: 6px !important;
+	margin-right: 6px !important;
+	padding: 0px;
+}
+
+#btn-facebook-2{
+	background-color: #6570c1;
+}
+
+#btn-twitter-2{
+	background-color: #71abdb;
+}
+
+#btn-google-2{
+	background-color: #db7171;
+}
+
+/* main-view.html */
+
+#form-main{
+	background-color: rgba(0,0,20,0.4);
+	padding: 16px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#primary-img{
+	height: 128px;
+	width: 128px;
+	background-color: white;
+	border-radius: 180px;
+	background-size: cover;
+	border: 2px solid white;
+}
+
+#text-view{
+	font-size: 0.9em;
+	color: rgba(32, 2, 102, 0.6);
+	display: block;
+	margin: 10px;
+}
+
+#fullname-div{
+	text-align: center;
+	padding: 0px;
+	background-color: white;
+	display: none;
 }

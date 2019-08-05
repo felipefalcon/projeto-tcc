@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+		<!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+    </head>
+    <body class="text-center">
+        <div id="form-account">
+			<label id="create-title">CRIAÇÃO DE CONTA</label>
+			<label id="create-subtitle">CRIAR USANDO REDES SOCIAIS</label>
+			<div id="form-redes-sociais" class="mb-3">
+			<button onclick="abc();" id="btn-facebook-2" class="btn btn-lg btn-primary btn-block mx-auto"><i class="fa fa-facebook" style="vertical-align: middle;"></i></button>
+			<button onclick="abc();" id="btn-twitter-2" class="btn btn-lg mx-auto"><i class="fa fa-twitter" style="vertical-align: middle;"></i></button>
+			<button onclick="abc();" id="btn-google-2" class="btn btn-lg btn-primary btn-block mx-auto"><i class="fa fa-google" style="vertical-align: middle;"></i></button>
+			</div>
+			<label id="create-subtitle">OU</label>
+			<div id="form-cadastro-dados">
+            <input name="name" id="inputName" class="form-control col-10 mx-auto mb-3" placeholder="NOME COMPLETO" required autofocus>
+			<input name="email" id="inputEmail" class="form-control col-10 mx-auto mb-3" placeholder="EMAIL" required autofocus>
+            <input name="login" id="inputLogin" class="form-control col-10 mx-auto mb-3" placeholder="LOGIN" required>
+            <input name="senha" type="text" id="inputPassword" class="form-control col-10 mx-auto mb-3" placeholder="SENHA" required>
+			<input name="senha" type="text" id="inputPassword" class="form-control col-10 mx-auto mb-4" placeholder="CONFIRMAR SENHA" required>
+			<button onclick="createUser();" id="btn-all" class="btn btn-lg btn-primary btn-block col-10 mx-auto mt-4 mb-4">CRIAR</button>
+			<button onclick="window.location.replace('/');" id="btn-all" class="btn btn-lg btn-primary btn-block col-10 mx-auto mt-4 mb-4">VOLTAR AO LOGIN</button>
+			</div>
+		</div>
+    <script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="./js/create-account-functions.js"></script>
+    </body>
+</html>
