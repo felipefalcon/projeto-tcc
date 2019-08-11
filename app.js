@@ -41,7 +41,7 @@ app.post('/connect-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({login: req.body.login, senha: req.body.senha}, function(err, result) {
+  dbo.collection("users").findOne({login: req.body.login, password: req.body.password}, function(err, result) {
     if (err) throw err;
 	if(result != null){
 		res.json(result); 
@@ -57,7 +57,7 @@ app.post('/create-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var myobj = {nome: req.body.nome, login: req.body.login, senha: req.body.senha};
+  var myobj = {name: req.body.name, email: req.body.email, login: req.body.login, password: req.body.password};
   dbo.collection("users").insertOne(myobj, function(err, res) {
     if (err) throw err;
     db.close();
@@ -70,13 +70,25 @@ app.post('/get-info-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({login: req.body.login}, { projection: { _id: 0, nome: 1, senha: 1 } }, function(err, result) {
+  dbo.collection("users").findOne({login: req.body.login}, { projection: { _id: 0, name: 1, email: 1 } }, function(err, result) {
     if (err) throw err;
 	if(result != null){
 		res.json(result); 
 	}else{
 		res.json(result); 
 	}
+    db.close();
+  });
+}); 
+});
+
+app.post('/get-all-users', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    res.json(result);
     db.close();
   });
 }); 
