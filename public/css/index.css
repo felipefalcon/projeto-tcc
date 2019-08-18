@@ -36,13 +36,12 @@
 	}
 
 	.general-input, #fullname-div{
-		transition: 0.25s;
 		color: white;
 		height: 46px;
 		border-radius: 48px;
 		border: none;
 		background-color: RGBA(219, 74, 135, 0.4);
-		font-size: 0.9em;
+		font-size: 15px;
 		font-weight: bolder;
 		letter-spacing: 1px;
 		background-repeat:no-repeat;
@@ -60,6 +59,7 @@
 		border-left: 6px solid white;
 		border-right: 6px solid white;
 		outline: 0;
+		padding-left: 54px !important;
 	} 
 
 	.general-input::placeholder {
@@ -68,7 +68,7 @@
 		letter-spacing: 1px;
 	} 
 
-	#login-input{
+	#email-input{
 		/*background-image: url('login-input.png');*/
 	}
 
@@ -110,6 +110,7 @@
 	}
 
 	.title-label{
+		font-size: 16px;
 		font-weight: bolder;
 		color: white;
 		margin-bottom: 8px;
@@ -117,7 +118,7 @@
 	}
 
 	.subtitle-label{
-		font-size: 0.6em;
+		font-size: 11px;
 		font-weight: bolder;
 		color: white;
 		display: block;

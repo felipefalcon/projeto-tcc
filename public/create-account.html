@@ -15,22 +15,24 @@
     </head>
     <body class="text-center">
         <div id="account-div">
-			<label class="title-label">CRIAÇÃO DE CONTA</label>
-			<label class="subtitle-label">CRIAR USANDO REDES SOCIAIS</label>
-			<div id="socials-div" class="mb-2">
+			<label class="title-label mb-3">CRIAÇÃO DE CONTA</label>
+			<!-- LOGIN SOCIAL DESATIVADO -->
+			<div id="socials-div" class="mb-2" style="display: none;">
+				<label class="subtitle-label">CRIAR USANDO REDES SOCIAIS</label>
 				<button onclick="" id="btn-facebook-2" class="socials-button"><i class="fab fa-facebook-f" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-twitter-2" class="socials-button"><i class="fab fa-twitter" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-google-2" class="socials-button"><i class="fab fa-google" style="vertical-align: middle;"></i></button>
+				<label class="subtitle-label">OU</label>
 			</div>
-			<label class="subtitle-label">OU</label>
 			<div id="create-account-div">
-				<input name="name" id="name-input" class="general-input col-10 mb-3" placeholder="NOME COMPLETO" required autofocus>
-				<input name="email" id="email-input" class="general-input col-10 mb-3" placeholder="EMAIL" required autofocus>
-				<input name="login" id="login-input" class="general-input col-10 mb-3" placeholder="LOGIN" required>
-				<input name="password" type="password" id="password-input" class="general-input col-10 mb-3" placeholder="SENHA" required>
-				<input name="password1" type="password" id="password-c-input" class="general-input col-10 mb-2" placeholder="CONFIRMAR SENHA" required>
-				<button onclick="createUser();" class="general-button col-10 mt-4 mb-2">CRIAR CONTA</button>
+				<form onsubmit="verifyAccountExists();" method="post" autocomplete="off">
+				<input type="text" name="name" id="name-input" class="general-input col-10 mb-3" placeholder="NOME COMPLETO" required autofocus>
+				<input type="email" name="email" id="email-input" class="general-input col-10 mb-3" placeholder="EMAIL" required>
+				<input type="password" name="password" id="password-input" class="general-input col-10 mb-3" placeholder="SENHA" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
+				<input type="password" name="password1" id="password-c-input" class="general-input col-10 mb-2" placeholder="CONFIRMAR SENHA" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
+				<button type="submit" class="general-button col-10 mt-4 mb-2">CRIAR CONTA</button>
 				<button onclick="window.location.replace('/');" class="general-button col-10 mt-2 mb-2">VOLTAR AO LOGIN</button>
+				</form>
 			</div>
 		</div>
     <!--<script type="text/javascript" src="cordova.js"></script>-->

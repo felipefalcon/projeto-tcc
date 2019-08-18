@@ -41,10 +41,27 @@ app.post('/connect-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({login: req.body.login, password: req.body.password}, function(err, result) {
+  dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, function(err, result) {
     if (err) throw err;
 	if(result != null){
 		res.json(result); 
+	}else{
+		res.json(result); 
+	}
+    db.close();
+  });
+}); 
+});
+
+// Verificar se usuário ja existe
+app.post('/user-exists', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		res.json({ ok: 'ok' }); 
 	}else{
 		res.json(result); 
 	}
@@ -57,7 +74,7 @@ app.post('/create-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var myobj = {name: req.body.name, email: req.body.email, login: req.body.login, password: req.body.password};
+  var myobj = {name: req.body.name, email: req.body.email, password: req.body.password};
   dbo.collection("users").insertOne(myobj, function(err, res) {
     if (err) throw err;
     db.close();
@@ -70,7 +87,7 @@ app.post('/get-info-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({login: req.body.login}, { projection: { _id: 0, name: 1, email: 1 } }, function(err, result) {
+  dbo.collection("users").findOne({email: req.body.email}, { projection: { _id: 0, name: 1, email: 1 } }, function(err, result) {
     if (err) throw err;
 	if(result != null){
 		res.json(result); 
