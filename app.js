@@ -114,6 +114,72 @@ app.post('/get-all-users', urlencodedParser, function (req, res) {
 
 
 
+// Verificar se usuário ja existe
+app.post('/send-email-recover', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		sendEmailRecover(result.email);
+		res.json({ ok: 'ok' }); 
+	}else{
+		res.json(result); 
+	}
+    db.close();
+  });
+}); 
+});
+
+
+// ENVIO DE E-MAILS COM NODEMAILER
+const nodemailer = require('nodemailer');
+
+function sendEmailRecover(email_to_send){
+	
+	let transporter = nodemailer.createTransport({
+			host: 'smtp-mail.outlook.com',
+			secureConnection: false, // TLS requires secureConnection to be false
+			port: 587, // port for secure SMTP
+			tls: {
+			   ciphers:'SSLv3'
+			},
+			auth: {
+				user: 'projeto-tcc-2020@outlook.com',
+				pass: 'Projeto2020'
+			}
+		});
+	
+	let mailOptions = {
+			from: '"projeto-tcc-2020@outlook.com', // sender address
+			to: email_to_send, // list of receivers
+			subject: 'Hello ✔', // Subject line
+			text: 'Hello world?', // plain text body
+			html: '<b>Hello world?</b> TESTE do NODEMAILER' // html body
+		};
+
+		// send mail with defined transport object
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				return console.log(error);
+			}
+		});
+
+
+
+	
+}
+
+
+
+
+
+
+
+
+
+
 
 
 const path = require('path');
