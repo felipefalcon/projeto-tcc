@@ -18,10 +18,11 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
+var port = process.env.PORT || 8080;
 
 // start server on the specified port and binding host
-app.listen(process.env.PORT, '0.0.0.0', function() {
-
+app.listen(port, '0.0.0.0', function() {
+	console.log("PORTA"+port);
 });
 
 
