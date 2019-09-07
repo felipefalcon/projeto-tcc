@@ -1,7 +1,4 @@
 
-	$("body").innerHeight($(window).height());
-	$("#create-account-div").innerHeight($(window).height());
-
 	function verifyAccountExists(){
 		event.preventDefault();
 		if($("#password-input").val() != $("#password-c-input").val()){

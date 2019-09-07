@@ -8,7 +8,6 @@
 // for more info, see: http://expressjs.com
 var express = require('express');
 
-
 // create a new express server
 var app = express();
 
@@ -22,10 +21,8 @@ var port = process.env.PORT || 8080;
 
 // start server on the specified port and binding host
 app.listen(port, '0.0.0.0', function() {
-	console.log("PORTA"+port);
+	console.log("PORTA: "+port);
 });
-
-
 
 var mongo = require('mongodb'); 
 
@@ -174,7 +171,7 @@ function sendEmailRecover(email_to_send){
 
 
 
-
+/*
 
 
 const path = require('path');
@@ -294,3 +291,5 @@ app.delete('/files/:id', (req, res) => {
 });
 
 
+
+*/

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>PERFIL</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+		<script async=true type="text/javascript" src="./js/create-profile.js"></script>		
+    </head>
+    <body class="fix-bg text-center">
+        <div id="create-profile-div" class="col-12">
+			<label class="title-label mb-3">CRIAÇÃO DE PERFIL</label>
+			<label class="subtitle-label">Adicione uma foto no seu perfil</label>
+			<div id="main-pic-div" class="mx-auto">
+			</div>
+			<label class="subtitle-label">Adicione mais fotos para complementar o perfil</label>
+			<div id="sec-pics-div" class="mx-auto col-12">
+				<div id="sec-pic-div">
+				</div>
+				<div id="sec-pic-div">
+				</div>
+				<div id="sec-pic-div">
+				</div>
+			</div>
+			<div id="form-create-profile-div">
+				<form onsubmit="verifyAccountExists();" method="post" autocomplete="off">
+					<label class="title-label mb-2 mt-4 text-left">SOBRE VOCÊ...</label>
+					<textarea rows="4" maxlength="130" class="form-control col-12" placeholder="Escreva um pouco sobre você..."></textarea>
+					<label class="title-label mb-2 mt-4">QUAL SEU TRABALHO?</label>
+					<input type="text" name="work" id="work-input" class="general-input col-10 mb-3" placeholder="CARGO" required autofocus>
+					<label class="title-label mb-2 mt-2 text-center ml-1">IDADE?</label>
+					<input type="number" name="age" id="age-input" class="general-input col-10 mb-3" placeholder="ANOS" min="18" required>
+					<label class="title-label mb-2 mt-2 text-center">SEXO?</label>
+					<select name="gender" class="general-input col-10 mb-3">
+						<option value="MASCULINO">Masculino</option>
+						<option value="FEMININO">Feminino</option>
+					</select>
+					<button type="submit" class="general-button col-10 mt-4 mb-2">SALVAR</button>
+				</form>
+			</div>
+			
+		</div>
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    </body>
+</html>

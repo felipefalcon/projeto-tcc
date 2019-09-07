@@ -17,7 +17,3 @@
 		});
 		event.preventDefault();
 	}
-	
-	$( document ).ready(function() {
-		$("body").fadeIn();
-	});
