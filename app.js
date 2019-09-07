@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 // start server on the specified port and binding host
-app.listen(3000, '0.0.0.0', function() {
+app.listen(9979, '0.0.0.0', function() {
 
 });
 
