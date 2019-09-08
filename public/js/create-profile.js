@@ -1,26 +1,35 @@
-
-	function verifyAccountExists(){
-		event.preventDefault();
-		if($("#password-input").val() != $("#password-c-input").val()){
-			return alert("Senha e Confirmação de Senha não conferem");;
-		}
-		$.post("./user-exists", {email: $("#email-input").val()})
+	
+	function uploadMainPic(){
+		//event.preventDefault();
+		var fd = new FormData($("#send-main-pic")[0]);
+		$.ajax({
+			url:'/upload',
+			data: fd,
+			type:'POST',
+			contentType: false,
+			processData: false
+		}).done(function(e){getImgs(); console.log(e);});
+	}
+	
+	function getImgs(){
+		$.get("./files")
 		  .done(function( data ) {
 			  if(data == null || data == "undefined"){
-				  createUser();
+				  $("#fullname-div").append("<b>Nada encontrada</b>.");
 			  }else{
-				  alert("E-mail já cadastrado. Tente outro e-mail.");
+					console.log(data);
+					$("#main-pic-div").css("background-image", "url(image/"+data[data.length-1].filename+")");  
 			  }
 		});
 	}
-
-	function createUser(){
-		$.post("./create-user", { 
-			name: $("#name-input").val(), 
-			email: $("#email-input").val(),		
-			password: $("#password-input").val() 
-		}).done(function(){
-			alert("Cadastro realizado!");
-			window.location.replace('/');
-		});
-	}
+	
+	
+	$("#main-pic-input").change(function (){
+		uploadMainPic();
+	});
+	
+	
+	
+	
+	
+	

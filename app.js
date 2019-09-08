@@ -171,7 +171,6 @@ function sendEmailRecover(email_to_send){
 
 
 
-/*
 
 
 const path = require('path');
@@ -220,7 +219,18 @@ const upload = multer({ storage });
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
    //res.json({ file: req.file });
-   res.redirect('main-view.html');  
+   //res.redirect('main-view.html');  
+   //res.json({ ok: 'ok' }); 
+   
+   gfs.files.find().toArray((err, files) => {
+    if (!files || files.length === 0) {
+      return res.status(404).json({
+        err: 'No files exist'
+      });
+    }
+	res.json(files[files.length-1]._id);
+  });
+   
 });
 
 // @route GET /files
@@ -292,4 +302,4 @@ app.delete('/files/:id', (req, res) => {
 
 
 
-*/
+

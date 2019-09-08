@@ -15,17 +15,27 @@
     </head>
     <body class="fix-bg text-center">
         <div id="create-profile-div" class="col-12">
-			<label class="title-label mb-3">CRIAÇÃO DE PERFIL</label>
-			<label class="subtitle-label">Adicione uma foto no seu perfil</label>
+			<label class="title-label mb-3">EDITAR PERFIL</label>
+			<label class="subtitle-label">Foto principal do seu perfil</label>
 			<div id="main-pic-div" class="mx-auto">
+				<form id="send-main-pic" method="POST" enctype="multipart/form-data">
+					<label class="general-input-pic" for="main-pic-input">MUDAR</label>
+					<input id="main-pic-input" name="file" type="file" style="display: none;"/>
+				</form>
 			</div>
-			<label class="subtitle-label">Adicione mais fotos para complementar o perfil</label>
+			<label class="subtitle-label">Fotos complementares do seu perfil</label>
 			<div id="sec-pics-div" class="mx-auto col-12">
-				<div id="sec-pic-div">
+				<div id="sec-pic-div" class="ml-0">
+					<label class="general-input-pic" for="sec-pic-input-1">MUDAR</label>
+					<input id="sec-pic-input-1" type="file" style="display: none">
 				</div>
 				<div id="sec-pic-div">
+					<label class="general-input-pic" for="sec-pic-input-2">MUDAR</label>
+					<input id="sec-pic-input-2" type="file" style="display: none">
 				</div>
-				<div id="sec-pic-div">
+				<div id="sec-pic-div" class="mr-0">
+					<label class="general-input-pic" for="sec-pic-input-3">MUDAR</label>
+					<input id="sec-pic-input-3" type="file" style="display: none">
 				</div>
 			</div>
 			<div id="form-create-profile-div">
