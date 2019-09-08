@@ -1,5 +1,6 @@
 	
 	function uploadMainPic(){
+		$("#main-pic-div").animate({ opacity: 0.4 }, "slow");
 		var fd = new FormData($("#send-main-pic")[0]);
 		$.ajax({
 			url:'/upload',
@@ -9,7 +10,6 @@
 			processData: false
 		})
 		.done(function(data){
-			//console.log(data);
 			addImgInUser(data);
 			getMainImg(); 
 		});
@@ -17,7 +17,6 @@
 	
 	
 	function getMainImg(){
-		
 		$.post("./get-user-pics", {
 			email: window.localStorage.getItem('email')
 			})
@@ -30,33 +29,17 @@
 					.done(function( data ) {
 						  if(data == null || data == "undefined"){
 							  //$("#fullname-div").append("<b>Nada encontrada</b>.");
-							  console.log(data);
 						  }else{
-								console.log(data);
-								$("#main-pic-div").css("background-image", "url(image/"+data.filename+")");  
+								//console.log(data);
+								$("#main-pic-div").animate({ opacity: 0.1 }, "slow");
+								$("#main-pic-div").css("background-image", "url(image/"+data.filename+")");
 						  }
+						  $("#main-pic-div").animate({ opacity: 1 }, "slow");
 					});
 			  }
 		});
 	}
 	
-	
-	
-	
-	
-	
-	
-	function getMainImg2(){
-		$.get("./files")
-		  .done(function( data ) {
-			  if(data == null || data == "undefined"){
-				  $("#fullname-div").append("<b>Nada encontrada</b>.");
-			  }else{
-					console.log(data);
-					$("#main-pic-div").css("background-image", "url(image/"+data[data.length-1].filename+")");  
-			  }
-		});
-	}
 	
 	function addImgInUser(img_id){
 		console.log(window.localStorage.getItem('email'));
@@ -68,16 +51,16 @@
 			  if(data == null || data == "undefined"){
 					
 			  }else{
-					console.log(data);
+					//console.log(data);
 			  }
 		});
 	}
-	
 	
 	$("#main-pic-input").change(function (){
 		uploadMainPic();
 	});
 	
+	getMainImg();
 	
 	
 	

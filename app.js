@@ -258,20 +258,19 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-// @route POST /upload
-// @desc  Uploads file to DB
+
 app.post('/upload', upload.single('file'), (req, res) => {
    //res.json({ file: req.file });
-   //res.redirect('main-view.html');  
-   //res.json({ ok: 'ok' }); 
-   
-   gfs.files.find().toArray((err, files) => {
-    if (!files || files.length === 0) {
+   //console.log(req.file);
+   gfs.files.findOne({ filename: req.file.filename }, (err, file) => {
+    // Check if file
+    if (!file || file.length === 0) {
       return res.status(404).json({
-        err: 'No files exist'
+        err: 'No file exists'
       });
     }
-	res.json(files[files.length-1]._id);
+    // File exists
+    res.json(file._id);
   });
    
 });
@@ -283,11 +282,7 @@ app.post('/get-img', urlencodedParser, function (req, res) {
 	  var dbo = db.db("test");
 	  dbo.collection("test.files").findOne({_id: new mongo.ObjectID(req.body._id)}, function(err, result) {
 		if (err) throw err;
-		if(result != null){
-			res.json(result); 
-		}else{
-			res.json(result); 
-		}
+		res.json(result); 
 		db.close();
 	  });
 	}); 
