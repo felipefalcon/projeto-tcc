@@ -11,7 +11,7 @@
 			  if(data == null || data == "undefined"){
 				  alert("Usuário não encontrado");
 			  }else{
-				  window.localStorage.setItem('username', data.login);
+				  window.localStorage.setItem('email', data.email);
 				  window.location.href = "./main-view.html";
 			  }
 		});

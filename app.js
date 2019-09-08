@@ -47,26 +47,30 @@ app.post('/connect-user', urlencodedParser, function (req, res) {
 
 // Verificar se usuário ja existe
 app.post('/user-exists', urlencodedParser, function (req, res) {
-  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("mydb");
-  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
-    if (err) throw err;
-	if(result != null){
-		res.json({ ok: 'ok' }); 
-	}else{
-		res.json(result); 
-	}
-    db.close();
-  });
-}); 
+	MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("mydb");
+	  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
+		if (err) throw err;
+		if(result != null){
+			res.json({ ok: 'ok' }); 
+		}else{
+			res.json(result); 
+		}
+		db.close();
+	  });
+	}); 
 });
 
 app.post('/create-user', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var myobj = {name: req.body.name, email: req.body.email, password: req.body.password};
+  var myobj = {	name: req.body.name, 
+				email: req.body.email, 
+				password: req.body.password, 
+				pics_ids: {main_pic: "", sec_pic1: "", sec_pic2: "", sec_pic3: ""}
+			  };
   dbo.collection("users").insertOne(myobj, function(err, res) {
     if (err) throw err;
     db.close();
@@ -98,6 +102,45 @@ app.post('/get-all-users', urlencodedParser, function (req, res) {
   dbo.collection("users").find({}).toArray(function(err, result) {
     if (err) throw err;
     res.json(result);
+    db.close();
+  });
+}); 
+});
+
+
+
+
+// Update user
+app.post('/upd-user-main-pic', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myquery = {email: req.body.email};
+  var newvalues = {$set: { "pics_ids.main_pic": req.body.pic_id}};
+  dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		res.json({ ok: 'ok' }); 
+	}else{
+		res.json(result); 
+	}
+    db.close();
+  });
+}); 
+});
+
+// Verificar se usuário ja existe
+app.post('/get-user-pics', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
+    if (err) throw err;
+	if(result != null){
+		res.json(result.pics_ids); 
+	}else{
+		res.json(result); 
+	}
     db.close();
   });
 }); 
@@ -232,6 +275,29 @@ app.post('/upload', upload.single('file'), (req, res) => {
   });
    
 });
+
+
+app.post('/get-img', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  if (err) throw err;
+	  var dbo = db.db("test");
+	  dbo.collection("test.files").findOne({_id: new mongo.ObjectID(req.body._id)}, function(err, result) {
+		if (err) throw err;
+		if(result != null){
+			res.json(result); 
+		}else{
+			res.json(result); 
+		}
+		db.close();
+	  });
+	}); 
+});
+
+
+
+
+
+
 
 // @route GET /files
 // @desc  Display all files in JSON

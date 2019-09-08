@@ -179,11 +179,13 @@
 	#main-pic-div{
 		width: 128px;
 		height: 128px;
-		background-color: white;
+		border: 2px solid white;
 		border-radius: 320px;
 		background-size: cover;
 		background-image: url('user-profile.png');
 		margin: 16px;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 	
 	#sec-pics-div{
@@ -194,11 +196,11 @@
 	#sec-pic-div{
 		width: 99px;
 		height: 99px;
-		background-color: white;
 		background-size: cover;
 		background-image: url('user-profile.png');
 		margin: 7px;
 		float: left;
+		border: 2px solid white;
 	}
 	
 	#send-main-pic{
@@ -210,10 +212,23 @@
 		width: 100%;
 		height: 100%;
 		font-size: 12px;
-		font-weight: bolder;
+		font-weight: 800;
 		color: #9c7ee1;
-		padding-top: 5px;
-		text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+	}
+	
+	.general-textarea{
+		padding: 8px;
+		background-color: transparent;
+		border: 2px solid white;
+		border-radius: 0;
+		font-weight: bolder;
+		color: white;
+	}
+	
+	.general-textarea::placeholder{
+		opacity: 1;
+		color: rgb(170, 156, 200) !important;
+		letter-spacing: 1px;
 	}
 	
 	

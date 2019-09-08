@@ -21,7 +21,7 @@
 		$.post("./create-user", { 
 			name: $("#name-input").val(), 
 			email: $("#email-input").val(),		
-			password: $("#password-input").val() 
+			password: $("#password-input").val()		
 		}).done(function(){
 			alert("Cadastro realizado!");
 			window.location.replace('/');
