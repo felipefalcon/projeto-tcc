@@ -29,6 +29,7 @@
 					.done(function( data ) {
 						  if(data == null || data == "undefined"){
 							  //$("#fullname-div").append("<b>Nada encontrada</b>.");
+							  $("#main-pic-div").css("background-image", "url(./css/user-profile.png)");
 						  }else{
 								//console.log(data);
 								$("#main-pic-div").animate({ opacity: 0.1 }, "slow");
