@@ -85,11 +85,7 @@ app.post('/get-info-user', urlencodedParser, function (req, res) {
   var dbo = db.db("mydb");
   dbo.collection("users").findOne({email: req.body.email}, { projection: { _id: 0, name: 1, email: 1 } }, function(err, result) {
     if (err) throw err;
-	if(result != null){
-		res.json(result); 
-	}else{
-		res.json(result); 
-	}
+	res.json(result); 
     db.close();
   });
 }); 
@@ -119,11 +115,7 @@ app.post('/upd-user-main-pic', urlencodedParser, function (req, res) {
   var newvalues = {$set: { "pics_ids.main_pic": req.body.pic_id}};
   dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
     if (err) throw err;
-	if(result != null){
-		res.json({ ok: 'ok' }); 
-	}else{
-		res.json(result); 
-	}
+	res.json({ ok: 'ok' }); 
     db.close();
   });
 }); 
@@ -134,12 +126,10 @@ app.post('/get-user-pics', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({email: req.body.email}, function(err, result) {
+  dbo.collection("users").findOne({email: req.body.email}, { projection: {_id: 0, pics_ids: 1 } }, function(err, result) {
     if (err) throw err;
-	if(result != null){
-		res.json(result.pics_ids); 
-	}else{
-		res.json(result); 
+	if(result){
+		return res.json(result); ; 
 	}
     db.close();
   });
@@ -262,27 +252,20 @@ const upload = multer({ storage });
 app.post('/upload', upload.single('file'), (req, res) => {
    //res.json({ file: req.file });
    //console.log(req.file);
-   gfs.files.findOne({ filename: req.file.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists'
-      });
-    }
-    // File exists
-    res.json(file._id);
-  });
-   
+   res.json(req.file.id);
 });
 
 
-app.post('/get-img', urlencodedParser, function (req, res) {
+app.get('/get-img', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
 	  if (err) throw err;
 	  var dbo = db.db("test");
-	  dbo.collection("test.files").findOne({_id: new mongo.ObjectID(req.body._id)}, function(err, result) {
+	  dbo.collection("test.files").findOne({_id: new mongo.ObjectID(req.query._id)}, function(err, result) {
 		if (err) throw err;
-		res.json(result); 
+		if(result){
+			return res.json(result); 
+		}
+		res.json({oh_no: "oh-no"}); 
 		db.close();
 	  });
 	}); 

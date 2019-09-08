@@ -11,7 +11,6 @@
 		})
 		.done(function(data){
 			addImgInUser(data);
-			getMainImg(); 
 		});
 	}
 	
@@ -21,11 +20,12 @@
 			email: window.localStorage.getItem('email')
 		})
 		.done(function( data ) {
-			  if(data.main_pic == ""){
+			console.log(data.pics_ids);
+			  if(data.pics_ids.main_pic == ""){
 					return $("#main-pic-div").animate({ opacity: 1 }, "slow");
 			  }else{
 					//console.log(data.main_pic);
-					$.post("./get-img", { _id: data.main_pic })
+					$.get("./get-img", { _id: data.pics_ids.main_pic })
 					.done(function( data ) {
 						  if(data == null || data == "undefined"){
 							  //$("#fullname-div").append("<b>Nada encontrada</b>.");
@@ -50,9 +50,10 @@
 			})
 		.done(function( data ) {
 			  if(data == null || data == "undefined"){
-					
+					console.log("Deu merda");
 			  }else{
 					//console.log(data);
+					getMainImg(); 
 			  }
 		});
 	}
