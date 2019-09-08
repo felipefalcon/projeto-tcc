@@ -19,17 +19,17 @@
 	function getMainImg(){
 		$.post("./get-user-pics", {
 			email: window.localStorage.getItem('email')
-			})
+		})
 		.done(function( data ) {
-			  if(data == null || data == "undefined"){
-					
+			  if(data.main_pic == ""){
+					return $("#main-pic-div").animate({ opacity: 1 }, "slow");
 			  }else{
-					console.log(data.main_pic);
+					//console.log(data.main_pic);
 					$.post("./get-img", { _id: data.main_pic })
 					.done(function( data ) {
 						  if(data == null || data == "undefined"){
 							  //$("#fullname-div").append("<b>Nada encontrada</b>.");
-							  $("#main-pic-div").css("background-image", "url(./css/user-profile.png)");
+							  $("#main-pic-div").css("background-image", "url(/css/user-profile.png)");
 						  }else{
 								//console.log(data);
 								$("#main-pic-div").animate({ opacity: 0.1 }, "slow");
@@ -43,7 +43,7 @@
 	
 	
 	function addImgInUser(img_id){
-		console.log(window.localStorage.getItem('email'));
+		//console.log(window.localStorage.getItem('email'));
 		$.post("./upd-user-main-pic", {
 			email: window.localStorage.getItem('email'),
 			pic_id: img_id
