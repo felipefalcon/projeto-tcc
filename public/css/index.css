@@ -1,7 +1,6 @@
 
 	html{
 		width: 100%;
-		height: 100%;
 		background-color: rgb(57,35,80);
 	}
 
@@ -385,4 +384,6 @@
 		padding-top: 10px;
 	}
 	
-	
+	.nav-tabs {
+        border-bottom: 0 !important;
+	}
