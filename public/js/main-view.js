@@ -1,6 +1,5 @@
 
 	var h = $(window).height()/10;
-	$("html").innerHeight("auto");
 	$("#form-main").innerHeight(h*9);
 	$("#logo-div").innerHeight(58);
 	$("#logo-div").css("background-color", "rgb(57,35,80)");
@@ -26,6 +25,8 @@
 					$("#events-div").append("</br></br></br>");
 					$(".users-t").fadeIn("slow");
 			  }
+			  $("html").innerHeight("auto");
+			  $("body").innerHeight($(window).height()-60);
 		});
 	}
 	

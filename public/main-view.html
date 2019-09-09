@@ -23,19 +23,28 @@
 				<a href="/" style="border-top: 1px solid #e6e4e4;">Sair</a>
 			</div>
 		</div>
-        <div id="main-div">
+        <div id="main-div" class="tab-content">
 			<div id="menu-top-div" class="mx-auto">
 				<button onclick="" id="btn-menu-2" class="btn-menu"><i class="fa fa-user" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-menu-3" class="btn-menu"><i class="fa fa-users" style="vertical-align: middle;"></i></button>
 			</div>
-			<div id="events-div" class="mx-auto">
+			<div id="events-div" class="mx-auto tab-pane active">
+				
+			</div>
+			<div id="profile-div" class="mx-auto tab-pane fade">
+				<input type="button" onclick="window.location.href='create-profile.html';" class="general-button col-10 mx-auto mt-5 mb-4" value="EDITAR PERFIL">
+			</div>
+			<div id="pr-div" class="mx-auto tab-pane fade">
+				
+			</div>
+			<div id="pr-div2" class="mx-auto tab-pane fade">
 				
 			</div>
         </div>
-		<div id="menu-bottom-div" class="mx-auto">
-			<button onclick="window.location.href='create-profile.html';" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle" style="vertical-align: middle;"></i></button>
-			<button onclick="" id="btn-menu-5" class="btn-menu"><i class="fa fa-users" style="vertical-align: middle;"></i></button>
-			<button onclick="" id="btn-menu-6" class="btn-menu"><i class="far fa-comment-dots" style="vertical-align: middle;"></i></button>
+		<div id="menu-bottom-div" class="mx-auto nav nav-tabs">
+			<button data-toggle="tab" href="#profile-div" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle" style="vertical-align: middle;"></i></button>
+			<button data-toggle="tab" href="#events-div" id="btn-menu-5" class="btn-menu"><i class="fa fa-users" style="vertical-align: middle;"></i></button>
+			<button data-toggle="tab" href="#pr-div2" id="btn-menu-6" class="btn-menu"><i class="far fa-comment-dots" style="vertical-align: middle;"></i></button>
 		</div>
     <script type="text/javascript" src="cordova.js"></script>
     <!--<script type="text/javascript" src="js/index.js"></script>-->
