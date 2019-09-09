@@ -286,7 +286,6 @@
 		background-color: rgba(0,0,20,0.4);
 		width: 100%;
 		box-sizing: border-box;
-		padding-top: 0px;
 		margin-top: 58px;
 	}
 
@@ -328,17 +327,20 @@
 		top: -3px;
 		float: left;
 	}
+	
+	.profile-info-div{
+		font-size: 0.9em;
+	}
 
 	#menu-bottom-div{
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height: 86px;
+		height: 64px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-image: linear-gradient(to top, rgb(57,35,80), rgb(57,35,80), rgb(57,35,80), rgb(57,35,80), transparent);
-		padding-top: 12px;
+		background-color: rgba(100, 41, 77, 0.82);
 	}
 
 	.btn-menu{

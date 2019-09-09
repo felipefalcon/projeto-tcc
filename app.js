@@ -97,7 +97,10 @@ app.post('/get-all-users', urlencodedParser, function (req, res) {
   var dbo = db.db("mydb");
   dbo.collection("users").find({}).toArray(function(err, result) {
     if (err) throw err;
-    res.json(result);
+	if(result){
+		return res.json(result);
+	}
+	res.json({oh_no: "oh-no"});
     db.close();
   });
 }); 
