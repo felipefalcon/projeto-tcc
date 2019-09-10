@@ -36,4 +36,19 @@
 	
 	getAllUsersInfo();
 	
+	function deleteAccount(){
+		if(window.confirm("Tem certeza que deseja deletar sua conta?\nEsta ação é irreversível!")){
+			$.post("./del-user", { email: window.localStorage.getItem('email')})
+			  .done(function( data ) {
+				  if(data == null || data == "undefined"){
+					  alert("Algum erro");
+				  }else{
+					  alert("Sua conta foi deletada!");
+					  window.localStorage.setItem('email', '');
+					  window.location.href = "/";
+				  }
+			});
+		}
+	}
+	
 	

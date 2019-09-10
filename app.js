@@ -124,16 +124,41 @@ app.post('/upd-user-main-pic', urlencodedParser, function (req, res) {
 }); 
 });
 
-// Verificar se usuário ja existe
-app.post('/get-user-pics', urlencodedParser, function (req, res) {
+// Update user
+app.post('/upd-user-profile', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.collection("users").findOne({email: req.body.email}, { projection: {_id: 0, pics_ids: 1 } }, function(err, result) {
+  var myquery = {email: req.body.email};
+  var newvalues = {$set: { about: req.body.about, work: req.body.work, age: req.body.age, gender: req.body.gender }};
+  dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
     if (err) throw err;
-	if(result){
-		return res.json(result); ; 
-	}
+	res.json({ ok: 'ok' }); 
+    db.close();
+  });
+}); 
+});
+
+// Get user profile informations
+app.post('/get-user-profile', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").findOne({email: req.body.email}, { projection: { _id: 0, name: 1, pics_ids: 1, about: 1, work: 1, age: 1, gender: 1 } }, function(err, result) {
+    if (err) throw err;
+	res.json(result); 
+    db.close();
+  });
+}); 
+});
+
+app.post('/del-user', urlencodedParser, function (req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection("users").deleteOne({email: req.body.email}, function(err, result) {
+    if (err) throw err;
+	res.json(result);
     db.close();
   });
 }); 
@@ -141,8 +166,6 @@ app.post('/get-user-pics', urlencodedParser, function (req, res) {
 
 
 
-
-// Verificar se usuário ja existe
 app.post('/send-email-recover', urlencodedParser, function (req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
