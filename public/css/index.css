@@ -384,6 +384,28 @@
 		padding-top: 10px;
 	}
 	
+	#main-pic-div-c{
+		height: 128px;
+		border-bottom: 2px solid white;
+		background-size: cover;
+		background-image: url('user-profile.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		opacity: 1;
+	}
+	
+	#user-information-div{
+		background-color: rgba(65, 30, 104, 0.5);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	#user-information-div label{
+		margin: 0;
+		text-align: left;
+		padding-bottom:4px;
+	}
+	
 	.nav-tabs {
         border-bottom: 0 !important;
 	}
