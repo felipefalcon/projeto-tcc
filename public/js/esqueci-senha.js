@@ -5,7 +5,7 @@ $("#logo-div").innerHeight(h*5.2);
    
 function sendEmailRecover(){
 	event.preventDefault();
-    $.post("./send-email-recover", { email: $("#email-input").val()})
+    $.get("./send-email-recover", { email: $("#email-input").val()})
       .done(function( data ) {
           if(data == null || data == "undefined"){
               alert("Algum erro");

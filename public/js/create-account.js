@@ -7,7 +7,7 @@
 		if($("#password-input").val() != $("#password-c-input").val()){
 			return alert("Senha e Confirmação de Senha não conferem");;
 		}
-		$.post("./user-exists", {email: $("#email-input").val()})
+		$.get("./get-user", {email: $("#email-input").val()})
 		  .done(function( data ) {
 			  if(data == null || data == "undefined"){
 				  createUser();
@@ -18,7 +18,7 @@
 	}
 
 	function createUser(){
-		$.post("./create-user", { 
+		$.post("./crt-user", { 
 			name: $("#name-input").val(), 
 			email: $("#email-input").val(),		
 			password: $("#password-input").val()		

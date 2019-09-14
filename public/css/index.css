@@ -406,6 +406,14 @@
 		padding-bottom:4px;
 	}
 	
+	#menu-bottom-div .btn-menu{
+		opacity: 0.5;
+	}
+	
+	#menu-bottom-div .btn-menu.active{
+		opacity: 1;
+	}
+	
 	.nav-tabs {
         border-bottom: 0 !important;
 	}

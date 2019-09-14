@@ -6,14 +6,16 @@
 	$("#login-div").innerHeight(h*4.8);
 
 	function loginUser(){
-		$.post("./connect-user", { email: $("#email-input").val(), password: $("#password-input").val() })
+		$.post("./con-user", { email: $("#email-input").val(), password: $("#password-input").val() })
 		  .done(function( data ) {
 			  if(data == null || data == "undefined"){
 				  alert("Usuário não encontrado");
 			  }else{
-				  window.localStorage.setItem('email', data.email);
-				  window.location.href = "./main-view.html";
+				  setUserCache(data);
+				  window.location.replace("./main-view.html");
 			  }
 		});
 		event.preventDefault();
 	}
+	
+	resetUserCache();
