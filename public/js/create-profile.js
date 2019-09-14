@@ -68,25 +68,25 @@
 				console.log("Deu merda");
 			}else{
 				alert("Atualizou");
-				getProfile();
+				$.get("./get-user", {
+					email: userInfo.email
+				}).done(function( data ) {
+					if(data == null || data == "undefined"){
+						console.log("Deu merda");
+					}else{
+						setUserCache(data);
+						getProfile();
+					}
+				});
 			}
 		});
 	}
 	
 	function getProfile(){
-		$.get("./get-user", {
-			email: userInfo.email
-		}).done(function( data ) {
-			if(data == null || data == "undefined"){
-				console.log("Deu merda");
-			}else{
-				setUserCache(data);
-				$("#about-input").val(userInfo.about);
-				$("#work-input").val(userInfo.work);
-				$("#age-input").val(userInfo.age);
-				$("#gender-select  option[value='"+userInfo.gender+"']").prop("selected", true);
-			}
-		});
+		$("#about-input").val(userInfo.about);
+		$("#work-input").val(userInfo.work);
+		$("#age-input").val(userInfo.age);
+		$("#gender-select  option[value='"+userInfo.gender+"']").prop("selected", true);
 	}
 	
 	$("#main-pic-input").change(function (){
