@@ -1,40 +1,67 @@
+$("document").ready(function() {
+
+	$('#main-pic-input').on("change", function() {
+		uploadImage(this, $("#main-pic-div"), "./upd-user-main-pic");
+	});
 	
-	function uploadMainPic(){
-		$("#main-pic-div").animate({ opacity: 0.4 }, "slow");
-		var fd = new FormData($("#send-main-pic")[0]);
-		$.ajax({
-			url:'/upload',
-			data: fd,
-			type:'POST',
-			contentType: false,
-			processData: false
-		})
-		.done(function(data){
-			addImgInUser(data);
-		});
-	}
+	$('#sec-pic-input-1').on("change", function() {
+		uploadImage(this, $("#sec-pic-div-1"), "./upd-user-sec-pic-1");
+	});
 	
-	function getMainImg(){
-		if(userInfo.pics_ids.main_pic == ""){
-			return $("#main-pic-div").animate({ opacity: 1 }, "slow");
-		}else{
-			$.get("./get-img", { _id: userInfo.pics_ids.main_pic })
-			.done(function( data ) {
-				if(data == null || data == "undefined"){
-					$("#main-pic-div").animate({ opacity: 1 }, "slow");
-				}else{
-					$("#main-pic-div").animate({ opacity: 0.1 }, "slow");
-					$("#main-pic-div").css("background-image", "url(image/"+data.filename+")");
-					$("#main-pic-div").animate({ opacity: 1 }, "slow");
-				}
+	$('#sec-pic-input-2').on("change", function() {
+		uploadImage(this, $("#sec-pic-div-2"), "./upd-user-sec-pic-2");
+	});
+	
+	$('#sec-pic-input-3').on("change", function() {
+		uploadImage(this, $("#sec-pic-div-3"), "./upd-user-sec-pic-3");
+	});
+  
+	function uploadImage(elmnt, divImg, urlUpd){
+		var $files = $(elmnt).get(0).files;
+
+		if ($files.length) {
+
+			if ($files[0].size > $(elmnt).data("max-size") * 1024) {
+				alert("Arquivo muito pesado.");
+				return false;
+			}
+
+			var apiUrl = 'https://api.imgur.com/3/image';
+			var apiKey = '4409588f10776f7';
+
+			var settings = {
+				async: true,
+				crossDomain: true,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				url: apiUrl,
+				headers: {
+					Authorization: 'Client-ID ' + apiKey,
+					Accept: 'application/json'
+				},
+				mimeType: 'multipart/form-data'
+			};
+
+			var formData = new FormData();
+			formData.append("image", $files[0]);
+			settings.data = formData;
+		  
+			loading();
+			
+			$.ajax(settings).done(function(response) {
+				var res = JSON.parse(response);
+				var link = res.data.link.replace(/^http:\/\//i, 'https://');
+				divImg.css("background-image", "url("+link+")");
+				addImgInUser(urlUpd, link, divImg);
 			});
 		}
 	}
-	
-	function addImgInUser(img_id){
-		$.get("./upd-user-main-pic", {
+  
+	function addImgInUser(url, img_url, divImg){
+		$.get(url, {
 			email: userInfo.email,
-			pic_id: img_id
+			pic_url: img_url
 		})
 		.done(function( data ) {
 			if(data == null || data == "undefined"){
@@ -48,15 +75,21 @@
 						console.log("Deu merda");
 					}else{
 						setUserCache(data);
-						getMainImg();
 					}
+					loading('hide');
 				});
 			}
 		});
 	}
 	
+	getProfile();
+	getImgs();
+  
+});
+
 	function updateProfile(){
 		event.preventDefault();
+		loading();
 		$.get("./upd-user-profile", {
 			email: 	userInfo.email,
 			about: 	$("#about-input").val(),
@@ -77,9 +110,17 @@
 						setUserCache(data);
 						getProfile();
 					}
+					loading('hide');
 				});
 			}
 		});
+	}
+	
+	function getImgs(){
+		$('#main-pic-div').css("background-image", "url("+userInfo.pics_url.main_pic+")");
+		$('#sec-pic-div-1').css("background-image", "url("+userInfo.pics_url.sec_pic1+")");
+		$('#sec-pic-div-2').css("background-image", "url("+userInfo.pics_url.sec_pic2+")");
+		$('#sec-pic-div-3').css("background-image", "url("+userInfo.pics_url.sec_pic3+")");
 	}
 	
 	function getProfile(){
@@ -88,15 +129,3 @@
 		$("#age-input").val(userInfo.age);
 		$("#gender-select  option[value='"+userInfo.gender+"']").prop("selected", true);
 	}
-	
-	$("#main-pic-input").change(function (){
-		uploadMainPic();
-	});
-	
-	getProfile();
-	setTimeout(function(){getMainImg()}, 300);
-	
-	
-	
-	
-	

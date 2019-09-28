@@ -11,31 +11,30 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="./js/commom-functions.js"></script>		
-		<script type="text/javascript" src="./js/create-profile.js"></script>		
+		<script type="text/javascript" src="./js/create-profile.js"></script>	
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	
     </head>
     <body class="fix-bg text-center">
         <div id="create-profile-div" class="col-12">
 			<label class="title-label mb-3">EDITAR PERFIL</label>
 			<label class="subtitle-label">Foto principal do seu perfil</label>
 			<div id="main-pic-div" class="mx-auto">
-				<form id="send-main-pic" method="POST" enctype="multipart/form-data">
-					<label class="general-input-pic" for="main-pic-input">MUDAR</label>
-					<input id="main-pic-input" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
-				</form>
+				<label class="general-input-pic" for="main-pic-input">MUDAR</label>
+				<input id="main-pic-input" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
 			</div>
 			<label class="subtitle-label">Fotos complementares do seu perfil</label>
 			<div id="sec-pics-div" class="mx-auto col-12">
-				<div id="sec-pic-div" class="ml-0">
+				<div class="sec-pic-div" id="sec-pic-div-1" class="ml-0">
 					<label class="general-input-pic" for="sec-pic-input-1">MUDAR</label>
-					<input id="sec-pic-input-1" type="file" accept="image/jpeg, image/png" style="display: none">
+					<input id="sec-pic-input-1" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
 				</div>
-				<div id="sec-pic-div">
+				<div class="sec-pic-div" id="sec-pic-div-2">
 					<label class="general-input-pic" for="sec-pic-input-2">MUDAR</label>
-					<input id="sec-pic-input-2" type="file" accept="image/jpeg, image/png" style="display: none">
+					<input id="sec-pic-input-2" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
 				</div>
-				<div id="sec-pic-div" class="mr-0">
+				<div class="sec-pic-div" id="sec-pic-div-3" class="mr-0">
 					<label class="general-input-pic" for="sec-pic-input-3">MUDAR</label>
-					<input id="sec-pic-input-3" type="file" accept="image/jpeg, image/png" style="display: none">
+					<input id="sec-pic-input-3" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
 				</div>
 			</div>
 			<div id="form-create-profile-div">

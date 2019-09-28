@@ -8,6 +8,7 @@
 	$("#main-pic-div-c").innerHeight(h*6.5);
 	
 	function getAllUsersInfo(){
+		loading();
 		$.get("./get-users").done(function( data ) {
 			if(data == null || data == "undefined"){
 				  
@@ -26,23 +27,12 @@
 			}
 			$("html").innerHeight("auto");
 			$("body").innerHeight($(window).height()-60);
+			loading('hide');
 		});
 	}
 	
 	function getMainImg(){
-		if(userInfo.pics_ids.main_pic == ""){
-			return;
-		}else{
-			$.get("./get-img", { _id: userInfo.pics_ids.main_pic }).done(function( data ) {
-				if(data == null || data == "undefined"){
-					return;
-				}else{
-					$("#main-pic-div-c").animate({ opacity: 0.9 }, "slow");
-					$("#main-pic-div-c").css("background-image", "url(image/"+data.filename+")");
-					$("#main-pic-div-c").animate({ opacity: 1 }, "slow");
-				}
-			});
-		}
+		$('#main-pic-div-c').css("background-image", "url("+userInfo.pics_url.main_pic+")");
 	}
 	
 	function getProfile(){

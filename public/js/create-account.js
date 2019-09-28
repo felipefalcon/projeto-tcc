@@ -4,6 +4,7 @@
 
 	function verifyAccountExists(){
 		event.preventDefault();
+		loading();
 		if($("#password-input").val() != $("#password-c-input").val()){
 			return alert("Senha e Confirmação de Senha não conferem");;
 		}
@@ -12,6 +13,7 @@
 			  if(data == null || data == "undefined"){
 				  createUser();
 			  }else{
+				  loading('hide');
 				  alert("E-mail já cadastrado. Tente outro e-mail.");
 			  }
 		});
@@ -23,6 +25,7 @@
 			email: $("#email-input").val(),		
 			password: $("#password-input").val()		
 		}).done(function(){
+			loading('hide');
 			alert("Cadastro realizado!");
 			window.location.replace('/');
 		});

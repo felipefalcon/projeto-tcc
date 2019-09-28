@@ -185,7 +185,6 @@
 		margin: 16px;
 		background-repeat: no-repeat;
 		background-position: center;
-		opacity: 0;
 	}
 	
 	#sec-pics-div{
@@ -193,9 +192,9 @@
 		padding: 0;
 	}
 	
-	#sec-pic-div{
-		width: 99px;
-		height: 99px;
+	.sec-pic-div{
+		width: 95px;
+		height: 95px;
 		background-size: cover;
 		background-image: url('user-profile.png');
 		margin: 7px;
