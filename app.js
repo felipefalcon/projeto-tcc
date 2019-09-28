@@ -22,6 +22,7 @@
 	var mongo = require('mongodb'); 
 	var MongoClient = require('mongodb').MongoClient;
 	var url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
+	var paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	ROTAS
@@ -30,7 +31,7 @@
 //	------------------------------------------------------------------------------------------------------------------------
 //  [ CREATE - POST ] ROTA: insere no banco um novo usuário
 	app.post('/crt-user', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			var myobj = {	name: req.body.name, 
@@ -48,7 +49,7 @@
 	
 //  [ READ - POST ] ROTA: verifica se o email e senha correspondem a uma conta
 	app.post('/con-user', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { _id: 0, password: 0} }, function(err, result) {
@@ -61,7 +62,7 @@
 
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
 	app.get('/get-user', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, { projection: { _id: 0, password: 0} }, function(err, result) {
@@ -74,7 +75,7 @@
 	
 //  [ READ - GET ] ROTA: retorna todos os usuários do banco
 	app.get('/get-users', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			dbo.collection("users").find({}).toArray(function(err, result) {
@@ -90,7 +91,7 @@
 
 //  [ UPDATE - GET ] ROTA: atualiza a foto principal do usuário
 	app.get('/upd-user-main-pic', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			var myquery = {email: req.query.email};
@@ -105,7 +106,7 @@
 
 //  [ UPDATE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
 	app.get('/upd-user-profile', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			var myquery = {email: req.query.email};
@@ -125,7 +126,7 @@
 
 //  [ DELETE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
 	app.get('/del-user', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			dbo.collection("users").deleteOne({email: req.query.email}, function(err, result) {
@@ -143,7 +144,7 @@
 	
 //  [ READ - GET ] ROTA: verifica se o email informado para recuperação existe no banco e em seguida envia o email de rec.
 	app.get('/send-email-recover', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
@@ -206,7 +207,10 @@
 	const methodOverride = require('method-override');
 
 	app.use(methodOverride('_method'));
-
+	mongoose.set('useNewUrlParser', true);
+	mongoose.set('useFindAndModify', false);
+	mongoose.set('useCreateIndex', true);
+	mongoose.set('useUnifiedTopology', true)
 	const conn = mongoose.createConnection(url);
 
 	// Init gfs
@@ -248,7 +252,7 @@
 
 
 	app.get('/get-img', urlencodedParser, function (req, res) {
-	  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  MongoClient.connect(url, paramsM, function(err, db) {
 		  if (err) throw err;
 		  var dbo = db.db("test");
 		  dbo.collection("test.files").findOne({_id: new mongo.ObjectID(req.query._id)}, function(err, result) {
@@ -330,7 +334,6 @@
 		if (err) {
 		  return res.status(404).json({ err: err });
 		}
-
 		res.redirect('/');
 	  });
 	});

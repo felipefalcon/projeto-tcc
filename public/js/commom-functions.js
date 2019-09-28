@@ -1,4 +1,15 @@
 
+	function loading(status){
+		if(status == 'hide'){
+			$.LoadingOverlay("hide");
+		}else{
+			$.LoadingOverlay("show", {
+				background: "rgba(76, 63, 88, 0.8)",
+				imageColor: "rgba(193, 55, 120, 0.82)",
+			});
+		}
+	}
+
 	// Variável responsável por cachear algumas informações do usuário.
 	userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 	//console.log(userInfo);
@@ -14,3 +25,5 @@
 		userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 		//console.log(userInfo);
 	}
+	
+	
