@@ -4,7 +4,7 @@
 			$.LoadingOverlay("hide");
 		}else{
 			$.LoadingOverlay("show", {
-				background: "rgba(76, 63, 88, 0.8)",
+				background: "rgba(63, 51, 74, 0.8)",
 				imageColor: "rgba(193, 55, 120, 0.82)",
 			});
 		}
