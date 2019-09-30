@@ -12,6 +12,8 @@
 
 	// Variável responsável por cachear algumas informações do usuário.
 	userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+	allUsersInfo = JSON.parse(window.localStorage.getItem('allUsersInfo'));
+	// Variável responsável por cachear todos os usuários
 	//console.log(userInfo);
 	
 	function setUserCache(user){
@@ -23,6 +25,18 @@
 	function resetUserCache(){
 		window.localStorage.setItem('userInfo', '{}');
 		userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+		//console.log(userInfo);
+	}
+
+	function setAllUsersCache(users){
+		window.localStorage.setItem('allUsersInfo', JSON.stringify(users));
+		allUsersInfo = JSON.parse(window.localStorage.getItem('allUsersInfo'));
+		//console.log(userInfo);
+	}
+	
+	function resetAllUsersCache(){
+		window.localStorage.setItem('allUsersInfo', '{}');
+		allUsersInfo = JSON.parse(window.localStorage.getItem('AllUsersInfo'));
 		//console.log(userInfo);
 	}
 	

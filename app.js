@@ -172,7 +172,22 @@
 		}); 
 	});
 
-//  [ DELETE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
+//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
+	app.get('/upd-user-location', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("mydb");
+			var myquery = {email: req.query.email};
+			var newValues = {$set: 	{ location: req.query.location }};
+			dbo.collection("users").updateOne(myquery, newValues, function(err, result) {
+				if (err) throw err;
+				res.json({ ok: 'ok' }); 
+				db.close();
+			});
+		}); 
+	});
+
+//  [ DELETE - GET ] ROTA: deleta um usuário
 	app.get('/del-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;

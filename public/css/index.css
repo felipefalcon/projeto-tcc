@@ -19,6 +19,10 @@
 		height: 100%;
 	}
 
+	textarea:focus, input:focus, select:focus {
+		outline: 0;
+	} 
+
 	#logo-div{
 		display: flex;
 		align-items: center;
@@ -62,6 +66,30 @@
 	} 
 
 	.general-input::placeholder {
+		opacity: 1;
+		color: rgb(170, 156, 200) !important;
+		letter-spacing: 1px;
+	}
+	
+	.general-input-white{
+		color: rgb(92, 79, 121) !important;
+		height: 42px;
+		border-radius: 24px;
+		border: none;
+		background-color: white;
+		font-size: 15px;
+		font-weight: bolder;
+		letter-spacing: 1px;
+		text-align: left;
+		padding-left: 30px !important;
+	}
+
+	.general-input-white:focus {
+		transition: 0.25s;
+		box-shadow: none;
+	} 
+
+	.general-input-white::placeholder {
 		opacity: 1;
 		color: rgb(170, 156, 200) !important;
 		letter-spacing: 1px;
@@ -309,8 +337,8 @@
 		text-align: left;
 		margin: 16px;
 		border-radius: 60px;
+		margin-top: 0px;
 		margin-bottom: 8px;
-		margin-top: 8px;
 		padding-left: 26px;
 		display: none;
 	}
@@ -352,8 +380,8 @@
 		border-radius: 96px;
 		padding: 0px;
 		line-height: 0px;
-		margin-left: 5.5% !important;
-		margin-right: 5.5% !important;
+		margin-left: 8px !important;
+		margin-right: 8px !important;
 		border: 2px solid white;
 	}
 
@@ -369,10 +397,9 @@
 		position: absolute;
 		right: 0;
 		background-color: white;
-		top: 58px;
-		border-left: 2px solid #5a46cd;
-		border-bottom: 2px solid #5a46cd;
+		top: 8px;
 		display: none;
+		box-shadow: 2px 2px 2px #411157;
 	}
 
 	#menu-1 a{
@@ -415,4 +442,43 @@
 	
 	.nav-tabs {
         border-bottom: 0 !important;
+	}
+
+	#search-div{
+		padding: 16px;
+		padding-top: 24px;
+	}
+
+	.user-n-u-div{
+		width: 156px;
+		height: 156px;
+		float: left;
+	}
+
+	.user-n-u-div-content{
+		width: 128px;
+		height: 128px;
+		border: 2px solid white;
+		border-radius: 320px;
+		background-size: cover;
+		background-image: url('user-profile.png');
+		margin: auto;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.user-n-u-label{
+		color: white;
+		text-shadow: 2px 2px 2px black;
+		height: 20px;
+		margin: 0;
+		font-size: 14px;
+	}
+
+	#city-district-n-u-label{
+		transform: translateY(-40px);
+		padding-left: 12px;
+		padding-right: 12px;
+		background-color: rgba(62, 29, 85, 0.67);
+		border-radius: 30px;
 	}
