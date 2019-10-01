@@ -13,7 +13,6 @@
 				var location = {};
 				location = data.address;
 				location.region = data.display_name.split(",")[8];
-				console.log(location);
 				$.get("./upd-user-location", {
 					email: 	userInfo.email,
 					location: location
