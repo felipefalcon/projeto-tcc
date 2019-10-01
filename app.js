@@ -40,7 +40,8 @@
 							pics_url: {	main_pic: "https://i.imgur.com/BvU6ocJ.png", 
 										sec_pic1: "https://i.imgur.com/BvU6ocJ.png", 
 										sec_pic2: "https://i.imgur.com/BvU6ocJ.png",
-										sec_pic3: "https://i.imgur.com/BvU6ocJ.png"}
+										sec_pic3: "https://i.imgur.com/BvU6ocJ.png"},
+							location: "???"
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
 				if (err) throw err;
@@ -178,8 +179,8 @@
 			if (err) throw err;
 			var dbo = db.db("mydb");
 			var myquery = {email: req.query.email};
-			var newValues = {$set: 	{ location: req.query.location }};
-			dbo.collection("users").updateOne(myquery, newValues, function(err, result) {
+			var newvalues = {$set: 	{ location: req.query.location }};
+			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
 				res.json({ ok: 'ok' }); 
 				db.close();
