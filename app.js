@@ -40,8 +40,7 @@
 							pics_url: {	main_pic: "https://i.imgur.com/BvU6ocJ.png", 
 										sec_pic1: "https://i.imgur.com/BvU6ocJ.png", 
 										sec_pic2: "https://i.imgur.com/BvU6ocJ.png",
-										sec_pic3: "https://i.imgur.com/BvU6ocJ.png"},
-							location: "???"
+										sec_pic3: "https://i.imgur.com/BvU6ocJ.png"}
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
 				if (err) throw err;
