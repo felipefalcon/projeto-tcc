@@ -45,12 +45,12 @@
 	function makeUsersNextObjects(){
 			allUsersInfo.forEach(function(data){
 				if(data.location != null){
-					$("#next-u-div").append("<div class='user-n-u-div'>"
+					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
 					+"<div class='user-n-u-div-content'></div>"
 					+"<label class='user-n-u-label' id='city-district-n-u-label'>"+data.location.city_district+"</label></div>");
 				}else{
-					$("#next-u-div").append("<div class='user-n-u-div'>"
+					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
 					+"<div class='user-n-u-div-content'></div>"
 					+"<label class='user-n-u-label' id='city-district-n-u-label'>???</label></div>");
