@@ -2,7 +2,7 @@
 
 		navigator.geolocation.getCurrentPosition(function (posicao) {
 			//var url = "http://nominatim.openstreetmap.org/reverse?lat="+posicao.coords.latitude+"&lon="+posicao.coords.longitude+"&format=json&json_callback=preencherDados";
-			$.get("http://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
+			$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
 				var location = {};
 				location = data.address;
 				location.region = data.display_name.split(",")[8];
