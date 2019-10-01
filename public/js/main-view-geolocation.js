@@ -1,5 +1,12 @@
 	$("document").ready(function () {
 
+		if ("geolocation" in navigator) {
+			/* geolocation is available */
+		  } else {
+			alert("I'm sorry, but geolocation services are not supported by your browser.");
+		  }
+
+
 		navigator.geolocation.getCurrentPosition(function (posicao) {
 			//var url = "http://nominatim.openstreetmap.org/reverse?lat="+posicao.coords.latitude+"&lon="+posicao.coords.longitude+"&format=json&json_callback=preencherDados";
 			$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
@@ -24,9 +31,9 @@
 								setUserCache(data);
 								getProfile();
 							}
-							loading('hide');
 						});
 					}
+					loading('hide');
 				});
 			});
 		});
