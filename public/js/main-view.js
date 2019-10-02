@@ -44,18 +44,19 @@
 
 	function makeUsersNextObjects(){
 			allUsersInfo.forEach(function(data){
+				console.log(data);
 				if(data.location != null){
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
-					+"<div class='user-n-u-div-content'></div>"
+					+"<div id='user-n-u-div-content' name='"+data._id+"'></div>"
 					+"<label class='user-n-u-label' id='city-district-n-u-label'>"+data.location.city_district+"</label></div>");
 				}else{
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
-					+"<div class='user-n-u-div-content'></div>"
+					+"<div id='user-n-u-div-content'></div>"
 					+"<label class='user-n-u-label' id='city-district-n-u-label'>???</label></div>");
 				}
-				$("#next-u-div").children().last().find(".user-n-u-div-content" ).css("background-image", "url("+data.pics_url.main_pic+"");
+				$("#user-n-u-div-content[name='"+data._id+"']").css("background-image", "url("+data.pics_url.main_pic+"");
 			}
 		);
 	}
