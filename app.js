@@ -2,12 +2,14 @@
 //	CONFIGURAÇÃO DO SERVIDOR NODE
 //	-----------------------------------------------------------------------------------------------------------------------
 	var express = require('express');
+	var compression = require('compression');
 
 	var app = express();
 
 	var bodyParser = require('body-parser');  
 	var urlencodedParser = bodyParser.urlencoded({ extended: false })  
 
+	app.use(compression());
 	app.use(express.static(__dirname + '/public'));
 
 	var port = process.env.PORT || 8080;
@@ -20,7 +22,7 @@
 //	CONFIGURAÇÃO DO MÓDULO DO MONGODB
 //	------------------------------------------------------------------------------------------------------------------------
 	var mongo = require('mongodb'); 
-	var MongoClient = require('mongodb').MongoClient;
+	var MongoClient = mongo.MongoClient;
 	var url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
 	var paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
 	
@@ -46,8 +48,8 @@
 				if (err) throw err;
 				db.close();
 			});
+			res.send("");
 		}); 
-		res.send("");
 	});
 	
 //  [ READ - POST ] ROTA: verifica se o email e senha correspondem a uma conta
@@ -57,8 +59,8 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { _id: 0, password: 0} }, function(err, result) {
 				if (err) throw err;
-				res.json(result); 
 				db.close();
+				res.json(result); 
 			});
 		}); 
 	});
@@ -83,11 +85,11 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").find({}).toArray(function(err, result) {
 				if (err) throw err;
+				db.close();
 				if(result){
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
-				db.close();
 			});
 		}); 
 	});
@@ -101,8 +103,8 @@
 			var newvalues = {$set: { "pics_url.main_pic": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -116,8 +118,8 @@
 			var newvalues = {$set: { "pics_url.sec_pic1": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -131,8 +133,8 @@
 			var newvalues = {$set: { "pics_url.sec_pic2": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -146,8 +148,8 @@
 			var newvalues = {$set: { "pics_url.sec_pic3": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -166,8 +168,8 @@
 							};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -181,8 +183,8 @@
 			var newvalues = {$set: 	{ location: req.query.location }};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 				db.close();
+				res.json({ ok: 'ok' }); 
 			});
 		}); 
 	});
@@ -194,8 +196,8 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").deleteOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
-				res.json(result);
 				db.close();
+				res.json(result);
 			});
 		}); 
 	});
@@ -212,13 +214,13 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
-				if(result != null){
+				db.close();
+				if(result){
 					sendEmailRecover(result.email, result.password);
 					res.json({ ok: 'ok' }); 
 				}else{
-					res.json(result); 
+					res.json({ oh_no: 'oh-no' }); 
 				}
-				db.close();
 			});
 		}); 
 	});

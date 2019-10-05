@@ -1,12 +1,13 @@
 
 	var h = $(window).height()/10;
 	$("#form-main").innerHeight(h*9);
-	$("#logo-div").innerHeight(58);
+	$("#logo-div").innerHeight(48);
 	$("#logo-div").css("background-color", "rgb(57,35,80)");
+	$("#main-div").css("margin-top", $("#logo-div").innerHeight()+"px");
 	$("#events-div").css("min-height", $(window).height()-64-58+"px");
 	$("#next-u-div").css("min-height", $(window).height()-64-58+"px");
 	$("#menu-top-div").innerHeight(h*1);
-	$("#logo-div img").innerHeight(h/1.5);
+	$("#logo-div img").innerHeight(h/1.6);
 	$("#main-pic-div-c").innerHeight(h*6.5);
 	$("html").innerHeight("auto");
 	$("body").innerHeight($(window).height()-60);
@@ -44,8 +45,7 @@
 
 	function makeUsersNextObjects(){
 			allUsersInfo.forEach(function(data){
-				console.log(data);
-				if(data.location != null){
+				if(data.location){
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
 					+"<div id='user-n-u-div-content' name='"+data._id+"'></div>"
