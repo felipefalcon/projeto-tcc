@@ -10,19 +10,18 @@
 	});
 
 	function getAllUsersInfo(){
-		$("#profile-div").LoadingOverlay("show", {background: "rgba(63, 51, 74, 0.8)",imageColor: "rgba(193, 55, 120, 0.82)",});
-		$("#events-div").LoadingOverlay("show", {background: "rgba(63, 51, 74, 0.8)",imageColor: "rgba(193, 55, 120, 0.82)",});
-		$("#next-u-div").LoadingOverlay("show", {background: "rgba(63, 51, 74, 0.8)",imageColor: "rgba(193, 55, 120, 0.82)",});
+		$("#admin-page-users-div").LoadingOverlay("show", {background: "rgba(63, 51, 74, 0.8)",imageColor: "rgba(193, 55, 120, 0.82)",});
 		$.get("./get-users").done(function( data ) {
 			if(data == null || data == "undefined"){
 				  
 			}else{
-				setAllUsersCache(data);
+				var excludeSelf = data.filter(function (em){
+					return userInfo.email != em.email
+				});
+				setAllUsersCache(excludeSelf);
 				makeEventsObjects();
 			}
-			$("#profile-div").LoadingOverlay('hide');
-			$("#events-div").LoadingOverlay('hide');
-			$("#next-u-div").LoadingOverlay('hide');
+			$("#admin-page-users-div").LoadingOverlay('hide');
 		});
 	}
 
@@ -79,9 +78,7 @@
 		$("#search-input").on("keyup", function() {
 		  var value = $(this).val().toLowerCase();
 		  $(".profile-info-div *").filter(function() {
-			  //console.log($(this).parent().parent());
 			  $(this).parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
-			//$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 		  });
 		});
 	  });
