@@ -31,15 +31,27 @@
 	}
 
 	function makeEventsObjects(){
-		$("#events-div").append("</br>");
-			allUsersInfo.forEach(function(data){
-				$("#events-div").append("<div class='users-t'>"+
-				"<div class='profile-img-div'></div>"+
+		allUsersInfo.forEach(function(data, i){
+			if(i % 2 == 0){
+				$("#events-div").append("<div class='users-t' style='background-color: rgba(255, 255, 255, 0.24);' name='"+data._id+"'>"+
+				"<div id='profile-img-div' name='"+data._id+"'></div>"+
 				"<div class='profile-info-div'>"+
-				data.email +"</div></div>");				
-			}
-		);
-		$("#events-div").append("</br></br></br>");
+				"<label class='user-d-u-label'>"+data.name+"</label>"+
+				"<label class='user-d-u-label'>"+data.age+" anos - "+data.gender+"</label>"+
+				"<label class='user-d-u-label'>"+data.email+"</label>"+
+				"</div></div>");
+				$("#profile-img-div[name='"+data._id+"']").css("background-image", "url("+data.pics_url.main_pic+"");	
+			}else{
+				$("#events-div").append("<div class='users-t' name='"+data._id+"'>"+
+				"<div id='profile-img-div' name='"+data._id+"'></div>"+
+				"<div class='profile-info-div'>"+
+				"<label class='user-d-u-label'>"+data.name+"</label>"+
+				"<label class='user-d-u-label'>"+data.age+" anos - "+data.gender+"</label>"+
+				"<label class='user-d-u-label'>"+data.email+"</label>"+
+				"</div></div>");
+				$("#profile-img-div[name='"+data._id+"']").css("background-image", "url("+data.pics_url.main_pic+"");	
+			}			
+		});
 		$(".users-t").fadeIn("slow");
 	}
 
@@ -49,12 +61,12 @@
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
 					+"<div id='user-n-u-div-content' name='"+data._id+"'></div>"
-					+"<label class='user-n-u-label' id='city-district-n-u-label'>"+data.location.city_district+"</label></div>");
+					+"<label id='city-district-n-u-label'>"+data.location.city_district+"</label></div>");
 				}else{
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
 					+"<div id='user-n-u-div-content'></div>"
-					+"<label class='user-n-u-label' id='city-district-n-u-label'>???</label></div>");
+					+"<label id='city-district-n-u-label'>???</label></div>");
 				}
 				$("#user-n-u-div-content[name='"+data._id+"']").css("background-image", "url("+data.pics_url.main_pic+"");
 			}
@@ -96,7 +108,13 @@
 			});
 		}
 	}
+
+	function verifyAdminPermission(){
+		
+		$("#menu-1").prepend("<a href='./admin-page.html'>Administrador</a>");
+	}
 	
 	getAllUsersInfo();
 	getProfile();
 	getMainImg();
+	verifyAdminPermission();

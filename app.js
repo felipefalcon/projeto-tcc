@@ -202,6 +202,20 @@
 		}); 
 	});
 
+//  [ DELETE - GET ] ROTA: deleta um usuário (Através do administrador)
+	app.get('/admin-del-user', urlencodedParser, function (req, res) {
+		var objectId = new require('mongodb').ObjectID(req.query._id);
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("mydb");
+			dbo.collection("users").deleteOne({_id: objectId}, function(err, result) {
+				if (err) throw err;
+				db.close();
+				res.json(result);
+			});
+		}); 
+	});
+
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO NODEMAILER
 //	------------------------------------------------------------------------------------------------------------------------
