@@ -53,11 +53,12 @@
 
 		$(".users-t").click(function(){
 			var elmt = $(".users-t[name='"+$(this).attr('name')+"']");
+			var selected = $(this).attr('name');
 			var bgColorPrev = elmt.css("background-color");
 			elmt.css("background-color", "rgba(234, 67, 67, 0.69)");
 			setTimeout(function(){
 				if(window.confirm("Você tem certeza que deseja deletar a conta selecionada?\nEsta ação é irreversível!")){
-					$.get("./admin-del-user", { _id: $(this).attr('name')})
+					$.get("./admin-del-user", { _id: selected})
 					.done(function( data ) {
 						if(data == null || data == "undefined"){
 							alert("Algum erro");
