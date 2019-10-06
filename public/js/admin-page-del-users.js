@@ -74,5 +74,15 @@
 		});
 	}
 
+	$(document).ready(function(){
+		$("#search-input").on("keyup", function() {
+		  var value = $(this).val().toLowerCase();
+		  $(".profile-info-div *").filter(function() {
+			  //console.log($(this).parent().parent());
+			  $(this).parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
+			//$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+		  });
+		});
+	  });
 
 	getAllUsersInfo();

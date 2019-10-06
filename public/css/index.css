@@ -322,10 +322,9 @@
 
 	.users-t{
 		color: white;
-		padding: 8px;
+		padding: 6px;
 		overflow: hidden;
 		text-align: left;
-		padding-top: 12px;
 		margin-top: 0px;
 		margin-bottom: 0;
 		padding-left: 40px;
@@ -342,7 +341,6 @@
 		border-radius: 100px;
 		left: -20px;
 		position: relative;
-		top: -3px;
 		float: left;
 		background-size: cover;
 		background-image: url('user-profile.png');
@@ -408,6 +406,7 @@
 		font-size: 14px;
 		text-decoration: none;
 		text-align: left;
+		padding-right: 48px;
 	}
 	
 	#main-pic-div-c{

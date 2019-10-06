@@ -11,6 +11,8 @@
 	$("#main-pic-div-c").innerHeight(h*6.5);
 	$("html").innerHeight("auto");
 	$("body").innerHeight($(window).height()-60);
+
+	$("#btn-menu-1").attr("disabled", true);
 	
 	function getAllUsersInfo(){
 		$("#profile-div").LoadingOverlay("show", {background: "rgba(63, 51, 74, 0.8)",imageColor: "rgba(193, 55, 120, 0.82)",});
@@ -27,6 +29,7 @@
 			$("#profile-div").LoadingOverlay('hide');
 			$("#events-div").LoadingOverlay('hide');
 			$("#next-u-div").LoadingOverlay('hide');
+			$("#btn-menu-1").attr("disabled", false);
 		});
 	}
 
@@ -110,7 +113,9 @@
 	}
 
 	function verifyAdminPermission(){
-		
+		if(!userInfo.is_admin){
+			return false;
+		}
 		$("#menu-1").prepend("<a href='./admin-page.html'>Administrador</a>");
 	}
 	
