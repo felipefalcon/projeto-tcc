@@ -63,7 +63,8 @@
 				if(data.location){
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
 					+"<label class='user-n-u-label'>"+data.name+"</label>"
-					+"<div id='user-n-u-div-content' name='"+data._id+"'></div>"
+					+"<div id='user-n-u-div-content' name='"+data._id+"'>"
+					+"<div class='send-msg-button' name='"+JSON.stringify(data)+"'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
 					+"<label id='city-district-n-u-label'>"+data.location.city_district+"</label></div>");
 				}else{
 					$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
@@ -74,6 +75,12 @@
 				$("#user-n-u-div-content[name='"+data._id+"']").css("background-image", "url("+data.pics_url.main_pic+"");
 			}
 		);
+
+		$(".send-msg-button").click(function(){
+			setToUser($(this).attr('name'));
+			window.location.href = "./user-conversation.html"
+		});
+
 	}
 	
 	function getMainImg(){

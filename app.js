@@ -83,7 +83,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
-			dbo.collection("users").find({}).toArray(function(err, result) {
+			dbo.collection("users").find({}, { projection: { password: 0}}).toArray(function(err, result) {
 				if (err) throw err;
 				db.close();
 				if(result){
