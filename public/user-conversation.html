@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title></title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" src="./js/jquery-dateformat.min.js"></script>	
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -24,14 +25,17 @@
         <div class='user-t'>
           <div id='profile-img-div'></div>
           <div class='profile-info-div'>
-          <label class='user-d-u-label'>NOME</label>
-          <label class='user-d-u-label'>IDADE anos - GENERO</label>
-          <label class='user-d-u-label'>EMAIL</label>
+          <label id="send-to-name-label-2" class='user-d-u-label'></label>
+          <label id="send-to-age-gender-label" class='user-d-u-label'></label>
+          <label id="send-to-location-label" class='user-d-u-label'></label>
           </div>
         </div>
       </div>
+      <div id="chat-msgs-div" class="container" style="overflow: scroll;">
+
+      </div>
       <div id="menu-bottom-div" class="container mx-auto" style="height: 60px; background: none !important;">
-        <input id="message-send-input" maxlength="130" class="general-textarea col-10" placeholder="Escreva um pouco sobre você..."/>
+        <input id="message-send-input" maxlength="130" class="general-textarea col-10" placeholder="Digite sua mensagem..."/>
         <button id="send-message-button" class="col-1"><i class='fas fa-caret-right' style='font-size:58px;color:white'></i></button>
       </div>
 		</div>

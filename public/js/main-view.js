@@ -22,7 +22,10 @@
 			if(data == null || data == "undefined"){
 				  
 			}else{
-				setAllUsersCache(data);
+				var excludeSelf = data.filter(function (em){
+					return userInfo.email != em.email
+				});
+				setAllUsersCache(excludeSelf);
 				makeEventsObjects();
 				makeUsersNextObjects();
 			}

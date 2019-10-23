@@ -17,6 +17,9 @@
 	app.listen(port, '0.0.0.0', function() {
 		console.log("PORTA: "+port);
 	});
+
+//	NOME DO BANCO DE DADOS
+	var dbName = "mydb";
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO DO MONGODB
@@ -35,7 +38,7 @@
 	app.post('/crt-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myobj = {	name: req.body.name, 
 							email: req.body.email, 
 							password: req.body.password, 
@@ -57,7 +60,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
-			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { _id: 0, password: 0} }, function(err, result) {
+			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
 				db.close();
 				res.json(result); 
@@ -70,7 +73,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
-			dbo.collection("users").findOne({email: req.query.email}, { projection: { _id: 0, password: 0} }, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
 				res.json(result); 
 				db.close();
@@ -174,7 +177,7 @@
 		}); 
 	});
 
-//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
+//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (localização)
 	app.get('/upd-user-location', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
@@ -182,6 +185,29 @@
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: 	{ location: req.query.location }};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
+				if (err) throw err;
+				db.close();
+				res.json({ ok: 'ok' }); 
+			});
+		}); 
+	});
+
+//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
+	app.get('/upd-users-messages', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
+			var query = {_id: objectIdUserFrom};
+			var query2 = {_id: objectIdUserTo};
+			var newvalues = {$push: 	{ messages: req.query.message }};
+			dbo.collection("users").updateOne(query, newvalues, {upsert: true}, function(err, result) {
+				if (err) throw err;
+				db.close();
+				//res.json({ ok: 'ok' }); 
+			});
+			dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
 				db.close();
 				res.json({ ok: 'ok' }); 
