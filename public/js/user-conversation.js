@@ -38,6 +38,7 @@
 			if(data == null || data == "undefined"){
 				alert("Algum erro");
 			}else{
+				$("#message-send-input").val("");
 				getNewMessages();
 			}
 		});
@@ -49,7 +50,6 @@
 			if(data == null || data == "undefined"){
 				alert("Algum erro");
 			}else{
-				$("#message-send-input").val("");
 				setUserCache(data);
 				makeChatMessage();
 			}
