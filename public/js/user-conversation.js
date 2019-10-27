@@ -39,13 +39,13 @@
 					alert("Algum erro");
 				} else {
 					$("#message-send-input").val("");
-					getNewMessages();
-					$("#chat-msgs-div").scrollTop(1000000000000000);
+					getNewMessages($("#chat-msgs-div").scrollTop(1000000000000000));
+					
 				}
 			});
 	});
 
-	function getNewMessages() {
+	function getNewMessages(callback) {
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
@@ -53,6 +53,7 @@
 				} else {
 					setUserCache(data);
 					makeChatMessage();
+					callback;
 				}
 			});
 	}
@@ -79,5 +80,6 @@
 
 	setInfoToUser();
 	makeChatMessage();
+	$("#chat-msgs-div").scrollTop(1000000000000000)
 
 	setInterval(function () { getNewMessages(); }, 10000)
