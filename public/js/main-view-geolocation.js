@@ -12,7 +12,6 @@
 					if(data == null || data == "undefined"){
 						console.log("Deu merda");
 					}else{
-						console.log("Atualizou");
 						$.get("./get-user", {
 							email: userInfo.email
 						}).done(function( data ) {

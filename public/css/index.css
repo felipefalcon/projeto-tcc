@@ -320,14 +320,14 @@
 		width: 100%;
 	}
 
-	.users-t{
+	.users-t, .users-t-chat{
 		color: white;
 		padding: 6px;
 		overflow: hidden;
 		text-align: left;
 		margin-top: 0px;
 		margin-bottom: 0;
-		padding-left: 40px;
+		padding-left: 32px;
 		display: none;
 		background-color: rgba(255, 255, 255, 0.12);
 		transition: 0.25s;
@@ -351,7 +351,6 @@
 	
 	.profile-info-div{
 		height: 90px;
-    	padding-top: 5px;
 	}
 
 	#menu-bottom-div{
@@ -587,5 +586,16 @@
 		text-align: left;
 		padding-left: 18px;
 		padding-right: 18px;
+	}
+
+	.chat-user-label{
+		background-color: #21234e5c; 
+		margin-left: 35px;
+	}
+
+	.chat-msg-label{
+		max-height: 48px; 
+		overflow: hidden; 
+		margin-top: 10px;
 	}
 
