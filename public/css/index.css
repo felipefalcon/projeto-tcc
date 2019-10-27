@@ -589,7 +589,7 @@
 	}
 
 	.chat-user-label{
-		background-color: #21234e5c; 
+		background-color: rgba(33, 35, 78, 0.6);
 		margin-left: 35px;
 	}
 
