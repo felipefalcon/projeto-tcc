@@ -8,7 +8,8 @@
 		$("#send-to-name-label").text(toUser.name);
 		$("#send-to-name-label-2").text(toUser.name);
 		$("#send-to-age-gender-label").text(toUser.age + " anos - " + toUser.gender);
-		$("#send-to-location-label").text(toUser.location.city_district);
+		var cityD = toUser.location ? toUser.location.city_district : "???"
+		$("#send-to-location-label").text(cityD);
 		$("#profile-img-div").css("background-image", "url(" + toUser.pics_url.main_pic + "");
 	}
 
