@@ -86,7 +86,7 @@
 
 	function makeChatObjects() {
 		var usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
-		//console.log(usersDistincs);
+		console.log(usersDistincs);
 		var profiles = [];
 		var userMsgs = [];
 		usersDistincs.forEach(function(data, i){
@@ -118,7 +118,7 @@
 			}
 			if(lastMsgUser == "" || lastMsgSubject.date > lastMsgUser.date){
 				var lastMsg = lastMsgSubject;
-			}else if(lastMsgSubject == "" || lastMsgSubject.date < lastMsgUser.date){
+			}else if(lastMsgSubject == "" || lastMsgSubject.date <= lastMsgUser.date){
 				var lastMsg = lastMsgUser;
 			}
 			
