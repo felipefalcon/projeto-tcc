@@ -37,6 +37,13 @@
 			$("#next-u-div").LoadingOverlay('hide');
 			$("#chat-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
+		}).fail(function(){
+			alert("Ocorreu um erro!, Recarregue o aplicativo.");
+			$("#profile-div").LoadingOverlay('hide');
+			$("#events-div").LoadingOverlay('hide');
+			$("#next-u-div").LoadingOverlay('hide');
+			$("#chat-div").LoadingOverlay('hide');
+			$("#btn-menu-1").attr("disabled", false);
 		});
 	}
 
