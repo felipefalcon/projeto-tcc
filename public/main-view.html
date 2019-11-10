@@ -34,7 +34,7 @@
 			<button onclick="" id="btn-menu-3" class="btn-menu"><i class="fa fa-users"
 					style="vertical-align: middle;"></i></button>
 		</div>
-		<div id="events-div" class="mx-auto tab-pane active">
+		<div id="events-div" class="mx-auto tab-pane fade">
 
 		</div>
 		<div id="profile-div" class="mx-auto tab-pane fade">
@@ -54,19 +54,18 @@
 			</div>
 		</div>
 		<div id="pr-div2" class="mx-auto tab-pane fade">
-
 		</div>
-		<div id="next-u-div" class="mx-auto tab-pane fade">
+		<div id="next-u-div" class="mx-auto tab-pane active">
 			<div id="search-div" class="col-12">
 				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
 			</div>
 			<div id="next-u-users" class="container">
 			</div>
+			<input type="button" onclick="window.location.replace('create-event.html');" class="general-button col-10 mt-2 mb-2" value="CRIAR EVENTO">
 		</div>
 		<div id="chat-div" class="mx-auto tab-pane fade">
 			<div id="chat-page-users-div">
 				<div id="chat-users-div">
-
 				</div>
 			</div>
 		</div>
@@ -74,11 +73,11 @@
 	<div id="menu-bottom-div" class="mx-auto nav nav-tabs">
 		<button data-toggle="tab" href="#profile-div" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle"
 				style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#next-u-div" id="btn-menu-5" class="btn-menu"><i
+		<button data-toggle="tab" href="#pr-div2" id="btn-menu-5" class="btn-menu"><i
 				class="far fas fa-map-marker-alt" style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#pr-div2" id="btn-menu-6" class="btn-menu"><i class="far fas fa-home"
+		<button data-toggle="tab" href="#next-u-div" id="btn-menu-6" class="btn-menu active"><i class="far fas fa-home"
 				style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#events-div" id="btn-menu-7" class="btn-menu active"><i class="fa fa-users"
+		<button data-toggle="tab" href="#events-div" id="btn-menu-7" class="btn-menu"><i class="fa fa-users"
 				style="vertical-align: middle;"></i></button>
 		<button data-toggle="tab" href="#chat-div" id="btn-menu-8" class="btn-menu"><i class="far fas fa-comment-alt"
 				style="vertical-align: middle;"></i></button>

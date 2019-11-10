@@ -242,6 +242,20 @@
 		}); 
 	});
 
+//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (eventos)
+	app.get('/upd-user-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("mydb");
+			var myquery = {email: req.query.email};
+			var newvalues = {$set: 	{ evento: req.query.evento }};
+			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
+				if (err) throw err;
+				db.close();
+				res.json({ ok: 'ok' }); 
+			});
+		}); 
+	});
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO NODEMAILER
 //	------------------------------------------------------------------------------------------------------------------------

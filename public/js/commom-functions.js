@@ -16,7 +16,7 @@
 	allUsersInfo = JSON.parse(window.localStorage.getItem('allUsersInfo'));
 	// Variável responsável por guardar o usuário que você enviará a msg
 	toUser = JSON.parse(window.localStorage.getItem('toUser'));
-	
+	console.log(userInfo);
 	function setUserCache(user){
 		window.localStorage.setItem('userInfo', JSON.stringify(user));
 		userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
