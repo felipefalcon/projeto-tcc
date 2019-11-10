@@ -17,7 +17,8 @@
 	// Variável responsável por guardar o usuário que você enviará a msg
 	toUser = JSON.parse(window.localStorage.getItem('toUser'));
 	console.log(userInfo);
-	if(window.location.href.pathname == "index.html" && userInfo != {}){
+	//console.log(window.location.pathname);
+	if((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined){
 		window.location.replace("main-view.html");
 	}
 	function setUserCache(user){
