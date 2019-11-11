@@ -28,9 +28,9 @@
 					return userInfo.email != em.email
 				});
 				setAllUsersCache(excludeSelf);
-				makeEventsObjects();
 				makeUsersNextObjects();
 				makeChatObjects();
+				getAllEvents();
 			}
 			$("#profile-div").LoadingOverlay('hide');
 			$("#events-div").LoadingOverlay('hide');
@@ -38,7 +38,34 @@
 			$("#chat-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
 		}).fail(function(){
-			alert("Ocorreu um erro!, Recarregue o aplicativo.");
+			$("#error-div").css("display", "show");
+			$("#profile-div").LoadingOverlay('hide');
+			$("#events-div").LoadingOverlay('hide');
+			$("#next-u-div").LoadingOverlay('hide');
+			$("#chat-div").LoadingOverlay('hide');
+			$("#btn-menu-1").attr("disabled", false);
+		});
+	}
+
+	$("#reload-error").click(function(){
+		$("#error-div").css("display", "none");
+		getAllUsersInfo();
+		getProfile();
+		getMainImg();
+		verifyAdminPermission();
+	});
+
+	function getAllEvents() {
+		$.get("./get-events").done(function (data) {
+			if (data == null || data == "undefined") {
+
+			} else {
+				setAllEvents(data);
+				makeEventsObjects();
+			}
+			
+		}).fail(function(){
+			$("#error-div").css("display", "show");
 			$("#profile-div").LoadingOverlay('hide');
 			$("#events-div").LoadingOverlay('hide');
 			$("#next-u-div").LoadingOverlay('hide');
@@ -48,6 +75,62 @@
 	}
 
 	function makeEventsObjects() {
+		var allEventsWithoutUser = allEvents;
+		allEvents.forEach(function(data){
+			for(var i = 0; i < data.participants.length; ++ i){
+				if(userInfo._id == data.participants[i]._id){
+					allEventsWithoutUser.pop(data);
+					break;
+				}
+			}
+		});
+		if(allEventsWithoutUser.length == 0){
+			$("#events-box-div").append("<p>Sem eventos no momento</p>");
+			return;
+		}
+		//console.log(allEventsWithoutUser);
+		allEventsWithoutUser.forEach(function (data, i) {
+			if (i % 2 == 0) {
+				$("#events-box-div").append("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
+					"<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
+					"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
+					"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
+					"</div>");
+			} else {
+				$("#events-box-div").append("<div class='events-t' name='" + data._id + "'>" +
+				"<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
+				"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
+				"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
+				"</div>");
+			}
+			$(".event-subscribe-btn").click(function () {
+				//setToUser($(this).attr('name'));
+
+				var userBasic = {};
+				userBasic._id = userInfo._id;
+				userBasic.name = userInfo.name;
+				userBasic.main_pic = userInfo.pics_url.main_pic;
+
+				$.get("./upd-event", {
+					_id: 	$(this).attr('name'),
+					user: userBasic
+				}).done(function( data ) {
+					if(data == null || data == "undefined"){
+						console.log("Deu merda");
+					}else{
+						$("#events-box-div").empty();
+						getAllEvents();
+					}
+				});
+
+			});
+
+		});
+		$(".events-t").fadeIn("slow");
+	}
+
+	// BACKUP da função de eventos - que só puxava usuários
+	function makeEventsObjects2() {
 		allUsersInfo.forEach(function (data, i) {
 			if (i % 2 == 0) {
 				$("#events-div").append("<div class='users-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
@@ -93,7 +176,7 @@
 
 	function makeChatObjects() {
 		var usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
-		console.log(usersDistincs);
+		//console.log(usersDistincs);
 		var profiles = [];
 		var userMsgs = [];
 		usersDistincs.forEach(function(data, i){

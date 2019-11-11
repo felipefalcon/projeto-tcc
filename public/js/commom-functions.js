@@ -16,7 +16,10 @@
 	allUsersInfo = JSON.parse(window.localStorage.getItem('allUsersInfo'));
 	// Variável responsável por guardar o usuário que você enviará a msg
 	toUser = JSON.parse(window.localStorage.getItem('toUser'));
+	// Variável responsável por cachear todos os eventos
+	allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	console.log(userInfo);
+	console.log(allEvents);
 	//console.log(window.location.pathname);
 	if((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined){
 		window.location.replace("main-view.html");
@@ -53,6 +56,18 @@
 	function resetToUser(){
 		window.localStorage.setItem('toUser', '{}');
 		toUser = JSON.parse(window.localStorage.getItem('toUser'));
+	}
+
+	function setAllEvents(events){
+		window.localStorage.setItem('allEvents', JSON.stringify(events));
+		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
+		//console.log(userInfo);
+	}
+	
+	function resetAllEvents(){
+		window.localStorage.setItem('allEvents', '{}');
+		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
+		//console.log(userInfo);
 	}
 	
 	

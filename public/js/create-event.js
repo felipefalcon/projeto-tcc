@@ -14,22 +14,19 @@ function createEvent(){
 			evento.horario = $("#horario-input").val();
 			console.log(evento)
 
-			$.get("./upd-user-event", {
-				email: 	userInfo.email,
+			var userBasic = {};
+			userBasic._id = userInfo._id;
+			userBasic.name = userInfo.name;
+			userBasic.main_pic = userInfo.pics_url.main_pic;
+
+			$.get("./crt-event", {
+				user: 	userBasic,
 				evento: evento
 			}).done(function( data ) {
 				if(data == null || data == "undefined"){
 					console.log("Deu merda");
 				}else{
-					$.get("./get-user", {
-						email: userInfo.email
-					}).done(function( data ) {
-						if(data == null || data == "undefined"){
-							console.log("Deu merda");
-						}else{
-							setUserCache(data);
-						}
-					});
+					console.log("Evento criado!");
 				}
 				loading('hide');
 			});

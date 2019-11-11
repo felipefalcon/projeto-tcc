@@ -35,7 +35,18 @@
 					style="vertical-align: middle;"></i></button>
 		</div>
 		<div id="events-div" class="mx-auto tab-pane fade">
-
+			<div id="search-div" class="col-12">
+				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
+			</div>
+			<div id="events-box-div">
+			
+			</div>
+		</div>
+		<div id="error-div" class="mx-auto" style="display: none; height: 100%;">
+				<p style="color: rgb(255, 89, 89); font-size: 90px; font-weight: bolder;">!</p>
+				<p style="color: white; font-weight: bolder;">Houve um erro</p>
+				<input id="reload-error" type="button"  class="general-button col-6 mx-auto mt-4 mb-4"
+				value="RECARREGAR" style="font-size: 0.8em;">
 		</div>
 		<div id="profile-div" class="mx-auto tab-pane fade">
 			<div id="main-pic-div-c" class="mx-auto">
@@ -62,6 +73,7 @@
 			<div id="next-u-users" class="container">
 			</div>
 			<input type="button" onclick="window.location.replace('create-event.html');" class="general-button col-10 mt-2 mb-2" value="CRIAR EVENTO">
+			<input type="button" onclick="window.location.replace('subscribed-events.html');" class="general-button col-10 mt-2 mb-2" value="VER SUBSCRIÇÕES">
 		</div>
 		<div id="chat-div" class="mx-auto tab-pane fade">
 			<div id="chat-page-users-div">

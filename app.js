@@ -243,13 +243,61 @@
 	});
 
 //  [ UPDATE - GET ] ROTA: atualiza dados do usuário (eventos)
-	app.get('/upd-user-event', urlencodedParser, function (req, res) {
+	app.get('/crt-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: 	{ evento: req.query.evento }};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
+			var myObj = req.query.evento;
+			myObj.participants = [req.query.user];
+			dbo.collection("events").insertOne(myObj, function(err, res) {
+				if (err) throw err;
+				db.close();
+			});
+			res.send({ok: "ok"});
+		}); 
+	});
+
+//  [ READ - GET ] ROTA: retorna todos os eventos do banco
+	app.get('/get-events', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("mydb");
+			dbo.collection("events").find({}).toArray(function(err, result) {
+				if (err) throw err;
+				db.close();
+				if(result){
+					return res.json(result);
+				}
+				res.json({oh_no: "oh-no"});
+			});
+		}); 
+	});
+
+	//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
+	app.get('/upd-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectId = new require('mongodb').ObjectID(req.query._id);
+			var query = {_id: objectId};
+			var newvalues = {$push: 	{ participants: req.query.user }};
+			dbo.collection("events").updateOne(query, newvalues, {upsert: true}, function(err, result) {
+				if (err) throw err;
+				db.close();
+				res.json({ ok: 'ok' }); 
+			});
+		}); 
+	});
+
+	//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
+	app.get('/exit-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectId = new require('mongodb').ObjectID(req.query._id);
+			var query = {_id: objectId};
+			var newvalues = {$pull: 	{ participants: req.query.user }};
+			dbo.collection("events").updateOne(query, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
 				db.close();
 				res.json({ ok: 'ok' }); 

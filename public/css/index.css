@@ -599,3 +599,71 @@
 		margin-top: 10px;
 	}
 
+	.events-t{
+		color: white;
+		padding: 6px;
+		overflow: hidden;
+		text-align: left;
+		margin-top: 0px;
+		margin-bottom: 0;
+		background-color: rgba(63, 51, 74, 0.29);
+	}
+
+	.event-user-label{
+		background-color: rgba(33, 35, 78, 0.6);
+		padding: 10px;
+		padding-left: 20px;
+		margin-bottom: 10px;
+	}
+
+	#user-e-u-div-content{
+		width: 70px;
+		height: 70px;
+		border: 2px solid white;
+		border-radius: 320px;
+		background-size: cover;
+		background-image: url('user-profile.png');
+		margin: auto;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.user-e-u-div{
+		height: 70px;
+		float: left;
+		width: 80px;
+	}
+
+	.event-subscribe-btn{
+		float: right;
+		border: none;
+		font-size: 13px;
+		background: rgb(173, 255, 146);
+		font-weight: bolder;
+	}
+
+	.event-notsubscribe-btn{
+		float: right;
+		border: none;
+		font-size: 13px;
+		background: rgb(255, 146, 146);
+		font-weight: bolder;
+	}
+
+	.event-seedetails-btn{
+		float: right;
+		border: none;
+		font-size: 13px;
+		background: rgb(163, 146, 255);
+		font-weight: bolder;
+		margin-right: 6px;
+	}
+
+	#subscribed-events-page-div{
+		background-color: rgba(0,0,20,0.4);
+		width: 100%;
+		box-sizing: border-box;
+		height: 100% !important;
+		padding-top: 48px;
+	}
+
