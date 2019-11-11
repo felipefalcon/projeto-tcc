@@ -61,6 +61,7 @@
 
 			} else {
 				setAllEvents(data);
+				//console.log(allEvents);
 				makeEventsObjects();
 			}
 			
@@ -75,20 +76,26 @@
 	}
 
 	function makeEventsObjects() {
-		var allEventsWithoutUser = allEvents;
+		//console.log(allEvents);
+		var allEventsWithoutUser = [];//allEvents.slice();
 		allEvents.forEach(function(data){
-			for(var i = 0; i < data.participants.length; ++ i){
-				if(userInfo._id == data.participants[i]._id){
-					allEventsWithoutUser.pop(data);
+			var flag = false;
+			for(var i = 0; i < data.participants.length; ++i){
+				if(userInfo._id != data.participants[i]._id){
+					flag = true;
+				}else{
+					flag = false;
 					break;
 				}
+			}
+			if(flag){
+				allEventsWithoutUser.push(data);
 			}
 		});
 		if(allEventsWithoutUser.length == 0){
 			//$("#events-box-div").append("<p>Sem eventos no momento</p>");
 			return;
 		}
-		//console.log(allEventsWithoutUser);
 		allEventsWithoutUser.forEach(function (data, i) {
 			if (i % 2 == 0) {
 				$("#events-box-div").append("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
@@ -307,6 +314,9 @@
 
 	$("#exit-app-btn").click(function(){
 		resetUserCache();
+		resetAllUsersCache();
+		resetToUser();
+		resetAllEvents();
 		window.location.replace("/");
 	});
 

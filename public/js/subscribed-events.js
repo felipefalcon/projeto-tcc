@@ -45,6 +45,7 @@
 			for(var i = 0; i < data.participants.length; ++ i){
 				if(userInfo._id == data.participants[i]._id){
 					allEventsWithUser.push(data);
+					break;
 				}
 			}
 		});

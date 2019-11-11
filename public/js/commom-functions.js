@@ -19,7 +19,7 @@
 	// Variável responsável por cachear todos os eventos
 	allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	console.log(userInfo);
-	console.log(allEvents);
+	//console.log(allEvents);
 	//console.log(window.location.pathname);
 	if((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined){
 		window.location.replace("main-view.html");
@@ -61,7 +61,7 @@
 	function setAllEvents(events){
 		window.localStorage.setItem('allEvents', JSON.stringify(events));
 		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
-		//console.log(userInfo);
+		//console.log(allEvents);
 	}
 	
 	function resetAllEvents(){
