@@ -6,7 +6,7 @@
 	$("#events-div").innerHeight($(window).height()-$("#logo-div").innerHeight()-$("#search-div").innerHeight());
 
 	$("#btn-menu-back").click(function(){
-		window.history.back();
+		window.location.replace("main-view.html");
 	});
 
 	function getAllUsersInfo(){

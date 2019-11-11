@@ -85,7 +85,7 @@
 			}
 		});
 		if(allEventsWithoutUser.length == 0){
-			$("#events-box-div").append("<p>Sem eventos no momento</p>");
+			//$("#events-box-div").append("<p>Sem eventos no momento</p>");
 			return;
 		}
 		//console.log(allEventsWithoutUser);
