@@ -305,6 +305,11 @@
 		$("#menu-1").prepend("<a href='./admin-page.html'>Administrador</a>");
 	}
 
+	$("#exit-app-btn").click(function(){
+		resetUserCache();
+		window.location.replace("/");
+	});
+
 	getAllUsersInfo();
 	getProfile();
 	getMainImg();
