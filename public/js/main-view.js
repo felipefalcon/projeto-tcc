@@ -248,7 +248,8 @@
 				$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
 			}
 		});
-		
+
+		$("#chat-users-div").append("</br></br></br>");
 	
 		$(".users-t-chat").fadeIn("slow");
 
