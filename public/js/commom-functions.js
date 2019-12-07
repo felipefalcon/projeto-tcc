@@ -18,7 +18,7 @@
 	toUser = JSON.parse(window.localStorage.getItem('toUser'));
 	// Variável responsável por cachear todos os eventos
 	allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
-	console.log(userInfo);
+	//console.log(userInfo);
 	//console.log(allEvents);
 	//console.log(window.location.pathname);
 	if((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined){

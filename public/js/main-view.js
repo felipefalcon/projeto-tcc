@@ -194,14 +194,21 @@
 				userMsgs = data;
 				var prof = getProfileSubject(data[0].subject);
 			}
-			if(!profiles.includes(prof)){
+			if(!profiles.includes(prof) && typeof prof !== "undefined"){
 				profiles.push(prof);
 			}
 		});
 
 		userMsgs = Object.values(_.groupBy(userMsgs, msg => msg.subject))
 
-		//console.log(userMsgs);
+		userMsgs.forEach(function(data){
+			var prof = getProfileSubject(data[0].subject);
+			if(!profiles.includes(prof) && typeof prof !== "undefined"){
+				profiles.push(prof);
+			}
+		});
+
+		//console.log(profiles);
 
 		profiles.forEach(function(data, j){
 			//console.log(getLastMessage(data._id, usersDistincs));
@@ -213,10 +220,14 @@
 					lastMsgUser = userMsgs[i][userMsgs[i].length-1];
 				}
 			}
-			if(lastMsgUser == "" || lastMsgSubject.date > lastMsgUser.date){
-				var lastMsg = lastMsgSubject;
-			}else if(lastMsgSubject == "" || lastMsgSubject.date <= lastMsgUser.date){
+			if(!lastMsgSubject){
 				var lastMsg = lastMsgUser;
+			}else{
+				if(lastMsgUser == "" || lastMsgSubject.date > lastMsgUser.date){
+					var lastMsg = lastMsgSubject;
+				}else if(lastMsgSubject == "" || lastMsgSubject.date <= lastMsgUser.date){
+					var lastMsg = lastMsgUser;
+				}
 			}
 			
 			if (j % 2 == 0) {
