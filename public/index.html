@@ -17,19 +17,23 @@
     <body class="text-center">
 		<div id="logo-div"><img src="./img/logo.png" width="140" height="140" class="mx-auto"></img></div>
         <div id="login-div">
-			<label class="title-label">ENTRAR</label>
 			<!-- LOGIN SOCIAL DESATIVADO - o Label ENTRAR é dentro dessa div abaixo e o subtitle OU é fora -->
-			<div id="socials-div" class="mb-2" style="display: none;">
-				<label class="subtitle-label">USAR REDES SOCIAIS</label>
+			<label class="title-label mb-2">Conectar-se por...</label>
+			<div id="socials-or-normal-btns" class="col-12 mb-4">
+				<input type="button" id="btn-social" class="login-opt-button col-5" value="REDE SOCIAL"></input>
+				<input type="button" id="btn-lero" class="login-opt-button col-5" value="CONTA LeRo"></input>
+			</div>
+			<div id="socials-div">
 				<button onclick="" id="btn-facebook-2" class="socials-button"><i class="fab fa-facebook-f" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-twitter-2" class="socials-button"><i class="fab fa-twitter" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-google-2" class="socials-button"><i class="fab fa-google" style="vertical-align: middle;"></i></button>
-				<label class="subtitle-label">OU</label>
+				<label class="subtitle-label mt-3">Clique no ícone da conta para conectar-se</label>
 			</div>
-			<form onsubmit="loginUser();" method="post" autocomplete="off">
-            <input type="email" name="email" id="email-input" class="general-input col-10 mx-auto mb-3 mt-2" placeholder="E-MAIL" required autofocus>
-            <input type="password" name="password" id="password-input" class="general-input col-10 mx-auto" placeholder="SENHA" required>
-			<button type="submit" class="general-button col-10 mx-auto mt-3 mb-4">CONECTAR</button>
+			<form id="login-form-sub" onsubmit="loginUser();" method="post" autocomplete="off">
+            <input type="email" name="email" id="email-input" class="general-input col-10 mx-auto" placeholder="E-MAIL" required autofocus>
+			<hr class="blue-hr col-9 mx-auto">
+			<input type="password" name="password" id="password-input" class="general-input col-10 mx-auto" placeholder="SENHA" required>
+			<button type="submit" class="general-button col-10 mx-auto mt-4 mb-5">CONECTAR</button>
 			</form>
 			<div id="create-remember-div" class="col-12 mx-auto">
 				<a href="create-account.html" class="col-6" style="text-align: left; float: left;">Criar uma conta</a>
