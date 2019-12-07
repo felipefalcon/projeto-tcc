@@ -5,6 +5,8 @@
 	$("#logo-div").innerHeight(h*4.2);
 	$("#login-div").innerHeight(h*5.8);
 
+	var optionClicked = "btn-social";
+
 	function loginUser(){
 		loading();
 		$.post("./con-user", { email: $("#email-input").val(), password: $("#password-input").val() })
@@ -23,6 +25,10 @@
 	$("#socials-div").css( "height" , $("#login-form-sub").css("height"));
 
 	$("#btn-social").click(function(){
+		if(optionClicked != "btn-lero"){
+			return;
+		}
+		optionClicked = "btn-social";
 		$("#btn-social").fadeTo( "slow" , 1);
 		$("#btn-lero").fadeTo( "slow" , 0.3);
 		$("#socials-div").css( "display" , "block");
@@ -32,6 +38,10 @@
 	});
 
 	$("#btn-lero").click(function(){
+		if(optionClicked != "btn-social"){
+			return;
+		}
+		optionClicked = "btn-lero";
 		$("#btn-lero").fadeTo( "slow" , 1);
 		$("#btn-social").fadeTo( "slow" , 0.3);
 		$("#login-form-sub").css( "display" , "block");
