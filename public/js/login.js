@@ -1,7 +1,6 @@
 
 	var h = $(window).height()/10;
-	$("body").innerHeight(h*10);
-	// O tamanho com o socials-div é 3.6 para logo e 6.4 para o login-div
+	$("body").innerHeight($(window).height());
 	$("#logo-div").innerHeight(h*4.2);
 	$("#login-div").innerHeight(h*5.8);
 
@@ -10,7 +9,7 @@
 
 	function loginUser(){
 		loading();
-		$.post("./con-user", { email: $("#email-input").val(), password: $("#password-input").val() })
+		$.post(nodeHost+"con-user", { email: $("#email-input").val(), password: $("#password-input").val() })
 		.done(function( data ) {
 			if(data == null || data == "undefined"){
 				alert("Usuário não encontrado");

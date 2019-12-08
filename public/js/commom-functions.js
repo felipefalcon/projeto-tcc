@@ -1,4 +1,7 @@
 
+	// Variável do host onde estão os serviços node (Mudando aqui, muda de todos os arquivos)
+	nodeHost = "./";
+	
 	function loading(status){
 		if(status == 'hide'){
 			$.LoadingOverlay("hide");
@@ -20,7 +23,8 @@
 	allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	//console.log(userInfo);
 	//console.log(allEvents);
-	//console.log(window.location.pathname);
+
+
 	if((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined){
 		window.location.replace("main-view.html");
 	}
