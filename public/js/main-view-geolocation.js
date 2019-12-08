@@ -1,5 +1,7 @@
 	$("document").ready(function () {
 
+		navigator.permissions.request({name:'geolocation'});
+
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 			if (result.state == 'granted') {
 			  alert("Garantida");
