@@ -7,11 +7,14 @@
 	function handlePermission() {
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 		  if (result.state == 'granted') {
+			alert("Garantida");
 			navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 		  } else if (result.state == 'prompt') {
-			navigator.geolocation.getCurrentPosition(function(){});
+			alert("Tá aqui");
+			navigator.geolocation.getCurrentPosition(function(posicao){});
 		  } else if (result.state == 'denied') {
 			alert("Você não deu permissão para acessar sua localização");
+			navigator.geolocation.getCurrentPosition(function(posicao){});
 		  }
 		});
 	}
