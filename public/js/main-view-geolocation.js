@@ -1,6 +1,14 @@
 	$("document").ready(function () {
 
-		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+		function handlePermission() {
+			navigator.permissions.query({name:'geolocation'}).then(function(result) {
+			  if (result.state == 'granted') {
+				navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+			  } else if (result.state == 'denied') {
+				alert("Você não deu permissão para acessar sua localização");
+			  }
+			});
+		  }
 
 		function sucessGeoLocation(posicao) {
 			$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
@@ -32,10 +40,9 @@
 		}
 
 		function failedGeoLocation(error) {
-			//if (error.code == error.PERMISSION_DENIED) {
-				// pop up dialog asking for location
-				alert("Você não deu permissão de localização");
-			
+			alert("Ocorreu alguma falha a acessar a localização");
 		}
+
+		handlePermission();
 
 	});
