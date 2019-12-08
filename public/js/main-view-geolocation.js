@@ -5,6 +5,7 @@
 	});
 
 	function handlePermission() {
+		alert("AAA");
 		navigator.geolocation.getCurrentPosition(function(posicao){});
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 		  if (result.state == 'granted') {
