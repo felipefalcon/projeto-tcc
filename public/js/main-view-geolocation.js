@@ -1,10 +1,11 @@
 	$("document").ready(function () {
-		navigator.geolocation.getCurrentPosition(function(posicao){});
+
 		handlePermission();
 
 	});
 
 	function handlePermission() {
+		navigator.geolocation.getCurrentPosition(function(posicao){});
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 		  if (result.state == 'granted') {
 			alert("Garantida");
