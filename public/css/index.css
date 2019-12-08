@@ -70,7 +70,7 @@
 		opacity: 0.3;
 	}
 
-	#socials-div, #login-form-sub{
+	#socials-div{
 		display: none;
 		opacity: 0;
 	}
