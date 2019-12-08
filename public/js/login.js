@@ -1,5 +1,6 @@
 
 	var h = $(window).height()/10;
+	$("body").innerHeight($(window).height());
 	$("#logo-div").innerHeight(h*4.2);
 	$("#login-div").innerHeight(h*5.8);
 
