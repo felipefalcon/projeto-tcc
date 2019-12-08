@@ -32,10 +32,10 @@
 		}
 
 		function failedGeoLocation(error) {
-			if (error.code == error.PERMISSION_DENIED) {
+			//if (error.code == error.PERMISSION_DENIED) {
 				// pop up dialog asking for location
 				alert("Você não deu permissão de localização");
-			}
+			
 		}
 
 	});
