@@ -16,6 +16,10 @@
 		}
 	}
 
+	function isNullOrUndefined(data){
+		return data == null || data === "undefined" || data === null;
+	}
+
 	// Variável responsável por cachear algumas informações dos usuários.
 	userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 

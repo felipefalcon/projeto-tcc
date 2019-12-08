@@ -55,7 +55,7 @@
 		loading();
 		$.post(nodeHost + "con-user", { email: $("#email-input").val(), password: $("#password-input").val() })
 			.done(function (data) {
-				if (data == null || data === "undefined") {
+				if (isNullOrUndefined(data)) {
 					alert("Usuário não encontrado");
 					loading('hide');
 				} else {
