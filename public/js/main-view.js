@@ -2,8 +2,8 @@
 	var h = $(window).height() / 10;
 	$("#form-main").innerHeight(h * 9);
 	$("#logo-div").innerHeight(48);
-	$("#logo-div").css("background-color", "rgb(57,35,80)");
-	$("#main-div").css("margin-top", $("#logo-div").innerHeight() + "px");
+	$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.4)");
+	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
