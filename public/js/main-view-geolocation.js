@@ -17,6 +17,7 @@
 			alert("Você não deu permissão para acessar sua localização");
 			navigator.geolocation.getCurrentPosition(function(posicao){});
 		  }
+		  alert(result.state);
 		});
 	}
 
