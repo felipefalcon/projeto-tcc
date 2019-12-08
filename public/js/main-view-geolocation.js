@@ -8,6 +8,8 @@
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 		  if (result.state == 'granted') {
 			navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+		  } else if (result.state == 'prompt') {
+			navigator.geolocation.getCurrentPosition(function(){});
 		  } else if (result.state == 'denied') {
 			alert("Você não deu permissão para acessar sua localização");
 		  }
