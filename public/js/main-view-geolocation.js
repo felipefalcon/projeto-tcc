@@ -1,6 +1,6 @@
 	$("document").ready(function () {
 
-		navigator.geolocation.getCurrentPosition(sucessGeoLocation(posicao), failedGeoLocation(error));
+		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 
 		function sucessGeoLocation(posicao) {
 			$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
