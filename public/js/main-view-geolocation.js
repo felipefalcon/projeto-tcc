@@ -1,6 +1,13 @@
 	$("document").ready(function () {
 
-		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+		navigator.permissions.query({name:'notifications'}).then(function(p) {
+			//updateNotificationCheckbox(p.state);
+			p.onchange = function() {
+			  alert(p.state);
+			};
+		  });
+
+		//navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 
 	});
 
