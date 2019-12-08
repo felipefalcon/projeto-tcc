@@ -208,6 +208,7 @@
 			}
 		});
 
+		var divsCreated = ""; 
 		profiles.forEach(function(data, j){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			var lastMsgSubject = "";
@@ -231,25 +232,24 @@
 			}
 			
 			if (j % 2 == 0) {
-				$("#chat-users-div").append("<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.24);' name='" + JSON.stringify(data) + "'>" +
-					"<div id='profile-img-div' name='" + data._id + "'></div>" +
-					"<div class='profile-info-div'>" +
-					"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-					"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
-					"</div></div>");
-				$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.24);' name='" + JSON.stringify(data) + "'>";
 			} else {
-				$("#chat-users-div").append("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>" +
-					"<div id='profile-img-div' name='" + data._id + "'></div>" +
-					"<div class='profile-info-div'>" +
-					"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-					"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
-					"</div></div>");
-				$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+				divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'>";
 			}
+			divsCreated += "<div id='profile-img-div' name='" + data._id + "'></div>" +
+			"<div class='profile-info-div'>" +
+			"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
+			"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
+			"</div></div>";
 		});
 
-		$("#chat-users-div").append("</br></br></br>");
+		$("#chat-users-div").append(divsCreated);
+		
+		profiles.forEach(function(data){
+			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+		});
+
+		$("#chat-users-div").append("<div style=' height: "+$("#logo-div").innerHeight()+"px'></div>");
 	
 		$(".users-t-chat").fadeIn("slow");
 
