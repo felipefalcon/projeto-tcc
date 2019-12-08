@@ -10,8 +10,8 @@
 	$("#menu-top-div").innerHeight(h * 1);
 	$("#logo-div img").innerHeight(h / 1.6);
 	$("#main-pic-div-c").innerHeight(h * 6.5);
-	$("html").innerHeight("auto");
-	$("body").innerHeight($(window).height() - 60);
+	//$("html").innerHeight("auto");
+	//$("body").innerHeight($(window).height() - 60);
 
 	$("#btn-menu-1").attr("disabled", true);
 
