@@ -1,12 +1,24 @@
 	$("document").ready(function () {
 
-		handlePermission();
+		navigator.permissions.query({name:'geolocation'}).then(function(result) {
+			if (result.state == 'granted') {
+			  alert("Garantida");
+			  navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+			} else if (result.state == 'prompt') {
+			  alert("Tá aqui");
+			  navigator.geolocation.getCurrentPosition(function(posicao){});
+			} else if (result.state == 'denied') {
+			  alert("Você não deu permissão para acessar sua localização");
+			  navigator.geolocation.getCurrentPosition(function(posicao){});
+			}
+			alert(result.state);
+		  });
 
 	});
 
 	function handlePermission() {
 		alert("AAA");
-		navigator.geolocation.getCurrentPosition(function(posicao){});
+		//navigator.geolocation.getCurrentPosition(function(posicao){});
 		navigator.permissions.query({name:'geolocation'}).then(function(result) {
 		  if (result.state == 'granted') {
 			alert("Garantida");
