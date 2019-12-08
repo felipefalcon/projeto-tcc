@@ -6,6 +6,7 @@
 	$("#login-div").innerHeight(h*5.8);
 
 	var optionClicked = "btn-social";
+	var fadeDelay = 300;
 
 	function loginUser(){
 		loading();
@@ -29,11 +30,11 @@
 			return;
 		}
 		optionClicked = "btn-social";
-		$("#btn-social").fadeTo( "slow" , 1);
-		$("#btn-lero").fadeTo( "slow" , 0.3);
+		$("#btn-social").fadeTo( fadeDelay , 1);
+		$("#btn-lero").fadeTo( fadeDelay , 0.3);
 		$("#socials-div").css( "display" , "block");
-		$("#socials-div").fadeTo( "slow" , 1);
-		$("#login-form-sub").fadeTo( "slow" , 0);
+		$("#socials-div").fadeTo( fadeDelay , 1);
+		$("#login-form-sub").fadeTo( fadeDelay , 0);
 		$("#login-form-sub").css( "display" , "none");
 	});
 
@@ -42,12 +43,24 @@
 			return;
 		}
 		optionClicked = "btn-lero";
-		$("#btn-lero").fadeTo( "slow" , 1);
-		$("#btn-social").fadeTo( "slow" , 0.3);
+		$("#btn-lero").fadeTo( fadeDelay , 1);
+		$("#btn-social").fadeTo( fadeDelay , 0.3);
 		$("#login-form-sub").css( "display" , "block");
-		$("#login-form-sub").fadeTo( "slow" , 1);
-		$("#socials-div").fadeTo( "slow" , 0);
+		$("#login-form-sub").fadeTo( fadeDelay , 1);
+		$("#socials-div").fadeTo( fadeDelay , 0);
 		$("#socials-div").css( "display" , "none");
+	});
+
+	$("#email-input").focusout(function(){
+		if($("#email-input").val().length > 0){
+			$("#email-input").css("font-size", "16px");
+		}
+	});
+
+	$("#password-input").focusout(function(){
+		if($("#password-input").val().length > 0){
+			$("#password-input").css("font-size", "16px");
+		}
 	});
 
 	$("#btn-lero").click();
