@@ -1,40 +1,8 @@
 	$("document").ready(function () {
 
-		navigator.permissions.request({name:'geolocation'});
-
-		navigator.permissions.query({name:'geolocation'}).then(function(result) {
-			if (result.state == 'granted') {
-			  alert("Garantida");
-			  navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
-			} else if (result.state == 'prompt') {
-			  alert("Tá aqui");
-			  navigator.geolocation.getCurrentPosition(function(posicao){});
-			} else if (result.state == 'denied') {
-			  alert("Você não deu permissão para acessar sua localização");
-			  navigator.geolocation.getCurrentPosition(function(posicao){});
-			}
-			alert(result.state);
-		  });
+		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 
 	});
-
-	function handlePermission() {
-		alert("AAA");
-		//navigator.geolocation.getCurrentPosition(function(posicao){});
-		navigator.permissions.query({name:'geolocation'}).then(function(result) {
-		  if (result.state == 'granted') {
-			alert("Garantida");
-			navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
-		  } else if (result.state == 'prompt') {
-			alert("Tá aqui");
-			navigator.geolocation.getCurrentPosition(function(posicao){});
-		  } else if (result.state == 'denied') {
-			alert("Você não deu permissão para acessar sua localização");
-			navigator.geolocation.getCurrentPosition(function(posicao){});
-		  }
-		  alert(result.state);
-		});
-	}
 
 	function sucessGeoLocation(posicao) {
 		$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
@@ -66,5 +34,18 @@
 	}
 
 	function failedGeoLocation(error) {
-		alert("Ocorreu alguma falha a acessar a localização");
+		switch(error.code) {
+			case error.PERMISSION_DENIED:
+			  alert("User denied the request for Geolocation.");
+			  break;
+			case error.POSITION_UNAVAILABLE:
+				alert("Location information is unavailable.");
+			  break;
+			case error.TIMEOUT:
+				alert("The request to get user location timed out.");
+			  break;
+			case error.UNKNOWN_ERROR:
+				alert("An unknown error occurred.");
+			  break;
+		  }
 	}
