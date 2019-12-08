@@ -208,26 +208,26 @@
 			}
 		});
 
-		//console.log(profiles);
-
 		profiles.forEach(function(data, j){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			var lastMsgSubject = "";
 			var lastMsgUser = "";
+			var userLength = userMsgs.length;
 			lastMsgSubject = getLastMessage(data._id, usersDistincs);
-			for(var i = 0; i < userMsgs.length; ++i){
+			for(var i = 0; i < userLength; ++i){
 				if(data._id == userMsgs[i][0].subject){
 					lastMsgUser = userMsgs[i][userMsgs[i].length-1];
+					break;
 				}
 			}
-			if(!lastMsgSubject){
+
+			var dateMsgUser = new Date(lastMsgUser.date);
+			var dateMsgSubject = new Date(lastMsgSubject.date);
+			
+			if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
+				var lastMsg = lastMsgSubject;
+			}else if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
 				var lastMsg = lastMsgUser;
-			}else{
-				if(lastMsgUser == "" || lastMsgSubject.date > lastMsgUser.date){
-					var lastMsg = lastMsgSubject;
-				}else if(lastMsgSubject == "" || lastMsgSubject.date <= lastMsgUser.date){
-					var lastMsg = lastMsgUser;
-				}
 			}
 			
 			if (j % 2 == 0) {
@@ -265,11 +265,13 @@
 	}
 
 	function getLastMessage(id, usersDistincs){
-		for(var i = 0; i < usersDistincs.length; ++i){
+		var usersDistincsLength = usersDistincs.length;
+		for(var i = 0; i < usersDistincsLength; ++i){
 			if(usersDistincs[i][0].author == id){
 				return usersDistincs[i][usersDistincs[i].length-1];
 			}
 		}
+		return "";
 	}
 
 	function getProfileSubject(id){
