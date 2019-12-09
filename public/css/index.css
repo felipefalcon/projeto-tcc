@@ -340,6 +340,10 @@
 		/* margin-top: 58px; */
 	}
 
+	#main-body-div{
+		height: 100%;
+	}
+
 	#menu-top-div{
 		width: 100%;
 		display: flex;
@@ -368,8 +372,8 @@
 	#profile-img-div{
 		background-color: gray;
 		display: inline-block;
-		width: 80px;
-		height: 80px;
+		width: 78px;
+		height: 78px;
 		border-radius: 100px;
 		left: -20px;
 		position: relative;
@@ -624,7 +628,7 @@
 	.chat-msg-label{
 		max-height: 48px; 
 		overflow: hidden; 
-		margin-top: 10px;
+		margin-top: 6px;
 	}
 
 	.events-t{

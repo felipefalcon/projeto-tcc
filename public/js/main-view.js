@@ -16,10 +16,7 @@
 	$("#btn-menu-1").attr("disabled", true);
 
 	function getAllUsersInfo() {
-		$("#profile-div").LoadingOverlay("show", { background: "rgba(63, 51, 74, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		$("#events-div").LoadingOverlay("show", { background: "rgba(63, 51, 74, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		$("#next-u-div").LoadingOverlay("show", { background: "rgba(63, 51, 74, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		$("#chat-div").LoadingOverlay("show", { background: "rgba(63, 51, 74, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users").done(function (data) {
 			if (data == null || data == "undefined") {
 
@@ -32,17 +29,11 @@
 				makeChatObjects();
 				getAllEvents();
 			}
-			$("#profile-div").LoadingOverlay('hide');
-			$("#events-div").LoadingOverlay('hide');
-			$("#next-u-div").LoadingOverlay('hide');
-			$("#chat-div").LoadingOverlay('hide');
+			$("#main-body-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-			$("#profile-div").LoadingOverlay('hide');
-			$("#events-div").LoadingOverlay('hide');
-			$("#next-u-div").LoadingOverlay('hide');
-			$("#chat-div").LoadingOverlay('hide');
+			$("#main-body-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
 		});
 	}
@@ -67,10 +58,7 @@
 			
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-			$("#profile-div").LoadingOverlay('hide');
-			$("#events-div").LoadingOverlay('hide');
-			$("#next-u-div").LoadingOverlay('hide');
-			$("#chat-div").LoadingOverlay('hide');
+			$("#main-body-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
 		});
 	}
@@ -92,37 +80,39 @@
 				allEventsWithoutUser.push(data);
 			}
 		});
+
 		if(allEventsWithoutUser.length == 0){
 			//$("#events-box-div").append("<p>Sem eventos no momento</p>");
 			return;
 		}
+
+		let createdDivs = "";
 		allEventsWithoutUser.forEach(function (data, i) {
 			if (i % 2 == 0) {
-				$("#events-box-div").append("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
-					"<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
-					"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
-					"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
-					"</div>");
+				createdDivs +="<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>";
 			} else {
-				$("#events-box-div").append("<div class='events-t' name='" + data._id + "'>" +
-				"<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
-				"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
-				"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
-				"</div>");
+				createdDivs += "<div class='events-t' name='" + data._id + "'>";
 			}
-			$(".event-subscribe-btn").click(function () {
-				//setToUser($(this).attr('name'));
+			createdDivs += "<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
+			"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
+			"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
+			"</div>";
 
-				var userBasic = {};
-				userBasic._id = userInfo._id;
-				userBasic.name = userInfo.name;
-				userBasic.main_pic = userInfo.pics_url.main_pic;
+		});
+
+		$("#events-box-div").append(createdDivs);
+
+		allEventsWithoutUser.forEach(function (data, i) {
+
+			$(".event-subscribe-btn").click(function () {
+
+				var userBasic = {id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
 
 				$.get("./upd-event", {
 					_id: 	$(this).attr('name'),
 					user: userBasic
 				}).done(function( data ) {
-					if(data == null || data == "undefined"){
+					if(isNullOrUndefined(data)){
 						console.log("Deu merda");
 					}else{
 						$("#events-box-div").empty();
@@ -133,7 +123,7 @@
 			});
 
 		});
-		$(".events-t").fadeIn("slow");
+
 	}
 
 	// BACKUP da função de eventos - que só puxava usuários

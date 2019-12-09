@@ -17,7 +17,7 @@
 	}
 
 	function isNullOrUndefined(data){
-		return data == null || data === "undefined" || data === null;
+		return data == null || data === "undefined" || data === null || typeof data === "undefined";
 	}
 
 	// Variável responsável por cachear algumas informações dos usuários.
