@@ -25,9 +25,9 @@
 					return userInfo.email != em.email
 				});
 				setAllUsersCache(excludeSelf);
-				makeUsersNextObjects();
-				makeChatObjects();
 				getAllEvents();
+				makeChatObjects();
+				makeUsersNextObjects();
 			}
 			$("#main-body-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
@@ -102,68 +102,67 @@
 
 		$("#events-box-div").append(createdDivs);
 
-		allEventsWithoutUser.forEach(function (data, i) {
-
-			$(".event-subscribe-btn").click(function () {
-
-				var userBasic = {id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
-
-				$.get("./upd-event", {
-					_id: 	$(this).attr('name'),
-					user: userBasic
-				}).done(function( data ) {
-					if(isNullOrUndefined(data)){
-						console.log("Deu merda");
-					}else{
-						$("#events-box-div").empty();
-						getAllEvents();
-					}
-				});
-
+		$(".event-subscribe-btn").click(function () {
+			$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+			var userBasic = {id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
+			$.get("./upd-event", {
+				_id: 	$(this).attr('name'),
+				user: userBasic
+			}).done(function( data ) {
+				if(isNullOrUndefined(data)){
+					console.log("Deu merda");
+				}else{
+					$("#events-box-div").empty();
+					getAllEvents();
+				}
+				$("#main-body-div").LoadingOverlay('hide');
 			});
-
 		});
 
 	}
 
 	// BACKUP da função de eventos - que só puxava usuários
-	function makeEventsObjects2() {
-		allUsersInfo.forEach(function (data, i) {
-			if (i % 2 == 0) {
-				$("#events-div").append("<div class='users-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
-					"<div id='profile-img-div' name='" + data._id + "'></div>" +
-					"<div class='profile-info-div'>" +
-					"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-					"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
-					"<label class='user-d-u-label'>" + data.email + "</label>" +
-					"</div></div>");
-				$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-			} else {
-				$("#events-div").append("<div class='users-t' name='" + data._id + "'>" +
-					"<div id='profile-img-div' name='" + data._id + "'></div>" +
-					"<div class='profile-info-div'>" +
-					"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-					"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
-					"<label class='user-d-u-label'>" + data.email + "</label>" +
-					"</div></div>");
-				$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-			}
-		});
-		$(".users-t").fadeIn("slow");
-	}
+	// function makeEventsObjects2() {
+	// 	allUsersInfo.forEach(function (data, i) {
+	// 		if (i % 2 == 0) {
+	// 			$("#events-div").append("<div class='users-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
+	// 				"<div id='profile-img-div' name='" + data._id + "'></div>" +
+	// 				"<div class='profile-info-div'>" +
+	// 				"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
+	// 				"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
+	// 				"<label class='user-d-u-label'>" + data.email + "</label>" +
+	// 				"</div></div>");
+	// 			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+	// 		} else {
+	// 			$("#events-div").append("<div class='users-t' name='" + data._id + "'>" +
+	// 				"<div id='profile-img-div' name='" + data._id + "'></div>" +
+	// 				"<div class='profile-info-div'>" +
+	// 				"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
+	// 				"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
+	// 				"<label class='user-d-u-label'>" + data.email + "</label>" +
+	// 				"</div></div>");
+	// 			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+	// 		}
+	// 	});
+	// 	$(".users-t").fadeIn("slow");
+	// }
 
 	function makeUsersNextObjects() {
+		let createdDivs = "";
 		allUsersInfo.forEach(function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
-			$("#next-u-users").append("<div class='user-n-u-div mx-auto'>"
+			createdDivs += "<div class='user-n-u-div mx-auto'>"
 			+ "<label class='user-n-u-label'>" + data.name + "</label>"
 			+ "<div id='user-n-u-div-content' name='" + data._id + "'>"
 			+ "<div class='send-msg-button' name='" + JSON.stringify(data) + "'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
-			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>");
-		
+			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
+		});
+
+		$("#next-u-users").append(createdDivs);
+
+		allUsersInfo.forEach(function (data) {
 			$("#user-n-u-div-content[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-		}
-		);
+		});
 
 		$(".send-msg-button").click(function () {
 			setToUser($(this).attr('name'));

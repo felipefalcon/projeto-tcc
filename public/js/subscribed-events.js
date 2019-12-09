@@ -60,25 +60,28 @@
 				"<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-notsubscribe-btn' name='"+data._id+"' type='button' value='DEIXAR'/><input class='event-seedetails-btn' name='"+data._id+"' type='button' value='DETALHES'/></label>" +
 				"</div>");
 			}
+			
 			$(".event-notsubscribe-btn").click(function () {
-				if(window.confirm("Você tem certeza que não quer seguir mais este evento?")){
-					var userBasic = {};
-					userBasic._id = userInfo._id;
-					userBasic.name = userInfo.name;
-					userBasic.main_pic = userInfo.pics_url.main_pic;
-
-					$.get("./exit-event", {
-						_id: 	$(this).attr('name'),
-						user: userBasic
-					}).done(function( data ) {
-						if(data == null || data == "undefined"){
-							console.log("Deu merda");
-						}else{
-							$("#events-div").empty();
-							getAllEvents();
-						}
-					});
-				}
+				console.log($(this).attr('name'));
+					if (window.confirm("Você tem certeza que não quer seguir mais este evento?")) {
+						var userBasic = {};
+						userBasic._id = userInfo._id;
+						userBasic.name = userInfo.name;
+						userBasic.main_pic = userInfo.pics_url.main_pic;
+	
+						$.get("./exit-event", {
+							_id: 	$(this).attr('name'),
+							user: userBasic
+						}).done(function( data ) {
+							if(data == null || data == "undefined"){
+								console.log("Deu merda");
+							}else{
+								$("#events-div").empty();
+								getAllEvents();
+							}
+						});
+					}
+				
 			});
 
 			data.participants.forEach(function(participant){
