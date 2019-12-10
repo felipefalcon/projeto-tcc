@@ -75,8 +75,8 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
-				res.json(result); 
 				db.close();
+				res.json(result); 
 			});
 		}); 
 	});
@@ -297,7 +297,7 @@
 			var objectId = new require('mongodb').ObjectID(req.query._id);
 			var query = {_id: objectId};
 			var newvalues = {$pull: 	{ participants: req.query.user }};
-			dbo.collection("events").updateOne(query, newvalues, {upsert: true}, function(err, result) {
+			dbo.collection("events").updateOne(query, newvalues, function(err, result) {
 				if (err) throw err;
 				db.close();
 				res.json({ ok: 'ok' }); 
