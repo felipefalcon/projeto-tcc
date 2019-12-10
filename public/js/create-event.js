@@ -24,9 +24,9 @@ function createEvent(){
 				evento: evento
 			}).done(function( data ) {
 				if(data == null || data == "undefined"){
-					console.log("Deu merda");
+					alert("Deu merda");
 				}else{
-					console.log("Evento criado!");
+					alert("Evento criado!");
 				}
 				loading('hide');
 			});

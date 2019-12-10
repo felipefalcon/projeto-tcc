@@ -86,7 +86,8 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db("mydb");
-			dbo.collection("users").find({}, { projection: { password: 0}}).toArray(function(err, result) {
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0}}).toArray(function(err, result) {
 				if (err) throw err;
 				db.close();
 				if(result){

@@ -17,12 +17,9 @@
 
 	function getAllUsersInfo() {
 		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		$.get("./get-users").done(function (data) {
+		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
-				var excludeSelf = data.filter(function (em) {
-					return userInfo.email != em.email
-				});
-				setAllUsersCache(excludeSelf);
+				setAllUsersCache(data);
 				getAllEvents();
 				makeChatObjects();
 				makeUsersNextObjects();
@@ -323,7 +320,14 @@
 		window.location.replace("/");
 	});
 
-	getAllUsersInfo();
-	getProfile();
-	getMainImg();
-	verifyAdminPermission();
+	// getAllUsersInfo();
+	// getProfile();
+	// getMainImg();
+	// verifyAdminPermission();
+
+	(function(){
+		getAllUsersInfo();
+		getProfile();
+		getMainImg();
+		verifyAdminPermission();
+	})();
