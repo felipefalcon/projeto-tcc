@@ -18,9 +18,7 @@
 	function getAllUsersInfo() {
 		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users").done(function (data) {
-			if (data == null || data == "undefined") {
-
-			} else {
+			if (!(isNullOrUndefined(data))) {
 				var excludeSelf = data.filter(function (em) {
 					return userInfo.email != em.email
 				});
@@ -68,7 +66,8 @@
 		var allEventsWithoutUser = [];//allEvents.slice();
 		allEvents.forEach(function(data){
 			var flag = false;
-			for(var i = 0; i < data.participants.length; ++i){
+			var participantLength = data.participants.length;
+			for(var i = 0; i < participantLength; ++i){
 				if(userInfo._id != data.participants[i]._id){
 					flag = true;
 				}else{
@@ -153,16 +152,16 @@
 			var cityD = data.location ? data.location.city_district : "???";
 			createdDivs += "<div class='user-n-u-div mx-auto'>"
 			+ "<label class='user-n-u-label'>" + data.name + "</label>"
-			+ "<div id='user-n-u-div-content' name='" + data._id + "'>"
+			+ "<div id='user-n-u-div-content' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'>"
 			+ "<div class='send-msg-button' name='" + JSON.stringify(data) + "'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
 			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
 		});
 
 		$("#next-u-users").append(createdDivs);
 
-		allUsersInfo.forEach(function (data) {
-			$("#user-n-u-div-content[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-		});
+		// allUsersInfo.forEach(function (data) {
+		// 	$("#user-n-u-div-content[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+		// });
 
 		$(".send-msg-button").click(function () {
 			setToUser($(this).attr('name'));
@@ -225,7 +224,7 @@
 			} else {
 				divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'>";
 			}
-			divsCreated += "<div id='profile-img-div' name='" + data._id + "'></div>" +
+			divsCreated += "<div id='profile-img-div' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
 			"<div class='profile-info-div'>" +
 			"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
 			"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
@@ -234,12 +233,12 @@
 
 		$("#chat-users-div").append(divsCreated);
 		
-		profiles.forEach(function(data){
-			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-		});
+		// profiles.forEach(function(data){
+		// 	$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
+		// });
 
 		$("#chat-users-div").append("<div style=' height: "+$("#logo-div").innerHeight()+"px'></div>");
-	
+
 		$(".users-t-chat").fadeIn("slow");
 
 		$(".users-t-chat").click(function () {
@@ -264,7 +263,8 @@
 	}
 
 	function getProfileSubject(id){
-		for(var i = 0; i < allUsersInfo.length; ++i){
+		var allUsersInfoLength = allUsersInfo.length;
+		for(var i = 0; i < allUsersInfoLength; ++i){
 			if(allUsersInfo[i]._id == id){
 				return allUsersInfo[i];
 				break;
