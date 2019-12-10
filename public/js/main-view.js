@@ -245,7 +245,7 @@
 			setTimeout(function () {
 				setToUser(subject);
 				window.location.href = "./user-conversation.html"
-			}, 200);
+			}, 100);
 		});
 	}
 
