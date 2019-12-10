@@ -20,7 +20,6 @@
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
-				getAllEvents();
 				makeChatObjects();
 				makeUsersNextObjects();
 			}
@@ -109,11 +108,12 @@
 					console.log("Deu merda");
 				}else{
 					$("#events-box-div").empty();
-					getAllEvents();
+					return getAllEvents();
 				}
-				$("#main-body-div").LoadingOverlay('hide');
 			});
 		});
+
+		$("#main-body-div").LoadingOverlay('hide');
 
 	}
 
@@ -327,6 +327,7 @@
 
 	(function(){
 		getAllUsersInfo();
+		getAllEvents();
 		getProfile();
 		getMainImg();
 		verifyAdminPermission();

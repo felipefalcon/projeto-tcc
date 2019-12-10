@@ -49,9 +49,9 @@
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
 				if (err) throw err;
-				db.close();
 			});
 			res.send("");
+			db.close();
 		}); 
 	});
 	
@@ -62,9 +62,9 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json(result); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -75,9 +75,9 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json(result); 
 			});
+			db.close();
 		}); 
 	});
 	
@@ -89,12 +89,12 @@
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0}}).toArray(function(err, result) {
 				if (err) throw err;
-				db.close();
 				if(result){
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
 			});
+			db.close();
 		}); 
 	});
 
@@ -107,9 +107,9 @@
 			var newvalues = {$set: { "pics_url.main_pic": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -122,9 +122,9 @@
 			var newvalues = {$set: { "pics_url.sec_pic1": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 	
@@ -137,9 +137,9 @@
 			var newvalues = {$set: { "pics_url.sec_pic2": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 	
@@ -152,9 +152,9 @@
 			var newvalues = {$set: { "pics_url.sec_pic3": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -172,9 +172,9 @@
 							};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -187,9 +187,9 @@
 			var newvalues = {$set: 	{ location: req.query.location }};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -205,14 +205,13 @@
 			var newvalues = {$push: 	{ messages: req.query.message }};
 			dbo.collection("users").updateOne(query, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				//res.json({ ok: 'ok' }); 
 			});
 			dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -223,9 +222,9 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").deleteOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json(result);
 			});
+			db.close();
 		}); 
 	});
 
@@ -237,9 +236,9 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").deleteOne({_id: objectId}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json(result);
 			});
+			db.close();
 		}); 
 	});
 
@@ -252,9 +251,9 @@
 			myObj.participants = [req.query.user];
 			dbo.collection("events").insertOne(myObj, function(err, res) {
 				if (err) throw err;
-				db.close();
 			});
 			res.send({ok: "ok"});
+			db.close();
 		}); 
 	});
 
@@ -265,12 +264,12 @@
 			var dbo = db.db("mydb");
 			dbo.collection("events").find({}).toArray(function(err, result) {
 				if (err) throw err;
-				db.close();
 				if(result){
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
 			});
+			db.close();
 		}); 
 	});
 
@@ -284,9 +283,9 @@
 			var newvalues = {$push: 	{ participants: req.query.user }};
 			dbo.collection("events").updateOne(query, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 
@@ -300,9 +299,9 @@
 			var newvalues = {$pull: 	{ participants: req.query.user }};
 			dbo.collection("events").updateOne(query, newvalues, function(err, result) {
 				if (err) throw err;
-				db.close();
 				res.json({ ok: 'ok' }); 
 			});
+			db.close();
 		}); 
 	});
 //  ------------------------------------------------------------------------------------------------------------------------
@@ -317,7 +316,6 @@
 			var dbo = db.db("mydb");
 			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
-				db.close();
 				if(result){
 					sendEmailRecover(result.email, result.password);
 					res.json({ ok: 'ok' }); 
@@ -325,6 +323,7 @@
 					res.json({ oh_no: 'oh-no' }); 
 				}
 			});
+			db.close();
 		}); 
 	});
 	
