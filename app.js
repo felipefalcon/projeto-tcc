@@ -265,9 +265,10 @@
 			dbo.collection("events").find({}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
-					return res.json(result);
+					res.json(result);
+				}else{
+					res.json({oh_no: "oh-no"});
 				}
-				res.json({oh_no: "oh-no"});
 			});
 			db.close();
 		}); 

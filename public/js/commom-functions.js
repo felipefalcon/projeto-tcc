@@ -73,6 +73,14 @@
 		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	}
 
+	if(isNullOrUndefined(userInfo) && window.location.pathname != "index.html"){
+		resetUserCache();
+		resetAllUsersCache();
+		resetToUser();
+		resetAllEvents();
+		window.location.replace("index.html");
+	}
+
 	//Auto-login, verifica se há cache do Usuário se houve automaticamente Muda para Tela Principal
 	if ((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined) {
 		window.location.replace("main-view.html");

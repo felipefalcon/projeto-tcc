@@ -75,9 +75,11 @@
 				allEventsWithoutUser.push(data);
 			}
 		});
+		console.log(allEventsWithoutUser);
 
 		if(allEventsWithoutUser.length == 0){
 			//$("#events-box-div").append("<p>Sem eventos no momento</p>");
+			$("#events-box-div").empty();
 			return;
 		}
 
@@ -95,11 +97,12 @@
 
 		});
 
+		$("#events-box-div").empty();
 		$("#events-box-div").append(createdDivs);
 
 		$(".event-subscribe-btn").click(function () {
 			$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-			var userBasic = {id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
+			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
 			$.get("./upd-event", {
 				_id: 	$(this).attr('name'),
 				user: userBasic
@@ -107,8 +110,7 @@
 				if(isNullOrUndefined(data)){
 					console.log("Deu merda");
 				}else{
-					$("#events-box-div").empty();
-					return getAllEvents();
+					getAllEvents();
 				}
 			});
 		});
