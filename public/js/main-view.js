@@ -21,7 +21,7 @@
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
 				makeChatObjects();
-				makeUsersNextObjects();
+				//makeUsersNextObjects();
 			}
 			$("#main-body-div").LoadingOverlay('hide');
 			$("#btn-menu-1").attr("disabled", false);
@@ -218,7 +218,7 @@
 			}
 			
 			if (j % 2 == 0) {
-				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.24);' name='" + JSON.stringify(data) + "'>";
+				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.24); border: 2px solid rgba(255,255,255,0.5);' name='" + JSON.stringify(data) + "'>";
 			} else {
 				divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'>";
 			}
@@ -235,7 +235,7 @@
 		// 	$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
 		// });
 
-		$("#chat-users-div").append("<div style=' height: "+$("#logo-div").innerHeight()+"px'></div>");
+		$("#chat-users-div").append("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
 
 		$(".users-t-chat").fadeIn("slow");
 
