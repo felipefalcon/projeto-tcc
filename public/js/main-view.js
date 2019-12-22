@@ -2,7 +2,7 @@
 	var h = $(window).height() / 10;
 	$("#form-main").innerHeight(h * 9);
 	$("#logo-div").innerHeight(48);
-	$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.4)");
+	$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.5)");
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
@@ -111,11 +111,10 @@
 					console.log("Deu merda");
 				}else{
 					getAllEvents();
+					$("#main-body-div").LoadingOverlay('hide');
 				}
 			});
 		});
-
-		$("#main-body-div").LoadingOverlay('hide');
 
 	}
 
