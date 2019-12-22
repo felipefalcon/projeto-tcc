@@ -424,7 +424,7 @@
 		position: absolute;
 		right: 0;
 		background-color: white;
-		top: 8px;
+		top: 6px;
 		display: none;
 		box-shadow: 2px 2px 2px #411157;
 	}
@@ -435,7 +435,7 @@
 		padding: 24px;
 		padding-bottom: 10px;
 		padding-top: 10px;
-		font-size: 14px;
+		font-size: 15px;
 		text-decoration: none;
 		text-align: left;
 		padding-right: 48px;
@@ -451,15 +451,16 @@
 	}
 	
 	#user-information-div{
-		background-color: rgba(65, 30, 104, 0.5);
-		position: relative;
 		overflow: hidden;
+		text-align: left;
+		padding-top: 6px;
 	}
 	
 	#user-information-div label{
-		margin: 0;
+		margin: 6px;
 		text-align: left;
 		padding-bottom:4px;
+		margin-bottom: 2px;
 	}
 	
 	#menu-bottom-div .btn-menu{
@@ -711,4 +712,42 @@
 		font-weight: bolder;
 		color: #4c376b;
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+	}
+
+	#label-user-name, #label-user-age, #label-name-location{
+		display: inline-block;
+		background: white;
+		color: #4c376b;
+		padding: 16px;
+		padding-top: 6px;
+		border-radius: 20px;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+	}
+
+	#label-user-name{
+		padding-top: 0;
+		padding-bottom: 1px !important;
+		box-shadow: none;
+		padding-left: 4px !important;
+		padding-right: 8px;
+		background: none;
+	}
+
+	#name-label-user-info{
+		display: inline-block;
+		background: white;
+		color: #4c376b;
+		border-radius: 20px;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+		margin-left: 6px;
+	}
+
+	#other-label-user-info{
+		display: none;
+	}
+
+	#show-user-info{
+		border: none;
+		background: none;
+		padding-right: 20px;
 	}

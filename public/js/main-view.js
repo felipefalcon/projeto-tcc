@@ -16,6 +16,8 @@
 	//$("body").innerHeight($(window).height() - 60);
 
 	$("#btn-menu-1").attr("disabled", true);
+	
+	let flagInfoProfile = false;
 
 	function getAllUsersInfo() {
 		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
@@ -290,6 +292,16 @@
 			return;
 		}
 		$("#menu-1").slideUp(300);
+	});
+
+	$("#name-label-user-info").click(function () {
+		if(flagInfoProfile) return;
+		$("#other-label-user-info").slideDown(600);
+		setTimeout(function(){
+			$("#other-label-user-info").slideUp(900);
+			flagInfoProfile = false;
+		}, 10000);
+		flagInfoProfile = true;
 	});
 
 	function deleteAccount() {

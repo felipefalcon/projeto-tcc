@@ -50,9 +50,16 @@
 		<div id="profile-div" class="mx-auto tab-pane fade">
 			<div id="main-pic-div-c" class="mx-auto">
 				<div id="user-information-div" class="col-9">
-					<label class="title-label" id="label-user-name"></label>
-					<label class="title-label" id="label-user-age">21</label>
-					<label class="title-label" id="label-name-location">São Paulo - SP</label>
+					<div id="name-label-user-info">
+						<button id="show-user-info">
+							<label class="title-label" id="label-user-name"></label>
+							<i class="fa fa-angle-down" style="color: #ff80ac; font-size: 20px; vertical-align: text-bottom;"></i>
+						</button>
+					</div></br>
+					<div id="other-label-user-info">
+						<label class="title-label" id="label-user-age">21</label></br>
+						<label class="title-label" id="label-name-location">São Paulo - SP</label>
+					</div>
 				</div>
 				<div id="menu-bottom-prof" class="col-12">
 					<input id="btn-prof-edit" type="button" onclick="window.location.href='create-profile.html';"
