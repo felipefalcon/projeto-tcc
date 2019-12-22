@@ -371,12 +371,12 @@
 	}
 	
 	#profile-img-div{
-		background-color: gray;
+		background-color: white;
 		display: inline-block;
 		width: 76px;
 		height: 76px;
 		border-radius: 100px;
-		left: -20px;
+		left: -18px;
 		position: relative;
 		float: left;
 		background-size: cover;
@@ -395,7 +395,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: rgba(39, 19, 81, 0.73);
+		background-color: rgba(39, 19, 81, 0.75);
 	}
 
 	.btn-menu{
