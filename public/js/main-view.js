@@ -6,7 +6,7 @@
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
-	$("#main-pic-div-c").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#main-pic-div-c").css("min-height", $(window).innerHeight() - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#menu-top-div").innerHeight(h * 1);
@@ -296,9 +296,9 @@
 
 	$("#name-label-user-info").click(function () {
 		if(flagInfoProfile) return;
-		$("#other-label-user-info").slideDown(600);
+		$("#other-label-user-info").slideDown(300);
 		setTimeout(function(){
-			$("#other-label-user-info").slideUp(900);
+			$("#other-label-user-info").slideUp(600);
 			flagInfoProfile = false;
 		}, 10000);
 		flagInfoProfile = true;
