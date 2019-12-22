@@ -19,15 +19,15 @@
 	});
 
 //	NOME DO BANCO DE DADOS
-	var dbName = "mydb";
+	const dbName = "mydb";
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO DO MONGODB
 //	------------------------------------------------------------------------------------------------------------------------
 	var mongo = require('mongodb'); 
-	var MongoClient = mongo.MongoClient;
-	var url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
-	var paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
+	const MongoClient = mongo.MongoClient;
+	const url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
+	const paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	ROTAS

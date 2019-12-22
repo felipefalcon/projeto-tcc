@@ -5,6 +5,8 @@
 	$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.75)");
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#main-pic-div-c").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#menu-top-div").innerHeight(h * 1);
@@ -75,7 +77,6 @@
 				allEventsWithoutUser.push(data);
 			}
 		});
-		console.log(allEventsWithoutUser);
 
 		if(allEventsWithoutUser.length == 0){
 			//$("#events-box-div").append("<p>Sem eventos no momento</p>");

@@ -139,7 +139,7 @@
 		border-radius: 52px;
 		background: RGBA(230, 114, 163, 0);
 		border: 2px solid white;
-		letter-spacing: 1px;
+		padding-top: 4px;
 	}
 
 	#create-remember-div{
@@ -384,7 +384,7 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		border: 2px solid white;
-		 box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.6);
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.6);
 	}
 
 	#menu-bottom-div{
@@ -443,7 +443,6 @@
 	
 	#main-pic-div-c{
 		height: 128px;
-		border-bottom: 2px solid white;
 		background-size: cover;
 		background-image: url('user-profile.png');
 		background-repeat: no-repeat;
@@ -701,3 +700,15 @@
 		padding-top: 48px;
 	}
 
+	#menu-bottom-prof{
+		position: fixed;
+		bottom: 0;
+		margin-bottom: 64px;
+	}
+
+	#btn-prof-edit{
+		background-color: white;
+		font-weight: bolder;
+		color: #4c376b;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+	}

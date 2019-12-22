@@ -8,15 +8,10 @@
 		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<title>TELA PRINCIPAL</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	<script type="text/javascript" src="./js/commom-functions.js"></script>
-	<script type="text/javascript"
-		src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
 </head>
 
 <body class="text-center">
@@ -59,13 +54,12 @@
 					<label class="title-label" id="label-user-age">21</label>
 					<label class="title-label" id="label-name-location">São Paulo - SP</label>
 				</div>
-			</div>
-			<div class="col-12 mx-auto">
-				<input type="button" onclick="window.location.href='create-profile.html';"
-					class="general-button col-6 mx-auto mt-4 mb-4" value="EDITAR PERFIL"
-					style="float: left; font-size: 0.8em;">
-				<input type="button" onclick="deleteAccount();" class="general-button col-6 mx-auto mt-4 mb-4"
-					value="DELETAR CONTA" style="font-size: 0.8em;">
+				<div id="menu-bottom-prof" class="col-12">
+					<input id="btn-prof-edit" type="button" onclick="window.location.href='create-profile.html';"
+						class="general-button col-6 mx-auto mt-3 mb-3" value="EDITAR PERFIL">
+					<!-- <input type="button" onclick="deleteAccount();" class="general-button col-6 mx-auto mt-4 mb-4"
+						value="DELETAR CONTA" style="font-size: 0.8em;"> -->
+				</div>
 			</div>
 		</div>
 		<div id="pr-div2" class="mx-auto tab-pane fade">
@@ -97,8 +91,13 @@
 				style="vertical-align: middle;"></i></button>
 	</div>
 	</div>
-	<script type="text/javascript" src="./js/main-view.js"></script>
-	<script type="text/javascript" src="./js/main-view-geolocation.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script async type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+	<script async type="text/javascript" src="./js/main-view.js"></script>
+	<script async type="text/javascript" src="./js/main-view-geolocation.js"></script>
 	<!--<script type="text/javascript" src="cordova.js"></script>-->
 	<!--<script type="text/javascript" src="js/index.js"></script>-->
 </body>
