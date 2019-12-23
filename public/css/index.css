@@ -453,7 +453,7 @@
 	#user-information-div{
 		overflow: hidden;
 		text-align: left;
-		padding-top: 6px;
+		padding-top: 12px;
 	}
 	
 	#user-information-div label{
@@ -744,6 +744,7 @@
 
 	#other-label-user-info{
 		display: none;
+		margin-top: 2px;
 	}
 
 	#show-user-info{
