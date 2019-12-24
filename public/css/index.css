@@ -707,10 +707,12 @@
 		margin-bottom: 64px;
 	}
 
-	#btn-prof-edit{
+	#btn-prof-edit {
 		background-color: white;
 		font-weight: bolder;
 		color: #4c376b;
+		height: 46px;
+		font-size: 13px;
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 	}
 
@@ -769,4 +771,18 @@
 		height: 100vh;
 		overflow: scroll;
 		padding-top: 48px;
+	}
+
+	#btn-info-user{
+		background: none;
+		border: none;
+		text-shadow: 2px 3px 1px #b7417f;
+	}
+
+	#btn-change-pic{
+		background: none;
+		border: none;
+		text-shadow: 2px 3px 1px #9f41b7;
+		position: relative;
+    	top: -3px;
 	}
