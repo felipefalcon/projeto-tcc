@@ -292,16 +292,6 @@
 		$("#menu-1").slideUp(300);
 	});
 
-	$("#name-label-user-info").click(function () {
-		if(flagInfoProfile) return;
-		$("#other-label-user-info").slideDown(300);
-		setTimeout(function(){
-			$("#other-label-user-info").slideUp(600);
-			flagInfoProfile = false;
-		}, 10000);
-		flagInfoProfile = true;
-	});
-
 	function deleteAccount() {
 		if (window.confirm("Tem certeza que deseja deletar sua conta?\nEsta ação é irreversível!")) {
 			$.get("./del-user", { email: userInfo.email })
@@ -330,6 +320,23 @@
 		resetToUser();
 		resetAllEvents();
 		window.location.replace("/");
+	});
+
+	$("#show-user-info").click(function () {
+		if(flagInfoProfile) return;
+		$("#other-label-user-info").slideDown(300);
+		setTimeout(function(){
+			$("#other-label-user-info").slideUp(600);
+			flagInfoProfile = false;
+		}, 10000);
+		flagInfoProfile = true;
+	});
+
+	$("#btn-change-pic").click(function(){
+		$('#main-pic-div-c').fadeOut(300, function(){
+			$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.sec_pic1 + ")");
+			$('#main-pic-div-c').fadeIn(300);
+		});
 	});
 
 	// getAllUsersInfo();

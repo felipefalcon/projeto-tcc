@@ -705,6 +705,7 @@
 		position: fixed;
 		bottom: 0;
 		margin-bottom: 64px;
+		background-color: rgba(39, 19, 81, 0.75);
 	}
 
 	#btn-prof-edit {
@@ -749,12 +750,6 @@
 		margin-top: 2px;
 	}
 
-	#show-user-info{
-		border: none;
-		background: none;
-		padding-right: 20px;
-	}
-
 	#profile-div{
 		height: 100vh;
 		position: absolute;
@@ -773,7 +768,7 @@
 		padding-top: 48px;
 	}
 
-	#btn-info-user{
+	#show-user-info{
 		background: none;
 		border: none;
 		text-shadow: 2px 3px 1px #b7417f;
