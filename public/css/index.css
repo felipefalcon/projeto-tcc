@@ -474,10 +474,6 @@
 		opacity: 1;
 	}
 
-	.tab-content>.active {
-		transition: 0.25s;
-	}
-	
 	.nav-tabs {
         border-bottom: 0 !important;
 	}
