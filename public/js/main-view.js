@@ -6,12 +6,10 @@
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
-	$("#main-pic-div-c").css("min-height", $(window).innerHeight() - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#menu-top-div").innerHeight(h * 1);
 	$("#logo-div img").innerHeight(h / 1.6);
-	$("#main-pic-div-c").innerHeight(h * 6.5);
 	//$("html").innerHeight("auto");
 	//$("body").innerHeight($(window).height() - 60);
 
