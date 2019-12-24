@@ -348,22 +348,22 @@
 		getProfile();
 		getMainImg();
 		verifyAdminPermission();
-		setInterval(function(){
-			$.get(nodeHost+"get-user", {
-				email: userInfo.email
-			}).done(function (data) {
-				if (isNullOrUndefined(data)) {
-					console.log("Deu merda");
-				} else {
-					setUserCache(data);
-					getProfile();
-					$.get("./get-users", {_id: userInfo._id}).done(function (data) {
-						if (!(isNullOrUndefined(data))) {
-							setAllUsersCache(data);
-							makeChatObjects();
-						}
-					});
-				}
-			});
-		}, 10000);
+		// setInterval(function(){
+		// 	$.get(nodeHost+"get-user", {
+		// 		email: userInfo.email
+		// 	}).done(function (data) {
+		// 		if (isNullOrUndefined(data)) {
+		// 			console.log("Deu merda");
+		// 		} else {
+		// 			setUserCache(data);
+		// 			getProfile();
+		// 			$.get("./get-users", {_id: userInfo._id}).done(function (data) {
+		// 				if (!(isNullOrUndefined(data))) {
+		// 					setAllUsersCache(data);
+		// 					makeChatObjects();
+		// 				}
+		// 			});
+		// 		}
+		// 	});
+		// }, 10000);
 	})();
