@@ -219,7 +219,7 @@
 			}
 			
 			if (j % 2 == 0) {
-				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.24); border: 2px solid rgba(255,255,255,0.5);' name='" + JSON.stringify(data) + "'>";
+				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.3);' name='" + JSON.stringify(data) + "'>";
 			} else {
 				divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'>";
 			}
@@ -237,8 +237,6 @@
 		// });
 
 		$("#chat-users-div").append("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
-
-		$(".users-t-chat").fadeIn("slow");
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -266,7 +264,6 @@
 		for(var i = 0; i < allUsersInfoLength; ++i){
 			if(allUsersInfo[i]._id == id){
 				return allUsersInfo[i];
-				break;
 			}
 		}
 	}
