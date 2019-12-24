@@ -2,14 +2,14 @@
 	var h = $(window).height() / 10;
 	$("#form-main").innerHeight(h * 9);
 	$("#logo-div").innerHeight(48);
-	$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.75)");
+	//$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.75)");
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#menu-top-div").innerHeight(h * 1);
-	$("#logo-div img").innerHeight(h / 1.6);
+	// $("#logo-div img").innerHeight(h / 1.6);
 	//$("html").innerHeight("auto");
 	//$("body").innerHeight($(window).height() - 60);
 

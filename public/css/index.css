@@ -335,7 +335,7 @@
 	#main-div{
 		/*background-color: rgba(0,0,20,0.4);*/
 		width: 100%;
-		height: 100% !important;
+		height: 100vh !important;
 		box-sizing: border-box;
 		/* margin-top: 58px; */
 	}
@@ -409,12 +409,16 @@
 		border: 2px solid white;
 	}
 
-	#btn-menu-1{
+	#btn-menu-1 {
 		position: absolute;
 		border: none;
 		background: none;
 		margin: 0px !important;
 		right: 0;
+		font-size: 40px;
+		text-shadow: 1px 2px 2px #5a487c;
+		letter-spacing: 2px;
+		color: #fdf6ff;
 	}
 
 	#menu-1{
@@ -450,7 +454,7 @@
 	#user-information-div{
 		overflow: hidden;
 		text-align: left;
-		padding-top: 60px;
+		padding-top: 16px;
 		position: absolute;
 		z-index: 999;
 	}
