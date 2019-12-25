@@ -140,7 +140,6 @@
 		border-radius: 52px;
 		background: RGBA(230, 114, 163, 0);
 		border: 2px solid white;
-		padding-top: 4px;
 	}
 
 	#create-remember-div{
@@ -386,7 +385,7 @@
 	}
 
 	#menu-bottom-div {
-		position: fixed;
+		position: absolute;
 		bottom: 0;
 		width: 100%;
 		height: 54px;
@@ -414,7 +413,6 @@
 		position: absolute;
 		border: none;
 		background: none;
-		margin: 0px !important;
 		right: 0;
 		font-size: 40px;
 		text-shadow: 1px 2px 2px #5a487c;
@@ -480,9 +478,12 @@
         border-bottom: 0 !important;
 	}
 
-	#search-div{
-		padding: 16px;
-		padding-top: 24px;
+	.search-div{
+		padding-top: 9px;
+		position: absolute !important;
+		top: 0;
+		display: none;
+		z-index: 1031;
 	}
 
 	.user-n-u-div{
@@ -720,6 +721,7 @@
 		height: 42px;
 		font-size: 12px;
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+		line-height: 40px;
 	}
 
 	#label-user-name, #label-user-age, #label-name-location{
@@ -794,4 +796,12 @@
 		text-shadow: 2px 3px 1px #9f41b7;
 		position: relative;
 		top: -3px;
+	}
+
+	#menu-bottom-home{
+		position: fixed;
+		bottom: 0;
+		margin-bottom: 54px;
+		background-color: rgba(39, 19, 81, 0.75);
+		padding: 0;
 	}
