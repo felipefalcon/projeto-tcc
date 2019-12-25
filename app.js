@@ -7,7 +7,7 @@
 	var app = express();
 
 	var bodyParser = require('body-parser');  
-	var urlencodedParser = bodyParser.urlencoded({ extended: false })  
+	var urlencodedParser = bodyParser.urlencoded({ extended: false });  
 
 	app.use(compression());
 	app.use(express.static(__dirname + '/public'));
@@ -39,13 +39,15 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var myobj = {	name: req.body.name, 
-							email: req.body.email, 
-							password: req.body.password, 
-							pics_url: {	main_pic: "https://i.imgur.com/BvU6ocJ.png", 
-										sec_pic1: "https://i.imgur.com/BvU6ocJ.png", 
-										sec_pic2: "https://i.imgur.com/BvU6ocJ.png",
-										sec_pic3: "https://i.imgur.com/BvU6ocJ.png"}
+			var myobj = {	email: req.body.email,
+							name: req.body.name,
+							lastname: req.body.lastname, 
+							age: req.body.age, 
+							gender: req.body.gender,  
+							password: req.body.password,
+							pics_url: {
+								main_pic: "https://i.imgur.com/XTJcAbt.png"
+							}
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
 				if (err) throw err;

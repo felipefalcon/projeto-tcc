@@ -11,7 +11,7 @@
 		<title>LeRo</title>	
     </head>
     <body class="text-center">
-		<div id="logo-div"><img src="./img/logo.png" width="140" height="140" class="mx-auto"></img></div>
+		<div id="logo-div-login"><img src="./img/logo.png" width="140" height="140" class="mx-auto"></img></div>
         <div id="login-div">
 			<!-- LOGIN SOCIAL DESATIVADO - o Label ENTRAR é dentro dessa div abaixo e o subtitle OU é fora -->
 			<label class="title-label mb-2">Conectar-se por...</label>
@@ -23,12 +23,14 @@
 				<button onclick="" id="btn-facebook-2" class="socials-button"><i class="fab fa-facebook-f" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-twitter-2" class="socials-button"><i class="fab fa-twitter" style="vertical-align: middle;"></i></button>
 				<button onclick="" id="btn-google-2" class="socials-button"><i class="fab fa-google" style="vertical-align: middle;"></i></button>
-				<label class="subtitle-label mt-3">Clique no ícone da conta para conectar-se</label>
+				<label class="subtitle-label mt-3">Clique no ícone da conta para conectar-se </br>ou criar uma conta</label>
 			</div>
 			<form id="login-form-sub" onsubmit="loginUser();" method="post" autocomplete="off">
-            <input type="email" name="email" id="email-input" class="general-input col-10 mx-auto" placeholder="E-mail" required>
+				<span class="title-input-text">E-mail</span>
+				<input type="email" name="email" id="email-input" class="general-input col-10 mx-auto" placeholder="E-mail" required>
 			<hr class="blue-hr col-8 mx-auto">
-			<input type="password" name="password" id="password-input" class="general-input col-10 mx-auto" placeholder="Senha" required>
+			<span class="title-input-text">Senha</span>
+				<input type="password" name="password" id="password-input" class="general-input col-10 mx-auto" placeholder="Senha" required>
 			<button type="submit" class="general-button col-9 mx-auto mt-4 mb-4">CONECTAR</button>
 			</form>
 			<div id="create-remember-div" class="col-12 mx-auto">
@@ -40,6 +42,7 @@
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->	
 		<script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+		<script async type="text/javascript" src="./js/md5.js"></script>
 		<script async type="text/javascript" src="./js/login.js"></script>	
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     </body>

@@ -1,32 +1,46 @@
 
-	$("body").innerHeight($(window).height());
-	$("#create-account-div").innerHeight($(window).height());
+	(function(){
+		$("#create-account-div").css("height", $(window).innerHeight() - 60 + "px");
+
+		$("#btn-menu-back").click(function(){
+			window.location.replace("/");
+		});
+		
+	})();
 
 	function verifyAccountExists(){
 		event.preventDefault();
-		loading();
+		$("#create-account-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		if($("#password-input").val() != $("#password-c-input").val()){
 			return alert("Senha e Confirmação de Senha não conferem");;
 		}
-		$.get("./get-user", {email: $("#email-input").val()})
-		  .done(function( data ) {
+		$.get(nodeHost + "get-user", {email: $("#email-input").val()})
+		.done(function( data ) {
 			  if(data == null || data == "undefined"){
-				  createUser();
+				  	createUser();
 			  }else{
-				  loading('hide');
-				  alert("E-mail já cadastrado. Tente outro e-mail.");
+					$("#create-account-div").LoadingOverlay("hide");
+				 	alert("E-mail já cadastrado. Tente outro e-mail.");
 			  }
+		}).fail(function(){
+			$("#create-account-div").LoadingOverlay("hide");
+			alert("Houve uma falha.");
 		});
 	}
 
 	function createUser(){
-		$.post("./crt-user", { 
-			name: $("#name-input").val(), 
-			email: $("#email-input").val(),		
-			password: $("#password-input").val()		
+		let genderType = $("#gender1-input").is(':checked') ? "M" : "F";
+		$.post(nodeHost + "crt-user", { 
+			email: $("#email-input").val(),
+			name: $("#name-input").val(),
+			age: $("#age-input").val(), 
+			gender: genderType,		
+			password: hex_md5($("#password-input").val())		
 		}).done(function(){
-			loading('hide');
+			$("#create-account-div").LoadingOverlay("hide");
 			alert("Cadastro realizado!");
 			window.location.replace('/');
 		});
 	}
+
+	

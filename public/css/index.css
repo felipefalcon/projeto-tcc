@@ -40,6 +40,15 @@
 		flex-wrap: wrap;
 		width: 100%;
 		box-sizing: border-box;
+		height: 60px;
+	}
+
+	#logo-div-login{
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		width: 100%;
+		box-sizing: border-box;
 		height: 42%;
 	}
 
@@ -50,10 +59,17 @@
 	}
 
 	.blue-hr{
-		height: 2px;
+		height: 1px;
 		margin: 6px;
 		padding: 0;
 		background-color: #584279;
+	}
+
+	.light-hr{
+		height: 1px;
+		margin: 6px;
+		padding: 0;
+		background-color: rgba(254, 255, 255, 0.25);
 	}
 
 	.login-opt-button{
@@ -86,6 +102,7 @@
 		font-weight: bolder;
 		letter-spacing: 1px;
 		text-align: center;
+		padding-top: 12px;
 	}
 
 	.general-input:focus {
@@ -100,7 +117,7 @@
 
 	.general-input::placeholder {
 		opacity: 1;
-		color: rgb(170, 156, 200) !important;
+		color: rgba(254, 255, 255, 0.25) !important;
 		letter-spacing: 1px;
 	}
 	
@@ -154,10 +171,10 @@
 	/* create-account.html */
 
 	#create-account-div{
-		background-color: rgba(0,0,20,0.4);
 		padding: 16px;
 		width: 100%;
 		box-sizing: border-box;
+		height: 100%;
 	}
 
 	.title-label{
@@ -544,6 +561,7 @@
 		border: none;
 		background: none;
 		margin: 0px !important;
+		width: 64px;
 	}
 
 	.title-label-top{
@@ -808,3 +826,58 @@
 		background-color: rgba(39, 19, 81, 0.75);
 		padding: 0;
 	}
+
+	.title-input-text{
+		position: absolute;
+		margin-left: 18px;
+		color: #a598c8;
+		font-size: 12px;
+		font-weight: bolder;
+		margin-top: -2px;
+	}
+
+	/* INPUT RADIO EDIT */
+
+	/* The container */
+.radio-edit {
+	display: inline-block;
+	position: relative;
+	padding-left: 60px;
+	margin-bottom: 17px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .radio-edit input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+	position: absolute;
+    left: 0;
+    height: 30px;
+    width: 30px;
+	background-color: rgb(182, 182, 182);
+	border-radius: 6px;
+	opacity: 0.5;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .radio-edit:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .radio-edit input:checked ~ .checkmark {
+	background-color:white;
+	opacity: 1;
+  }
+  

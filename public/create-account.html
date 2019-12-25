@@ -6,37 +6,53 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>LOGIN</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-		<script type="text/javascript" src="./js/commom-functions.js"></script>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>			
+		<script type="text/javascript" src="./js/commom-functions.js"></script>		
     </head>
     <body class="text-center">
-        <div id="create-account-div">
-			<label class="title-label mb-3">CRIAÇÃO DE CONTA</label>
-			<!-- LOGIN SOCIAL DESATIVADO -->
-			<div id="socials-div" class="mb-2" style="display: none;">
-				<label class="subtitle-label">CRIAR USANDO REDES SOCIAIS</label>
-				<button onclick="" id="btn-facebook-2" class="socials-button"><i class="fab fa-facebook-f" style="vertical-align: middle;"></i></button>
-				<button onclick="" id="btn-twitter-2" class="socials-button"><i class="fab fa-twitter" style="vertical-align: middle;"></i></button>
-				<button onclick="" id="btn-google-2" class="socials-button"><i class="fab fa-google" style="vertical-align: middle;"></i></button>
-				<label class="subtitle-label">OU</label>
+		<div id="logo-div">
+			<button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
+				  <label class="title-label-top mx-auto">CRIAÇÃO DE CONTA</label>
 			</div>
+        <div id="create-account-div">
 			<div id="form-create-account-div">
 				<form onsubmit="verifyAccountExists();" method="post" autocomplete="off">
-				<input type="text" name="name" id="name-input" class="general-input col-10 mb-3" placeholder="NOME COMPLETO" required autofocus>
-				<input type="email" name="email" id="email-input" class="general-input col-10 mb-3" placeholder="EMAIL" required>
-				<input type="password" name="password" id="password-input" class="general-input col-10 mb-3" placeholder="SENHA" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
-				<input type="password" name="password1" id="password-c-input" class="general-input col-10 mb-2" placeholder="CONFIRMAR SENHA" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
-				<input type="submit" class="general-button col-10 mt-4 mb-2" value="CRIAR CONTA">
-				<input type="button" onclick="window.location.replace('/');" class="general-button col-10 mt-2 mb-2" value="VOLTAR AO LOGIN">
+					<span class="title-input-text">E-mail</span>
+					<input type="email" name="email" id="email-input" class="general-input col-10" placeholder="E-mail" required autofocus>
+				<hr class="light-hr col-8 mx-auto mb-3">
+					<span class="title-input-text">Nome</span>
+					<input type="text" name="name" id="name-input" class="general-input col-10" placeholder="Nome" required>
+				<hr class="light-hr col-8 mx-auto mb-3">
+					<span class="title-input-text">Sobrenome</span>
+					<input type="text" name="lastname" id="lastname-input" class="general-input col-10" placeholder="Sobrenome" required>
+				<hr class="light-hr col-8 mx-auto mb-4">
+					<span class="title-input-text">Idade</span>
+					<input type="number" name="age" id="age-input" class="general-input col-4" placeholder="Idade" required>
+					<span class="title-input-text">Sexo</span>
+					<span class="col-1"></span>
+					<label class="radio-edit">
+						<input type="radio" name="gender" id="gender1-input" class="col-2" checked><span class="checkmark"><i class='fas fa-mars' style='font-size:29px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff;'></i></span>
+					</label>
+					<label class="radio-edit">
+						<input type="radio" name="gender" id="gender2-input" class="col-3"><span class="checkmark"><i class='fas fa-venus' style='font-size:26px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030;'></i></span>
+					</label>
+				<hr class="light-hr col-8 mx-auto mb-5">
+					<span class="title-input-text">Senha</span>
+					<input type="password" name="password" id="password-input" class="general-input col-10" placeholder="Senha" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
+				<hr class="light-hr col-8 mx-auto mb-3">
+					<span class="title-input-text">Confirmar Senha</span>
+					<input type="password" name="password1" id="password-c-input" class="general-input col-10 mb-2" placeholder="Senha" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
+				<input type="submit" class="general-button col-9 mt-4 mb-2" value="CRIAR CONTA">
 				</form>
 			</div>
 		</div>
-		<script type="text/javascript" src="./js/create-account.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+		<script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	
+		<script async type="text/javascript" src="./js/md5.js"></script>	
+		<script async type="text/javascript" src="./js/create-account.js"></script>
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     </body>
 </html>

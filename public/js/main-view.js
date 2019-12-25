@@ -98,8 +98,8 @@
 
 		});
 
-		//$("#events-box-div").empty();
-		$("#events-box-div").replace(createdDivs);
+		$("#events-box-div").empty();
+		$("#events-box-div").append(createdDivs);
 
 		$(".event-subscribe-btn").click(function () {
 			$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
@@ -229,6 +229,7 @@
 			"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
 			"</div></div>";
 		});
+		divsCreated += "<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>";
 		$("#chat-users-div").empty();
 		$("#chat-users-div").append(divsCreated);
 		
@@ -236,7 +237,7 @@
 		// 	$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
 		// });
 
-		$("#chat-users-div").append("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
+		//$("#chat-users-div").append("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -330,6 +331,7 @@
 	});
 
 	$("#btn-change-pic").click(function(){
+		if(!("pics_url" in userInfo)) return;
 		if(picOrder == Object.values(userInfo.pics_url).length-1){
 			picOrder = -1;
 		}
