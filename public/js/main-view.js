@@ -2,21 +2,17 @@
 	var h = $(window).height() / 10;
 	$("#form-main").innerHeight(h * 9);
 	$("#logo-div").innerHeight(44);
-	//$("#logo-div").css("background-color", "rgba(59, 29, 78, 0.75)");
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
-	$("#menu-top-div").innerHeight(h * 1);
-	// $("#logo-div img").innerHeight(h / 1.6);
-	//$("html").innerHeight("auto");
-	//$("body").innerHeight($(window).height() - 60);
 
 	$("#btn-menu-1").attr("disabled", true);
 	
 	let flagInfoProfile = false;
+	let picOrder = 0;
 
 	function getAllUsersInfo() {
 		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
@@ -331,16 +327,14 @@
 	});
 
 	$("#btn-change-pic").click(function(){
-		$('#main-pic-div-c').fadeOut(300, function(){
-			$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.sec_pic1 + ")");
-			$('#main-pic-div-c').fadeIn(300);
+		if(picOrder == Object.values(userInfo.pics_url).length-1){
+			picOrder = -1;
+		}
+		$('#main-pic-div-c').fadeOut(150, function(){
+			$('#main-pic-div-c').css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
+			$('#main-pic-div-c').fadeIn(150);
 		});
 	});
-
-	// getAllUsersInfo();
-	// getProfile();
-	// getMainImg();
-	// verifyAdminPermission();
 
 	(function(){
 		getAllUsersInfo();

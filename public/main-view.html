@@ -25,12 +25,6 @@
 	</div>
 	<div id="main-div">
 		<div id="main-body-div" class="tab-content">
-		<div id="menu-top-div" class="mx-auto">
-			<button onclick="" id="btn-menu-2" class="btn-menu"><i class="fa fa-user"
-					style="vertical-align: middle;"></i></button>
-			<button onclick="" id="btn-menu-3" class="btn-menu"><i class="fa fa-users"
-					style="vertical-align: middle;"></i></button>
-		</div>
 		<div id="events-div" class="mx-auto tab-pane active">
 			<div id="search-div" class="col-12">
 				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
@@ -38,8 +32,10 @@
 			<div id="events-box-div">
 			
 			</div>
-			<input type="button" onclick="window.location.replace('create-event.html');" class="general-button col-10 mt-2 mb-2" value="CRIAR EVENTO">
-			<input type="button" onclick="window.location.replace('subscribed-events.html');" class="general-button col-10 mt-2 mb-2" value="VER SUBSCRIÇÕES">
+			<div id="menu-bottom-prof" class="col-12">
+				<input type="button" onclick="window.location.replace('create-event.html');" class="general-button col-5 mb-2" value="CRIAR EVENTO">
+				<input type="button" onclick="window.location.replace('subscribed-events.html');" class="general-button col-5 mb-2" value="VER SUBSCRIÇÕES">
+			</div>
 		</div>
 		<div id="error-div" class="mx-auto" style="display: none; height: 100%;">
 				<p style="color: rgb(255, 89, 89); font-size: 90px; font-weight: bolder;">!</p>
@@ -51,7 +47,7 @@
 			<div id="user-information-div" class="col-9">
 				<div id="name-label-user-info">
 					<label class="title-label" id="label-user-name"></label>
-				</div></br>
+				</div>
 				<div id="other-label-user-info">
 					<label class="title-label" id="label-user-age">21</label></br>
 					<label class="title-label" id="label-name-location">São Paulo - SP</label>
