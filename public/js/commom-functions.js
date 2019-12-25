@@ -16,6 +16,57 @@
 		}
 	}
 
+	// Objeto alerts, com Functions de diversos tipos de alerta
+	// Chamar: alerts.errorServer	=> Exemplo de chamada
+	var alerts = {
+		errorServer: function alertError(){
+			Swal.fire({
+				title: 'Erro!',
+				text: 'Ocorreu uma falha na conexão com o servidor. Tente novamente.',
+				icon: 'error',
+				padding: "8px",
+				confirmButtonText: 'OK',
+				allowOutsideClick: false,
+				width: "80%"
+			  })
+		},
+		userNotFound: function alertError(){
+			Swal.fire({
+				title: 'Usuário não encontrado!',
+				text: 'Verifique se o e-mail ou a senha estão corretos. Tente novamente.',
+				icon: 'warning',
+				padding: "8px",
+				confirmButtonText: 'OK',
+				allowOutsideClick: false,
+				width: "80%"
+			  })
+		},
+		userAlredyExists: function alertError(){
+			Swal.fire({
+				title: 'Usuário já cadastrado!',
+				text: 'E-mail informado já possui cadastro, use outro e-mail.',
+				icon: 'info',
+				padding: "8px",
+				confirmButtonText: 'OK',
+				allowOutsideClick: false,
+				width: "80%"
+			  })
+		},
+		registerSuccess: function alertError(){
+			Swal.fire({
+				title: 'Conta cadastrada!',
+				text: 'A conta foi cadastrada com sucesso, aguarde para ser redirecionado.',
+				icon: 'success',
+				padding: "8px",
+				timer: 9000,
+				showConfirmButton: false,
+				allowOutsideClick: false,
+				width: "80%"
+			  })
+		}
+	}
+
+	// Function para verificação de respostas nulas, indefinidas, whatever
 	function isNullOrUndefined(data){
 		return data == null || data === "undefined" || data === null || typeof data === "undefined";
 	}
@@ -73,6 +124,7 @@
 		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	}
 
+	// Verifica se tem usuário em cache, se não tiver, retorna ao Login e limpa as variáveis de cache
 	if(isNullOrUndefined(userInfo) && window.location.pathname != "index.html"){
 		resetUserCache();
 		resetAllUsersCache();

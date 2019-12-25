@@ -836,6 +836,10 @@
 		margin-top: -2px;
 	}
 
+	#next-u-div{
+		overflow: scroll;
+	}
+
 	/* INPUT RADIO EDIT */
 
 	/* The container */
@@ -881,3 +885,19 @@
 	opacity: 1;
   }
   
+  .swal2-icon{
+	  zoom: 0.5;
+  }
+
+  .swal2-title{
+	  font-size: 1.4em !important;
+  }
+
+  .swal2-content{
+	  font-size: 0.9em !important;
+  }
+
+  .swal2-styled.swal2-confirm{
+	  zoom: 0.75;
+	  background-color: #dd57a8 !important;
+  }

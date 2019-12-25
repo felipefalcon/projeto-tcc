@@ -6,6 +6,7 @@
 	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#next-u-div").css("height", $(window).innerHeight() - $("#logo-div").innerHeight() + "px");
 	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
 	$("#chat-users-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
