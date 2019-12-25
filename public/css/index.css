@@ -478,12 +478,15 @@
         border-bottom: 0 !important;
 	}
 
+	#search-div{
+		padding: 16px;
+		padding-top: 24px;
+	}
+
 	.search-div{
-		padding-top: 9px;
-		position: absolute !important;
-		top: 0;
+		padding: 16px;
+		padding-top: 24px;
 		display: none;
-		z-index: 1031;
 	}
 
 	.user-n-u-div{
