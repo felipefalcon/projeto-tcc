@@ -20,30 +20,30 @@
 				<form onsubmit="verifyAccountExists();" method="post" autocomplete="off">
 					<span class="title-input-text">E-mail</span>
 					<input type="email" name="email" id="email-input" class="general-input col-10" placeholder="E-mail" required autofocus>
-				<hr class="light-hr col-8 mx-auto mb-3">
+				<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Nome</span>
 					<input type="text" name="name" id="name-input" class="general-input col-10" placeholder="Nome" required>
-				<hr class="light-hr col-8 mx-auto mb-3">
+				<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Sobrenome</span>
 					<input type="text" name="lastname" id="lastname-input" class="general-input col-10" placeholder="Sobrenome" required>
-				<hr class="light-hr col-8 mx-auto mb-4">
+				<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Idade</span>
 					<input type="number" name="age" id="age-input" class="general-input col-4" placeholder="Idade" required>
-					<span class="title-input-text">Sexo</span>
-					<span class="col-1"></span>
+					<div class="col-6" style="float: right;">
+						<span class="title-input-text">Sexo</span>
 					<label class="radio-edit">
-						<input type="radio" name="gender" id="gender1-input" class="col-2" checked><span class="checkmark"><i class='fas fa-mars' style='font-size:29px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff;'></i></span>
+						<input type="radio" name="gender" id="gender1-input" checked><span class="checkmark"><i class='fas fa-mars' style='font-size:29px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff;'></i></span>
 					</label>
 					<label class="radio-edit">
-						<input type="radio" name="gender" id="gender2-input" class="col-3"><span class="checkmark"><i class='fas fa-venus' style='font-size:26px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030;'></i></span>
-					</label>
-				<hr class="light-hr col-8 mx-auto mb-5">
+						<input type="radio" name="gender" id="gender2-input"><span class="checkmark"><i class='fas fa-venus' style='font-size:26px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030;'></i></span>
+					</label></div>
+				<hr class="light-hr col-10 mx-auto mb-5">
 					<span class="title-input-text">Senha</span>
 					<input type="password" name="password" id="password-input" class="general-input col-10" placeholder="Senha" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
-				<hr class="light-hr col-8 mx-auto mb-3">
+				<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Confirmar Senha</span>
 					<input type="password" name="password1" id="password-c-input" class="general-input col-10 mb-2" placeholder="Senha" pattern=".{8,}" title="A senha deve conter 8 ou mais caracteres" required>
-				<input type="submit" class="general-button col-9 mt-4 mb-2" value="CRIAR CONTA">
+				<input type="submit" class="general-button col-10 mt-4 mb-2" value="CRIAR CONTA">
 				</form>
 			</div>
 		</div>

@@ -49,20 +49,21 @@
 		flex-wrap: wrap;
 		width: 100%;
 		box-sizing: border-box;
-		height: 42%;
+		min-height: 40vh;
 	}
 
 	#login-div{
-		padding: 16px;
+		padding: 8px;
 		width: 100%;
 		box-sizing: border-box;
+		min-height: 60vh;
 	}
 
 	.blue-hr{
 		height: 1px;
-		margin: 6px;
+		margin: 8px;
 		padding: 0;
-		background-color: #584279;
+		background: linear-gradient(45deg, transparent, #584279, #584279, transparent);
 	}
 
 	.light-hr{
@@ -70,6 +71,7 @@
 		margin: 6px;
 		padding: 0;
 		background-color: rgba(254, 255, 255, 0.25);
+		background: linear-gradient(45deg, transparent, rgba(254, 255, 255, 0.25), rgba(254, 255, 255, 0.25), transparent);
 	}
 
 	.login-opt-button{
@@ -98,11 +100,12 @@
 		height: 46px;
 		border: none;
 		font-size: 13px;
-		background-color: RGBA(0, 0, 0, 0.0);
 		font-weight: bolder;
 		letter-spacing: 1px;
 		text-align: center;
 		padding-top: 12px;
+		background: rgba(255, 255, 255, 0.25);
+    	border-radius: 40px;
 	}
 
 	.general-input:focus {
@@ -113,11 +116,12 @@
 		border-right: 4px solid white;
 		font-size: 16px;
 		outline: 0;
+		border-radius: 0px;
 	} 
 
 	.general-input::placeholder {
 		opacity: 1;
-		color: rgba(254, 255, 255, 0.25) !important;
+		color: rgba(254, 255, 255, 0.2) !important;
 		letter-spacing: 1px;
 	}
 	
@@ -171,10 +175,11 @@
 	/* create-account.html */
 
 	#create-account-div{
-		padding: 16px;
+		padding: 8px;
 		width: 100%;
 		box-sizing: border-box;
 		height: 100%;
+		padding-top: 16px;
 	}
 
 	.title-label{
@@ -399,6 +404,12 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		box-shadow: 0px 0px 3px rgba(33, 35, 78, 0.6);
+		z-index: 4;
+	}
+
+	.profile-info-div{
+		position: relative;
+    	left: -8px;
 	}
 
 	#menu-bottom-div {
@@ -410,6 +421,7 @@
 		justify-content: center;
 		align-items: center;
 		background-color: rgba(39, 19, 81, 0.75);
+		z-index: 9;
 	}
 
 	.btn-menu {
@@ -582,6 +594,7 @@
 		margin: 0;
 		font-size: 16px;
 		display: inherit;
+		line-height: 24px;
 	}
 
 	/* User conversation */
@@ -651,13 +664,13 @@
 	.chat-user-label{
 		background-color: rgba(33, 35, 78, 0.6);
 		margin-left: 20px;
-    	width: 110%;
+    	width: 100%;
 	}
 
 	.chat-msg-label{
 		max-height: 48px; 
 		overflow: hidden; 
-		margin-top: 6px;
+		margin-top: 2px;
 	}
 
 	.events-t{
@@ -668,6 +681,13 @@
 		margin-top: 0px;
 		margin-bottom: 0;
 		background-color: rgba(63, 51, 74, 0.29);
+	}
+
+	.chat-date-label{
+		float: right;
+		padding-right: 18px;
+		font-size: 13px;
+		color: #c5e1ff;
 	}
 
 	.event-user-label{
@@ -789,6 +809,8 @@
 		position: absolute;
 		top: 0;
 		width: 100%;
+		padding-right: 4px;
+    	padding-left: 4px;
 	}
 
 	#chat-users-div{
@@ -829,11 +851,11 @@
 
 	.title-input-text{
 		position: absolute;
-		margin-left: 18px;
-		color: #a598c8;
+		margin-left: 24px;
+		color: #bab0d4;
 		font-size: 12px;
 		font-weight: bolder;
-		margin-top: -2px;
+		margin-top: 2px;
 	}
 
 	#next-u-div{
@@ -847,7 +869,6 @@
 	display: inline-block;
 	position: relative;
 	padding-left: 60px;
-	margin-bottom: 17px;
 	cursor: pointer;
 	font-size: 22px;
 	-webkit-user-select: none;
@@ -872,6 +893,7 @@
 	background-color: rgb(182, 182, 182);
 	border-radius: 6px;
 	opacity: 0.5;
+	margin-top: 9px;
   }
   
   /* On mouse-over, add a grey background color */

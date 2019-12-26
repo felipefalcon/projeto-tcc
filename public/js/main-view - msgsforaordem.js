@@ -170,10 +170,6 @@
 	}
 
 	function makeChatObjects() {
-		userInfo.messages.forEach(function(item){
-			item.date = new Date(item.date);
-		});
-		userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
 		var usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
 		//console.log(usersDistincs);
 		var profiles = [];
@@ -192,6 +188,7 @@
 		});
 
 		userMsgs = Object.values(_.groupBy(userMsgs, msg => msg.subject));
+		//userMsgs = _.orderBy(userMsgs, 'date', 'asc' );
 
 		userMsgs.forEach(function(data){
 			var prof = getProfileSubject(data[0].subject);
@@ -209,7 +206,7 @@
 			lastMsgSubject = getLastMessage(data._id, usersDistincs);
 			for(var i = 0; i < userLength; ++i){
 				if(data._id == userMsgs[i][0].subject){
-					lastMsgUser = userMsgs[i][0];
+					lastMsgUser = userMsgs[i][userMsgs[i].length-1];
 					break;
 				}
 			}
@@ -226,7 +223,7 @@
 			}
 			var dateN = new Date();
 			if(lastDate.toLocaleDateString() == dateN.toLocaleDateString()){
-				lastDate = "Hoje às " + lastDate.getHours() + ":" + (lastDate.getMinutes() < 10 ? "0" : "") + lastDate.getMinutes();
+				lastDate = "Hoje às " + lastDate.getHours() + ":" + lastDate.getMinutes();
 			}else{
 				lastDate = lastDate.toLocaleDateString();
 			}
@@ -267,7 +264,7 @@
 		var usersDistincsLength = usersDistincs.length;
 		for(var i = 0; i < usersDistincsLength; ++i){
 			if(usersDistincs[i][0].author == id){
-				return usersDistincs[i][0];
+				return usersDistincs[i][usersDistincs[i].length-1];
 			}
 		}
 		return "";

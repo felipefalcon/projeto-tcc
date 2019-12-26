@@ -1,9 +1,8 @@
 
 	(function () {
 		// Configurações iniciais da Tela de Login - Tamanho das DIVs
-		let h = $(window).height() / 10;
-		$("body").innerHeight($(window).height());
-		$("#login-div").innerHeight(h * 5.8);
+		//let h = $(window).height() / 10;
+		//$("#login-div").innerHeight(h * 5.8);
 		$("#socials-div").css("height", $("#login-form-sub").css("height"));
 
 		// Variáveis de reuso e flag
