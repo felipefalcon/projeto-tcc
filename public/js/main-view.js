@@ -159,10 +159,6 @@
 
 		$("#next-u-users").append(createdDivs);
 
-		// allUsersInfo.forEach(function (data) {
-		// 	$("#user-n-u-div-content[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-		// });
-
 		$(".send-msg-button").click(function () {
 			setToUser($(this).attr('name'));
 			window.location.href = "./user-conversation.html"
@@ -170,15 +166,19 @@
 	}
 
 	function makeChatObjects() {
-		userInfo.messages.forEach(function(item){
+		// userInfo.messages.forEach(function(item){
+		// 	item.date = new Date(item.date);
+		// });
+		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
+		userInfo.messages.forEach(async function(item){
 			item.date = new Date(item.date);
 		});
-		userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
-		var usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
-		//console.log(usersDistincs);
-		var profiles = [];
-		var userMsgs = [];
-		usersDistincs.forEach(function(data, i){
+		userInfo.messages = userInfo.messages.reverse();
+		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
+		//console.log(userInfo.messages);
+		let profiles = [];
+		let userMsgs = [];
+		usersDistincs.forEach( async function(data, i){
 			//console.log(data);
 			if(data[0].subject == userInfo._id) {
 				var prof = getProfileSubject(data[0].author);
@@ -192,16 +192,16 @@
 		});
 
 		userMsgs = Object.values(_.groupBy(userMsgs, msg => msg.subject));
-
-		userMsgs.forEach(function(data){
+		//console.log(userMsgs);
+		userMsgs.forEach(async function(data){
 			var prof = getProfileSubject(data[0].subject);
 			if(!profiles.includes(prof) && typeof prof !== "undefined"){
 				profiles.push(prof);
 			}
 		});
 
-		var divsCreated = ""; 
-		profiles.forEach(function(data, j){
+		let divsCreated = ""; 
+		profiles.forEach( async function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			var lastMsgSubject = "";
 			var lastMsgUser = "";
@@ -231,26 +231,17 @@
 				lastDate = lastDate.toLocaleDateString();
 			}
 			
-			if (j % 2 == 0) {
-				divsCreated += "<div class='users-t-chat' style='background-color: rgba(255, 255, 255, 0.3);' name='" + JSON.stringify(data) + "'>";
-			} else {
-				divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'>";
-			}
-			divsCreated += "<div id='profile-img-div' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
+			divsCreated += "<div class='users-t-chat' name='" + JSON.stringify(data) + "'><div id='profile-img-div' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
 			"<div class='profile-info-div'>" +
 			"<label class='user-d-u-label chat-user-label'>" + data.name + "<span class='chat-date-label'>"+ lastDate +"</span></label>" +
 			"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
 			"</div></div>";
 		});
+
 		divsCreated += "<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>";
 		$("#chat-users-div").empty();
 		$("#chat-users-div").append(divsCreated);
 		
-		// profiles.forEach(function(data){
-		// 	$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-		// });
-
-		//$("#chat-users-div").append("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
