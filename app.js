@@ -29,10 +29,6 @@
 	const url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
 	const paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
 
-//  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
-	app.get('/get-time', urlencodedParser, function (req, res) {
-		res.json(new Date().toLocaleString(	'pt-br'));
-	});
 //  ------------------------------------------------------------------------------------------------------------------------
 //	ROTAS
 //	------------------------------------------------------------------------------------------------------------------------
