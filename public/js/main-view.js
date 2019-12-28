@@ -86,7 +86,7 @@
 		}
 
 		let createdDivs = "";
-		allEventsWithoutUser.forEach(function (data, i) {
+		allEventsWithoutUser.forEach(async function (data, i) {
 			if (i % 2 == 0) {
 				createdDivs +="<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>";
 			} else {
