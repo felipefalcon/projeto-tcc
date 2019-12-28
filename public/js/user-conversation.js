@@ -14,8 +14,7 @@
 	}
 
 	$("#btn-menu-back").click(function () {
-		//window.location.replace("./main-view.html");
-		window.history.back();
+		window.location.replace(document.referrer);
 	});
 
 	$(document).ready(function () {
