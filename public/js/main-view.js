@@ -301,6 +301,13 @@
 	}
 
 	function getProfile() {
+		$.get(nodeHost+"get-user", { email: userInfo.email}).done(function (data) {
+			if (isNullOrUndefined(data)) {
+				console.log("Deu merda");
+			}else {
+				setUserCache(data);
+			}
+		});
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
 		$("#label-user-location").text("São Paulo - SP");
@@ -369,9 +376,9 @@
 	});
 
 	(function(){
+		getProfile();
 		getAllUsersInfo();
 		getAllEvents();
-		getProfile();
 		getMainImg();
 		verifyAdminPermission();
 		// setInterval(function(){
