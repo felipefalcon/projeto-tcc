@@ -376,7 +376,9 @@
 	});
 
 	(function(){
-		alert(new Date());
+		$.get("./get-time").done(function(data){
+			alert(data);
+		});
 		getProfile();
 		getAllUsersInfo();
 		getAllEvents();
