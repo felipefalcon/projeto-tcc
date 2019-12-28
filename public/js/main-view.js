@@ -376,6 +376,7 @@
 	});
 
 	(function(){
+		alert(new Date());
 		getProfile();
 		getAllUsersInfo();
 		getAllEvents();
