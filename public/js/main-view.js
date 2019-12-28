@@ -148,7 +148,7 @@
 
 	function makeUsersNextObjects() {
 		let createdDivs = "";
-		allUsersInfo.forEach(function (data) {
+		allUsersInfo.forEach(async function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
 			createdDivs += "<div class='user-n-u-div mx-auto'>"
 			+ "<label class='user-n-u-label'>" + data.name + "</label>"
@@ -201,7 +201,7 @@
 		});
 
 		let divsCreated = ""; 
-		profiles.forEach( function(data){
+		profiles.forEach( async function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			var lastMsgSubject = "";
 			var lastMsgUser = "";
