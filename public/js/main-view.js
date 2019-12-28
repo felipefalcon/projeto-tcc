@@ -201,18 +201,20 @@
 		});
 
 		let divsCreated = ""; 
-		profiles.forEach( async function(data){
+		profiles.forEach( function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			var lastMsgSubject = "";
 			var lastMsgUser = "";
-			var userLength = userMsgs.length;
+			//var userLength = userMsgs.length;
 			lastMsgSubject = getLastMessage(data._id, usersDistincs);
-			for(var i = 0; i < userLength; ++i){
-				if(data._id == userMsgs[i][0].subject){
-					lastMsgUser = userMsgs[i][0];
-					break;
-				}
-			}
+			// for(var i = 0; i < userLength; ++i){
+			// 	if(data._id == userMsgs[i][0].subject){
+			// 		lastMsgUser = userMsgs[i][0];
+			// 		break;
+			// 	}
+			// }
+			lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject})[0];
+			if(typeof lastMsgUser === "undefined") lastMsgUser = "";
 
 			var dateMsgUser = new Date(lastMsgUser.date);
 			var dateMsgSubject = new Date(lastMsgSubject.date);
@@ -254,23 +256,33 @@
 		});
 	}
 
+	// function getLastMessage(id, usersDistincs){
+	// 	var usersDistincsLength = usersDistincs.length;
+	// 	for(var i = 0; i < usersDistincsLength; ++i){
+	// 		if(usersDistincs[i][0].author == id){
+	// 			return usersDistincs[i][0];
+	// 		}
+	// 	}
+	// 	return "";
+	// }
+
 	function getLastMessage(id, usersDistincs){
-		var usersDistincsLength = usersDistincs.length;
-		for(var i = 0; i < usersDistincsLength; ++i){
-			if(usersDistincs[i][0].author == id){
-				return usersDistincs[i][0];
-			}
-		}
-		return "";
+		var lastMsg = usersDistincs.find(function(item){return item[0].author == id})[0];
+		if(typeof lastMsg === "undefined") lastMsg = "";
+		return lastMsg;
 	}
 
+	// function getProfileSubject(id){
+	// 	var allUsersInfoLength = allUsersInfo.length;
+	// 	for(var i = 0; i < allUsersInfoLength; ++i){
+	// 		if(allUsersInfo[i]._id == id){
+	// 			return allUsersInfo[i];
+	// 		}
+	// 	}
+	// }
+
 	function getProfileSubject(id){
-		var allUsersInfoLength = allUsersInfo.length;
-		for(var i = 0; i < allUsersInfoLength; ++i){
-			if(allUsersInfo[i]._id == id){
-				return allUsersInfo[i];
-			}
-		}
+		return allUsersInfo.find(function(item){return item._id == id});
 	}
 
 	function getMainImg() {
