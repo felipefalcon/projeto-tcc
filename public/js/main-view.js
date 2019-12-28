@@ -19,14 +19,14 @@
 	function getAllUsersInfo() {
 		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
+			$(".search-div").fadeIn();
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
 				makeChatObjects();
 				makeUsersNextObjects();
 			}
-			$("#main-body-div").LoadingOverlay('hide');
+			setTimeout(function(){$("#main-body-div").LoadingOverlay('hide');}, 1000);
 			$("#btn-menu-1").attr("disabled", false);
-			$(".search-div").fadeIn();
 		}).fail(function(){
 			$("#error-div").css("display", "show");
 			$("#main-body-div").LoadingOverlay('hide');
