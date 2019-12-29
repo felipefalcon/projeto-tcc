@@ -402,9 +402,13 @@
 		const check = () => {
 			if (!('serviceWorker' in navigator)) {
 			  throw new Error('No Service Worker support!')
+			}else{
+				alert("A");
 			}
 			if (!('PushManager' in window)) {
 			  throw new Error('No Push API Support!')
+			}else{
+				alert("B");
 			}
 		  };
 		  
