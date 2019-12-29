@@ -399,30 +399,20 @@
 		// }, 10000);
 
 
-		if(window.Notification){
-			alert("Tem");
-		}
-		  if (window.Notification && Notification.permission !== "denied") {
-			Notification.requestPermission((status) => {
-			// status is "granted", if accepted by user
-				var n = new Notification('Title', {
-					body: 'I am the body text!',
-					icon: '/path/to/icon.png' // optional
-				})
-			})
-		}
-		
-		const process = (permission) => {
-			if (permission === "granted") {
-			  // ok we can show the permission
+		const check = () => {
+			if (!('serviceWorker' in navigator)) {
+			  throw new Error('No Service Worker support!')
 			}
-		  }
+			if (!('PushManager' in window)) {
+			  throw new Error('No Push API Support!')
+			}
+		  };
 		  
-		  Notification.requestPermission((permission) => {
-			process(permission)
-		  }).then((permission) => {
-			process(permission)
-		  })
+		  const main = () => {
+			check()
+		  };
+		  
+		  main();
 		  
 
 
