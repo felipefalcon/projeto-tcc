@@ -406,7 +406,9 @@
 
 	})();
 
-	Push.create('Hello World!');
+	//Push.create('Hello World!');
+
+	new Notification('To do list', { body: "text" });
 
 
 	
