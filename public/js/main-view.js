@@ -407,4 +407,6 @@
 	})();
 
 
+	alert(Push.Permission.has()	);
+
 	Push.create('Hello World!')
