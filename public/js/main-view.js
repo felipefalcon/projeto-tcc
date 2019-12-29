@@ -420,6 +420,9 @@
 	const process = (permission) => {
 		if (permission === "granted") {
 		  // ok we can show the permission
+		  alert("Tem permissao");
+		}else{
+			alert("Nao Tem permissao");
 		}
 	  }
 	  
