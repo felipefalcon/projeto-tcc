@@ -214,14 +214,14 @@
 		profiles.forEach( async function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			//var userLength = userMsgs.length;
-			var lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
+			let lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
 			// for(var i = 0; i < userLength; ++i){
 			// 	if(data._id == userMsgs[i][0].subject){
 			// 		lastMsgUser = userMsgs[i][0];
 			// 		break;
 			// 	}
 			// }
-			var lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
+			let lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
 			lastMsgUser = typeof lastMsgUser === "undefined" ? "" : lastMsgUser[0];
 
 			var dateMsgUser = new Date(lastMsgUser.date);
@@ -333,9 +333,7 @@
 	}
 
 	function verifyAdminPermission() {
-		if (!userInfo.is_admin) {
-			return false;
-		}
+		if (!userInfo.is_admin) return false;
 		$("#menu-1").prepend("<a href='./admin-page.html'>Administrador</a>");
 	}
 

@@ -276,6 +276,23 @@
 		}); 
 	});
 
+//  [ READ - GET ] ROTA: retorna todos os eventos do banco
+	app.get('/get-events-w-u', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db("mydb");
+			dbo.collection("events").find({participants: {$not: {$elemMatch: {_id: req.query._id}}}}).toArray(function(err, result) {
+				if (err) throw err;
+				if(result){
+					res.json(result);
+				}else{
+					res.json({oh_no: "oh-no"});
+				}
+			});
+			db.close();
+		}); 
+	});
+
 	//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
 	app.get('/upd-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
