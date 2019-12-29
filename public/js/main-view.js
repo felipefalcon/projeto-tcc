@@ -397,18 +397,11 @@
 		// 		}
 		// 	});
 		// }, 10000);
-		if (!('serviceWorker' in navigator)) { 
-			// Service Worker isn't supported on this browser, disable or hide UI. 
-			console.log("Service Worker isn't supported on this browser, disable or hide UI.");
-			return; 
-		  }
-		  
-		  if (!('PushManager' in window)) { 
-			// Push isn't supported on this browser, disable or hide UI. 
-			console.log("Push isn't supported on this browser, disable or hide UI.");
-			return; 
-		  }
 
+
+		if(window.Notification){
+			alert("Tem");
+		}
 		  if (window.Notification && Notification.permission !== "denied") {
 			Notification.requestPermission((status) => {
 			// status is "granted", if accepted by user
