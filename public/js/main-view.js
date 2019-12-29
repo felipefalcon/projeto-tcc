@@ -400,28 +400,31 @@
 
 
 
-		  if (window.Notification && Notification.permission !== "denied") {
-			Notification.requestPermission((status) => {
-			// status is "granted", if accepted by user
-				var n = new Notification('Title', {
-					body: 'I am the body text!',
-					icon: '/path/to/icon.png' // optional
-				})
-			})
-		}
-		
-		const process = (permission) => {
-			if (permission === "granted") {
-			  // ok we can show the permission
-			}
-		  }
 		  
-		  Notification.requestPermission((permission) => {
-			process(permission)
-		  }).then((permission) => {
-			process(permission)
-		  })
 		  
 
 
 	})();
+
+
+	if (window.Notification && Notification.permission !== "denied") {
+		Notification.requestPermission((status) => {
+		// status is "granted", if accepted by user
+			var n = new Notification('Title', {
+				body: 'I am the body text!',
+				icon: '/path/to/icon.png' // optional
+			})
+		})
+	}
+	
+	const process = (permission) => {
+		if (permission === "granted") {
+		  // ok we can show the permission
+		}
+	  }
+	  
+	  Notification.requestPermission((permission) => {
+		process(permission)
+	  }).then((permission) => {
+		process(permission)
+	  })
