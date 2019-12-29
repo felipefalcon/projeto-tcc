@@ -363,6 +363,7 @@
 	});
 
 	$("#btn-change-pic").click(function(){
+		new Notification('To do list', { body: "text" });
 		if(!("pics_url" in userInfo)) return;
 		if(picOrder == Object.values(userInfo.pics_url).length-1){
 			picOrder = -1;
@@ -408,7 +409,7 @@
 
 	//Push.create('Hello World!');
 
-	new Notification('To do list', { body: "text" });
+	
 
 
 	
