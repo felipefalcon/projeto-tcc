@@ -428,3 +428,8 @@
 	  }).then((permission) => {
 		process(permission)
 	  })
+
+	  var n = new Notification('Title', {
+		body: 'I am the body text!',
+		icon: '/path/to/icon.png' // optional
+	})
