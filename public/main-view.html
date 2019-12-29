@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport"
 		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" type="text/css" href="css/index.css">
 	<title>TELA PRINCIPAL</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+	<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+	<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
 	<script type="text/javascript" src="./js/commom-functions.js"></script>
 </head>
-
 <body class="text-center">
 	<div id="logo-div" class="fixed-top">
-		<!-- <img src="./img/logo.png" height="40" class="mx-auto"></img> -->
 		<button id="btn-menu-1" class="btn-menu">...</button>
 		<div id="menu-1">
 			<a href="#">Configurações</a>
@@ -83,25 +79,21 @@
 		</div>
 	</div>
 	<div id="menu-bottom-div" class="mx-auto nav nav-tabs">
-		<button data-toggle="tab" href="#profile-div" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle"
-				style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#next-u-div" id="btn-menu-5" class="btn-menu"><i
-				class="far fas fa-map-marker-alt" style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#events-div" id="btn-menu-6" class="btn-menu active"><i class="far fas fa-home"
-				style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#pr-div2" id="btn-menu-7" class="btn-menu"><i class="fa fa-users"
-				style="vertical-align: middle;"></i></button>
-		<button data-toggle="tab" href="#chat-div" id="btn-menu-8" class="btn-menu"><i class="far fas fa-comment-alt"
-				style="vertical-align: middle;"></i></button>
+		<button data-toggle="tab" href="#profile-div" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle"></i></button>
+		<button data-toggle="tab" href="#next-u-div" id="btn-menu-5" class="btn-menu"><i class="far fas fa-map-marker-alt"></i></button>
+		<button data-toggle="tab" href="#events-div" id="btn-menu-6" class="btn-menu active"><i class="far fas fa-home"></i></button>
+		<button data-toggle="tab" href="#pr-div2" id="btn-menu-7" class="btn-menu"><i class="fa fa-users"></i></button>
+		<button data-toggle="tab" href="#chat-div" id="btn-menu-8" class="btn-menu"><i class="far fas fa-comment-alt"></i></button>
 	</div>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script async src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
 	<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script async type="text/javascript"
 		src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
 	<script async type="text/javascript" src="./js/main-view.js"></script>
 	<script async type="text/javascript" src="./js/main-view-geolocation.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<!--<script type="text/javascript" src="cordova.js"></script>-->
 	<!--<script type="text/javascript" src="js/index.js"></script>-->
 </body>

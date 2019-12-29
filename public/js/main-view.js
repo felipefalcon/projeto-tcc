@@ -1,13 +1,12 @@
 
-	var h = $(window).height() / 10;
-	$("#form-main").innerHeight(h * 9);
 	$("#logo-div").innerHeight(60);
+	var confHeight = $(window).innerHeight() - 64 - 48;
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
-	$("#events-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
-	$("#profile-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
-	$("#next-u-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#events-div").css("min-height", confHeight + "px");
+	$("#profile-div").css("min-height", confHeight + "px");
+	$("#next-u-div").css("min-height", confHeight + "px");
 	$("#next-u-div").css("height", $(window).innerHeight() - $("#logo-div").innerHeight() + "px");
-	$("#chat-div").css("min-height", $(window).innerHeight() - 64 - 48 + "px");
+	$("#chat-div").css("min-height", confHeight + "px");
 	$("#chat-users-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
 
@@ -161,7 +160,7 @@
 
 		$(".send-msg-button").click(function () {
 			setToUser($(this).attr('name'));
-			window.location.href = "./user-conversation.html"
+			window.location.href = "./user-conversation.html";
 		});
 	}
 
@@ -254,7 +253,6 @@
 		divsCreated += "<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>";
 		$("#chat-users-div").empty();
 		$("#chat-users-div").append(divsCreated);
-		
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -262,7 +260,7 @@
 			var subject = $(this).attr('name');
 			setTimeout(function () {
 				setToUser(subject);
-				window.location.href = "./user-conversation.html"
+				window.location.href = "./user-conversation.html";
 			}, 100);
 		});
 	}
@@ -278,7 +276,7 @@
 	// }
 
 	function getLastMessage(id, usersDistincs){
-		var lastMsg = usersDistincs.find(function(item){return item[0].author == id});
+		var lastMsg = usersDistincs.find(function(item){return item[0].author == id;});
 		if(typeof lastMsg === "undefined") lastMsg = "";
 		return lastMsg[0];
 	}
@@ -293,7 +291,7 @@
 	// }
 
 	function getProfileSubject(id){
-		return allUsersInfo.find(function(item){return item._id == id});
+		return allUsersInfo.find(function(item){return item._id == id;});
 	}
 
 	function getMainImg() {
@@ -375,7 +373,7 @@
 		});
 	});
 
-	(function(){
+	(async function(){
 		getProfile();
 		getAllUsersInfo();
 		getAllEvents();
