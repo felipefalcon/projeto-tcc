@@ -397,4 +397,40 @@
 		// 		}
 		// 	});
 		// }, 10000);
+		if (!('serviceWorker' in navigator)) { 
+			// Service Worker isn't supported on this browser, disable or hide UI. 
+			console.log("Service Worker isn't supported on this browser, disable or hide UI.");
+			return; 
+		  }
+		  
+		  if (!('PushManager' in window)) { 
+			// Push isn't supported on this browser, disable or hide UI. 
+			console.log("Push isn't supported on this browser, disable or hide UI.");
+			return; 
+		  }
+
+		  if (window.Notification && Notification.permission !== "denied") {
+			Notification.requestPermission((status) => {
+			// status is "granted", if accepted by user
+				var n = new Notification('Title', {
+					body: 'I am the body text!',
+					icon: '/path/to/icon.png' // optional
+				})
+			})
+		}
+		
+		const process = (permission) => {
+			if (permission === "granted") {
+			  // ok we can show the permission
+			}
+		  }
+		  
+		  Notification.requestPermission((permission) => {
+			process(permission)
+		  }).then((permission) => {
+			process(permission)
+		  })
+		  
+
+
 	})();
