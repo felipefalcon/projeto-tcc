@@ -1,4 +1,3 @@
-
 	// Variável do host onde estão os serviços node (Mudando aqui, muda de todos os arquivos)
 	const nodeHost = "./";
 
@@ -158,4 +157,9 @@
 	//Auto-login, verifica se há cache do Usuário se houve automaticamente Muda para Tela Principal
 	if ((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined) {
 		window.location.replace("main-view.html");
+	}
+
+	// Ajuste do tamanho da Tela
+	function confViewHeight(){
+		$("body").css("height", $(window).innerHeight());
 	}

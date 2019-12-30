@@ -13,7 +13,7 @@
     function sendEmailRecover(){
         event.preventDefault();
         loading();
-        $.get("./send-email-recover", { email: $("#email-input").val()})
+        $.get(nodeHost + "send-email-recover", { email: $("#email-input").val()})
         .done(function( data ) {
             if(isNullOrUndefined(data)){
                 loading('hide');
@@ -25,3 +25,5 @@
         });
         event.preventDefault();
     }
+
+    confViewHeight();
