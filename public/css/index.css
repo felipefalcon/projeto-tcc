@@ -10,12 +10,13 @@
 		-webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
 		-webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 		font-family: JosefinFont, sans-serif !important;
-		font-size:12px;
+		/* font-size:12px; */
 		background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);
 		margin:0px;
 		padding:0px;
 		width:100%;
 		min-height: 100vh;
+		text-align: center !important;
 	}
 
 	@font-face {
@@ -99,7 +100,7 @@
 	.general-input, #fullname-div{
 		transition: 0.25s;
 		color: white;
-		height: 46px;
+		height: 52px;
 		border: none;
 		font-size: 13px;
 		font-weight: bolder;
@@ -159,7 +160,7 @@
 		font-size: 0.9em;
 		font-weight: bolder;
 		color: white;
-		height: 50px;
+		height: 52px;
 		border-radius: 52px;
 		background: RGBA(230, 114, 163, 0);
 		border: 2px solid white;
@@ -229,10 +230,10 @@
 	/* esqueci-senha.html */
 	
 	#esqueci-senha{
-		background-color: rgba(0,0,20,0.4);
-		padding: 16px;
+		padding: 8px;
 		width: 100%;
 		box-sizing: border-box;
+		min-height: 60vh;
 	}
 	
 	
@@ -891,8 +892,8 @@
   .checkmark {
 	position: absolute;
     left: 0;
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
 	background-color: rgb(182, 182, 182);
 	border-radius: 6px;
 	opacity: 0.5;

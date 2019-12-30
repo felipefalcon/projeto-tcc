@@ -28,7 +28,18 @@
 				confirmButtonText: 'OK',
 				allowOutsideClick: false,
 				width: "80%"
-			  })
+			})
+		},
+		notEqualsPasswords: function alertError(){
+			Swal.fire({
+				title: 'Senha divergente',
+				text: 'Os campos de senha e confirmação de senha não estão iguais. Tente novamente.',
+				icon: 'warning',
+				padding: "8px",
+				confirmButtonText: 'OK',
+				allowOutsideClick: false,
+				width: "80%"
+			})
 		},
 		userNotFound: function alertError(){
 			Swal.fire({
@@ -39,7 +50,7 @@
 				confirmButtonText: 'OK',
 				allowOutsideClick: false,
 				width: "80%"
-			  })
+			})
 		},
 		userAlredyExists: function alertError(){
 			Swal.fire({
@@ -50,7 +61,7 @@
 				confirmButtonText: 'OK',
 				allowOutsideClick: false,
 				width: "80%"
-			  })
+			})
 		},
 		registerSuccess: function alertError(){
 			Swal.fire({
@@ -60,6 +71,17 @@
 				padding: "8px",
 				timer: 9000,
 				showConfirmButton: false,
+				allowOutsideClick: false,
+				width: "80%"
+			})
+		},
+		emailSent: function alertError(){
+			Swal.fire({
+				title: 'E-mail enviado!',
+				text: 'Um e-mail com as informações da conta foi enviado para o e-mail informado.',
+				icon: 'success',
+				padding: "8px",
+				confirmButtonText: 'OK',
 				allowOutsideClick: false,
 				width: "80%"
 			  })
