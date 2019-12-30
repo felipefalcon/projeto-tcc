@@ -160,16 +160,16 @@
 	}
 
 	// Ajuste do tamanho da Tela
-	var confSize = {
-		windowH: function(){
-			return window.innerHeight/10;
-		},
-		confViewHeight: function (){
-			document.body.style.height = window.innerHeight+"px";
-		}
-	}
+	// var confSize = {
+	// 	windowH: function(){
+	// 		return window.innerHeight/10;
+	// 	},
+	// 	confViewHeight: function (){
+	// 		document.body.style.height = window.innerHeight+"px";
+	// 	}
+	// }
 
-	window.onload = function() {
-		confSize.confViewHeight();
-	};
+	// window.onload = function() {
+	// 	confSize.confViewHeight();
+	// };
 	
