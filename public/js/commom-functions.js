@@ -160,6 +160,16 @@
 	}
 
 	// Ajuste do tamanho da Tela
-	function confViewHeight(){
-		$("body").css("height", $(window).innerHeight());
+	var confSize = {
+		windowH: function(){
+			return window.innerHeight/10;
+		},
+		confViewHeight: function (){
+			document.body.style.height = window.innerHeight+"px";
+		}
 	}
+
+	window.onload = function() {
+		confSize.confViewHeight();
+	};
+	

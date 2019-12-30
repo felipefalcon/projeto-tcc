@@ -26,4 +26,5 @@
         event.preventDefault();
     }
 
-    confViewHeight();
+    $("#logo-div-login").css("height", confSize.windowH()*4);
+    $("#esqueci-senha").css("height", confSize.windowH()*6);
