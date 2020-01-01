@@ -70,3 +70,5 @@
 
 	// Chamada da Function que reseta o cache da conta do usuário (commom-functions.js)
 	resetUserCache();
+
+	var notification = new Notification("Hi there!");
