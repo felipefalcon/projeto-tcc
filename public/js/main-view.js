@@ -292,7 +292,7 @@
 		return allUsersInfo.find(function(item){return item._id == id;});
 	}
 
-	function getProfile() {
+	function getUser(){
 		$.get(nodeHost+"get-user", { email: userInfo.email}).done(function (data) {
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
@@ -300,6 +300,10 @@
 				setUserCache(data);
 			}
 		});
+	}
+
+	function getProfile() {
+		getUser();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
