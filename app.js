@@ -19,14 +19,14 @@
 	});
 
 //	NOME DO BANCO DE DADOS
-	const dbName = "mydb";
+	const dbName = "leRo_DB";
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO DO MONGODB
 //	------------------------------------------------------------------------------------------------------------------------
 	var mongo = require('mongodb'); 
 	const MongoClient = mongo.MongoClient;
-	const url = "mongodb+srv://teste:teste123@mongo-t-qnccn.gcp.mongodb.net/test?retryWrites=true&w=majority";
+	const url = "mongodb+srv://tcc2020:zDOo5kKVvZ0JMzAJ@lero-vjuos.gcp.mongodb.net/test?retryWrites=true&w=majority";
 	const paramsM = { useNewUrlParser: true, useUnifiedTopology: true };
 
 //  ------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@
 	app.post('/con-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
 				res.json(result); 
@@ -74,7 +74,7 @@
 	app.get('/get-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0} }, function(err, result) {
 				if (err) throw err;
 				res.json(result); 
@@ -87,7 +87,7 @@
 	app.get('/get-users', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0}}).toArray(function(err, result) {
 				if (err) throw err;
@@ -104,7 +104,7 @@
 	app.get('/upd-user-main-pic', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: { "pics_url.main_pic": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
@@ -119,7 +119,7 @@
 	app.get('/upd-user-sec-pic-1', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: { "pics_url.sec_pic1": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
@@ -134,7 +134,7 @@
 	app.get('/upd-user-sec-pic-2', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: { "pics_url.sec_pic2": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
@@ -149,7 +149,7 @@
 	app.get('/upd-user-sec-pic-3', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: { "pics_url.sec_pic3": req.query.pic_url}};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
@@ -164,7 +164,7 @@
 	app.get('/upd-user-profile', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: 	{ 	about: req.query.about, 
 										work: req.query.work, 
@@ -184,7 +184,7 @@
 	app.get('/upd-user-location', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myquery = {email: req.query.email};
 			var newvalues = {$set: 	{ location: req.query.location }};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
@@ -221,7 +221,7 @@
 	app.get('/del-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("users").deleteOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				res.json(result);
@@ -235,7 +235,7 @@
 		var objectId = new require('mongodb').ObjectID(req.query._id);
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("users").deleteOne({_id: objectId}, function(err, result) {
 				if (err) throw err;
 				res.json(result);
@@ -248,7 +248,7 @@
 	app.get('/crt-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			var myObj = req.query.evento;
 			myObj.participants = [req.query.user];
 			dbo.collection("events").insertOne(myObj, function(err, res) {
@@ -263,7 +263,7 @@
 	app.get('/get-events', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("events").find({}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
@@ -280,7 +280,7 @@
 	app.get('/get-events-w-u', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("events").find({participants: {$not: {$elemMatch: {_id: req.query._id}}}}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
@@ -333,7 +333,7 @@
 	app.get('/send-email-recover', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
-			var dbo = db.db("mydb");
+			var dbo = db.db(dbName);
 			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				if(result){
@@ -359,6 +359,7 @@
 				auth: {
 					user: 'projeto-tcc-2020@outlook.com',
 					pass: 'Projeto2020'
+					// USuario login é o mesmo do DB ATLAS MONGO => Senha: PrLeRo20
 				}
 		});
 		let mailOptions = {

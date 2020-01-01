@@ -356,8 +356,8 @@
 	});
 
 	$("#btn-change-pic").click(function(){
-		if(!("pics_url" in userInfo)) return;
-		if(picOrder == Object.values(userInfo.pics_url).length-1){
+		if(!("pics_url" in userInfo) || $('#main-pic-div-c').css("opacity") < 1) return;
+		if(picOrder >= Object.values(userInfo.pics_url).length-1){
 			picOrder = -1;
 		}
 		$('#main-pic-div-c').fadeOut(150, function(){

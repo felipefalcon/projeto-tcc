@@ -19,71 +19,83 @@
 	// Chamar: alerts.errorServer	=> Exemplo de chamada
 	var alerts = {
 		errorServer: function alertError(){
-			Swal.fire({
-				title: 'Erro!',
-				text: 'Ocorreu uma falha na conexão com o servidor. Tente novamente.',
-				icon: 'error',
-				padding: "8px",
-				confirmButtonText: 'OK',
-				allowOutsideClick: false,
-				width: "80%"
-			})
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Erro!',
+					text: 'Ocorreu uma falha na conexão com o servidor. Tente novamente.',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		},
 		notEqualsPasswords: function alertError(){
-			Swal.fire({
-				title: 'Senha divergente',
-				text: 'Os campos de senha e confirmação de senha não estão iguais. Tente novamente.',
-				icon: 'warning',
-				padding: "8px",
-				confirmButtonText: 'OK',
-				allowOutsideClick: false,
-				width: "80%"
-			})
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Senha divergente',
+					text: 'Os campos de senha e confirmação de senha não estão iguais. Tente novamente.',
+					icon: 'warning',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		},
 		userNotFound: function alertError(){
-			Swal.fire({
-				title: 'Usuário não encontrado!',
-				text: 'Verifique se o e-mail ou a senha estão corretos. Tente novamente.',
-				icon: 'warning',
-				padding: "8px",
-				confirmButtonText: 'OK',
-				allowOutsideClick: false,
-				width: "80%"
-			})
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Usuário não encontrado!',
+					text: 'Verifique se o e-mail ou a senha estão corretos. Tente novamente.',
+					icon: 'warning',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		},
 		userAlredyExists: function alertError(){
-			Swal.fire({
-				title: 'Usuário já cadastrado!',
-				text: 'E-mail informado já possui cadastro, use outro e-mail.',
-				icon: 'info',
-				padding: "8px",
-				confirmButtonText: 'OK',
-				allowOutsideClick: false,
-				width: "80%"
-			})
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Usuário já cadastrado!',
+					text: 'E-mail informado já possui cadastro, use outro e-mail.',
+					icon: 'info',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		},
 		registerSuccess: function alertError(){
-			Swal.fire({
-				title: 'Conta cadastrada!',
-				text: 'A conta foi cadastrada com sucesso, aguarde para ser redirecionado.',
-				icon: 'success',
-				padding: "8px",
-				timer: 9000,
-				showConfirmButton: false,
-				allowOutsideClick: false,
-				width: "80%"
-			})
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Conta cadastrada!',
+					text: 'A conta foi cadastrada com sucesso, aguarde para ser redirecionado.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		},
 		emailSent: function alertError(){
-			Swal.fire({
-				title: 'E-mail enviado!',
-				text: 'Um e-mail com as informações da conta foi enviado para o e-mail informado.',
-				icon: 'success',
-				padding: "8px",
-				confirmButtonText: 'OK',
-				allowOutsideClick: false,
-				width: "80%"
-			  })
+			setTimeout(function(){
+				Swal.fire({
+					title: 'E-mail enviado!',
+					text: 'Um e-mail com as informações da conta foi enviado para o e-mail informado.',
+					icon: 'success',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		}
 	}
 
