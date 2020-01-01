@@ -71,4 +71,11 @@
 	// Chamada da Function que reseta o cache da conta do usuário (commom-functions.js)
 	resetUserCache();
 
-	var notification = new Notification("Hi there!");
+	navigator.serviceWorker.register('sw.js');
+Notification.requestPermission(function(result) {
+  if (result === 'granted') {
+    navigator.serviceWorker.ready.then(function(registration) {
+      registration.showNotification('Notification with ServiceWorker');
+    });
+  }
+});
