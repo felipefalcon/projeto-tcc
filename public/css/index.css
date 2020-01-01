@@ -755,8 +755,9 @@
 	#menu-bottom-prof{
 		position: fixed;
 		bottom: 0;
-		margin-bottom: 54px;
+		margin-bottom: 48px;
 		background-color: rgba(39, 19, 81, 0.75);
+		height: 58px;
 	}
 
 	#btn-prof-edit {
@@ -848,9 +849,10 @@
 	#menu-bottom-home{
 		position: fixed;
 		bottom: 0;
-		margin-bottom: 54px;
+		margin-bottom: 48px;
 		background-color: rgba(39, 19, 81, 0.75);
 		padding: 0;
+		height: 58px;
 	}
 
 	.title-input-text{
