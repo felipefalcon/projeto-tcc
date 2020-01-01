@@ -765,9 +765,10 @@
 		font-weight: bolder;
 		color: #4c376b;
 		height: 40px;
-		font-size: 12px;
+		font-size: 11px;
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 		line-height: 38px;
+		width: 140px;
 	}
 
 	#label-user-name, #label-user-age, #label-name-location{
