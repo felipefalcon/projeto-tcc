@@ -1,6 +1,9 @@
 //  -----------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO SERVIDOR NODE
 //	-----------------------------------------------------------------------------------------------------------------------
+// user: 'projeto-tcc-2020@outlook.com',
+// 					pass: 'Projeto2020'
+					// USuario login é o mesmo do DB ATLAS MONGO => Senha: PrLeRo20
 	var express = require('express');
 	var compression = require('compression');
 
@@ -204,10 +207,9 @@
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var query = {_id: objectIdUserFrom};
 			var query2 = {_id: objectIdUserTo};
-			var newvalues = {$push: 	{ messages: req.query.message }};
-			dbo.collection("users").updateOne(query, newvalues, {upsert: true}, function(err, result) {
+			var newvalues = {$push: 	{ messages: {"$each": [req.query.message] , "$position": 0}}};
+			dbo.collection("users").updateOne(query, newvalues, {upsert: true}, async function(err, result) {
 				if (err) throw err;
-				//res.json({ ok: 'ok' }); 
 			});
 			dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
@@ -359,7 +361,6 @@
 				auth: {
 					user: 'projeto-tcc-2020@outlook.com',
 					pass: 'Projeto2020'
-					// USuario login é o mesmo do DB ATLAS MONGO => Senha: PrLeRo20
 				}
 		});
 		let mailOptions = {

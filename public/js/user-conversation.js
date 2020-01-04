@@ -60,6 +60,12 @@
 	}
 
 	function makeChatMessage() {
+		if(("messages" in userInfo)) {
+			userInfo.messages = userInfo.messages.reverse();
+		};
+		if(("messages" in toUser)) {
+			toUser.messages = toUser.messages.reverse();
+		};
 		$("#chat-msgs-div").empty();
 		for(var i = 0; i < userInfo.messages.length; ++i){
 			var msg = userInfo.messages[i];

@@ -173,7 +173,6 @@
 			item.date = new Date(item.date);
 			item.day = (new Date(item.date)).getDate();
 		});
-		userInfo.messages = userInfo.messages.reverse();
 		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
 		//console.log(userInfo.messages);
 		let profiles = [];
@@ -196,18 +195,22 @@
 				});
 			}
 			if(!profiles.includes(prof) && typeof prof !== "undefined"){
+				prof.messages.forEach(async function(msg){
+					msg.day = (new Date(msg.date)).getDate();
+				});
 				profiles.push(prof);
 			}
 		});
 
-		profiles.forEach(async function(data){
-			data.messages = data.messages.reverse();
-			data.messages.forEach(async function(msg){
-				msg.day = (new Date(msg.date)).getDate();
-			});
-		});
+		// profiles.forEach(async function(data){
+		// 	data.messages = data.messages.reverse();
+		// 	data.messages.forEach(async function(msg){
+		// 		msg.day = (new Date(msg.date)).getDate();
+		// 	});
+		// });
 
 		profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
+		console.log(profiles);
 
 		let divsCreated = []; 
 		let dateN = (new Date()).toLocaleDateString();
@@ -230,27 +233,29 @@
 			if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
 				var lastMsg = lastMsgSubject;
 				var lastDate = dateMsgSubject;
-			}else if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
+			}else {//if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
 				var lastMsg = lastMsgUser;
 				var lastDate = dateMsgUser;
 			}
 			
 			if(lastDate.toLocaleDateString() == dateN){
-				lastDate = "Hoje às " + lastDate.getHours() + ":" + (lastDate.getMinutes() < 10 ? "0" : "") + lastDate.getMinutes();
+				lastDate = "Hoje às " + (lastDate.getHours() < 10 ? "0" : "") + lastDate.getHours() + ":" + (lastDate.getMinutes() < 10 ? "0" : "") + lastDate.getMinutes();
 			}else{
 				lastDate = lastDate.toLocaleDateString();
 			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'><div id='profile-img-div' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
-			"<div class='profile-info-div'>" +
-			"<label class='user-d-u-label chat-user-label'>" + data.name + "<span class='chat-date-label'>"+ lastDate +"</span></label>" +
-			"<label class='user-d-u-label chat-msg-label'>" + lastMsg.text + "</label>" +
-			"</div></div>");
+			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'><div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
+			"<div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" 
+			+ data.name + 
+			"<span class='chat-date-label'>"+ lastDate +"</span></label><label class='user-d-u-label chat-msg-label'>" 
+			+ lastMsg.text + "</label></div></div>");
 		});
 
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
+		$("#chat-users-div").fadeOut(200);
 		$("#chat-users-div").empty();
 		$("#chat-users-div").append(divsCreated.join(""));
+		$("#chat-users-div").fadeIn(200);
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -275,8 +280,7 @@
 
 	function getLastMessage(id, usersDistincs){
 		var lastMsg = usersDistincs.find(function(item){return item[0].author == id;});
-		if(typeof lastMsg === "undefined") lastMsg = "";
-		return lastMsg[0];
+		return typeof lastMsg === "undefined" ? "" : lastMsg[0];
 	}
 
 	// function getProfileSubject(id){
