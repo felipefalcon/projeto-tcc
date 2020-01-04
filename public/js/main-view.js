@@ -9,28 +9,28 @@
 	$("#chat-div").css("min-height", confHeight + "px");
 	$("#chat-users-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
-
-	$("#btn-menu-1").attr("disabled", true);
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
+	let tabActive = -1;
+	let cachedMessagesHere = [];
 
 	function getAllUsersInfo() {
-		$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+		//$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
-			$(".search-div").fadeIn();
+//			$(".search-div").fadeIn();
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
-				makeChatObjects();
-				makeUsersNextObjects();
+				//makeChatObjects();
+				//makeUsersNextObjects();
 			}
-			setTimeout(function(){$("#main-body-div").LoadingOverlay('hide');}, 1000);
-			$("#btn-menu-1").attr("disabled", false);
+			//setTimeout(function(){$("#main-body-div").LoadingOverlay('hide');}, 1000);
+			//$("#btn-menu-1").attr("disabled", false);
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-			$("#main-body-div").LoadingOverlay('hide');
-			$("#btn-menu-1").attr("disabled", false);
-			$(".search-div").fadeIn();
+//			$("#main-body-div").LoadingOverlay('hide');
+//			$("#btn-menu-1").attr("disabled", false);
+//			$(".search-div").fadeIn();
 		});
 	}
 
@@ -48,13 +48,13 @@
 			} else {
 				setAllEvents(data);
 				//console.log(allEvents);
-				makeEventsObjects();
+				//makeEventsObjects();
 			}
 			
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-			$("#main-body-div").LoadingOverlay('hide');
-			$("#btn-menu-1").attr("disabled", false);
+			// $("#main-body-div").LoadingOverlay('hide');
+			// $("#btn-menu-1").attr("disabled", false);
 		});
 	}
 
@@ -101,7 +101,7 @@
 		$("#events-box-div").append(createdDivs);
 
 		$(".event-subscribe-btn").click(function () {
-			$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
 			$.get("./upd-event", {
 				_id: 	$(this).attr('name'),
@@ -111,7 +111,7 @@
 					console.log("Deu merda");
 				}else{
 					getAllEvents();
-					$("#main-body-div").LoadingOverlay('hide');
+					// $("#main-body-div").LoadingOverlay('hide');
 				}
 			});
 		});
@@ -175,6 +175,11 @@
 		});
 		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
 		//console.log(userInfo.messages);
+
+		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
+		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
+		cachedMessagesHere = usersDistincs.slice();
+
 		let profiles = [];
 		let userMsgs = [];
 
@@ -249,10 +254,10 @@
 		});
 
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
-		$("#chat-users-div").fadeOut(200);
-		$("#chat-users-div").empty();
-		$("#chat-users-div").append(divsCreated.join(""));
-		$("#chat-users-div").fadeIn(200);
+		//$("#chat-users-div").fadeOut(200);
+		//$("#chat-users-div").empty();
+		$("#chat-users-div").empty().append(divsCreated.join(""));
+		//$("#chat-users-div").fadeIn(200);
 
 		$(".users-t-chat").click(function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -371,30 +376,54 @@
 		});
 	});
 
+	function checkTab(){
+		switch(tabActive){
+			case 4:  makeChatObjects(); break;
+			default: break;
+		}
+	}
+
 	(async function(){
-		getProfile();
+		//getProfile();
 		getAllUsersInfo();
-		getAllEvents();
+		//getAllEvents();
 		verifyAdminPermission();
-		// setInterval(function(){
-		// 	$.get(nodeHost+"get-user", {
-		// 		email: userInfo.email
-		// 	}).done(function (data) {
-		// 		if (isNullOrUndefined(data)) {
-		// 			console.log("Deu merda");
-		// 		} else {
-		// 			setUserCache(data);
-		// 			getProfile();
-		// 			$.get("./get-users", {_id: userInfo._id}).done(function (data) {
-		// 				if (!(isNullOrUndefined(data))) {
-		// 					setAllUsersCache(data);
-		// 					makeChatObjects();
-		// 				}
-		// 			});
-		// 		}
-		// 	});
-		// }, 10000);
-		setTimeout(function(){$("#btn-menu-6").click();}, 600);
+		setInterval(function(){
+			getAllUsersInfo();
+			getUser();
+			checkTab();
+		}, 2000);
+		setInterval(function(){
+			getAllEvents();
+		}, 10000);
+		setTimeout(function(){
+			$("#btn-menu-6").click(); 
+			$(".search-div").fadeIn();
+		}, 600);
 	})();
+
+	$("#btn-menu-8").click(function(){
+		if(tabActive == 4) return;
+		tabActive = 4;
+		makeChatObjects();
+	});
+
+	$("#btn-menu-4").click(function(){
+		if(tabActive == 0) return;
+		tabActive = 0;
+		getProfile();
+	});
+
+	$("#btn-menu-5").click(function(){
+		if(tabActive == 1) return;
+		tabActive = 1;
+		makeUsersNextObjects();
+	});
+
+	$("#btn-menu-6").click(function(){
+		if(tabActive == 2) return;
+		tabActive = 2;
+		makeEventsObjects();
+	});
 
 
