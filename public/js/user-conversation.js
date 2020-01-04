@@ -32,7 +32,7 @@
 		message.author = userInfo._id;
 		message.subject = toUser._id;
 		message.text = $("#message-send-input").val();
-		message.date = new Date();
+		message.date = new Date(getServerDate());
 		message.status = 0;
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {

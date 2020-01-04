@@ -209,7 +209,8 @@
 		//console.log(profiles);
 
 		let divsCreated = []; 
-		let dateN = (new Date()).toLocaleDateString();
+		let dateN = (new Date(getServerDate())).toLocaleDateString();
+		
 		profiles.forEach( async function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			//var userLength = userMsgs.length;
@@ -393,6 +394,6 @@
 		// 		}
 		// 	});
 		// }, 10000);
-		getHoraCertaBrasilia();
 	})();
+
 

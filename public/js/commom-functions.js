@@ -1,11 +1,14 @@
 	// Variável do host onde estão os serviços node (Mudando aqui, muda de todos os arquivos)
 	const nodeHost = "./";
 
-	function getHoraCertaBrasilia(){
-		$.get(nodeHost + "get-time-server")
+	// Função para pegar hora do servidor - Dispositivos as vezes tem horário diferente
+	function getServerDate(){
+		let dateNow = "";
+		$.get({url: nodeHost + "get-time-server", async: false})
 		.done(function (data) {
-			alert(data);
+			dateNow = data;
 		});
+		return dateNow;
 	}
 
 	// Function de Tela de Loading

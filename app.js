@@ -76,7 +76,7 @@
 //  [ READ - GET ] ROTA: retorna o horário do servidor (Horário certo - idenpendente do horario do usuário)
 	app.get('/get-time-server', urlencodedParser, function (req, res) {
 		let dateNow = new Date();
-		dateNow.setHours(dateNow.getHours() - 3);
+		dateNow.setHours(dateNow.getHours());
 		res.send(dateNow);
 	});
 
