@@ -53,18 +53,18 @@
 	function loginUser() {
 		loading();
 		$.post(nodeHost + "con-user", { email: $("#email-input").val(), password: hex_md5($("#password-input").val()) })
-			.done(function (data) {
-				if (isNullOrUndefined(data)) {
-					loading('hide');
-					alerts.userNotFound();
-				} else {
-					setUserCache(data);
-					window.location.replace("./main-view.html");
-				}
-			}).fail(function () {
+		.done(function (data) {
+			if (isNullOrUndefined(data)) {
 				loading('hide');
-				alerts.errorServer();
-			});
+				alerts.userNotFound();
+			} else {
+				setUserCache(data);
+				window.location.replace("./main-view.html");
+			}
+		}).fail(function () {
+			loading('hide');
+			alerts.errorServer();
+		});
 		event.preventDefault();
 	}
 

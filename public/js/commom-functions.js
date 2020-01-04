@@ -1,6 +1,13 @@
 	// Variável do host onde estão os serviços node (Mudando aqui, muda de todos os arquivos)
 	const nodeHost = "./";
 
+	function getHoraCertaBrasilia(){
+		$.get(nodeHost + "get-time-server")
+		.done(function (data) {
+			alert(data);
+		});
+	}
+
 	// Function de Tela de Loading
 	// Chamar: loading();            => Chama a Tela de Loading
 	// Chamar: loading('hide')       => Desaparece com a Tela de Loading que foi chamada em algum local

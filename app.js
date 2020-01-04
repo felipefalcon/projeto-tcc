@@ -73,6 +73,13 @@
 		}); 
 	});
 
+//  [ READ - GET ] ROTA: retorna o horário do servidor (Horário certo - idenpendente do horario do usuário)
+	app.get('/get-time-server', urlencodedParser, function (req, res) {
+		let dateNow = new Date();
+		dateNow.setHours(dateNow.getHours() - 3);
+		res.send(dateNow);
+	});
+
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
 	app.get('/get-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {

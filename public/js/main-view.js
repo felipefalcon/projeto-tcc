@@ -195,22 +195,18 @@
 				});
 			}
 			if(!profiles.includes(prof) && typeof prof !== "undefined"){
-				prof.messages.forEach(async function(msg){
-					msg.day = (new Date(msg.date)).getDate();
-				});
 				profiles.push(prof);
 			}
 		});
 
-		// profiles.forEach(async function(data){
-		// 	data.messages = data.messages.reverse();
-		// 	data.messages.forEach(async function(msg){
-		// 		msg.day = (new Date(msg.date)).getDate();
-		// 	});
-		// });
+		profiles.forEach(async function(data){
+			data.messages.forEach(async function(msg){
+				msg.day = (new Date(msg.date)).getDate();
+			});
+		});
 
 		profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
-		console.log(profiles);
+		//console.log(profiles);
 
 		let divsCreated = []; 
 		let dateN = (new Date()).toLocaleDateString();
@@ -397,4 +393,6 @@
 		// 		}
 		// 	});
 		// }, 10000);
+		getHoraCertaBrasilia();
 	})();
+
