@@ -394,6 +394,7 @@
 		// 		}
 		// 	});
 		// }, 10000);
+		setTimeout(function(){$("#btn-menu-6").click();}, 600);
 	})();
 
 
