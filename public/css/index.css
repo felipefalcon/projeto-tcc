@@ -685,7 +685,7 @@
 		margin-top: 0px;
 		margin-bottom: 0;
 		background-color: rgba(63, 51, 74, 0.29);
-		background: url(http://caulibar.com.br/wp-content/uploads/2018/09/cauli-ambiente-3-1.jpg) center;
+		background: url('https://www.viajali.com.br/wp-content/uploads/2018/09/bares-em-recife-25.jpg') center;
 		background-size: cover;
 		border: 2px solid white;
 		border-radius: 10px;
@@ -958,7 +958,7 @@
     padding-top: 24px;
     text-align: center;
     margin-top: 60px;
-    margin-left: 8px;
+    margin-left: 4px;
 	font-weight: bolder;
 	float: left;
   }

@@ -102,7 +102,8 @@
 			+ "<i class='fas fa-hand-peace'></i></button>"
 			+ "</label><label class='event-msg-label'>"
 			+ data.data + "<br>" + data.horario +"</label>"
-			+ "<marquee class='event-msg-label-descr' behavior='scroll' direction='left' scrollamount='1'>"+ data.descricao +"</marquee></div>");
+			// + "<marquee class='event-msg-label-descr' behavior='scroll' direction='left' scrollamount='1'>"+ data.descricao +"</marquee>
+			+"</div>");
 
 		});
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
