@@ -14,6 +14,7 @@
 	let picOrder = 0;
 	let tabActive = -1;
 	let cachedMessagesHere = [];
+	let cachedEventsHere = [];
 
 	function getAllUsersInfo() {
 		//$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
@@ -89,7 +90,10 @@
 			$("#events-box-div").empty();
 			return;
 		}
-		// console.log(allEventsWithoutUser);
+
+		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
+		if(_.isEqual(cachedEventsHere, allEventsWithoutUser)) return;
+		cachedEventsHere = allEventsWithoutUser.slice();
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach(async function (data, i) {
@@ -399,8 +403,10 @@
 
 	function checkTab(){
 		switch(tabActive){
-			case 4:  makeChatObjects(); break;
-			default: break;
+			case 4:  	makeChatObjects(); break;
+			case 2: 	makeEventsObjects(); break;
+			case 1: 	makeUsersNextObjects(); break;
+			default: 	break;
 		}
 	}
 
@@ -420,7 +426,7 @@
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
-		}, 600);
+		}, 500);
 	})();
 
 	$("#btn-menu-8").click(function(){
