@@ -59,50 +59,61 @@
 	}
 
 	function makeEventsObjects() {
-		//console.log(allEvents);
-		var allEventsWithoutUser = [];//allEvents.slice();
+		// console.log(allEvents);
+		if(allEvents.length == 0 || !allEvents) return;
+		let allEventsWithoutUser = [];//allEvents.slice();
+		// allEvents.forEach(function(data){
+		// 	var flag = false;
+		// 	var participantLength = data.participants.length;
+		// 	for(var i = 0; i < participantLength; ++i){
+		// 		if(userInfo._id != data.participants[i]._id){
+		// 			flag = true;
+		// 		}else{
+		// 			flag = false;
+		// 			break;
+		// 		}
+		// 	}
+		// 	if(flag){
+		// 		allEventsWithoutUser.push(data);
+		// 	}
+		// });
+
 		allEvents.forEach(function(data){
-			var flag = false;
-			var participantLength = data.participants.length;
-			for(var i = 0; i < participantLength; ++i){
-				if(userInfo._id != data.participants[i]._id){
-					flag = true;
-				}else{
-					flag = false;
-					break;
-				}
-			}
-			if(flag){
+			let userFound = data.participants.find(function(item){return item._id == userInfo._id});
+			if((typeof userFound === "undefined")){
 				allEventsWithoutUser.push(data);
 			}
 		});
 
 		if(allEventsWithoutUser.length == 0){
-			//$("#events-box-div").append("<p>Sem eventos no momento</p>");
 			$("#events-box-div").empty();
 			return;
 		}
+		// console.log(allEventsWithoutUser);
 
-		let createdDivs = "";
+		let divsCreated = []; 
 		allEventsWithoutUser.forEach(async function (data, i) {
 			if (i % 2 == 0) {
-				createdDivs +="<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>";
+				divsCreated.push("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>");
 			} else {
-				createdDivs += "<div class='events-t' name='" + data._id + "'>";
+				divsCreated.push("<div class='events-t' name='" + data._id + "'>");
 			}
-			createdDivs += "<label class='user-d-u-label event-user-label'>" + data.local + "<input class='event-subscribe-btn' name='"+data._id+"' type='button' value='PARTICIPAR'/></label>" +
-			"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px; color: rgba(245, 234, 159, 0.99);'> No dia: &nbsp&nbsp"+ data.data +" as " + data.horario +"</label>"+
-			"<label class='user-d-u-label chat-msg-label' style='padding-left: 18px;'>"+data.descricao+"</label>"+
-			"</div>";
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.local + "<button class='event-subscribe-btn' name='"+data._id+"'>"
+			+ "<i class='fas fa-hand-peace'></i></button>"
+			+ "</label><label class='event-msg-label'>"
+			+ data.data + "<br>" + data.horario +"</label>"
+			+ "<marquee class='event-msg-label-descr' behavior='scroll' direction='left' scrollamount='1'>"+ data.descricao +"</marquee></div>");
 
 		});
+		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
+		divsCreated.push("<div style=' height: "+$("#menu-bottom-home").innerHeight()+"px'></div>");
 
-		$("#events-box-div").empty();
-		$("#events-box-div").append(createdDivs);
+		$("#events-box-div").empty().append(divsCreated.join(""));
 
 		$(".event-subscribe-btn").click(function () {
 			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
+			$(this).parent().parent().fadeOut(600);
 			$.get("./upd-event", {
 				_id: 	$(this).attr('name'),
 				user: userBasic
@@ -111,6 +122,7 @@
 					console.log("Deu merda");
 				}else{
 					getAllEvents();
+					setTimeout(function(){makeEventsObjects();}, 5000);
 					// $("#main-body-div").LoadingOverlay('hide');
 				}
 			});
@@ -386,16 +398,16 @@
 	(async function(){
 		//getProfile();
 		getAllUsersInfo();
-		//getAllEvents();
+		getAllEvents();
 		verifyAdminPermission();
 		setInterval(function(){
 			getAllUsersInfo();
 			getUser();
 			checkTab();
-		}, 2000);
+		}, 200000);
 		setInterval(function(){
 			getAllEvents();
-		}, 10000);
+		}, 100000);
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();

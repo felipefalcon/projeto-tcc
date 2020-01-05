@@ -9,7 +9,8 @@
 		-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
 		-webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
 		-webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-		font-family: JosefinFont, sans-serif !important;
+		/* font-family: JosefinFont, sans-serif !important; */
+		font-family: 'Josefin Sans', sans-serif !important;
 		/* font-size:12px; */
 		background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);
 		margin:0px;
@@ -19,8 +20,9 @@
 		text-align: center !important;
 	}
 
-	@font-face {
+	/* @font-face {
 		font-family: JosefinFont;
+		font-family: 'Josefin Sans', sans-serif;
 		src: url('JosefinSans-Regular.ttf');
 		font-size: 18px;
 		font-display: swap
@@ -31,7 +33,7 @@
 		src: url("JosefinSans-Bold.ttf");
 		font-weight: bold;
 		font-display: swap
-	}
+	} */
 
 	textarea:focus, input:focus, select:focus {
 		outline: 0;
@@ -416,7 +418,7 @@
 	}
 
 	#menu-bottom-div {
-		position: absolute;
+		position: fixed;
 		bottom: 0;
 		width: 100%;
 		height: 52px;
@@ -678,13 +680,17 @@
 	}
 
 	.events-t{
-		color: white;
-		padding: 6px;
 		overflow: hidden;
 		text-align: left;
 		margin-top: 0px;
 		margin-bottom: 0;
 		background-color: rgba(63, 51, 74, 0.29);
+		background: url(http://caulibar.com.br/wp-content/uploads/2018/09/cauli-ambiente-3-1.jpg) center;
+		background-size: cover;
+		border: 2px solid white;
+		border-radius: 10px;
+		height: 166px;
+		margin-bottom: 8px;
 	}
 
 	.chat-date-label{
@@ -696,9 +702,9 @@
 
 	.event-user-label{
 		background-color: rgba(33, 35, 78, 0.6);
-		padding: 10px;
-		padding-left: 20px;
-		margin-bottom: 10px;
+		padding: 2px;
+		padding-left: 12px;
+		padding-top: 6px;
 	}
 
 	#user-e-u-div-content{
@@ -721,10 +727,16 @@
 
 	.event-subscribe-btn{
 		float: right;
-		border: none;
-		font-size: 13px;
-		background: rgb(173, 255, 146);
+		background: none;
 		font-weight: bolder;
+		width: 40px;
+		height: 40px;
+		border: none;
+		font-size: 26px;
+		padding: 6px;
+		color: white;
+		margin-right: 4px;
+		text-shadow: 2px 3px 1px #b7417f;
 	}
 
 	.event-notsubscribe-btn{
@@ -929,4 +941,32 @@
   .swal2-styled.swal2-confirm{
 	  zoom: 0.75;
 	  background-color: #dd57a8 !important;
+  }
+
+  #events-box-div{
+	  padding: 8px;
+  }
+
+  .event-msg-label{
+	text-shadow: 2px 2px 2px black;
+    height: 68px;
+    width: 68px;
+    font-size: 10px;
+    background: rgba(33, 35, 78, 0.4);
+    color: white;
+    border-radius: 100px;
+    padding-top: 24px;
+    text-align: center;
+    margin-top: 60px;
+    margin-left: 8px;
+	font-weight: bolder;
+	float: left;
+  }
+
+  .event-msg-label-descr{
+	text-shadow: 2px 2px 2px black;
+	color: white;
+	width: 256px;
+    margin-top: 84px;
+    margin-left: 8px;
   }
