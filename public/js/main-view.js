@@ -94,7 +94,7 @@
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach(async function (data, i) {
 			
-				divsCreated.push("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>");
+			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
 			
 			let dateEvent = new Date(data.data);
 			let dayEvent = new Number(dateEvent.getDate())+1;
