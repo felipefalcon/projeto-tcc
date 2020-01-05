@@ -687,8 +687,7 @@
 		background-color: rgba(63, 51, 74, 0.29);
 		background: url(https://www.viajali.com.br/wp-content/uploads/2018/09/bares-em-recife-25.jpg) center;
 		background-size: cover;
-		height: 124px;
-		margin-bottom: 8px;
+		height: 100%;
 		background-blend-mode: color-burn;
 		border-left: 4px solid rgba(197, 170, 251, 0.8);
 	}
@@ -944,6 +943,7 @@
   }
 
   #events-box-div{
+	  height: 166px;
 	  padding: 8px;
   }
 
@@ -957,7 +957,7 @@
     border-radius: 100px;
     padding-top: 10px;
     text-align: center;
-    margin-top: 12px;
+    margin-top: 24px;
     margin-left: 4px;
 	font-weight: bolder;
 	float: left;

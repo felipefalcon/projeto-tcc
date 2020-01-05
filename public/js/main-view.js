@@ -93,8 +93,11 @@
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach(async function (data, i) {
-			
-			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
+			if(i == 0){
+				divsCreated.push("<div class='carousel-item events-t active' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
+			}else{
+				divsCreated.push("<div class='carousel-item events-t' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
+			}
 			
 			let dateEvent = new Date(data.data);
 			let dayEvent = new Number(dateEvent.getDate())+1;
