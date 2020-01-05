@@ -93,15 +93,20 @@
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach(async function (data, i) {
-			if (i % 2 == 0) {
+			
 				divsCreated.push("<div class='events-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>");
-			} else {
-				divsCreated.push("<div class='events-t' name='" + data._id + "'>");
+			
+			let dateEvent = new Date(data.data);
+			let dayEvent = new Number(dateEvent.getDate())+1;
+			if(dayEvent < 10){
+				dayEvent = "0" + dayEvent;
 			}
 			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.local + "<button class='event-subscribe-btn' name='"+data._id+"'>"
 			+ "<i class='fas fa-hand-peace'></i></button>"
 			+ "</label><label class='event-msg-label'>"
-			+ data.data + "<br>" + data.horario +"</label>"
+			+ "<p style='line-height: 0px;font-size: 8px; margin-bottom: 18px; color: rgba(255, 255, 255, 0.8);'>" + dateEvent.getFullYear() + "</p>"
+			+ "<p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + dateEvent.getMonth()+1 + "</p>"
+			+ data.horario +"</label>"
 			// + "<marquee class='event-msg-label-descr' behavior='scroll' direction='left' scrollamount='1'>"+ data.descricao +"</marquee>
 			+"</div>");
 
