@@ -75,9 +75,7 @@
 
 //  [ READ - GET ] ROTA: retorna o horário do servidor (Horário certo - idenpendente do horario do usuário)
 	app.get('/get-time-server', urlencodedParser, function (req, res) {
-		let dateNow = new Date();
-		dateNow.setHours(dateNow.getHours());
-		res.send(dateNow);
+		res.send((new Date()));
 	});
 
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
@@ -212,16 +210,16 @@
 			var dbo = db.db(dbName);
 			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
-			var query = {_id: objectIdUserFrom};
-			var query2 = {_id: objectIdUserTo};
+			var query = {_id: { "$in": [objectIdUserFrom, objectIdUserTo]}}
 			var newvalues = {$push: 	{ messages: {"$each": [req.query.message] , "$position": 0}}};
-			dbo.collection("users").updateOne(query, newvalues, {upsert: true}, async function(err, result) {
+			dbo.collection("users").updateMany(query, newvalues, {upsert: true}, async function(err, result) {
 				if (err) throw err;
+				res.json({ ok: "ok"});
 			});
-			dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
-			});
+			// dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
+			// 	if (err) throw err;
+			// 	res.json({ ok: 'ok' }); 
+			// });
 			db.close();
 		}); 
 	});

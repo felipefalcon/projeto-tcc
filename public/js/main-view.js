@@ -405,7 +405,7 @@
 		switch(tabActive){
 			case 4:  	makeChatObjects(); break;
 			case 2: 	makeEventsObjects(); break;
-			case 1: 	makeUsersNextObjects(); break;
+			// case 1: 	makeUsersNextObjects(); break;
 			default: 	break;
 		}
 	}
