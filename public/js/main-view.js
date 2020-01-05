@@ -410,10 +410,10 @@
 			getAllUsersInfo();
 			getUser();
 			checkTab();
-		}, 200000);
+		}, 2000);
 		setInterval(function(){
 			getAllEvents();
-		}, 100000);
+		}, 10000);
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
