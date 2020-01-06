@@ -216,10 +216,6 @@
 				if (err) throw err;
 				res.json({ ok: "ok"});
 			});
-			// dbo.collection("users").updateOne(query2, newvalues, {upsert: true}, function(err, result) {
-			// 	if (err) throw err;
-			// 	res.json({ ok: 'ok' }); 
-			// });
 			db.close();
 		}); 
 	});
@@ -273,11 +269,7 @@
 			var dbo = db.db(dbName);
 			dbo.collection("events").find({}).toArray(function(err, result) {
 				if (err) throw err;
-				if(result){
-					res.json(result);
-				}else{
-					res.json({oh_no: "oh-no"});
-				}
+				if(result) res.json(result);
 			});
 			db.close();
 		}); 

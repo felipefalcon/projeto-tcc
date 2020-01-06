@@ -66,6 +66,7 @@
 		if(("messages" in toUser)) {
 			toUser.messages = toUser.messages.reverse();
 		};
+		if(typeof userInfo.messages == "undefined") return;
 		$("#chat-msgs-div").empty();
 		for(var i = 0; i < userInfo.messages.length; ++i){
 			var msg = userInfo.messages[i];

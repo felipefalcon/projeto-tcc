@@ -412,6 +412,8 @@
 
 	(async function(){
 		//getProfile();
+		$("#menu-bottom-home").slideUp(300);
+		$("#menu-bottom-prof").slideUp(300);
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
@@ -420,36 +422,48 @@
 			getUser();
 			checkTab();
 		}, 2000);
-		setInterval(function(){
-			getAllEvents();
-		}, 10000);
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
 		}, 500);
 	})();
 
+	$("#btn-menu-7").click(function(){
+		if(tabActive == 3) return;
+		tabActive = 3;
+		$("#menu-bottom-home").slideDown(300);
+		$("#menu-bottom-prof").slideUp(300);
+	});
+
 	$("#btn-menu-8").click(function(){
 		if(tabActive == 4) return;
 		tabActive = 4;
+		$("#menu-bottom-home").slideUp(300);
+		$("#menu-bottom-prof").slideUp(300);
 		makeChatObjects();
 	});
 
 	$("#btn-menu-4").click(function(){
 		if(tabActive == 0) return;
 		tabActive = 0;
+		$("#menu-bottom-home").slideUp(300);
+		$("#menu-bottom-prof").slideDown(300);
 		getProfile();
 	});
 
 	$("#btn-menu-5").click(function(){
 		if(tabActive == 1) return;
 		tabActive = 1;
+		$("#menu-bottom-home").slideUp(300);
+		$("#menu-bottom-prof").slideUp(300);
 		makeUsersNextObjects();
 	});
 
 	$("#btn-menu-6").click(function(){
 		if(tabActive == 2) return;
 		tabActive = 2;
+		$("#menu-bottom-home").slideDown(300);
+		$("#menu-bottom-prof").slideUp(300);
 		makeEventsObjects();
 	});
 
