@@ -180,7 +180,7 @@
 			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
 		});
 
-		$("#next-u-users").append(createdDivs);
+		$("#next-u-users").empty().append(createdDivs);
 
 		$(".send-msg-button").click(function () {
 			setToUser($(this).attr('name'));
