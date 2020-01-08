@@ -410,11 +410,13 @@
 	}
 
 	(async function(){
-		let imgCached = new Image();
-		imgCached.src = userInfo.pics_url.main_pic;
+		$("#profile-div").css("display", "invisible");
+		$("#btn-menu-4").click(function(){
+			
+		}); 
 		getProfile();
-		$("#menu-bottom-home").slideUp(300);
 		$("#menu-bottom-prof").slideUp(300);
+		$("#menu-bottom-home").slideUp(300);
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
