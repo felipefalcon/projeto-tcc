@@ -334,7 +334,6 @@
 	}
 
 	function getProfile() {
-		getUser();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
@@ -411,7 +410,7 @@
 	}
 
 	(async function(){
-		//getProfile();
+		getProfile();
 		$("#menu-bottom-home").slideUp(300);
 		$("#menu-bottom-prof").slideUp(300);
 		getAllUsersInfo();
@@ -423,7 +422,6 @@
 			checkTab();
 		}, 2000);
 		setTimeout(function(){
-			$("#btn-menu-4").click(); 
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
 		}, 500);
@@ -450,6 +448,7 @@
 		$("#menu-bottom-home").slideUp(300);
 		$("#menu-bottom-prof").slideDown(300);
 		getProfile();
+		
 	});
 
 	$("#btn-menu-5").click(function(){
