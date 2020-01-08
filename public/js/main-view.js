@@ -423,6 +423,7 @@
 			checkTab();
 		}, 2000);
 		setTimeout(function(){
+			$("#btn-menu-4").click(); 
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
 		}, 500);
