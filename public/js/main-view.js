@@ -410,6 +410,8 @@
 	}
 
 	(async function(){
+		let imgCached = new Image();
+		imgCached.src = userInfo.pics_url.main_pic;
 		getProfile();
 		$("#menu-bottom-home").slideUp(300);
 		$("#menu-bottom-prof").slideUp(300);
