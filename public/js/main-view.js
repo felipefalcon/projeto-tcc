@@ -339,6 +339,9 @@
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
 		$("#label-user-location").text("São Paulo - SP");
+		setTimeout(function(){
+			$("#menu-bottom-prof").slideDown(300);
+		}, 100);
 	}
 
 	$("#btn-menu-1").click(function () {
@@ -425,7 +428,7 @@
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
-		}, 500);
+		}, 300);
 	})();
 
 	$("#btn-menu-7").click(function(){
@@ -447,7 +450,6 @@
 		if(tabActive == 0) return;
 		tabActive = 0;
 		$("#menu-bottom-home").slideUp(300);
-		$("#menu-bottom-prof").slideDown(300);
 		getProfile();
 	});
 
