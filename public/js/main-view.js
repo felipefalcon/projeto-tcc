@@ -452,7 +452,7 @@
 			setTimeout(function(){
 				$("#menu-bottom-prof").slideDown(300);
 				firstTimeProf = false;
-			}, 300);
+			}, 500);
 		}else{
 			$("#menu-bottom-prof").slideDown(300);
 		}
