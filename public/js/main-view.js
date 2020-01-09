@@ -334,6 +334,7 @@
 	}
 
 	function getProfile() {
+		getUser();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
@@ -410,13 +411,9 @@
 	}
 
 	(async function(){
-		$("#profile-div").css("display", "invisible");
-		$("#btn-menu-4").click(function(){
-			
-		}); 
-		getProfile();
-		$("#menu-bottom-prof").slideUp(300);
+		//getProfile();
 		$("#menu-bottom-home").slideUp(300);
+		$("#menu-bottom-prof").slideUp(300);
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
@@ -452,7 +449,6 @@
 		$("#menu-bottom-home").slideUp(300);
 		$("#menu-bottom-prof").slideDown(300);
 		getProfile();
-		
 	});
 
 	$("#btn-menu-5").click(function(){
