@@ -15,6 +15,7 @@
 	let tabActive = -1;
 	let cachedMessagesHere = [];
 	let cachedEventsHere = [];
+	let firstTimeProf = true;
 
 	function getAllUsersInfo() {
 		//$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
@@ -339,9 +340,6 @@
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
 		$("#label-user-location").text("São Paulo - SP");
-		setTimeout(function(){
-			$("#menu-bottom-prof").slideDown(300);
-		}, 100);
 	}
 
 	$("#btn-menu-1").click(function () {
@@ -450,6 +448,14 @@
 		if(tabActive == 0) return;
 		tabActive = 0;
 		$("#menu-bottom-home").slideUp(300);
+		if(firstTimeProf){
+			setTimeout(function(){
+				$("#menu-bottom-prof").slideDown(300);
+				firstTimeProf = false;
+			}, 300);
+		}else{
+			$("#menu-bottom-prof").slideDown(300);
+		}
 		getProfile();
 	});
 
