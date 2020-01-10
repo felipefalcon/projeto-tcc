@@ -240,7 +240,7 @@
 		//console.log(profiles);
 
 		let divsCreated = []; 
-		let dateN = (new Date(getServerDate())).toLocaleDateString();
+		const dateN = (new Date(getServerDate())).toLocaleDateString();
 		
 		profiles.forEach( async function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
@@ -255,7 +255,7 @@
 			let lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
 			lastMsgUser = typeof lastMsgUser === "undefined" ? "" : lastMsgUser[0];
 
-			var dateMsgUser = new Date(lastMsgUser.date);
+			let dateMsgUser = new Date(lastMsgUser.date);
 			var dateMsgSubject = typeof lastMsgSubject !== "undefined" ? new Date(lastMsgSubject.date) : dateMsgUser;
 			
 			if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
@@ -285,7 +285,7 @@
 		$("#chat-users-div").empty().append(divsCreated.join(""));
 		//$("#chat-users-div").fadeIn(200);
 
-		$(".users-t-chat").click(function () {
+		$(".users-t-chat").click(async function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
 			elmt.css("background-color", "rgba(255, 255, 255, 0.6)");
 			var subject = $(this).attr('name');
@@ -342,17 +342,6 @@
 		$("#label-user-location").text("São Paulo - SP");
 	}
 
-	$("#btn-menu-1").click(function () {
-		$("#menu-1").slideToggle(300);
-	});
-
-	$("body").click(function () {
-		if (parseInt($("#menu-1").css('height')) < 50) {
-			return;
-		}
-		$("#menu-1").slideUp(300);
-	});
-
 	function deleteAccount() {
 		if (window.confirm("Tem certeza que deseja deletar sua conta?\nEsta ação é irreversível!")) {
 			$.get("./del-user", { email: userInfo.email })
@@ -392,13 +381,12 @@
 	});
 
 	$("#btn-change-pic").click(function(){
-		if(!("pics_url" in userInfo) || $('#main-pic-div-c').css("opacity") < 1) return;
-		if(picOrder >= Object.values(userInfo.pics_url).length-1){
-			picOrder = -1;
-		}
-		$('#main-pic-div-c').fadeOut(150, function(){
-			$('#main-pic-div-c').css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
-			$('#main-pic-div-c').fadeIn(150);
+		const picDiv = $('#main-pic-div-c');
+		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1) return;
+		if(picOrder >= Object.values(userInfo.pics_url).length-1) picOrder = -1;
+		picDiv.fadeOut(150, function(){
+			picDiv.css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
+			picDiv.fadeIn(150);
 		});
 	});
 
@@ -413,66 +401,81 @@
 
 	(async function(){
 		//getProfile();
-		$("#menu-bottom-home").slideUp(300);
-		$("#menu-bottom-prof").slideUp(300);
+		const MenuBottomHome = $("#menu-bottom-home");
+		const MenuBottomProf = $("#menu-bottom-prof");
+		MenuBottomHome.slideUp(100);
+		MenuBottomProf.slideUp(100);
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
-		setInterval(function(){
+
+		$("#btn-menu-1").click(function () {
+			$("#menu-1").slideToggle(300);
+		});
+	
+		$("body").click(async function () {
+			if (parseInt($("#menu-1").css('height')) < 50) return;
+			$("#menu-1").slideUp(300);
+		});
+
+		setInterval( async function(){
 			getAllUsersInfo();
 			getUser();
 			checkTab();
 		}, 2000);
+
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
 			$(".search-div").fadeIn();
-		}, 300);
+		}, 200);
+
+		$("#btn-menu-7").click(function(){
+			if(tabActive == 3) return;
+			tabActive = 3;
+			MenuBottomHome.slideDown(300);
+			MenuBottomProf.slideUp(300);
+		});
+	
+		$("#btn-menu-8").click(function(){
+			if(tabActive == 4) return;
+			tabActive = 4;
+			MenuBottomHome.slideUp(300);
+			MenuBottomProf.slideUp(300);
+			makeChatObjects();
+		});
+	
+		$("#btn-menu-4").click(function(){
+			if(tabActive == 0) return;
+			tabActive = 0;
+			MenuBottomHome.slideUp(300);
+			if(firstTimeProf){
+				setTimeout(function(){
+					MenuBottomProf.slideDown(300);
+					firstTimeProf = false;
+				}, 200);
+			}else{
+				MenuBottomProf.slideDown(300);
+			}
+			getProfile();
+		});
+	
+		$("#btn-menu-5").click(function(){
+			if(tabActive == 1) return;
+			tabActive = 1;
+			MenuBottomHome.slideUp(300);
+			MenuBottomProf.slideUp(300);
+			makeUsersNextObjects();
+		});
+	
+		$("#btn-menu-6").click(function(){
+			if(tabActive == 2) return;
+			tabActive = 2;
+			MenuBottomHome.slideDown(300);
+			MenuBottomProf.slideUp(300);
+			makeEventsObjects();
+		});
+
 	})();
 
-	$("#btn-menu-7").click(function(){
-		if(tabActive == 3) return;
-		tabActive = 3;
-		$("#menu-bottom-home").slideDown(300);
-		$("#menu-bottom-prof").slideUp(300);
-	});
-
-	$("#btn-menu-8").click(function(){
-		if(tabActive == 4) return;
-		tabActive = 4;
-		$("#menu-bottom-home").slideUp(300);
-		$("#menu-bottom-prof").slideUp(300);
-		makeChatObjects();
-	});
-
-	$("#btn-menu-4").click(function(){
-		if(tabActive == 0) return;
-		tabActive = 0;
-		$("#menu-bottom-home").slideUp(300);
-		if(firstTimeProf){
-			setTimeout(function(){
-				$("#menu-bottom-prof").slideDown(300);
-				firstTimeProf = false;
-			}, 500);
-		}else{
-			$("#menu-bottom-prof").slideDown(300);
-		}
-		getProfile();
-	});
-
-	$("#btn-menu-5").click(function(){
-		if(tabActive == 1) return;
-		tabActive = 1;
-		$("#menu-bottom-home").slideUp(300);
-		$("#menu-bottom-prof").slideUp(300);
-		makeUsersNextObjects();
-	});
-
-	$("#btn-menu-6").click(function(){
-		if(tabActive == 2) return;
-		tabActive = 2;
-		$("#menu-bottom-home").slideDown(300);
-		$("#menu-bottom-prof").slideUp(300);
-		makeEventsObjects();
-	});
 
 
