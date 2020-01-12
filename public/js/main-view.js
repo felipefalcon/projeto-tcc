@@ -347,7 +347,7 @@
 			gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		}
 		$("#label-user-name").html(gender+"&nbsp&nbsp"+userInfo.name);
-		$("#label-user-age").text(userInfo.age + " anos");
+		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#label-user-location").text("São Paulo - SP");
 		$("#main-descript-div").text(userInfo.about);
 	}
