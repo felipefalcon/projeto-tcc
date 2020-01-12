@@ -492,9 +492,13 @@
 		z-index: 999;
 	}
 	
-	#user-information-div label{
+	#user-information-div label {
 		text-align: left;
-		padding-bottom:4px;
+		padding-bottom: 4px;
+		background: white;
+		color: #4c376b;
+		border-radius: 20px;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 	}
 	
 	#menu-bottom-div .btn-menu{
@@ -793,7 +797,7 @@
 
 	#label-user-age{
 		text-align: center !important;
-		margin-left: 8px;
+		margin-left: 6px;
 	}
 
 	#label-user-name{
@@ -801,18 +805,16 @@
 		box-shadow: none;
 		background: none;
 		margin-bottom: 0px;
-		width: 220px;
 		overflow: hidden;
 		height: 34px;
 	}
 
 	#name-label-user-info{
 		display: inline-block;
-		background: white;
 		color: #4c376b;
-		border-radius: 20px;
-		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 		height: 34px;
+		width: 220px;
+		max-width: 220px;
 	}
 
 	#other-label-user-info{
