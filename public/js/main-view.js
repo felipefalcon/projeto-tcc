@@ -13,6 +13,7 @@
 	let flagInfoProfile = false;
 	let picOrder = 0;
 	let tabActive = -1;
+	let flagUserChanged = true;
 	let cachedMessagesHere = [];
 	let cachedEventsHere = [];
 	let firstTimeProf = true;
@@ -329,7 +330,13 @@
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
+				if(JSON.stringify(userInfo) === JSON.stringify(data)){
+					return flagUserChanged = false;
+				}
+				console.log(userInfo);
+				console.log(data);
 				setUserCache(data);
+				flagUserChanged = true;
 			}
 		});
 	}
@@ -383,13 +390,16 @@
 		$( "#main-descript-div" ).animate({
 			width: "100%",
 			opacity: "1"
-		}, 300);
+		}, 600);
 		setTimeout(function(){
 			$("#other-label-user-info").slideUp(600);
 			$( "#main-descript-div" ).animate({
 				width: "0%",
+				left: "100%",
 				opacity: "0"
-			}, 600);
+			}, 600, function(){
+				$( "#main-descript-div" ).css("left", "0%");
+			});
 			flagInfoProfile = false;
 		}, 10000);
 		flagInfoProfile = true;
@@ -434,7 +444,7 @@
 		});
 
 		setInterval( async function(){
-			getAllUsersInfo();
+			if(flagUserChanged) getAllUsersInfo();
 			getUser();
 			checkTab();
 		}, 2000);
