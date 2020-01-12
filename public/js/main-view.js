@@ -340,6 +340,7 @@
 		$("#label-user-name").text(userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
 		$("#label-user-location").text("São Paulo - SP");
+		$("#main-descript-div").text(userInfo.about);
 	}
 
 	function deleteAccount() {
@@ -373,8 +374,16 @@
 	$("#show-user-info").click(function () {
 		if(flagInfoProfile) return;
 		$("#other-label-user-info").slideDown(300);
+		$( "#main-descript-div" ).animate({
+			width: "100%",
+			opacity: "1"
+		}, 300);
 		setTimeout(function(){
 			$("#other-label-user-info").slideUp(600);
+			$( "#main-descript-div" ).animate({
+				width: "0%",
+				opacity: "0"
+			}, 600);
 			flagInfoProfile = false;
 		}, 10000);
 		flagInfoProfile = true;
