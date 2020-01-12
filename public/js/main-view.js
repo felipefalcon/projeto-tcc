@@ -337,7 +337,13 @@
 	function getProfile() {
 		getUser();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
-		$("#label-user-name").text(userInfo.name);
+		let gender = "?";
+		if(userInfo.gender == "M"){
+			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
+		}else{
+			gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
+		}
+		$("#label-user-name").html(gender+"&nbsp&nbsp"+userInfo.name);
 		$("#label-user-age").text(userInfo.age + " anos");
 		$("#label-user-location").text("São Paulo - SP");
 		$("#main-descript-div").text(userInfo.about);
