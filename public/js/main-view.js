@@ -330,11 +330,7 @@
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
-				if(JSON.stringify(userInfo) === JSON.stringify(data)){
-					return flagUserChanged = false;
-				}
-				console.log(userInfo);
-				console.log(data);
+				if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
 				setUserCache(data);
 				flagUserChanged = true;
 			}
@@ -428,11 +424,15 @@
 		//getProfile();
 		const MenuBottomHome = $("#menu-bottom-home");
 		const MenuBottomProf = $("#menu-bottom-prof");
-		MenuBottomHome.slideUp(100);
-		MenuBottomProf.slideUp(100);
+		MenuBottomHome.slideUp(1);
+		MenuBottomProf.slideUp(1);
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
+
+		$('.carousel').carousel({
+			interval: false
+		  })
 
 		$("#btn-menu-1").click(function () {
 			$("#menu-1").slideToggle(300);
@@ -447,7 +447,7 @@
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
 			checkTab();
-		}, 2000);
+		}, 12000);
 
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
