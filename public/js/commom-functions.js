@@ -41,6 +41,19 @@
 				});
 			}, 600);
 		},
+		aboutAlert: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'LeRo',
+					text: 'Versão 0.0.4',
+					icon: 'info',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 300);
+		},
 		notEqualsPasswords: function alertError(){
 			setTimeout(function(){
 				Swal.fire({

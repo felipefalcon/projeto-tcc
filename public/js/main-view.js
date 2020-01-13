@@ -437,6 +437,10 @@
 		$("#btn-menu-1").click(function () {
 			$("#menu-1").slideToggle(300);
 		});
+
+		$("#about-btn").click(function () {
+			alerts.aboutAlert();
+		});
 	
 		$("body").click(async function () {
 			if (parseInt($("#menu-1").css('height')) < 50) return;
