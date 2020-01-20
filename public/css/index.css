@@ -384,15 +384,15 @@
 	}
 
 	.users-t, .users-t-chat{
-		color: white;
 		padding: 2px;
 		overflow: hidden;
 		text-align: left;
 		padding-left: 24px;
-		background-color: rgba(255, 255, 255, 0.25);
-		border: 2px solid rgba(255, 255, 255, 0.25);
+		background-color: white;
 		margin: 4px;
 		border-radius: 10px;
+		margin-bottom: 8px;
+		box-shadow: 2px 2px 1px #e86898;
 	}
 	
 	#profile-img-div{
@@ -670,15 +670,25 @@
 	}
 
 	.chat-user-label{
-		background-color: rgba(33, 35, 78, 0.6);
 		margin-left: 20px;
-    	width: 100%;
+		width: 100%;
+		text-shadow: none;
+		color: #c36bdd;
+		font-weight: bolder;
+		font-size: 17px;
+		padding-top: 2px;
+		border-bottom: 1px solid #feedff;
 	}
 
 	.chat-msg-label{
-		max-height: 48px; 
-		overflow: hidden; 
+		max-height: 48px;
 		margin-top: 2px;
+		text-shadow: none;
+		color: #b3a8cc;
+		font-size: 14px;
+		line-height: 22px;
+		padding-top: 4px;
+		width: 100%;
 	}
 
 	.events-t{
@@ -697,8 +707,9 @@
 	.chat-date-label{
 		float: right;
 		padding-right: 18px;
-		font-size: 13px;
-		color: #c5e1ff;
+		font-size: 12px;
+		color: #b3a8cc;
+		padding-top: 4px;
 	}
 
 	.event-user-label{
