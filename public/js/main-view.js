@@ -288,12 +288,12 @@
 
 		$(".users-t-chat").click(async function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
-			elmt.css("background-color", "rgba(255, 255, 255, 0.6)");
+			elmt.css("background-color", "#e8e8e8");
 			var subject = $(this).attr('name');
 			setTimeout(function () {
 				setToUser(subject);
 				window.location.href = "./user-conversation.html";
-			}, 100);
+			}, 60);
 		});
 	}
 

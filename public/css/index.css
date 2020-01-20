@@ -392,9 +392,7 @@
 		margin: 4px;
 		border-radius: 10px;
 		margin-bottom: 8px;
-		box-shadow: 2px 2px 1px #e86898;
-		border-top: 4px solid white;
-		border-bottom: 4px solid white;
+		box-shadow: 2px 2px 1px #b7417f;
 	}
 	
 	#profile-img-div{
@@ -410,14 +408,18 @@
 		background-image: url('user-profile.png');
 		background-repeat: no-repeat;
 		background-position: center;
-		box-shadow: 0px 0px 3px rgba(33, 35, 78, 0.6);
+		box-shadow: 0px 0px 3px rgb(208, 201, 224);
 		z-index: 4;
-		top: 2px;
+		top: 5px;
 	}
 
 	.profile-info-div{
 		position: relative;
-    	left: -8px;
+		left: -8px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+		overflow: hidden;
+		text-align: left;
 	}
 
 	#menu-bottom-div {
@@ -673,7 +675,6 @@
 	}
 
 	.chat-user-label{
-		margin-left: 20px;
 		width: 100%;
 		text-shadow: none;
 		color: #a167b2;
@@ -689,8 +690,8 @@
 		text-shadow: none;
 		color: #b3a8cc;
 		font-size: 14px;
-		line-height: 22px;
-		padding-top: 4px;
+		line-height: 23px;
+		padding-top: 5px;
 		width: 100%;
 	}
 
@@ -709,7 +710,6 @@
 
 	.chat-date-label{
 		float: right;
-		padding-right: 18px;
 		font-size: 12px;
 		color: #b3a8cc;
 		padding-top: 4px;
