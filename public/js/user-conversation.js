@@ -33,28 +33,30 @@
 		message.subject = toUser._id;
 		message.text = $("#message-send-input").val();
 		message.date = new Date(getServerDate());
-		message.status = 0;
+		message.status = 1;
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
 					$("#message-send-input").val("");
-					getNewMessages($("#chat-msgs-div").scrollTop(1000000000000000));
-					
+					getNewMessages();
+					setTimeout(function(){
+						$("#chat-msgs-div").scrollTop(1000000000000000);
+					}, 1000);
 				}
 			});
 	});
 
-	function getNewMessages(callback) {
+	function getNewMessages() {
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
+					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
 					setUserCache(data);
 					makeChatMessage();
-					callback;
 				}
 			});
 	}
@@ -62,9 +64,6 @@
 	function makeChatMessage() {
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
-		};
-		if(("messages" in toUser)) {
-			toUser.messages = toUser.messages.reverse();
 		};
 		if(typeof userInfo.messages == "undefined") return;
 		$("#chat-msgs-div").empty();
@@ -82,12 +81,20 @@
 					"<p class='chat-msg-p'>" + msg.text.toString() + "</p>" +
 					"</div>"
 				);
+				msg.status = 1;
 			}
 		}
+		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
+		.done(function(data){
+			if (isNullOrUndefined(data)) {
+				alert("Algum erro");
+			}
+			setUserCache(userInfo);
+		});
 	}
 
 	setInfoToUser();
 	makeChatMessage();
-	$("#chat-msgs-div").scrollTop(1000000000000000)
+	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 10000)
+	setInterval(function () { getNewMessages(); }, 10000);

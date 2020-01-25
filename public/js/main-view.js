@@ -272,8 +272,13 @@
 			}else{
 				lastDate = lastDate.toLocaleDateString();
 			}
+
+			let newMsgAlert = "";
+			if(lastMsg.status == "0"){
+				newMsgAlert = "<span class='new-msg'>!</span>";
+			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'><div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
+			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
 			"<div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" 
 			+ data.name + 
 			"<span class='chat-date-label'>"+ lastDate +"</span></label><label class='user-d-u-label chat-msg-label'>" 
