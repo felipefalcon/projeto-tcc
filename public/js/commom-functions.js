@@ -191,7 +191,11 @@
 
 	//Auto-login, verifica se há cache do Usuário se houve automaticamente Muda para Tela Principal
 	if ((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined) {
-		window.location.replace("main-view.html");
+		$.get(nodeHost + "get-user", { email: userInfo.email })
+		.done(function (data) {
+			if (isNullOrUndefined(data)) return;
+			window.location.replace("main-view.html");
+		});
 	}
 
 	// Ajuste do tamanho da Tela
