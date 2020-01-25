@@ -676,7 +676,7 @@
 	.chat-user-label{
 		width: 100%;
 		text-shadow: none;
-		color: #9e76aa;
+		color: #7a5984;
 		font-weight: bolder;
 		font-size: 15px;
 		border-bottom: 1px solid #feedff;
@@ -686,7 +686,7 @@
 		max-height: 48px;
 		margin-top: 2px;
 		text-shadow: none;
-		color: #b3a8cc;
+		color: #9a90b1;
 		font-size: 14px;
 		line-height: 23px;
 		padding-top: 5px;
@@ -710,7 +710,7 @@
 	.chat-date-label{
 		float: right;
 		font-size: 11px;
-		color: #b3a8cc;
+		color: #9a90b1;
 		padding-top: 4px;
 	}
 
