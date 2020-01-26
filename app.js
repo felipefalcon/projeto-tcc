@@ -212,11 +212,11 @@
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var message = req.query.message;
 			var newvalues = {$push: 	{ messages: {"$each": [message] , "$position": 0}}};
-			dbo.collection("users").updateOne({_id: objectIdUserFrom}, newvalues, {upsert: true}, async function(err, result) {
+			dbo.collection("users").updateOne({_id: objectIdUserFrom}, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
 			});
 			message.status = 0;
-			dbo.collection("users").updateOne({_id: objectIdUserTo}, newvalues, {upsert: true}, async function(err, result) {
+			dbo.collection("users").updateOne({_id: objectIdUserTo}, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
 				res.json({ ok: "ok"});
 			});
@@ -246,9 +246,8 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var messagesUser = req.query.messages;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages: messagesUser }}, async function(err, result) {
+			dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages: req.query.messages }}, function(err, result) {
 				if (err) throw err;
 				res.json({ ok: "ok"});
 			});

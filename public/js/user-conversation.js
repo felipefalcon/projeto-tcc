@@ -17,15 +17,6 @@
 		window.location.replace(document.referrer);
 	});
 
-	$(document).ready(function () {
-		$("#search-input").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$(".profile-info-div *").filter(function () {
-				$(this).parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
-			});
-		});
-	});
-
 	$("#send-message-button").click(function () {
 		if ($("#message-send-input").val() == "") return;
 		var message = {};
@@ -43,7 +34,7 @@
 					getNewMessages();
 					setTimeout(function(){
 						$("#chat-msgs-div").scrollTop(1000000000000000);
-					}, 1000);
+					}, 3000);
 				}
 			});
 	});
@@ -66,28 +57,44 @@
 			userInfo.messages = userInfo.messages.reverse();
 		};
 		if(typeof userInfo.messages == "undefined") return;
-		$("#chat-msgs-div").empty();
-		for(var i = 0; i < userInfo.messages.length; ++i){
-			var msg = userInfo.messages[i];
+		// for(var i = 0; i < userInfo.messages.length; ++i){
+		// 	var msg = userInfo.messages[i];
+		// 	if (msg.author == userInfo._id && msg.subject == toUser._id) {
+		// 		$("#chat-msgs-div").append("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 12px; background-color: #f1e1ff;'>" +
+		// 			"<p class='chat-sub-p'>" + $.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + "</p>" +
+		// 			"<p class='chat-msg-p'>" + msg.text.toString() + "</p>" +
+		// 			"</div>"
+		// 		);
+		// 	} else if(msg.subject == userInfo._id && msg.author == toUser._id){
+		// 		$("#chat-msgs-div").append("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 12px;'>" +
+		// 			"<p class='chat-sub-p'>" + $.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + " - " + toUser.name + " diz:</p>" +
+		// 			"<p class='chat-msg-p'>" + msg.text.toString() + "</p>" +
+		// 			"</div>"
+		// 		);
+		// 		msg.status = 1;
+		// 	}
+		// }
+		let divsCreated = []; 
+		userInfo.messages.forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
-				$("#chat-msgs-div").append("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 12px; background-color: #f1e1ff;'>" +
-					"<p class='chat-sub-p'>" + $.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + "</p>" +
-					"<p class='chat-msg-p'>" + msg.text.toString() + "</p>" +
-					"</div>"
+				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 12px; background-color: #f1e1ff;'><p class='chat-sub-p'>" + 
+				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + 
+				"</p><p class='chat-msg-p'>" + msg.text.toString() + "</p></div>"
 				);
 			} else if(msg.subject == userInfo._id && msg.author == toUser._id){
-				$("#chat-msgs-div").append("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 12px;'>" +
-					"<p class='chat-sub-p'>" + $.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + " - " + toUser.name + " diz:</p>" +
-					"<p class='chat-msg-p'>" + msg.text.toString() + "</p>" +
-					"</div>"
+				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 12px;'><p class='chat-sub-p'>" +
+					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
+					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
+					msg.text.toString() + "</p></div>"
 				);
 				msg.status = 1;
 			}
-		}
+		});
+		$("#chat-msgs-div").empty().append(divsCreated);
 		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
 		.done(function(data){
 			if (isNullOrUndefined(data)) {
-				alert("Algum erro");
+				return alert("Algum erro");
 			}
 			setUserCache(userInfo);
 		});
@@ -97,4 +104,4 @@
 	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 10000);
+	setInterval(function () { getNewMessages(); }, 3000);
