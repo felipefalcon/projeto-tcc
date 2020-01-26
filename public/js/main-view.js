@@ -438,7 +438,7 @@
 	}
 
 	(async function(){
-		//getProfile();
+		getProfile();
 		const MenuBottomHome = $("#menu-bottom-home");
 		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
@@ -450,7 +450,7 @@
 
 		$('.carousel').carousel({
 			interval: false
-		  })
+		});
 
 		$("#btn-menu-1").click(function () {
 			$("#menu-1").slideToggle(300);
