@@ -346,11 +346,9 @@
 	function getProfile() {
 		getUser();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
-		let gender = "?";
+		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(userInfo.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
-		}else{
-			gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		}
 		$("#label-user-name").html(gender+"&nbsp&nbsp"+userInfo.name);
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
@@ -423,10 +421,10 @@
 			if(parseInt(message.status) == 0) qtNoReadMsgs++;
 		});
 		if(qtNoReadMsgs > 0){
-			$("#qt-msgs").css("opacity", "1");
+			$("#qt-msgs").animate({
+				opacity: "1"
+			}, 600);
 			$("#qt-msgs").text(qtNoReadMsgs.toString());
-		}else{
-			$("#qt-msgs").css("opacity", "0");
 		}
 	}
 
