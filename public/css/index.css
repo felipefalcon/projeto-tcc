@@ -391,6 +391,7 @@
 		margin: 4px;
 		border-radius: 10px;
 		box-shadow: 2px 2px 1px #b7417f;
+		margin-bottom: 6px;
 	}
 	
 	#profile-img-div{
@@ -1043,13 +1044,13 @@
 	#qt-msgs {
 		color: white;
 		position: absolute;
-		transform: translate(-6px, -18px);
-		font-size: 14px;
+		transform: translateY(-18px);
+		font-size: 12px;
 		font-family: 'Josefin Sans', sans-serif !important;
 		background: red;
 		padding: 4px;
 		border-radius: 20px;
-		width: 24px;
+		width: 20px;
 		border-bottom-left-radius: 0px;
 		opacity: 0;
 	}
