@@ -445,6 +445,7 @@
 		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
+		getQtNoReadMsgs();
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
@@ -469,9 +470,8 @@
 		setInterval( async function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
-			getQtNoReadMsgs();
 			checkTab();
-		}, 5000);
+		}, 1000);
 
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
