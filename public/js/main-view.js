@@ -275,7 +275,7 @@
 
 			let newMsgAlert = "";
 			if(lastMsg.status == "0"){
-				newMsgAlert = "<span class='new-msg'>!</span>";
+				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
 			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
