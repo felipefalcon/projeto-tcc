@@ -390,7 +390,6 @@
 		background-color: white;
 		margin: 4px;
 		border-radius: 10px;
-		margin-bottom: 8px;
 		box-shadow: 2px 2px 1px #b7417f;
 	}
 	
@@ -507,12 +506,14 @@
 	
 	#menu-bottom-div .btn-menu{
 		transition: 0.25s;
-		opacity: 0.3;
+		color: #675985;
+		border-color: #675985;
 	}
 	
 	#menu-bottom-div .btn-menu.active{
 		transition: 0.5s;
-		opacity: 1;
+		color: white;
+		border-color: white;
 	}
 
 	.nav-tabs {
@@ -1037,4 +1038,18 @@
 	@keyframes newmessage {
 		from {opacity: 1;}
 		to {opacity: 0;}
+	}
+
+	#qt-msgs {
+		color: white;
+		position: absolute;
+		transform: translate(-6px, -18px);
+		font-size: 14px;
+		font-family: 'Josefin Sans', sans-serif !important;
+		background: red;
+		padding: 4px;
+		border-radius: 20px;
+		width: 24px;
+		border-bottom-left-radius: 0px;
+		opacity: 0;
 	}

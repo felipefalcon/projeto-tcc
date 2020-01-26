@@ -337,6 +337,7 @@
 			}else {
 				if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
 				setUserCache(data);
+				getQtNoReadMsgs();
 				flagUserChanged = true;
 			}
 		});
@@ -416,6 +417,19 @@
 		});
 	});
 
+	function getQtNoReadMsgs(){
+		let qtNoReadMsgs = 0;
+		userInfo.messages.forEach(function(message){
+			if(parseInt(message.status) == 0) qtNoReadMsgs++;
+		});
+		if(qtNoReadMsgs > 0){
+			$("#qt-msgs").css("opacity", "1");
+			$("#qt-msgs").text(qtNoReadMsgs.toString());
+		}else{
+			$("#qt-msgs").css("opacity", "0");
+		}
+	}
+
 	function checkTab(){
 		switch(tabActive){
 			case 4:  	makeChatObjects(); break;
@@ -455,8 +469,9 @@
 		setInterval( async function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
+			getQtNoReadMsgs();
 			checkTab();
-		}, 12000);
+		}, 5000);
 
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
