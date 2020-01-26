@@ -98,7 +98,7 @@
 		cachedEventsHere = allEventsWithoutUser.slice();
 
 		let divsCreated = []; 
-		allEventsWithoutUser.forEach(async function (data, i) {
+		allEventsWithoutUser.forEach( function (data, i) {
 			if(i == 0){
 				divsCreated.push("<div class='carousel-item events-t active' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
 			}else{
@@ -173,7 +173,7 @@
 
 	function makeUsersNextObjects() {
 		let createdDivs = "";
-		allUsersInfo.forEach(async function (data) {
+		allUsersInfo.forEach( function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
 			createdDivs += "<div class='user-n-u-div mx-auto'>"
 			+ "<label class='user-n-u-label'>" + data.name + "</label>"
@@ -196,7 +196,7 @@
 		// });
 		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
 		if(!("messages" in userInfo)) return;
-		userInfo.messages.forEach(async function(item){
+		userInfo.messages.forEach( function(item){
 			item.date = new Date(item.date);
 			item.day = (new Date(item.date)).getDate();
 		});
@@ -211,7 +211,7 @@
 		let userMsgs = [];
 
 		//console.log(usersDistincs);
-		usersDistincs.forEach( async function(data){
+		usersDistincs.forEach(  function(data){
 			//console.log(data);
 			let prof = "";
 			if(data[0].subject == userInfo._id) {
@@ -219,7 +219,7 @@
 			}else if(data[0].author == userInfo._id){
 				//prof = getProfileSubject(data[0].subject); // Ver se pega sem isso
 				userMsgs = Object.values(_.groupBy(data, msg => msg.subject));
-				userMsgs.forEach(async function(data){
+				userMsgs.forEach( function(data){
 					prof = getProfileSubject(data[0].subject);
 					if(!profiles.includes(prof) && typeof prof !== "undefined"){
 						profiles.push(prof);
@@ -231,8 +231,8 @@
 			}
 		});
 
-		profiles.forEach(async function(data){
-			data.messages.forEach(async function(msg){
+		profiles.forEach( function(data){
+			data.messages.forEach( function(msg){
 				msg.day = (new Date(msg.date)).getDate();
 			});
 		});
@@ -243,7 +243,7 @@
 		let divsCreated = []; 
 		const dateN = (new Date(getServerDate())).toLocaleDateString();
 		
-		profiles.forEach( async function(data){
+		profiles.forEach(  function(data){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			//var userLength = userMsgs.length;
 			let lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
@@ -291,7 +291,7 @@
 		$("#chat-users-div").empty().append(divsCreated.join(""));
 		//$("#chat-users-div").fadeIn(200);
 
-		$(".users-t-chat").click(async function () {
+		$(".users-t-chat").click( function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
 			elmt.css("background-color", "#e8e8e8");
 			var subject = $(this).attr('name');
@@ -438,7 +438,7 @@
 		}
 	}
 
-	(async function(){
+	(function(){
 		//getProfile();
 		const MenuBottomHome = $("#menu-bottom-home");
 		const MenuBottomProf = $("#menu-bottom-prof");
@@ -461,12 +461,12 @@
 			alerts.aboutAlert();
 		});
 	
-		$("body").click(async function () {
+		$("body").click( function () {
 			if (parseInt($("#menu-1").css('height')) < 50) return;
 			$("#menu-1").slideUp(300);
 		});
 
-		setInterval( async function(){
+		setInterval(  function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
 			checkTab();
@@ -474,7 +474,7 @@
 
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
-			$(".search-div").fadeIn();
+			//$(".search-div").fadeIn();
 		}, 200);
 
 		$("#btn-menu-7").click(function(){
