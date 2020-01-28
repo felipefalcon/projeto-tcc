@@ -1064,6 +1064,7 @@
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 		height: 32px;
 		margin: 4px;
+		opacity: 0.3;
 	}
 
 	.label-tag-event span{
@@ -1080,6 +1081,7 @@
 		padding-left: 120px;
 		padding-bottom: 8px;
 		scroll-behavior: smooth;
+		padding-right: 10px;
 	}
 
 	#events-tag-div::-webkit-scrollbar {
