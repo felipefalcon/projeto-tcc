@@ -111,17 +111,13 @@
 				dayEvent = "0" + dayEvent;
 			}
 			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.local + "<button class='event-subscribe-btn' name='"+data._id+"'>"
-			+ "<i class='fas fa-hand-peace'></i></button>"
-			+ "</label><label class='event-msg-label'>"
-			+ "<p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" + dateEvent.getFullYear() + "</p>"
-			+ "<p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + dateEvent.getMonth() + "</p>"
-			+ data.horario +"</label>"
-			// + "<marquee class='event-msg-label-descr' behavior='scroll' direction='left' scrollamount='1'>"+ data.descricao +"</marquee>
-			+"</div>");
+			+ "<i class='fas fa-hand-peace'></i></button></label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
+			+ dateEvent.getFullYear() 
+			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + dateEvent.getMonth() + "</p>"
+			+ data.horario +"</label></div>");
 
 		});
-		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
-		divsCreated.push("<div style=' height: "+$("#menu-bottom-home").innerHeight()+"px'></div>");
+		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+$("#menu-bottom-home").innerHeight()+"px'></div>");
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
 
@@ -278,9 +274,8 @@
 				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic + "'></div>" +
-			"<div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" 
-			+ data.name + 
+			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic +
+			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + data.name + 
 			"<span class='chat-date-label'>"+ lastDate +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ lastMsg.text + "</label></div></div>");
 		});
