@@ -192,16 +192,16 @@
 		// });
 		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
 		if(!("messages" in userInfo)) return;
+		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
+		
+		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
+		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
+		cachedMessagesHere = usersDistincs.slice();
+
 		userInfo.messages.forEach( function(item){
 			item.date = new Date(item.date);
 			item.day = (new Date(item.date)).getDate();
 		});
-		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
-		//console.log(userInfo.messages);
-
-		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
-		cachedMessagesHere = usersDistincs.slice();
 
 		let profiles = [];
 		let userMsgs = [];
