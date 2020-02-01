@@ -221,16 +221,66 @@
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;
-			dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
-				if (err) throw err;
-			});
-			dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
-				if (err) throw err;
+			// dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
+			// 	if (err) throw err;
+			// });
+			// dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
+			// 	if (err) throw err;
+			// 	res.json({ ok: "ok"});
+			// });
+			// db.close();
+
+			Promise.all([
+				queryPromise({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}),
+				queryPromise({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}})
+			]).then(function(result) {
+				// result is an array of responses here
+				db.close();
 				res.json({ ok: "ok"});
+			}).catch(function(err) {
+				console.log(err);
+				db.close();
 			});
-			db.close();
+		
+		
+			function queryPromise(query, newValues) {
+				return new Promise(function(resolve, reject) {
+					dbo.collection("users").updateOne(query, newValues, function(err, resp) {
+						if (err) {
+							reject(err);
+						} else {
+							resolve(resp);
+						}
+					});
+				})
+			}
+
 		}); 
 	});
+
+	// OLD - 01/02/2020
+//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
+	// app.get('/upd-users-messages', urlencodedParser, function (req, res) {
+	// 	MongoClient.connect(url, paramsM, function(err, db) {
+	// 		if (err) throw err;
+	// 		var dbo = db.db(dbName);
+	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+	// 		var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
+	// 		var message = req.query.message;
+	// 		message.date = getTimeServer();
+	// 		message.status = 1;
+	// 		var message2 = {...message};
+	// 		message2.status = 0;
+	// 		dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
+	// 			if (err) throw err;
+	// 		});
+	// 		dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
+	// 			if (err) throw err;
+	// 			res.json({ ok: "ok"});
+	// 		});
+	// 		db.close();
+	// 	}); 
+	// });
 
 //  !!!OLD!!! [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
 	// app.get('/upd-users-messages', urlencodedParser, function (req, res) {

@@ -86,17 +86,16 @@
 			}
 		});
 		$("#chat-msgs-div").empty().append(divsCreated);
-		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
-		.done(function(data){
-			if (isNullOrUndefined(data)) {
-				return alert("Algum erro");
-			}
-			setUserCache(userInfo);
-		});
+		// $.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
+		// .done(function(data){
+		// 	if (isNullOrUndefined(data)) {
+		// 		return alert("Algum erro");
+		// 	}
+		// 	setUserCache(userInfo);
+		// });
 	}
 
 	setInfoToUser();
-	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 2000);
+	setInterval(function () { getNewMessages(); }, 1000);
