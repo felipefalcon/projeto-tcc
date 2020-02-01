@@ -1,16 +1,11 @@
 
-	$("#logo-div").innerHeight(48);
-	$("#logo-div").css("background-color", "rgb(57,35,80)");
+
 	$("body").innerHeight($(window).height());
-	$("#chat-msgs-div").innerHeight($(window).height() - $("#logo-div").innerHeight() - $("#user-div").innerHeight() - $("#menu-bottom-div").innerHeight());
+	$("#chat-msgs-div").innerHeight($(window).height() - $("#logo-div").innerHeight() - $("#menu-bottom-div").innerHeight());
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
-		$("#send-to-name-label-2").text(toUser.name);
-		$("#send-to-age-gender-label").text(toUser.age + " anos - " + toUser.gender);
-		var cityD = toUser.location ? toUser.location.city_district : "???"
-		$("#send-to-location-label").text(cityD);
-		$("#profile-img-div").css("background-image", "url(" + toUser.pics_url.main_pic + "");
+		$("#profile-img-div-chat").css("background-image", "url(" + toUser.pics_url.main_pic + "");
 	}
 
 	$("#btn-menu-back").click(function () {
@@ -104,4 +99,4 @@
 	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 3000);
+	setInterval(function () { getNewMessages(); }, 20000);

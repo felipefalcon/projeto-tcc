@@ -2,46 +2,42 @@
 <html lang="pt-br">
     <head>
 		<meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
-        <title></title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script type="text/javascript" src="./js/jquery-dateformat.min.js"></script>	
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-		<script type="text/javascript" src="./js/commom-functions.js"></script>	
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+      <link rel="stylesheet" type="text/css" href="css/index.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+      <script type="text/javascript" src="./js/commom-functions.js"></script>	
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script type="text/javascript" src="./js/jquery-dateformat.min.js"></script>
+		  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	 -->
     </head>
     <body class="text-center">
-		<div id="logo-div" class="fixed-top">
-        <button id="btn-menu-back" class="btn-menu"><i class='fas fa-chevron-left'></i></button>
-			  <label id="send-to-name-label" class="title-label-top mx-auto"></label>
+    <div id="logo-div" class="fixed-top" style="box-shadow: 0px -4px 10px #3e3e3e;">
+      <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
+      <div id='profile-img-div-chat'></div>
+      <label id="send-to-name-label" class="title-label-top"></label>
+      <button id="btn-menu-1" class="btn-menu">...</button>
+      <div id="menu-1">
+        <a href="#">Configurações</a>
+        <a id="about-btn" href="#">Sobre</a>
+        <a id="exit-app-btn" style="border-top: 1px solid #e6e4e4;">Sair</a>
+      </div>
 		</div>
     <div id="conversation-page-div">
-      <div id="user-div">
-        <div class='user-t'>
-          <div id='profile-img-div'></div>
-          <div class='profile-info-div'>
-          <label id="send-to-name-label-2" class='user-d-u-label'></label>
-          <label id="send-to-age-gender-label" class='user-d-u-label'></label>
-          <label id="send-to-location-label" class='user-d-u-label'></label>
-          </div>
-        </div>
-      </div>
       <div id="chat-msgs-div" class="container" style="overflow: scroll;">
 
       </div>
-      <div id="menu-bottom-div" class="container mx-auto" style="height: 60px; background: none !important; position: relative !important;">
-        <input id="message-send-input" maxlength="130" class="general-textarea col-10" placeholder="Digite sua mensagem..."/>
-        <button id="send-message-button" class="col-1"><i class='fas fa-caret-right' style='font-size:58px;color:white'></i></button>
+      <div id="menu-bottom-div" class="container mx-auto" style="height: 60px; background: none !important; position: relative !important; box-shadow: 0px 4px 10px #3e3e3e;">
+        <div id="message-send-div"><input id="message-send-input" maxlength="130" class="general-text-chat" placeholder="Digite sua mensagem..."/>
+        <button id="send-message-button"><i class='fas fa-caret-right'></i></button></div>
       </div>
     </div>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script async src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
-		<script type="text/javascript" src="./js/user-conversation.js"></script>
+    <script type="text/javascript" src="./js/user-conversation.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     <!--<script type="text/javascript" src="js/index.js"></script>-->
     </body>

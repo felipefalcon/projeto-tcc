@@ -613,11 +613,10 @@
 	/* User conversation */
 
 	#conversation-page-div{
-		background-color: rgba(0,0,20,0.4);
 		width: 100%;
 		box-sizing: border-box;
 		height: 100% !important;
-		padding-top: 48px;
+		padding-top: 60px;
 	}
 
 	.user-t{
@@ -634,14 +633,21 @@
 	#send-message-button{
 		background: none;
 		border: none;
+		vertical-align: middle;
+		font-size: 40px;
+		line-height: 0px;
+		margin: 0;
+		padding: 0;
+		text-shadow: 2px 3px 1px #b7417f;
+    	color: #ff008d;
 	}
 
 	#message-send-input{
 		border: none;
-		border-bottom: 2px solid white;
-		padding: 6px;
-		margin-bottom: 2px;
-		font-size: 14px;
+		font-size: 15px;
+		width: 80%;
+		margin-top: 10px;
+		padding-right: 10px;
 	}
 
 	#message-send-input::placeholder {
@@ -653,7 +659,7 @@
 	.message-p{
 		background-color: white;
 		margin: 0;
-		border-radius: 20px;
+		border-radius: 10px;
 		padding: 6px;
 		margin-top: 12px;
 		margin-bottom: 12px;
@@ -662,16 +668,19 @@
 	.chat-sub-p{
 		font-size: 12px; 
 		text-align: left;
-		padding-left: 18px;
+		padding-left: 12px;
 		margin-bottom: 4px;
+		margin-top: 2px;
 		color: #ab4895;
 	}
 
 	.chat-msg-p{
-		margin-bottom: 10px;
+		margin-bottom: 8px;
 		text-align: left;
-		padding-left: 18px;
-		padding-right: 18px;
+		padding-left: 12px;
+		padding-right: 12px;
+		color: #897ea2;
+		line-height: 21px;
 	}
 
 	.chat-user-label{
@@ -1087,4 +1096,36 @@
 	#events-tag-div::-webkit-scrollbar {
 		width: 13px;
 		height: 13px;
+	}
+
+	#profile-img-div-chat{
+		background-color: white;
+		display: inline-block;
+		width: 42px;
+		height: 42px;
+		border-radius: 100px;
+		left: 60px;
+		position: relative;
+		float: left;
+		background-size: cover;
+		background-image: url('user-profile.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.5);
+		z-index: 4;
+	}
+
+	#send-to-name-label{
+		margin-left: 80px;
+	}
+
+	#message-send-div{
+		width: 100%;
+		background: white;
+		border-radius: 40px;
+		height: 46px;
+	}
+
+	.general-text-chat{
+		color: #4c376b;
 	}
