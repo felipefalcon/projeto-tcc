@@ -221,17 +221,21 @@
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;
-			Promise.all([
+			parallelFunc();
+			async function parallelFunc(){
+				await Promise.all([
 				queryPromise({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}),
 				queryPromise({_id: objectIdUserTo},	  {$push: 	{ messages: {"$each": [message2] , "$position": 0}}})
 			]).then(function(result) {
 				// result is an array of responses here
-				db.close();
-				res.send({ok: "ok"});
+				
 			}).catch(function(err) {
 				console.log(err);
 				db.close();
 			});
+			}
+			db.close();
+			res.send({ok: "ok"});
 
 			function queryPromise(query, newValues) {
 				return new Promise(function(resolve, reject) {
