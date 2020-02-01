@@ -465,7 +465,7 @@
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
 			checkTab();
-		}, 10000);
+		}, 1000);
 
 		setTimeout(function(){
 			$("#btn-menu-6").click(); 
