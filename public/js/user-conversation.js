@@ -19,8 +19,6 @@
 			author: userInfo._id,
 			subject: toUser._id,
 			text: $("#message-send-input").val(),
-			//date: new Date(getServerDate()),
-			status: 1
 		};
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
