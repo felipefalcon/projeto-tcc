@@ -251,7 +251,7 @@
 			// 	if (err) throw err;
 			// 	res.json({ ok: "ok"});
 			// });
-			db.close();
+			// db.close();
 		}); 
 	});
 
