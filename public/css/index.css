@@ -639,7 +639,9 @@
 		margin: 0;
 		padding: 0;
 		text-shadow: 2px 3px 1px #b7417f;
-    	color: #ff008d;
+		color: white;
+		width: 50px;
+    	padding-left: 10px;
 	}
 
 	#message-send-input{

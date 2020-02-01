@@ -1,6 +1,7 @@
 
 
 	$("body").innerHeight($(window).height());
+	$("#chat-msgs-div").css("min-height", $(window).height() - $("#logo-div").innerHeight() - $("#menu-bottom-div").innerHeight() + "px");
 	$("#chat-msgs-div").innerHeight($(window).height() - $("#logo-div").innerHeight() - $("#menu-bottom-div").innerHeight());
 
 	function setInfoToUser() {
@@ -72,12 +73,12 @@
 		let divsCreated = []; 
 		userInfo.messages.forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
-				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 12px; background-color: #f1e1ff;'><p class='chat-sub-p'>" + 
-				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + 
-				"</p><p class='chat-msg-p'>" + msg.text.toString() + "</p></div>"
+				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
+				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + " - Você diz:" +
+				"</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text.toString() + "</p></div>"
 				);
 			} else if(msg.subject == userInfo._id && msg.author == toUser._id){
-				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 12px;'><p class='chat-sub-p'>" +
+				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
 					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text.toString() + "</p></div>"
@@ -99,4 +100,4 @@
 	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 20000);
+	setInterval(function () { getNewMessages(); }, 200000);
