@@ -40,7 +40,7 @@
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
-					//if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
+					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
 					setUserCache(data);
 					makeChatMessage();
 				}
