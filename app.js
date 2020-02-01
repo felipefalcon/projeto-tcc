@@ -78,6 +78,12 @@
 		res.send((new Date()));
 	});
 
+	function getTimeServer(){
+		let d = new Date();
+		let n = new Date(d.valueOf() - d.getTimezoneOffset() * 60000);
+		return n;
+	}
+
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
 	app.get('/get-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
@@ -212,6 +218,7 @@
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var message = req.query.message;
 			var newvalues = {$push: 	{ messages: {"$each": [message] , "$position": 0}}};
+			message.date = getTimeServer();
 			dbo.collection("users").updateOne({_id: objectIdUserFrom}, newvalues, {upsert: true}, function(err, result) {
 				if (err) throw err;
 			});

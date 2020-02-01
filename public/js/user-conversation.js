@@ -15,12 +15,13 @@
 
 	$("#send-message-button").click(function () {
 		if ($("#message-send-input").val() == "") return;
-		var message = {};
-		message.author = userInfo._id;
-		message.subject = toUser._id;
-		message.text = $("#message-send-input").val();
-		message.date = new Date(getServerDate());
-		message.status = 1;
+		var message = {
+			author: userInfo._id,
+			subject: toUser._id,
+			text: $("#message-send-input").val(),
+			//date: new Date(getServerDate()),
+			status: 1
+		};
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
@@ -74,8 +75,8 @@
 		userInfo.messages.forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') + " - Você diz:" +
-				"</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text.toString() + "</p></div>"
+				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
+				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text.toString() + "</p></div>"
 				);
 			} else if(msg.subject == userInfo._id && msg.author == toUser._id){
 				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
