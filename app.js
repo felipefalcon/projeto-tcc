@@ -79,9 +79,9 @@
 	});
 
 	function getTimeServer(){
-		let d = new Date();
-		let n = new Date(d.valueOf() - d.getTimezoneOffset() * 60000);
-		return n;
+		let dateNow = new Date();
+		dateNow.setHours(dateNow.getHours()-3);
+		return dateNow;
 	}
 
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
