@@ -219,8 +219,8 @@
 			var message = req.query.message;
 			message.date = getTimeServer();
 			message.status = 1;
-			var messge2 = {...message};
-			messge2.status = 0;
+			var message2 = {...message};
+			message2.status = 0;
 			dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, async function(err, result) {
 				if (err) throw err;
 			});
