@@ -221,7 +221,7 @@
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;
-			dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, async function(err, result) {
+			dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
 				if (err) throw err;
 			});
 			dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
