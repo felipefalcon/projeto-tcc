@@ -39,7 +39,7 @@
 	});
 
 	function getNewMessages() {
-		if(inCallGetUser) return;
+		if(inCallGetUser || inCallUpdStatusMsgs) return;
 		inCallGetUser = true;
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
