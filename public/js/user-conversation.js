@@ -114,4 +114,4 @@
 	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	setInterval(function () { getNewMessages(); }, 100);
+	setInterval(function () { getNewMessages(); }, 1000);
