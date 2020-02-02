@@ -7,7 +7,6 @@
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
 	let inCallUpdMsgs = false;
-	let inCallUpdStatusMsgs = false;
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
@@ -81,8 +80,6 @@
 		// 	}
 		// }
 		let divsCreated = []; 
-		let messagesRead = userInfo.messages.length;
-		let MessagesHisUserRead = 0;
 		userInfo.messages.forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
@@ -95,32 +92,15 @@
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text.toString() + "</p></div>"
 				);
-				MessagesHisUserRead++;
 			}
 		});
-		// setUserCache(userInfo);
-		$("#chat-msgs-div").empty().append(divsCreated);
-		let messagesDiff = messagesRead - MessagesHisUserRead;
-		if(messagesDiff == userInfo.messages_read){
-			return;
-		}
-		$.get(nodeHost + "upd-users-rd-messages", {_id: userInfo._id, messages_read: messagesDiff})
+		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 		.done(function(data){
 			if (isNullOrUndefined(data)) {
 				return alert("Algum erro");
 			}
+			// setUserCache(userInfo);
 		});
-		// Tá com bug, verificar depois
-		// inCallUpdStatusMsgs = true;
-		// $.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
-		// .done(function(data){
-		// 	if (isNullOrUndefined(data)) {
-		// 		return alert("Algum erro");
-		// 	}
-		// 	// setUserCache(userInfo);
-		// 	inCallUpdStatusMsgs = false;
-		// 	inCallGetUser = false;
-		// });
 	}
 
 	setInfoToUser();

@@ -418,7 +418,10 @@
 
 	function getQtNoReadMsgs(){
 		if(!("messages" in userInfo)) return;
-		let qtNoReadMsgs = userInfo.messages.length - new Number(userInfo.messages_read);
+		let qtNoReadMsgs = 0;
+		userInfo.messages.forEach(function(message){
+			if(parseInt(message.status) == 0) qtNoReadMsgs++;
+		});
 		if(qtNoReadMsgs > 0){
 			$("#qt-msgs").animate({
 				opacity: "1"

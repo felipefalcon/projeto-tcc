@@ -314,6 +314,32 @@
 	// });
 
 //  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
+	app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+	 		var objectIdUserTo = req.query._id_to;
+			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, result) {
+				if (err) throw err;
+				if(result === "undefined") return res.json({ oh_no: "oh-no"});
+				let resultMessages = result.messages;
+				let resultMessagesLength = resultMessages.length;
+				for(let i = 0; i < resultMessagesLength; ++i){
+					if(resultMessages[i].author == objectIdUserTo){
+						resultMessages[i].status = 1;
+					}
+				}
+				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ messages: resultMessages }}, function(err, result) {
+					if (err) throw err;
+					res.json({ ok: "ok"});
+					db.close();
+				});
+			});
+		}); 
+	});
+
+//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
 	app.get('/upd-users-rd-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
