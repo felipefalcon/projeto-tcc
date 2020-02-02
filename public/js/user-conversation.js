@@ -94,6 +94,8 @@
 				);
 			}
 		});
+		
+		$("#chat-msgs-div").empty().append(divsCreated);
 		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 		.done(function(data){
 			if (isNullOrUndefined(data)) {
