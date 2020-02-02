@@ -1064,6 +1064,7 @@
 		width: 20px;
 		border-bottom-left-radius: 0px;
 		opacity: 0;
+		border: 2px solid #231149;
 	}
 
 	.label-tag-event{
