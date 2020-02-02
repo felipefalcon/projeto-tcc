@@ -300,12 +300,26 @@
 	// });
 
 //  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
-	app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
+	// app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
+	// 	MongoClient.connect(url, paramsM, function(err, db) {
+	// 		if (err) throw err;
+	// 		var dbo = db.db(dbName);
+	// 		var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+	// 		dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages: req.query.messages }}, function(err, result) {
+	// 			if (err) throw err;
+	// 			res.json({ ok: "ok"});
+	// 		});
+	// 		db.close();
+	// 	}); 
+	// });
+
+//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
+	app.get('/upd-users-rd-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages: req.query.messages }}, function(err, result) {
+			dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages_read: req.query.messages_read }}, function(err, result) {
 				if (err) throw err;
 				res.json({ ok: "ok"});
 			});

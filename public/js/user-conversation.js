@@ -42,17 +42,15 @@
 	});
 
 	function getNewMessages() {
-		if(inCallGetUser || inCallUpdStatusMsgs || inCallUpdMsgs) return;
+		if(inCallGetUser || inCallUpdMsgs) return;
 		inCallGetUser = true;
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
-					if(JSON.stringify(userInfo) === JSON.stringify(data)) {
-						inCallGetUser = false;
-						return;
-					}
+					inCallGetUser = false;
+					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
 					setUserCache(data);
 					makeChatMessage();
 				}
@@ -60,7 +58,7 @@
 	}
 
 	function makeChatMessage() {
-		if(inCallUpdStatusMsgs || inCallUpdMsgs) return;
+		if(inCallUpdMsgs) return;
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
 		};
@@ -83,6 +81,8 @@
 		// 	}
 		// }
 		let divsCreated = []; 
+		let messagesRead = userInfo.messages.length;
+		let MessagesHisUserRead = 0;
 		userInfo.messages.forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
@@ -95,11 +95,21 @@
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text.toString() + "</p></div>"
 				);
-				msg.status = 1;
+				MessagesHisUserRead++;
 			}
 		});
 		// setUserCache(userInfo);
 		$("#chat-msgs-div").empty().append(divsCreated);
+		let messagesDiff = messagesRead - MessagesHisUserRead;
+		if(messagesDiff == userInfo.messages_read){
+			return;
+		}
+		$.get(nodeHost + "upd-users-rd-messages", {_id: userInfo._id, messages_read: messagesDiff})
+		.done(function(data){
+			if (isNullOrUndefined(data)) {
+				return alert("Algum erro");
+			}
+		});
 		// Tá com bug, verificar depois
 		// inCallUpdStatusMsgs = true;
 		// $.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
@@ -111,8 +121,6 @@
 		// 	inCallUpdStatusMsgs = false;
 		// 	inCallGetUser = false;
 		// });
-		inCallUpdStatusMsgs = false;
-		inCallGetUser = false;
 	}
 
 	setInfoToUser();
