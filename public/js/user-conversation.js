@@ -7,6 +7,7 @@
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
 	let inCallUpdMsgs = false;
+	let inCallUpdMsgsBD = false;
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
@@ -96,11 +97,15 @@
 		});
 		
 		$("#chat-msgs-div").empty().append(divsCreated);
+
+		if(inCallUpdMsgsBD) return;
+		inCallUpdMsgsBD = true;
 		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 		.done(function(data){
 			if (isNullOrUndefined(data)) {
 				return alert("Algum erro");
 			}
+			inCallUpdMsgsBD = false;
 			// setUserCache(userInfo);
 		});
 	}
