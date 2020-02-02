@@ -18,6 +18,9 @@
 	let cachedEventsHere = [];
 	let firstTimeProf = true;
 
+	// Para verificar se o serviço ainda está sendo chamado
+	let inCallGetUser = false;
+
 	function getAllUsersInfo() {
 		//$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
@@ -326,10 +329,13 @@
 	}
 
 	function getUser(){
+		if(inCallGetUser) return;
+		inCallGetUser = true;
 		$.get(nodeHost+"get-user", { email: userInfo.email}).done(function (data) {
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
+				inCallGetUser = false;
 				if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
 				setUserCache(data);
 				getQtNoReadMsgs();

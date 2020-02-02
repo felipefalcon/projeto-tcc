@@ -6,6 +6,7 @@
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
+	let inCallUpdMsgs = false;
 	let inCallUpdStatusMsgs = false;
 
 	function setInfoToUser() {
@@ -24,13 +25,15 @@
 			subject: toUser._id,
 			text: $("#message-send-input").val(),
 		};
+		inCallUpdMsgs = true;
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
+					inCallUpdMsgs = false;
 					$("#message-send-input").val("");
-					getNewMessages();
+					// getNewMessages();
 					setTimeout(function(){
 						$("#chat-msgs-div").scrollTop(1000000000000000);
 					}, 3000);
@@ -39,7 +42,7 @@
 	});
 
 	function getNewMessages() {
-		if(inCallGetUser || inCallUpdStatusMsgs) return;
+		if(inCallGetUser || inCallUpdStatusMsgs || inCallUpdMsgs) return;
 		inCallGetUser = true;
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
@@ -93,7 +96,7 @@
 				msg.status = 1;
 			}
 		});
-		setUserCache(userInfo);
+		// setUserCache(userInfo);
 		$("#chat-msgs-div").empty().append(divsCreated);
 		inCallUpdStatusMsgs = true;
 		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
