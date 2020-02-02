@@ -4,6 +4,10 @@
 	$("#chat-msgs-div").css("min-height", $(window).height() - $("#logo-div").innerHeight() - $("#menu-bottom-div").innerHeight() + "px");
 	$("#chat-msgs-div").innerHeight($(window).height() - $("#logo-div").innerHeight() - $("#menu-bottom-div").innerHeight());
 
+	// Para verificar se o serviço ainda está sendo chamado
+	let inCallGetUser = false;
+	let inCallUpdStatusMsgs = false;
+
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
 		$("#profile-img-div-chat").css("background-image", "url(" + toUser.pics_url.main_pic + "");
@@ -35,11 +39,14 @@
 	});
 
 	function getNewMessages() {
+		if(inCallGetUser) return;
+		inCallGetUser = true;
 		$.get("./get-user", { email: userInfo.email })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
+					inCallGetUser = false;
 					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
 					setUserCache(data);
 					makeChatMessage();
@@ -48,6 +55,7 @@
 	}
 
 	function makeChatMessage() {
+		if(inCallUpdStatusMsgs) return;
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
 		};
@@ -85,14 +93,16 @@
 				msg.status = 1;
 			}
 		});
+		setUserCache(userInfo);
 		$("#chat-msgs-div").empty().append(divsCreated);
+		inCallUpdStatusMsgs = true;
 		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
 		.done(function(data){
 			if (isNullOrUndefined(data)) {
 				return alert("Algum erro");
 			}
 			setUserCache(userInfo);
-			setTimeout(function(){getNewMessages();}, 1000);
+			inCallUpdStatusMsgs = false;
 		});
 	}
 
@@ -100,4 +110,4 @@
 	makeChatMessage();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	// setInterval(function () { getNewMessages(); }, 1000);
+	setInterval(function () { getNewMessages(); }, 1000);
