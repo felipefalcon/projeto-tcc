@@ -49,8 +49,10 @@
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
-					inCallGetUser = false;
-					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
+					if(JSON.stringify(userInfo) === JSON.stringify(data)) {
+						inCallGetUser = false;
+						return;
+					}
 					setUserCache(data);
 					makeChatMessage();
 				}
@@ -58,7 +60,7 @@
 	}
 
 	function makeChatMessage() {
-		if(inCallUpdStatusMsgs) return;
+		if(inCallUpdStatusMsgs || inCallUpdMsgs) return;
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
 		};
@@ -98,15 +100,19 @@
 		});
 		// setUserCache(userInfo);
 		$("#chat-msgs-div").empty().append(divsCreated);
-		inCallUpdStatusMsgs = true;
-		$.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
-		.done(function(data){
-			if (isNullOrUndefined(data)) {
-				return alert("Algum erro");
-			}
-			setUserCache(userInfo);
-			inCallUpdStatusMsgs = false;
-		});
+		// Tá com bug, verificar depois
+		// inCallUpdStatusMsgs = true;
+		// $.get("./upd-users-status-messages", {_id: userInfo._id, messages: userInfo.messages.reverse()})
+		// .done(function(data){
+		// 	if (isNullOrUndefined(data)) {
+		// 		return alert("Algum erro");
+		// 	}
+		// 	// setUserCache(userInfo);
+		// 	inCallUpdStatusMsgs = false;
+		// 	inCallGetUser = false;
+		// });
+		inCallUpdStatusMsgs = false;
+		inCallGetUser = false;
 	}
 
 	setInfoToUser();
