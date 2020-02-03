@@ -218,6 +218,7 @@
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var message = req.query.message;
 			message.date = getTimeServer();
+			message.day = getTimeServer().getDate();
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;

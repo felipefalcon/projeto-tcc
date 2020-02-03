@@ -96,7 +96,7 @@
 			}
 		});
 		
-		$("#chat-msgs-div").empty().append(divsCreated);
+		$("#chat-msgs-div").empty().append(divsCreated.join(""));
 
 		if(inCallUpdMsgsBD) return;
 		inCallUpdMsgsBD = true;

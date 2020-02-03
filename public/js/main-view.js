@@ -194,6 +194,7 @@
 		// 	item.date = new Date(item.date);
 		// });
 		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
+		console.log("1");
 		if(!("messages" in userInfo)) return;
 		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
 		
@@ -201,9 +202,10 @@
 		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
 		cachedMessagesHere = usersDistincs.slice();
 
+		console.log("2");
 		userInfo.messages.forEach( function(item){
-			item.date = new Date(item.date);
-			item.day = (new Date(item.date)).getDate();
+			let dateMsg = new Date(item.date);
+			item.date = dateMsg;
 		});
 
 		let profiles = [];
@@ -230,11 +232,11 @@
 			}
 		});
 
-		profiles.forEach( function(data){
-			data.messages.forEach( function(msg){
-				msg.day = (new Date(msg.date)).getDate();
-			});
-		});
+		// profiles.forEach( function(data){
+		// 	data.messages.forEach( function(msg){
+		// 		msg.day = (new Date(msg.date)).getDate();
+		// 	});
+		// });
 
 		profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
 		//console.log(profiles);
