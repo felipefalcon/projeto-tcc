@@ -26,6 +26,13 @@
 			text: $("#message-send-input").val(),
 		};
 		inCallUpdMsgs = true;
+		let dateNow = new Date();
+		dateNow.setHours(dateNow.getHours()-3);
+		message.date = dateNow;
+		message.status = 1;
+		userInfo.messages.unshift(message);
+		setUserCache(userInfo);
+		makeChatMessage();
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
