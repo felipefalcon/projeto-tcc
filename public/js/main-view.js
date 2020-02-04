@@ -194,7 +194,6 @@
 		// 	item.date = new Date(item.date);
 		// });
 		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
-		console.log("1");
 		if(!("messages" in userInfo)) return;
 		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
 		
@@ -202,7 +201,6 @@
 		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
 		cachedMessagesHere = usersDistincs.slice();
 
-		console.log("2");
 		userInfo.messages.forEach( function(item){
 			let dateMsg = new Date(item.date);
 			item.date = dateMsg;
