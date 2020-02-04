@@ -26,25 +26,13 @@
 			text: $("#message-send-input").val(),
 		};
 		inCallUpdMsgs = true;
-		let dateNow = new Date();
-		dateNow.setHours(dateNow.getHours()-3);
-		message.date = dateNow;
-		message.status = 1;
-		userInfo.messages.unshift(message);
-
-		let divsCreated = []; 
-		divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-		$.format.date(message.date.toString(), 'dd/MM/yyyy - HH:mm') +
-		" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + message.text.toString() + "</p></div>");
-		$("#chat-msgs-div").append(divsCreated.join(""));
-		$("#message-send-input").val("");
-
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 			.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
 					inCallUpdMsgs = false;
+					$("#message-send-input").val("");
 					// getNewMessages();
 					setTimeout(function(){
 						$("#chat-msgs-div").scrollTop(1000000000000000);
