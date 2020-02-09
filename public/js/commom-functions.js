@@ -139,6 +139,9 @@
 	// Variável responsável por cachear todos os eventos
 	allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 
+	// Variável responsável por cachear informações de configurações, páginas etc.
+	configParams = JSON.parse(window.localStorage.getItem('configParams')) || {};
+
 	// Getters e Setters das Variáveis de Cache declaradas acima ^
 	function setUserCache(user) {
 		window.localStorage.setItem('userInfo', JSON.stringify(user));
@@ -178,6 +181,11 @@
 	function resetAllEvents() {
 		window.localStorage.setItem('allEvents', '{}');
 		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
+	}
+
+	function setConfigParams(params) {
+		window.localStorage.setItem('configParams', JSON.stringify(params));
+		configParams = JSON.parse(window.localStorage.getItem('configParams'));
 	}
 
 	// Verifica se tem usuário em cache, se não tiver, retorna ao Login e limpa as variáveis de cache

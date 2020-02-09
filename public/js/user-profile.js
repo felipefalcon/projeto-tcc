@@ -60,7 +60,10 @@
 
 	(function(){
 		getProfile();
+		configParams.history = "main-view";
+		setConfigParams(configParams);
 	})();
+
 
 
 

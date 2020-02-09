@@ -8,6 +8,7 @@
 	let inCallGetUser = false;
 	let inCallUpdMsgs = false;
 	let inCallUpdMsgsBD = false;
+	let cachedUpdStatusMsgs = false;
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
@@ -15,6 +16,11 @@
 	}
 
 	$("#btn-menu-back").click(function () {
+		if(configParams.history == "main-view") {
+			window.location.replace("./main-view.html");
+			configParams.history = "";
+			return setConfigParams(configParams);
+		}
 		window.location.replace(document.referrer);
 	});
 
@@ -34,6 +40,7 @@
 					inCallUpdMsgs = false;
 					$("#message-send-input").val("");
 					// getNewMessages();
+					cachedUpdStatusMsgs = false;
 					setTimeout(function(){
 						$("#chat-msgs-div").scrollTop(1000000000000000);
 					}, 3000);
@@ -92,10 +99,11 @@
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text.toString() + "</p></div>"
 				);
+				if(msg.status == "0") cachedUpdStatusMsgs = true;
 			}
 		});
 		
-		$("#chat-msgs-div").empty().append(divsCreated.join(""));
+		if(!cachedUpdStatusMsgs) $("#chat-msgs-div").empty().append(divsCreated.join(""));
 
 		if(inCallUpdMsgsBD) return;
 		inCallUpdMsgsBD = true;
@@ -109,6 +117,19 @@
 			makeChatMessage();
 		});
 	}
+
+	$("#btn-menu-1").click(function () {
+		$("#menu-1").slideToggle(300);
+	});
+
+	$("#show-prof-btn").click(function () {
+		window.location.href = "./user-profile.html";
+	});
+
+	$("body").click( function () {
+		if (parseInt($("#menu-1").css('height')) < 50) return;
+		$("#menu-1").slideUp(300);
+	});
 
 	setInfoToUser();
 	makeChatMessage();

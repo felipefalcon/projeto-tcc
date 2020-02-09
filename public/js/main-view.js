@@ -473,7 +473,11 @@
 		}, 1000);
 
 		setTimeout(function(){
-			$("#btn-menu-6").click(); 
+			switch(configParams.tab){
+				case "chat-tab": $("#btn-menu-8").click(); break;
+				case "profile-tab": $("#btn-menu-4").click(); break;
+				default: $("#btn-menu-6").click(); break;
+			}
 			//$(".search-div").fadeIn();
 		}, 200);
 
@@ -487,6 +491,8 @@
 		$("#btn-menu-8").click(function(){
 			if(tabActive == 4) return;
 			tabActive = 4;
+			configParams.tab = "chat-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
 			makeChatObjects();
@@ -495,6 +501,8 @@
 		$("#btn-menu-4").click(function(){
 			if(tabActive == 0) return;
 			tabActive = 0;
+			configParams.tab = "profile-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			if(firstTimeProf){
 				setTimeout(function(){
