@@ -799,6 +799,13 @@
 		height: 54px;
 	}
 
+	#menu-bottom-prof-other-user{
+		position: fixed;
+		bottom: 0;
+		background-color: rgba(39, 19, 81, 0.75);
+		height: 54px;
+	}
+
 	#btn-prof-edit {
 		background-color: white;
 		font-weight: bolder;
@@ -1132,3 +1139,28 @@
 	.general-text-chat{
 		color: #4c376b;
 	}
+
+	#btn-report-user{
+		position: absolute;
+		right: 0;
+		margin-right: 10px;
+	}
+
+	#main-descript-div-other-user{
+		position: fixed;
+		bottom: 0;
+		margin-bottom: 52px;
+		text-align: justify;
+		background: rgba(108, 93, 139, 0.5);
+		height: 72px;
+		font-size: 13px;
+		padding-top: 8px;
+		text-shadow: 1px 1px 2px black;
+		color: white;
+		border-left: 4px solid #bb4c87;
+		font-style: italic;
+		overflow: hidden;
+		width: 0%;
+		opacity: 0;
+		padding-right: 22px;
+	  }

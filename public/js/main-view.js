@@ -202,8 +202,7 @@
 		cachedMessagesHere = usersDistincs.slice();
 
 		userInfo.messages.forEach( function(item){
-			let dateMsg = new Date(item.date);
-			item.date = dateMsg;
+			item.date = new Date($.format.date(item.date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
 		});
 
 		let profiles = [];
@@ -236,7 +235,7 @@
 		// 	});
 		// });
 
-		profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
+		// profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
 		//console.log(profiles);
 
 		let divsCreated = []; 

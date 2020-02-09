@@ -41,24 +41,23 @@
 			});
 	});
 
-	function getNewMessages() {
-		if(inCallGetUser || inCallUpdMsgs) return;
-		inCallGetUser = true;
-		$.get("./get-user", { email: userInfo.email })
-			.done(function (data) {
-				if (data == null || data == "undefined") {
-					alert("Algum erro");
-				} else {
-					inCallGetUser = false;
-					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
-					setUserCache(data);
-					makeChatMessage();
-				}
-			});
-	}
+	// function getNewMessages() {
+	// 	if(inCallGetUser || inCallUpdMsgs) return;
+	// 	inCallGetUser = true;
+	// 	$.get("./get-user", { email: userInfo.email })
+	// 		.done(function (data) {
+	// 			if (data == null || data == "undefined") {
+	// 				alert("Algum erro");
+	// 			} else {
+	// 				inCallGetUser = false;
+	// 				if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
+	// 				setUserCache(data);
+	// 				makeChatMessage();
+	// 			}
+	// 		});
+	// }
 
 	function makeChatMessage() {
-		userCached = userInfo;
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
 		};
@@ -113,7 +112,7 @@
 
 	setInfoToUser();
 	makeChatMessage();
-	getNewMessages();
+	// getNewMessages();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
 	// setInterval(function () { getNewMessages(); }, 1000);
