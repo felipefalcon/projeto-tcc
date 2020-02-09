@@ -218,7 +218,7 @@
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var message = req.query.message;
 			message.date = getTimeServer();
-			message.day = getTimeServer().getDate();
+			message.day = message.date.getDate();
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;
@@ -236,6 +236,7 @@
 				queryPromise({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}})
 			]).then(function(result) {
 				// result is an array of responses here
+				console.log(result[0]);
 				db.close();
 				res.json({ ok: "ok"});
 			}).catch(function(err) {
@@ -321,10 +322,10 @@
 			var dbo = db.db(dbName);
 			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
 	 		var objectIdUserTo = req.query._id_to;
-			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, result) {
+			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
 				if (err) throw err;
-				if(result === "undefined") return res.json({ oh_no: "oh-no"});
-				let resultMessages = result.messages;
+				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
+				let resultMessages = resultUser.messages;
 				let resultMessagesLength = resultMessages.length;
 				for(let i = 0; i < resultMessagesLength; ++i){
 					if(resultMessages[i].author == objectIdUserTo){
@@ -333,7 +334,7 @@
 				}
 				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ messages: resultMessages }}, function(err, result) {
 					if (err) throw err;
-					res.json({ ok: "ok"});
+					res.json(resultUser);
 					db.close();
 				});
 			});
