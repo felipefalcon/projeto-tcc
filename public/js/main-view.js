@@ -479,7 +479,7 @@
 				default: $("#btn-menu-6").click(); break;
 			}
 			//$(".search-div").fadeIn();
-		}, 200);
+		}, 50);
 
 		$("#btn-menu-7").click(function(){
 			if(tabActive == 3) return;
@@ -526,6 +526,8 @@
 		$("#btn-menu-6").click(function(){
 			if(tabActive == 2) return;
 			tabActive = 2;
+			configParams.tab = "main-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
 			makeEventsObjects();
