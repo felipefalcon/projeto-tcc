@@ -86,7 +86,6 @@
 
 //  [ READ - GET ] ROTA: retorna dados de uma conta com base no email
 	app.get('/get-user', urlencodedParser, function (req, res) {
-		req.setTimeout(500);
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
