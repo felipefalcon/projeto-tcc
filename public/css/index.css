@@ -974,12 +974,25 @@
 
   .swal2-content{
 	  font-size: 0.9em !important;
+	  margin-left: 8px !important;
+      margin-right: 8px !important;
   }
 
   .swal2-styled.swal2-confirm{
 	  zoom: 0.75;
 	  background-color: #dd57a8 !important;
   }
+
+  .swal2-styled.swal2-cancel{
+	zoom: 0.75;
+	background-color: #d2d2d2 !important;
+	margin-left: 30px;
+	}
+
+	.swal2-select{
+		width: 90%;
+		text-align: center;
+	}
 
   #events-box-div{
 	  height: 166px;
@@ -1062,16 +1075,15 @@
 	#qt-msgs {
 		color: white;
 		position: absolute;
-		transform: translateY(-18px);
 		font-size: 12px;
 		font-family: 'Josefin Sans', sans-serif !important;
 		background: red;
 		padding: 4px;
 		border-radius: 20px;
-		width: 20px;
-		border-bottom-left-radius: 0px;
+		width: 24px;
 		opacity: 0;
 		border: 2px solid #231149;
+		transform: translate(-7px,-14px);
 	}
 
 	.label-tag-event{

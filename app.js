@@ -341,19 +341,52 @@
 		}); 
 	});
 
-//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
-	app.get('/upd-users-rd-messages', urlencodedParser, function (req, res) {
+//  [ UPDATE - GET ] ROTA: Deleta só as mensagens de um usuário em especifico
+	app.get('/del-user-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages_read: req.query.messages_read }}, function(err, result) {
+			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+			var objectIdUserTo = req.query._id_to;
+			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
 				if (err) throw err;
-				res.json({ ok: "ok"});
+				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
+				let resultMessages = resultUser.messages;
+				let resultMessages2 = resultMessages.filter(function(data){
+					return data.author != objectIdUserTo;
+				});
+
+				let resultMessages3 = resultMessages2.filter(function(data){
+					return data.author == objectIdUserFrom && data.subject != objectIdUserTo;
+				});
+
+				// for(let i = 0; i < resultMessagesLength; ++i){
+				// 	if(resultMessages[i].author == objectIdUserTo){
+				// 		resultMessages[i].status = 1;
+				// 	}
+				// }
+				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ messages: resultMessages3 }}, function(err, result) {
+					if (err) throw err;
+					res.json(resultUser);
+					db.close();
+				});
 			});
-			db.close();
 		}); 
 	});
+
+//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
+	// app.get('/upd-users-rd-messages', urlencodedParser, function (req, res) {
+	// 	MongoClient.connect(url, paramsM, function(err, db) {
+	// 		if (err) throw err;
+	// 		var dbo = db.db(dbName);
+	// 		var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+	// 		dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages_read: req.query.messages_read }}, function(err, result) {
+	// 			if (err) throw err;
+	// 			res.json({ ok: "ok"});
+	// 		});
+	// 		db.close();
+	// 	}); 
+	// });
 
 //  [ DELETE - GET ] ROTA: deleta um usuário
 	app.get('/del-user', urlencodedParser, function (req, res) {

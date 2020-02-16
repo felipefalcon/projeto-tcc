@@ -126,6 +126,100 @@
 		window.location.href = "./user-profile.html";
 	});
 
+	$("#del-chat-btn").click(function () {
+		setTimeout(function(){
+			Swal.fire({
+				title: 'Excluir conversa',
+				text: 'Você tem certeza que deseja apagar a conversa que teve com este usuário?',
+				icon: 'warning',
+				padding: "8px",
+				showCancelButton: true,
+				allowOutsideClick: false,
+				confirmButtonText: 'SIM',
+				cancelButtonText: 'NÃO',
+				focusCancel: true,
+				width: "80%"
+			}).then(function(data){
+				if(data.value == true){
+					$.get("./del-user-messages", {_id_from: userInfo._id, _id_to: toUser._id})
+					.done(function(data){
+						if (isNullOrUndefined(data)) {
+							return alert("Algum erro");
+						}
+						setUserCache(data);
+						$("#btn-menu-back").click();
+					});
+				}
+			});
+		}, 100);
+	});
+
+	$("#report-user-btn").click(function () {
+		// setTimeout(function(){
+		// 	Swal.fire({
+		// 		title: 'Denunciar usuário',
+		// 		text: 'Você tem certeza que deseja apagar a conversa que teve com este usuário?',
+		// 		icon: 'warning',
+		// 		padding: "8px",
+		// 		showCancelButton: true,
+		// 		allowOutsideClick: false,
+		// 		confirmButtonText: 'SIM',
+		// 		cancelButtonText: 'NÃO',
+		// 		focusCancel: true,
+		// 		width: "80%"
+		// 	}).then(function(data){
+		// 		if(data == true){
+		// 			$.get("./del-user-messages", {_id_from: userInfo._id, _id_to: toUser._id})
+		// 			.done(function(data){
+		// 				if (isNullOrUndefined(data)) {
+		// 					return alert("Algum erro");
+		// 				}
+		// 				setUserCache(data);
+		// 				$("#btn-menu-back").click();
+		// 			});
+		// 		}
+		// 	});
+		// }, 100);
+
+		Swal.mixin({
+			confirmButtonText: 'PRÓX. &rarr;',
+			cancelButtonText: 'NÃO',
+			showCancelButton: true,
+			focusCancel: true,
+			progressSteps: ['1', '2'],
+			width: "80%"
+		  }).queue([
+			{
+			  title: 'Denunciar usuário',
+			  text: 'Você tem certeza que deseja denunciar este usuário?'
+			},
+			{
+				title: 'Denúncia',
+				text: 'Selecione a razão para a denúncia',
+				input: 'select',
+				inputOptions: {
+					reason_1: "Motivo 1",
+					reason_2: "Motivo 2",
+					reason_2: "Motivo 3",
+				},
+				confirmButtonText: 'ENVIAR'
+			}
+		  ]).then((result) => {
+			if (result.value) {
+			  const answers = JSON.stringify(result.value)
+			  Swal.fire({
+				title: 'Denúncia registrada',
+				text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
+				timer: 10000,
+				icon: 'success',
+				showConfirmButton: false,
+				allowOutsideClick: false,
+				width: "80%"
+			  })
+			}
+		  })
+	});
+
 	$("body").click( function () {
 		if (parseInt($("#menu-1").css('height')) < 50) return;
 		$("#menu-1").slideUp(300);
