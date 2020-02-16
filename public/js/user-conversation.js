@@ -90,7 +90,7 @@
 		// 	}
 		// }
 		let divsCreated = []; 
-		userInfo.messages.forEach(function(msg){
+		userInfo.messages.forEach( async function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
@@ -107,6 +107,7 @@
 		});
 		
 		$("#chat-msgs-div").empty().append(divsCreated.join(""));
+
 
 		if(inCallUpdMsgsBD || !cachedUpdStatusMsgs) return;
 		inCallUpdMsgsBD = true;
