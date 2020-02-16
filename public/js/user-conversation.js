@@ -9,6 +9,7 @@
 	let inCallUpdMsgs = false;
 	let inCallUpdMsgsBD = false;
 	let cachedUpdStatusMsgs = false;
+	let cachedUser = {};
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name);
@@ -40,7 +41,7 @@
 					inCallUpdMsgs = false;
 					$("#message-send-input").val("");
 					// getNewMessages();
-					cachedUpdStatusMsgs = false;
+					cachedUpdStatusMsgs = true;
 					setTimeout(function(){
 						$("#chat-msgs-div").scrollTop(1000000000000000);
 					}, 3000);
@@ -48,23 +49,25 @@
 			});
 	});
 
-	// function getNewMessages() {
-	// 	if(inCallGetUser || inCallUpdMsgs) return;
-	// 	inCallGetUser = true;
-	// 	$.get("./get-user", { email: userInfo.email })
-	// 		.done(function (data) {
-	// 			if (data == null || data == "undefined") {
-	// 				alert("Algum erro");
-	// 			} else {
-	// 				inCallGetUser = false;
-	// 				if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
-	// 				setUserCache(data);
-	// 				makeChatMessage();
-	// 			}
-	// 		});
-	// }
+	function getNewMessages() {
+		if(inCallGetUser || inCallUpdMsgs) return;
+		inCallGetUser = true;
+		$.get("./get-user", { email: userInfo.email })
+			.done(function (data) {
+				if (data == null || data == "undefined") {
+					alert("Algum erro");
+				} else {
+					inCallGetUser = false;
+					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
+					setUserCache(data);
+					// makeChatMessage();
+				}
+			});
+	}
 
 	function makeChatMessage() {
+		if(JSON.stringify(userInfo) === JSON.stringify(cachedUser)) return;
+		cachedUser = userInfo;
 		if(("messages" in userInfo)) {
 			userInfo.messages = userInfo.messages.reverse();
 		};
@@ -103,9 +106,9 @@
 			}
 		});
 		
-		if(!cachedUpdStatusMsgs) $("#chat-msgs-div").empty().append(divsCreated.join(""));
+		$("#chat-msgs-div").empty().append(divsCreated.join(""));
 
-		if(inCallUpdMsgsBD) return;
+		if(inCallUpdMsgsBD || !cachedUpdStatusMsgs) return;
 		inCallUpdMsgsBD = true;
 		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 		.done(function(data){
@@ -113,8 +116,9 @@
 				return alert("Algum erro");
 			}
 			inCallUpdMsgsBD = false;
+			cachedUpdStatusMsgs = false;
 			setUserCache(data);
-			makeChatMessage();
+			// makeChatMessage();
 		});
 	}
 
@@ -151,7 +155,7 @@
 					});
 				}
 			});
-		}, 100);
+		}, 600);
 	});
 
 	$("#report-user-btn").click(function () {
@@ -180,44 +184,45 @@
 		// 		}
 		// 	});
 		// }, 100);
-
-		Swal.mixin({
-			confirmButtonText: 'PRÓX. &rarr;',
-			cancelButtonText: 'NÃO',
-			showCancelButton: true,
-			focusCancel: true,
-			progressSteps: ['1', '2'],
-			width: "80%"
-		  }).queue([
-			{
-			  title: 'Denunciar usuário',
-			  text: 'Você tem certeza que deseja denunciar este usuário?'
-			},
-			{
-				title: 'Denúncia',
-				text: 'Selecione a razão para a denúncia',
-				input: 'select',
-				inputOptions: {
-					reason_1: "Motivo 1",
-					reason_2: "Motivo 2",
-					reason_2: "Motivo 3",
-				},
-				confirmButtonText: 'ENVIAR'
-			}
-		  ]).then((result) => {
-			if (result.value) {
-			  const answers = JSON.stringify(result.value)
-			  Swal.fire({
-				title: 'Denúncia registrada',
-				text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
-				timer: 10000,
-				icon: 'success',
-				showConfirmButton: false,
-				allowOutsideClick: false,
+		setTimeout(function(){
+			Swal.mixin({
+				confirmButtonText: 'PRÓX. &rarr;',
+				cancelButtonText: 'NÃO',
+				showCancelButton: true,
+				focusCancel: true,
+				progressSteps: ['1', '2'],
 				width: "80%"
-			  })
-			}
-		  })
+			}).queue([
+				{
+				title: 'Denunciar usuário',
+				text: 'Você tem certeza que deseja denunciar este usuário?'
+				},
+				{
+					title: 'Denúncia',
+					text: 'Selecione a razão para a denúncia',
+					input: 'select',
+					inputOptions: {
+						reason_1: "Motivo 1",
+						reason_2: "Motivo 2",
+						reason_2: "Motivo 3",
+					},
+					confirmButtonText: 'ENVIAR'
+				}
+			]).then((result) => {
+				if (result.value) {
+				const answers = JSON.stringify(result.value)
+				Swal.fire({
+					title: 'Denúncia registrada',
+					text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
+					timer: 10000,
+					icon: 'success',
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				})
+				}
+			});
+		}, 600);
 	});
 
 	$("body").click( function () {
@@ -230,4 +235,12 @@
 	// getNewMessages();
 	$("#chat-msgs-div").scrollTop(1000000000000000);
 
-	// setInterval(function () { getNewMessages(); }, 1000);
+	setInterval(function () {
+		getNewMessages(); 
+		// makeChatMessage(); 
+	}, 100);
+
+	setInterval(function () {
+		// getNewMessages(); 
+		makeChatMessage(); 
+	}, 10);
