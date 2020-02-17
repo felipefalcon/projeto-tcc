@@ -34,7 +34,7 @@
 		};
 		inCallUpdMsgs = true;
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
-			.done(function (data) {
+		.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
@@ -42,11 +42,21 @@
 					$("#message-send-input").val("");
 					// getNewMessages();
 					cachedUpdStatusMsgs = true;
-					setTimeout(function(){
-						$("#chat-msgs-div").scrollTop(1000000000000000);
-					}, 3000);
 				}
 			});
+		if(cachedUpdStatusMsgs) return;
+		let divsCreated = [];
+		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
+		"Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" + message.text.toString() + "</p></div>");
+		$("#chat-msgs-div").append(divsCreated.join(""));
+		if(parseInt($("#chat-msgs-div").scrollTop()) <= parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
+			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
+				if(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520) == parseInt($("#chat-msgs-div").scrollTop())) return;
+				$("#chat-msgs-div").animate({
+					scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
+				}, 3000);
+			}
+		}
 	});
 
 	function getNewMessages() {
@@ -60,7 +70,7 @@
 					inCallGetUser = false;
 					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
 					setUserCache(data);
-					// makeChatMessage();
+					makeChatMessage();
 				}
 			});
 	}
@@ -68,9 +78,9 @@
 	function makeChatMessage() {
 		if(JSON.stringify(userInfo) === JSON.stringify(cachedUser)) return;
 		cachedUser = userInfo;
-		if(("messages" in userInfo)) {
-			userInfo.messages = userInfo.messages.reverse();
-		};
+		// if(("messages" in userInfo)) {
+		// 	userInfo.messages = userInfo.messages.reverse();
+		// };
 		if(typeof userInfo.messages == "undefined") return;
 		// for(var i = 0; i < userInfo.messages.length; ++i){
 		// 	var msg = userInfo.messages[i];
@@ -90,7 +100,7 @@
 		// 	}
 		// }
 		let divsCreated = []; 
-		userInfo.messages.forEach( async function(msg){
+		userInfo.messages.reverse().forEach( async function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
@@ -108,6 +118,14 @@
 		
 		$("#chat-msgs-div").empty().append(divsCreated.join(""));
 
+		if(parseInt($("#chat-msgs-div").scrollTop()) < parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
+			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
+				// $("#chat-msgs-div").scrollTop(1000000000000000);
+				// $("#chat-msgs-div").animate({
+				// 	scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
+				// }, 3000);
+			}
+		}
 
 		if(inCallUpdMsgsBD || !cachedUpdStatusMsgs) return;
 		inCallUpdMsgsBD = true;
@@ -234,7 +252,7 @@
 	setInfoToUser();
 	makeChatMessage();
 	// getNewMessages();
-	$("#chat-msgs-div").scrollTop(1000000000000000);
+	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
 
 	setInterval(function () {
 		getNewMessages(); 

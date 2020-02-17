@@ -1176,3 +1176,7 @@
 		opacity: 0;
 		padding-right: 22px;
 	  }
+
+	  #chat-msgs-div{
+		overflow-y: scroll;
+	  }
