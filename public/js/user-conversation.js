@@ -44,7 +44,6 @@
 					cachedUpdStatusMsgs = true;
 				}
 			});
-		if(cachedUpdStatusMsgs) return;
 		let divsCreated = [];
 		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 		"Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" + message.text.toString() + "</p></div>");
@@ -55,6 +54,7 @@
 				$("#chat-msgs-div").animate({
 					scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
 				}, 3000);
+				$("#message-send-input").val("");
 			}
 		}
 	});
@@ -69,6 +69,7 @@
 				} else {
 					inCallGetUser = false;
 					if(JSON.stringify(userInfo) === JSON.stringify(data)) return;
+					if(inCallUpdMsgs) return;
 					setUserCache(data);
 					makeChatMessage();
 				}
