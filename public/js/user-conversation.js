@@ -59,6 +59,19 @@
 		}
 	});
 
+	function scrollChat(){
+		if(parseInt($("#chat-msgs-div").scrollTop()) <= parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
+			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
+				if(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520) == parseInt($("#chat-msgs-div").scrollTop())) return;
+				$("#chat-msgs-div").animate({
+					scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
+				}, 3000);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	function getNewMessages() {
 		if(inCallGetUser || inCallUpdMsgs) return;
 		inCallGetUser = true;
@@ -118,15 +131,6 @@
 		});
 		
 		$("#chat-msgs-div").empty().append(divsCreated.join(""));
-
-		if(parseInt($("#chat-msgs-div").scrollTop()) < parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
-			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
-				// $("#chat-msgs-div").scrollTop(1000000000000000);
-				// $("#chat-msgs-div").animate({
-				// 	scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
-				// }, 3000);
-			}
-		}
 
 		if(inCallUpdMsgsBD || !cachedUpdStatusMsgs) return;
 		inCallUpdMsgsBD = true;
