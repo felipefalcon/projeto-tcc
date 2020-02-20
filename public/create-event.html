@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-		<meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
-        <title>EVENTO</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="./js/commom-functions.js"></script>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+      <meta name="format-detection" content="telephone=no">
+      <meta name="msapplication-tap-highlight" content="no">
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+      <link rel="stylesheet" type="text/css" href="css/index.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
+      <script type="text/javascript" src="./js/commom-functions.js"></script>
+      <title>Criação de Evento</title>
     </head>
 
     <body class="fix-bg text-center">
-        <div id="create-profile-div" class="col-12">
-			<label class="title-label mb-3">CRIAR EVENTO</label>
-
+      <div id="logo-div" style="position: absolute;">
+        <label class="title-label-top mx-auto" style="text-shadow: 1px 1px 5px black;">NOVO EVENTO</label>
+        <button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('main-view.html');"><i class='fas fa-arrow-left'></i></button>
+      </div>
+      <img id="img-event" src="https://www.viajali.com.br/wp-content/uploads/2018/09/bares-em-recife-25.jpg"/>
 			<div id="form-create-profile-div">
-					<label class="title-label mb-2 mt-4">LOCAL DO EVENTO</label>
-					<input type="text" name="work" id="local-input" class="general-input col-10 mb-3" placeholder="Local do Evento">
-					<label class="title-label mb-2 mt-2 text-center ml-1">DATA</label>
-					<input type="date" name="age" id="data-input" class="general-input col-10 mb-3" placeholder="data">
-					<label class="title-label mb-2 mt-2 text-center">HORARIO</label>
-          <input type="number" name="date" id="horario-input" class="general-input col-10 mb-3" placeholder="horário">
-          <label class="title-label mb-2 mt-4 text-left">DESCRIÇÃO DO EVENTO</label>
-          <textarea id="descricao-input" rows="4" maxlength="130" class="general-textarea col-12" placeholder="Descreva como será o evento"></textarea>
-      		<input type="button" id="btn-criar-evento" class="general-button col-10 mt-4 mb-2" value="CRIAR">
-					<input type="button" onclick="window.location.replace('main-view.html');" class="general-button col-10 mt-2 mb-2" value="VOLTAR">
+        <span class="title-input-text">Título</span>
+        <input type="text" name="title" id="title-input" class="general-input col-10" placeholder="Nome do evento" required autofocus>
+        <hr class="light-hr col-10 mx-auto">
+        <span class="title-input-text">Endereço</span>
+					<input type="text" name="adress" id="local-input" class="general-input col-10" placeholder="Local do evento">
+          <hr class="light-hr col-10 mx-auto mb-3">
+        <span class="title-input-text">Data</span>
+          <input type="date" name="date" id="data-input" class="general-input col-6" required>
+          <span class="title-input-text">Horário</span>
+					<input type="text" name="time" id="horario-input" class="general-input col-4" required>
+					<hr class="light-hr col-10 mx-auto mb-3">  
+          <span class="title-input-text">Descrição</span>
+          <textarea id="descricao-input" rows="4" maxlength="130" class="general-textarea col-10" placeholder="Descreva como será o evento"></textarea>
+          <hr class="light-hr col-10 mx-auto">
+          <input type="button" id="btn-criar-evento" class="general-button col-10 mt-4 mb-2" value="CRIAR">
 			</div>
-		</div>
-		<script type="text/javascript" src="./js/create-event.js"></script>
+    <script async type="text/javascript" src="./js/create-event.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     </body>
 </html>

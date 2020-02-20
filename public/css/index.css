@@ -186,6 +186,7 @@
 		height: 100%;
 		padding-top: 16px;
 	}
+	
 
 	.title-label{
 		font-size: 16px;
@@ -295,12 +296,15 @@
 	}
 	
 	.general-textarea{
-		padding: 8px;
-		background-color: transparent;
-		border: 2px solid white;
-		border-radius: 0;
-		font-weight: bolder;
 		color: white;
+		border: none;
+		font-size: 13px;
+		font-weight: bolder;
+		letter-spacing: 1px;
+		text-align: center;
+		padding-top: 24px;
+		background: rgba(255, 255, 255, 0.25);
+		border-radius: 10px;
 	}
 	
 	.general-textarea::placeholder{
@@ -1180,3 +1184,17 @@
 	  #chat-msgs-div{
 		overflow-y: scroll;
 	  }
+
+	  #form-create-profile-div{
+		padding: 8px;
+		width: 100%;
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+	#img-event{
+		width: 100%;
+		height: 232px;
+	}
+
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
