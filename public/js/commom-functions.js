@@ -179,7 +179,7 @@
 	}
 
 	function resetAllEvents() {
-		window.localStorage.setItem('allEvents', '{}');
+		window.localStorage.setItem('allEvents', '[]');
 		allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
 	}
 

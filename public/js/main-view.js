@@ -124,6 +124,9 @@
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
 
+		$("#events-box-div").animate({ opacity: "1"}, 300);
+		$("#events-tags-div").animate({ opacity: "1"}, 300);
+
 		$(".event-subscribe-btn").click(function () {
 			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
