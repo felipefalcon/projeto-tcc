@@ -32,4 +32,3 @@ function createEvent(){
 			});
 }
 
-$("body").animate({ marginLeft: "0%"}, 1000);
