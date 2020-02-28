@@ -31,3 +31,5 @@ function createEvent(){
 				loading('hide');
 			});
 }
+
+$("body").animate({ marginLeft: "0%"}, 1000);

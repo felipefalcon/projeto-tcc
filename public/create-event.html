@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" style="background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);">
     <head>
       <meta name="format-detection" content="telephone=no">
       <meta name="msapplication-tap-highlight" content="no">
@@ -12,7 +12,7 @@
       <title>Criação de Evento</title>
     </head>
 
-    <body class="fix-bg text-center">
+    <body class="fix-bg text-center" style="margin-left: 200%;">
       <div id="logo-div" style="position: absolute;">
         <label class="title-label-top mx-auto" style="text-shadow: 1px 1px 5px black;">NOVO EVENTO</label>
         <button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('main-view.html');"><i class='fas fa-arrow-left'></i></button>
@@ -28,11 +28,24 @@
         <span class="title-input-text">Data</span>
           <input type="date" name="date" id="data-input" class="general-input col-6" required>
           <span class="title-input-text">Horário</span>
-					<input type="text" name="time" id="horario-input" class="general-input col-4" required>
+					<input type="time" name="time" id="horario-input" class="general-input col-4" required>
 					<hr class="light-hr col-10 mx-auto mb-3">  
           <span class="title-input-text">Descrição</span>
           <textarea id="descricao-input" rows="4" maxlength="130" class="general-textarea col-10" placeholder="Descreva como será o evento"></textarea>
           <hr class="light-hr col-10 mx-auto">
+
+          <div style="background-color: rgba(255, 255, 255, 0.25); display: flex; border-radius: 10px;" class="col-10 mx-auto">
+            <span class="title-input-text">Tags</span>
+            <div style="width: 50%;" class="mt-3">
+              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" style="vertical-align: -webkit-baseline-middle;">
+              <label for="vehicle1" style="vertical-align: text-top;"> Festa / Show</label>
+            </div>
+            <div style="width: 50%;" class="mt-3">
+              <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" style="vertical-align: -webkit-baseline-middle;">
+              <label for="vehicle1" style="vertical-align: text-top;"> I have a bike</label>
+            </div>
+          </div>
+
           <input type="button" id="btn-criar-evento" class="general-button col-10 mt-4 mb-2" value="CRIAR">
 			</div>
     <script async type="text/javascript" src="./js/create-event.js"></script>

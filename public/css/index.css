@@ -309,7 +309,7 @@
 	
 	.general-textarea::placeholder{
 		opacity: 1;
-		color: rgb(170, 156, 200) !important;
+		color: rgba(254, 255, 255, 0.2) !important;
 		letter-spacing: 1px;
 	}
 	
