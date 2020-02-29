@@ -380,10 +380,10 @@
 	}
 
 	$("#exit-app-btn").click(function(){
-		resetUserCache();
 		resetAllUsersCache();
 		resetToUser();
 		resetAllEvents();
+		resetUserCache();
 		window.location.replace("/");
 	});
 
