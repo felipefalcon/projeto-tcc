@@ -1199,4 +1199,8 @@
 		height: 232px;
 	}
 
+	#btn-lero{
+		margin-left: 5%;
+	}
+
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
