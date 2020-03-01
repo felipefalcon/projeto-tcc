@@ -531,9 +531,9 @@
 		let mailOptions = {
 				from: '"projeto-tcc-2020@outlook.com', // sender address
 				to: email_to_send, // list of receivers
-				subject: 'Hello ✔', // Subject line
+				subject: 'Recuperação de conta', // Subject line
 				text: 'Hello world?', // plain text body
-				html: '<b>SUA SENHA É '+ password_to_send  // html body
+				html: '<b>SUA nova palavra passe É '+ password_to_send  // html body
 			};
 			// send mail with defined transport object
 			transporter.sendMail(mailOptions, (error, info) => {
