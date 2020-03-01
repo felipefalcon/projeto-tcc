@@ -495,16 +495,31 @@
 //	CONFIGURAÇÃO DO MÓDULO NODEMAILER
 //	------------------------------------------------------------------------------------------------------------------------
 	const nodemailer = require('nodemailer');
+	const crypto = require('crypto');
 	
 //  [ READ - GET ] ROTA: verifica se o email informado para recuperação existe no banco e em seguida envia o email de rec.
 	app.get('/send-email-recover', urlencodedParser, function (req, res) {
+		
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
+			var randPass = () => {
+				var result           = '';
+				var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
+				var charactersLength = characters.length;
+				for ( var i = 0; i < 8; i++ ) {
+				   result += characters.charAt(Math.floor(Math.random() * charactersLength));
+				}
+				return result;
+			 };
+			var newPassword = randPass();
+			var newPasswordMd5 = crypto.createHash('md5').update(newPassword.toString()).digest("hex");
+			// mystr += mykey.final('hex');
+
+			dbo.collection("users").findOneAndUpdate({email: req.query.email}, {password: newPasswordMd5}, function(err, result) {
 				if (err) throw err;
 				if(result){
-					sendEmailRecover(result.email, result.password);
+					sendEmailRecover(result.email, newPassword);
 					res.json({ ok: 'ok' }); 
 				}else{
 					res.json({ oh_no: 'oh-no' }); 
