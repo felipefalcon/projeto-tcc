@@ -516,9 +516,12 @@
 			var newPasswordMd5 = crypto.createHash('md5').update(newPassword.toString()).digest("hex");
 			// mystr += mykey.final('hex');
 
-			dbo.collection("users").findOneAndUpdate({email: req.query.email}, {password: newPasswordMd5}, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				if(result){
+					dbo.collection("users").updateOne({email: req.query.email}, {$set: {password: newPasswordMd5}}, function(err, result) {
+						if (err) throw err;
+					});
 					sendEmailRecover(result.email, newPassword);
 					res.json({ ok: 'ok' }); 
 				}else{
