@@ -515,7 +515,9 @@
 			}else{
 				MenuBottomProf.slideDown(300);
 			}
-			getProfile();
+			$("#profile-div-model").load("model/profile-main-view.html", function(){
+				getProfile();
+			}); 
 		});
 	
 		$("#btn-menu-5").click(function(){
@@ -534,6 +536,7 @@
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
 			makeEventsObjects();
+			$("#profile-div-model").empty();
 		});
 
 	})();
