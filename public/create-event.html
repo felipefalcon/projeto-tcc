@@ -17,13 +17,20 @@
         <label class="title-label-top mx-auto" style="text-shadow: 1px 1px 5px black;">NOVO EVENTO</label>
         <button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('main-view.html');"><i class='fas fa-arrow-left'></i></button>
       </div>
-      <img id="img-event" src="https://www.viajali.com.br/wp-content/uploads/2018/09/bares-em-recife-25.jpg"/>
+      <div>
+        <label class="general-input-pic-icon" for="pic-input">
+          <i class='fas fa-cloud-upload-alt'></i>
+        </label>
+        <div id="img-event"></div>
+        <input id="pic-input" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
+      </div>
 			<div id="form-create-profile-div">
         <span class="title-input-text">Título</span>
         <input type="text" name="title" id="title-input" class="general-input col-10" placeholder="Nome do evento" required autofocus>
         <hr class="light-hr col-10 mx-auto">
-        <span class="title-input-text">Endereço</span>
-					<input type="text" name="adress" id="local-input" class="general-input col-10" placeholder="Local do evento">
+          <button onclick="" id="map-button"><i class="fas fa-map-signs" style="vertical-align: middle;"></i></button>
+          <span class="title-input-text">Endereço</span>
+          <input type="text" name="adress" id="local-input" class="general-input col-8" value="Clique para definir" disabled style="opacity: 0.3;">
           <hr class="light-hr col-10 mx-auto mb-3">
         <span class="title-input-text">Data</span>
           <input type="date" name="date" id="data-input" class="general-input col-6" required>
@@ -60,7 +67,8 @@
 			</div>
     <script async type="text/javascript" src="./js/create-event.js"></script>
     <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     </body>
 </html>
