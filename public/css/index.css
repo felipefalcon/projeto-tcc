@@ -1196,11 +1196,63 @@
 
 	#img-event{
 		width: 100%;
-		height: 232px;
+		height: 198px;
 	}
 
 	#btn-lero{
 		margin-left: 5%;
 	}
+
+	.tag-div-ce {
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		font-size: 14px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		width: 44%;
+		border-radius: 30px;
+		height: 32px;
+		margin: 6px;
+	  }
+	  
+	  /* Hide the browser's default radio button */
+	  .tag-div-ce input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+	  }
+	  
+	  /* Create a custom radio button */
+	  .checkmark-tag {
+		position: absolute;
+		left: 0;
+		background-color: white;
+		border-radius: 30px;
+		opacity: 0.3;
+		width: 100%;
+		height: 32px;
+		padding-top: 6px;
+		padding-bottom: 6px;
+		font-size: 14px;
+		color: #4c376b;
+		font-weight: 900;
+	}
+	  
+	  /* On mouse-over, add a grey background color */
+	  .tag-div-ce:hover input ~ .checkmark-tag {
+		background-color: white;
+		opacity: 0.3;
+		transition: 0.4s;
+	  }
+	  
+	  /* When the radio button is checked, add a blue background */
+	  .tag-div-ce input:checked ~ .checkmark-tag {
+		background-color:white;
+		opacity: 1;
+		transition: 0.4s;
+	  }
 
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
