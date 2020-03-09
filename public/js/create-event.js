@@ -38,8 +38,8 @@
 				$.ajax(settings).done(function(response) {
 					var res = JSON.parse(response);
 					var link = res.data.link.replace(/^http:\/\//i, 'https://');
-					link = imgLink;
-					divImg.css("background-image", "url("+link+")");
+					imgLink = link;
+					divImg.css("background-image", "url("+imgLink+")");
 					loading('hide');
 					//addImgInUser(urlUpd, link, divImg);
 				});

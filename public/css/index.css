@@ -1199,7 +1199,7 @@
 		height: 198px;
 		border-bottom: 2px solid white;
 		margin-bottom: 8px;
-		background: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg');
+		background-image: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg');
 		background-size: cover;
 		background-color: rgba(250, 237, 255, 0.3);
     	background-blend-mode: color-burn;
@@ -1277,7 +1277,7 @@
 		height: 52px;
 		width: 52px;
 		border-radius: 60px;
-		background: #fff0;
+		background: rgba(0,0,0,0);
 		border: 2px solid #ebd7b1;
 		display: inline;
 		transform: translateY(-4px);
