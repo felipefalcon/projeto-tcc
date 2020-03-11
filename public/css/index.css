@@ -20,7 +20,7 @@
 		text-align: center !important;
 	}
 
-	/* @font-face {
+	 @font-face {
 		font-family: JosefinFont;
 		font-family: 'Josefin Sans', sans-serif;
 		src: url('JosefinSans-Regular.ttf');
@@ -33,7 +33,7 @@
 		src: url("JosefinSans-Bold.ttf");
 		font-weight: bold;
 		font-display: swap
-	} */
+	} 
 
 	textarea:focus, input:focus, select:focus {
 		outline: 0;
@@ -1202,7 +1202,9 @@
 		background-image: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg');
 		background-size: cover;
 		background-color: rgba(250, 237, 255, 0.3);
-    	background-blend-mode: color-burn;
+		background-blend-mode: color-burn;
+		border-top: 2px solid white;
+    	margin-top: 2px;
 	}
 
 	#btn-lero{
@@ -1267,8 +1269,8 @@
 		color: white;
 		position: absolute;
 		right: 0;
-		top: 154px;
-		margin-right: 10px;
+		top: 146px;
+		margin-right: 18px;
 		text-shadow: 2px 3px 1px #9f41b7;
 	}
 
@@ -1281,6 +1283,7 @@
 		border: 2px solid #ebd7b1;
 		display: inline;
 		transform: translateY(-4px);
+		opacity: 0.3;
 	}
 
 
@@ -1288,11 +1291,31 @@
 
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
 
-	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
-		margin: 8px !important;
-		float: none !important; 
-	}
 
 	#set-location-btn{
 		z-index: 99999;
 	}
+
+	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+		margin: 0 !important;
+		border-radius: 68px;
+	}
+
+	.mapboxgl-ctrl-top-right {
+		margin: 16px;
+		margin-top: 8px;
+	}
+
+	.mapboxgl-ctrl-geocoder {
+		font-size: 18px;
+		line-height: 24px;
+		font-family: 'Josefin Sans';
+		position: relative;
+		background-color: #fff;
+		width: 100%;
+		min-width: 240px;
+		z-index: 1;
+		border-radius: 4px;
+		transition: width .25s, min-width .25s;
+	}
+

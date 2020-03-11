@@ -22,12 +22,13 @@ type="text/css"
 <body>
 <div id="map"></div>
 <button id="set-location-btn">SELECIONAR</button>
+<button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('create-event.html');" style="left: 0; top: 12px;"><i class='fas fa-arrow-left'></i></button>
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXBlZmFsY29uIiwiYSI6ImNrNHZoNHlocTN3N3MzbnE4eXpnMG5wMnUifQ.qnAXlW-__Z9B8SfszJgioA';
 var map = new mapboxgl.Map({
-style: 'mapbox://styles/mapbox/satellite-streets-v11',
+style: 'mapbox://styles/felipefalcon/ck7mo2d1a072i1ipkjmird6m5?optimize=true',
 center: [-79.4512, 43.6568],
-zoom: 18,
+zoom: 16,
 pitch: 45,
 bearing: -17.6,
 container: 'map',

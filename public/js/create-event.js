@@ -54,6 +54,14 @@
 
 	$("#btn-criar-evento").click(function () { createEvent(); });
 
+	$("#local-input").click(function(){
+		window.location.href = "./set-map.html";
+	});
+
+	$("#map-button").click(function(){
+		window.location.href = "./set-map.html";
+	});
+
 	function createEvent() {
 		loading();
 
