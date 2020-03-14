@@ -1293,7 +1293,18 @@
 
 
 	#set-location-btn{
-		z-index: 99999;
+		display: block;
+		position: relative;
+		margin: 0px auto;
+		width: 50%;
+		height: 40px;
+		padding: 10px;
+		border: none;
+		border-radius: 3px;
+		font-size: 12px;
+		text-align: center;
+		color: #fff;
+		background: #ee8a65;
 	}
 
 	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
@@ -1319,3 +1330,8 @@
 		transition: width .25s, min-width .25s;
 	}
 
+	.mapboxgl-ctrl-geocoder--input {
+		padding: 6px;
+		padding-left: 42px;
+		padding-right: 28px;
+	}

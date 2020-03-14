@@ -6,6 +6,7 @@
 	function sucessGeoLocation(posicao) {
 		$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
 			var location = data.address;
+			console.log(data);
 			location.region = data.display_name.split(",")[8];
 			$.get("./upd-user-location", {
 				email: userInfo.email,
