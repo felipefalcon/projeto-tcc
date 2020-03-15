@@ -89,7 +89,6 @@ map.addControl(
 new MapboxGeocoder({
 accessToken: mapboxgl.accessToken,
 localGeocoder: coordinatesGeocoder,
-zoom: 4,
 placeholder: 'Informe o endereço',
 mapboxgl: mapboxgl,
 language: 'pt-BR',
