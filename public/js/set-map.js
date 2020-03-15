@@ -6,12 +6,12 @@
 	function sucessGeoLocation(posicao) {
 		marker.setLngLat([posicao.coords.longitude, posicao.coords.latitude]);
 
-			map.flyTo({
+		map.flyTo({
 				center: [posicao.coords.longitude, posicao.coords.latitude],
 				pitch: 45,
 				bearing: -45,
 				speed: 0.1,
-				zoom: 12
+				zoom: 14
 		});
 	}
 
@@ -19,11 +19,17 @@
 	var map = new mapboxgl.Map({
 	style: 'mapbox://styles/felipefalcon/ck7mo2d1a072i1ipkjmird6m5?optimize=true',
 	center: [0, 0],
-	pitch: 45,
-	bearing: -45,
 	container: 'map',
 	antialias: false,
-	minZoom: 12
+	minZoom: 14
+	});
+
+	map.flyTo({
+		center: [0, 0],
+		pitch: 45,
+		bearing: -45,
+		speed: 0.1,
+		zoom: 14
 	});
 
 // The 'building' layer in the mapbox-streets vector source contains building-height
@@ -108,9 +114,6 @@ color: 'red'
 
 function onDragEnd() {
 var lngLat = marker.getLngLat();
-coordinates.style.display = 'block';
-coordinates.innerHTML =
-'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
 }
 
 map.on('click', function(e) {
