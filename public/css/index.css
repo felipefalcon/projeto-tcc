@@ -1287,24 +1287,24 @@
 	}
 
 
-
-
-	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
-
-
 	#set-location-btn{
 		display: block;
-		position: relative;
-		margin: 0px auto;
-		width: 50%;
-		height: 40px;
-		padding: 10px;
+		position: absolute;
+		bottom: 0;
+		margin: 0px auto !important;
+		margin-bottom: 32px !important;
 		border: none;
-		border-radius: 3px;
-		font-size: 12px;
 		text-align: center;
-		color: #fff;
-		background: #ee8a65;
+		background: #4dcc80;
+		border-radius: 60px;
+		font-weight: bolder;
+		color: #4c376b;
+		height: 38px;
+		font-size: 11px;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+		line-height: 36px;
+		width: 120px;
+		opacity: 0.4;
 	}
 
 	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
@@ -1335,3 +1335,5 @@
 		padding-left: 42px;
 		padding-right: 28px;
 	}
+
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
