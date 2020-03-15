@@ -24,14 +24,6 @@
 	minZoom: 14
 	});
 
-	map.flyTo({
-		center: [0, 0],
-		pitch: 45,
-		bearing: -45,
-		speed: 0.1,
-		zoom: 14
-	});
-
 // The 'building' layer in the mapbox-streets vector source contains building-height
 // data from OpenStreetMap.
 map.on('load', function() {
