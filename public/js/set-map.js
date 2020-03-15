@@ -1,19 +1,25 @@
-	// Desativado por enquanto
+	
 	$("document").ready(function () {
 		navigator.geolocation.getCurrentPosition(sucessGeoLocation, function(){});
 	});
 
 	function sucessGeoLocation(posicao) {
-		marker.setLngLat([posicao.coords.longitude, posicao.coords.latitude]);
-
 		map.flyTo({
 				center: [posicao.coords.longitude, posicao.coords.latitude],
 				pitch: 45,
 				bearing: -45,
-				speed: 0.1,
-				zoom: 14
+				speed: 0.1
 		});
+
+		setTimeout(function(){
+			marker.setLngLat([posicao.coords.longitude, posicao.coords.latitude]);
+			addressMarker = {lng: posicao.coords.longitude, lat: posicao.coords.latitude};
+		}, 1000);
 	}
+
+	$("#btn-menu-back").click(function () {
+		window.location.replace(document.referrer);
+	});
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXBlZmFsY29uIiwiYSI6ImNrNHZoNHlocTN3N3MzbnE4eXpnMG5wMnUifQ.qnAXlW-__Z9B8SfszJgioA';
 	var map = new mapboxgl.Map({
@@ -23,21 +29,6 @@
 	antialias: false,
 	minZoom: 14
 	});
-
-// The 'building' layer in the mapbox-streets vector source contains building-height
-// data from OpenStreetMap.
-map.on('load', function() {
-// Insert the layer beneath any symbol layer.
-var layers = map.getStyle().layers;
-
-var labelLayerId;
-for (var i = 0; i < layers.length; i++) {
-if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-labelLayerId = layers[i].id;
-break;
-}
-}
-});
 
 var coordinatesGeocoder = function(query) {
 // match anything which looks like a decimal degrees coordinate pair
@@ -89,7 +80,7 @@ map.addControl(
 new MapboxGeocoder({
 accessToken: mapboxgl.accessToken,
 localGeocoder: coordinatesGeocoder,
-placeholder: 'Informe o endereço',
+placeholder: 'Procurar endereço',
 mapboxgl: mapboxgl,
 language: 'pt-BR',
 marker: marker
@@ -100,16 +91,57 @@ var marker = new mapboxgl.Marker({
 draggable: true,
 color: 'red'
 })
-.setLngLat([0, 0])
+.setLngLat([90, 90])
 .addTo(map);
 
+var addressMarker = 0;
+
 function onDragEnd() {
-var lngLat = marker.getLngLat();
+	addressMarker = marker.getLngLat();
 }
 
 map.on('click', function(e) {
 marker.setLngLat(e.lngLat.wrap());
-
+	addressMarker = marker.getLngLat();
 });
 
 marker.on('dragend', onDragEnd);
+
+$("#map").animate({opacity: 1}, 1000);
+$("#set-location-btn").animate({opacity: 1}, 2000);
+
+$("#set-location-btn").click(function(){
+	if(!addressMarker) return;
+	$.get("https://nominatim.openstreetmap.org/reverse?lat=" + addressMarker.lat + "&lon=" + addressMarker.lng + "&format=json").done(function (data) {	
+	var valueInput = typeof data.address.house_number == "undefined" ? '' : data.address.house_number;
+	var addressText = data.address.road;
+	let addressForSave = data.address;
+	addressForSave.lat = addressMarker.lat;
+	addressForSave.lng = addressMarker.lng;
+	// console.log(addressForSave);
+	if(data.address.city_district) addressText += " - " + data.address.city_district
+	if(data.address.city) addressText += "<br>" + data.address.city
+	if(data.address.state) addressText += " - " + data.address.state
+		setTimeout(function(){
+			Swal.fire({
+				title: 'CORRETO?',
+				html: "<p style='line-height: 22px'>"+addressText+"</p><label style='color: #a570df'>Confirmar número</label>",
+				input: 'number',
+				inputValue: valueInput,
+				padding: "8px",
+				confirmButtonText: 'OK',
+				cancelButtonText: 'NÃO',
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+				inputValidator: (value) => {
+					addressForSave.house_number = value;
+					//console.log(addressForSave);
+					cachedEvent.address = addressForSave;
+					setCachedEvent(cachedEvent);
+					window.location.replace(document.referrer);
+				}
+			});
+		}, 600);
+	});
+});

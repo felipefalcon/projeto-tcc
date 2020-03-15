@@ -421,7 +421,7 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var myObj = req.query.evento;
-			myObj.participants = [req.query.user];
+			myObj.participants = [req.query._id];
 			dbo.collection("events").insertOne(myObj, function(err, res) {
 				if (err) throw err;
 			});

@@ -119,6 +119,33 @@
 					width: "80%"
 				});
 			}, 600);
+		},
+		emptyInputs: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Falta de informações!',
+					html: 'É necessário preencher a maioria dos campos para criar um evento.<br>(Tags/Imagem não obrigatório)',
+					icon: 'warning',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 100);
+		},
+		registerEventSuccess: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Evento criado!',
+					html: 'Cadastrado com sucesso, também foi incluído em suas subscrições.<br>Acesse "SUBSCRIÇÕES" para ver detalhes ou editar as informações.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		}
 	}
 
@@ -141,6 +168,9 @@
 
 	// Variável responsável por cachear informações de configurações, páginas etc.
 	configParams = JSON.parse(window.sessionStorage.getItem('configParams')) || {};
+
+	// Variável responsável por cachear informações de das criações de eventos.
+	cachedEvent = JSON.parse(window.sessionStorage.getItem('cachedEvent')) || {};
 
 	// Getters e Setters das Variáveis de Cache declaradas acima ^
 	function setUserCache(user) {
@@ -186,6 +216,11 @@
 	function setConfigParams(params) {
 		window.sessionStorage.setItem('configParams', JSON.stringify(params));
 		configParams = JSON.parse(window.sessionStorage.getItem('configParams'));
+	}
+
+	function setCachedEvent(params) {
+		window.sessionStorage.setItem('cachedEvent', JSON.stringify(params));
+		cachedEvent = JSON.parse(window.sessionStorage.getItem('cachedEvent'));
 	}
 
 	// Verifica se tem usuário em cache, se não tiver, retorna ao Login e limpa as variáveis de cache

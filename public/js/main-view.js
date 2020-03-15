@@ -85,7 +85,7 @@
 		// });
 
 		allEvents.forEach(function(data){
-			let userFound = data.participants.find(function(item){return item._id == userInfo._id});
+			let userFound = data.participants.find(function(item){return item == userInfo._id});
 			if((typeof userFound === "undefined")){
 				allEventsWithoutUser.push(data);
 			}
@@ -102,21 +102,23 @@
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach( function (data, i) {
+			let imgData = "";
+			if("img" in data) imgData = "background: url("+data.img+") center; background-size: cover; background-color: rgba(250, 237, 255, 0.3);"
 			if(i == 0){
-				divsCreated.push("<div class='carousel-item events-t active' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
+				divsCreated.push("<div class='carousel-item events-t active' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
 			}else{
-				divsCreated.push("<div class='carousel-item events-t' style='background-color: rgba(250, 237, 255, 0.3);' name='" + data._id + "'>");
+				divsCreated.push("<div class='carousel-item events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
 			}
 			
 			let dateEvent = new Date(data.data);
 			let dayEvent = new Number(dateEvent.getDate())+1;
-			if(dayEvent < 10){
-				dayEvent = "0" + dayEvent;
-			}
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.local + "<button class='event-subscribe-btn' name='"+data._id+"'>"
+			let monthEvent = new Number(dateEvent.getMonth())+1;
+			if(dayEvent < 10) dayEvent = "0" + dayEvent;
+			if(monthEvent < 10) monthEvent = "0" + monthEvent;
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + "<button class='event-subscribe-btn' name='"+data._id+"'>"
 			+ "<i class='fas fa-hand-peace'></i></button></label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
-			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + dateEvent.getMonth() + "</p>"
+			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label></div>");
 
 		});

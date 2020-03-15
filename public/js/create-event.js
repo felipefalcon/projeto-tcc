@@ -41,54 +41,158 @@
 					imgLink = link;
 					divImg.css("background-image", "url("+imgLink+")");
 					loading('hide');
+					cachedEvent.img = imgLink;
+					setCachedEvent(cachedEvent);
+					$("#general-input-pic-reset-icon").css("display", "block");
 					//addImgInUser(urlUpd, link, divImg);
 				});
 			}
 		}
 	
 		$('#pic-input').on("change", function() {
-			uploadImage(this, $("#img-event"),);
+			uploadImage(this, $("#img-event"));
 		});
 	
+	});
+
+	$("#btn-menu-back").click(function () {
+		cacheAllInputs();
+		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return window.location.replace(document.referrer);
+		setTimeout(function(){
+			Swal.fire({
+				title: 'MUDANÇAS',
+				html: "Você preencheu alguns campos, se você sair as mudanças serão perdidas.<br>Tem certeza que deseja sair?",
+				padding: "8px",
+				confirmButtonText: 'OK',
+				cancelButtonText: 'NÃO',
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+			}).then((data) => {
+				if(data.value){
+					cachedEvent = undefined;
+					window.sessionStorage.removeItem('cachedEvent');
+					window.location.replace("./main-view.html");
+				}
+			});
+		}, 100);
 	});
 
 	$("#btn-criar-evento").click(function () { createEvent(); });
 
 	$("#local-input").click(function(){
-		window.location.href = "./set-map.html";
+		$("#local-input").blur();
+		if(cachedEvent.address) {
+			setTimeout(function(){
+				Swal.fire({
+					title: 'LIMPAR?',
+					text: "Deseja resetar o campo de endereço?",
+					padding: "8px",
+					confirmButtonText: 'OK',
+					cancelButtonText: 'NÃO',
+					allowOutsideClick: false,
+					width: "80%",
+					showCancelButton: true,
+				}).then((data) => {
+					if(data.value){
+						cachedEvent.address = undefined;
+						setCachedEvent(cachedEvent);
+						$("#local-input").css("opacity", "0.2");
+						$("#local-input").val("Clique para definir");
+						$("#map-button").css({"color":"#ebd7b1", "border": "2px solid #ebd7b1", "opacity": "0.3"});
+					}
+				});
+			}, 100);
+		}else{
+
+			cacheAllInputs();
+			window.location.href = "./set-map.html";	
+		}
 	});
 
-	$("#map-button").click(function(){
-		window.location.href = "./set-map.html";
-	});
+	function cacheAllInputs(){
+		if($("#title-input").val().length > 0) cachedEvent.title = $("#title-input").val();
+		if($("#data-input").val().length > 0) cachedEvent.data = $("#data-input").val();
+		if($("#horario-input").val().length > 0) cachedEvent.horario = $("#horario-input").val();
+		if($("#descricao-input").val().length > 0) cachedEvent.descricao = $("#descricao-input").val();
+		let tagsArray = [];
+		for(var i = 1; i <= 6; ++i){
+			if($("#tag-"+i).is(':checked')) tagsArray.push(i);
+		}
+		if(tagsArray.length > 0) cachedEvent.tags = tagsArray;
+		setCachedEvent(cachedEvent);
+	}
 
 	function createEvent() {
+		cacheAllInputs();
+		if(jQuery.isEmptyObject(cachedEvent) || !("title" in cachedEvent) || !("address" in cachedEvent)
+		|| !("data" in cachedEvent) || !("horario" in cachedEvent) || !("descricao" in cachedEvent)
+		) return alerts.emptyInputs();
+
 		loading();
 
-		var evento = {};
-		evento.name = $("#title-input").val();
-		evento.date = $("#data-input").val();
-		evento.local = $("#local-input").val();
-		evento.descricao = $("#descricao-input").val();
-		evento.horario = $("#horario-input").val();
-		console.log(evento)
-
-		var userBasic = {};
-		userBasic._id = userInfo._id;
-		userBasic.name = userInfo.name;
-		userBasic.main_pic = userInfo.pics_url.main_pic;
-
 		$.get("./crt-event", {
-			user: userBasic,
-			evento: evento
+			_id: userInfo._id,
+			evento: cachedEvent
 		}).done(function (data) {
+			loading('hide');
 			if (data == null || data == "undefined") {
 				alert("Deu merda");
 			} else {
-				alert("Evento criado!");
+				alerts.registerEventSuccess();
+				setTimeout(function () {
+					cachedEvent = undefined;
+					window.sessionStorage.removeItem('cachedEvent');
+					window.location.replace("./main-view.html");
+				}, 8000);
 			}
-			loading('hide');
 		});
 	}
+
+	$("#general-input-pic-reset-icon").click(function(){
+		setTimeout(function(){
+			Swal.fire({
+				title: 'LIMPAR?',
+				text: "Deseja resetar a imagem para a padrão?",
+				padding: "8px",
+				confirmButtonText: 'OK',
+				cancelButtonText: 'NÃO',
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+			}).then((data) => {
+				if(data.value){
+					cachedEvent.img = undefined;
+					setCachedEvent(cachedEvent);
+					$("#general-input-pic-reset-icon").css("display", "none");
+					$("#img-event").css("background-image", "url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg')");
+				}
+			});
+		}, 100);
+	});
+
+	function loadCachedEvent(){
+		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return;
+		if(cachedEvent.title) $("#title-input").val(cachedEvent.title);
+		if(cachedEvent.data) $("#data-input").val(cachedEvent.data);
+		if(cachedEvent.horario) $("#horario-input").val(cachedEvent.horario);
+		if(cachedEvent.descricao) $("#descricao-input").val(cachedEvent.descricao);
+		if(cachedEvent.address) {
+			$("#local-input").css("opacity", "1");
+			$("#local-input").val(cachedEvent.address.road);
+			$("#map-button").css({"color":"#4dcc80", "border": "2px solid #4dcc80", "opacity": "1"});
+		}
+		if(cachedEvent.tags) {
+			let lengthTagsArray = cachedEvent.tags.length;
+			for(var i = 0; i <= lengthTagsArray; ++i){
+				$("#tag-"+cachedEvent.tags[i]).prop( "checked", true );
+			}
+		}
+		if(cachedEvent.img) {
+			$("#general-input-pic-reset-icon").css("display", "block");
+		}
+	}
+
+	loadCachedEvent();
 
 

@@ -17,10 +17,8 @@
       <script type="text/javascript" src="./js/commom-functions.js"></script>
 </head>
 <body style="margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-<div id="map">
-      
-</div>
-<button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('create-event.html');" style="left: 0; top: 12px;"><i class='fas fa-arrow-left'></i></button>
+<div id="map" style="opacity: 0;"></div>
+<button id="btn-menu-back" class="btn-menu" style="left: 0; top: 12px;"><i class='fas fa-arrow-left'></i></button>
 <button id="set-location-btn" class="btn-menu col-6">CONFIRMAR</button>
 <pre id="coordinates" class="coordinates"></pre>
 <style>
@@ -40,5 +38,6 @@ display: none;
 </style>
 </body>
 <script async src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script async type="text/javascript" src="./js/set-map.js"></script>
 </html>

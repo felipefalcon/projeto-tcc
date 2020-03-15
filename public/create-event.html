@@ -15,9 +15,12 @@
     <body class="fix-bg text-center">
       <div id="logo-div" style="position: absolute;">
         <label class="title-label-top mx-auto" style="text-shadow: 1px 1px 5px black;">NOVO EVENTO</label>
-        <button id="btn-menu-back" class="btn-menu" onclick="window.location.replace('main-view.html');"><i class='fas fa-arrow-left'></i></button>
+        <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
       </div>
       <div>
+        <label id="general-input-pic-reset-icon">
+          <i class='fas fa-times'></i>
+        </label>
         <label class="general-input-pic-icon" for="pic-input">
           <i class='fas fa-cloud-upload-alt'></i>
         </label>
@@ -26,11 +29,11 @@
       </div>
 			<div id="form-create-profile-div">
         <span class="title-input-text">Título</span>
-        <input type="text" name="title" id="title-input" class="general-input col-10" placeholder="Nome do evento" required autofocus>
+        <input type="text" name="title" id="title-input" class="general-input col-10" placeholder="Nome do evento" required>
         <hr class="light-hr col-10 mx-auto">
           <button id="map-button"><i class="fas fa-map-signs" style="vertical-align: middle;"></i></button>
           <span class="title-input-text">Endereço</span>
-          <input type="text" name="adress" id="local-input" class="general-input col-8" value="Clique para definir" style="opacity: 0.2;">
+          <input type="text" name="adress" id="local-input" class="general-input col-8" value="Clique para definir" required>
           <hr class="light-hr col-10 mx-auto mb-3">
         <span class="title-input-text">Data</span>
           <input type="date" name="date" id="data-input" class="general-input col-6" required>
@@ -45,20 +48,28 @@
             <span class="title-input-text">Tags</span>
             <div style="width: 100%; padding-top: 18px;" class="mx-auto">
               <label class="tag-div-ce">
-                <input type="checkbox">
+                <input type="checkbox" id="tag-1">
                   <span class="checkmark-tag">Festa / Show</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox">
-                  <span class="checkmark-tag">Festa / Show</span>
+                <input type="checkbox" id="tag-2">
+                  <span class="checkmark-tag">Bar / Conversa</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox">
-                  <span class="checkmark-tag">Festa / Show</span>
+                <input type="checkbox" id="tag-3">
+                  <span class="checkmark-tag">Parque</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox">
-                  <span class="checkmark-tag">Festa / Show</span>
+                <input type="checkbox" id="tag-4">
+                  <span class="checkmark-tag">Encontro</span>
+              </label>
+              <label class="tag-div-ce">
+                <input type="checkbox" id="tag-5">
+                  <span class="checkmark-tag">Passeio</span>
+              </label>
+              <label class="tag-div-ce">
+                <input type="checkbox" id="tag-6">
+                  <span class="checkmark-tag">Outro</span>
               </label>
            </div>
           </div>

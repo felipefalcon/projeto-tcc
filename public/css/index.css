@@ -607,7 +607,7 @@
 
 	.user-d-u-label{
 		color: white;
-		text-shadow: 2px 2px 2px black;
+		text-shadow: 1px 1px 2px black;
 		margin: 0;
 		font-size: 15px;
 		display: inherit;
@@ -716,7 +716,7 @@
 		margin-top: 0px;
 		margin-bottom: 0;
 		background-color: rgba(63, 51, 74, 0.29);
-		background: url(https://www.viajali.com.br/wp-content/uploads/2018/09/bares-em-recife-25.jpg) center;
+		background: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg') center;
 		background-size: cover;
 		height: 100%;
 		background-blend-mode: color-burn;
@@ -985,12 +985,16 @@
   .swal2-styled.swal2-confirm{
 	  zoom: 0.75;
 	  background-color: #dd57a8 !important;
+	  border-radius: 60px !important;
+	  width: 112px;
   }
 
   .swal2-styled.swal2-cancel{
 	zoom: 0.75;
 	background-color: #d2d2d2 !important;
-	margin-left: 30px;
+	margin-left: 16px;
+	border-radius: 60px !important;
+	width: 112px;
 	}
 
 	.swal2-select{
@@ -1203,8 +1207,6 @@
 		background-size: cover;
 		background-color: rgba(250, 237, 255, 0.3);
 		background-blend-mode: color-burn;
-		border-top: 2px solid white;
-    	margin-top: 2px;
 	}
 
 	#btn-lero{
@@ -1263,15 +1265,21 @@
 		transition: 0.4s;
 	  }
 
-	.general-input-pic-icon {
+	.general-input-pic-icon, #general-input-pic-reset-icon {
 		font-size: 30px;
 		font-weight: 800;
 		color: white;
 		position: absolute;
 		right: 0;
 		top: 146px;
-		margin-right: 18px;
+		margin-right: 14px;
 		text-shadow: 2px 3px 1px #9f41b7;
+	}
+
+	#general-input-pic-reset-icon{
+		margin-right: 74px;
+		text-shadow: 2px 3px 1px #ef6a6a;
+		display: none;
 	}
 
 	#map-button {
@@ -1304,7 +1312,12 @@
 		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
 		line-height: 36px;
 		width: 120px;
-		opacity: 0.4;
+		opacity: 0;
+	}
+
+	.swal2-input{
+		text-align: center;
+		margin: auto !important;
 	}
 
 	.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
@@ -1335,5 +1348,19 @@
 		padding-left: 42px;
 		padding-right: 28px;
 	}
+
+	#local-input{
+		opacity: 0.2;
+		padding-left: 24px;
+	}
+
+
+
+
+
+
+
+
+
 
 	#map { position: absolute; top: 0; bottom: 0; width: 100%; };
