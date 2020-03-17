@@ -11,8 +11,10 @@
 		map.flyTo({
 			center: [posicao.coords.longitude, posicao.coords.latitude],
 			speed: 0.2,
-			zoom: 14,
-			duration: 0
+			duration: 0,
+			pitch: 45,
+			bearing: -45,
+			essential: true
 		});
 	}
 
@@ -29,7 +31,6 @@
 	pitch: 45,
 	bearing: -45,
 	minZoom: 14,
-	zoom: 14
 	});
 
 var coordinatesGeocoder = function(query) {
