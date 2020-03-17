@@ -4,17 +4,16 @@
 	});
 
 	function sucessGeoLocation(posicao) {
-		map.flyTo({
-				center: [posicao.coords.longitude, posicao.coords.latitude],
-				pitch: 45,
-				bearing: -45,
-				speed: 0.1
-		});
-
 		setTimeout(function(){
 			marker.setLngLat([posicao.coords.longitude, posicao.coords.latitude]);
 			addressMarker = {lng: posicao.coords.longitude, lat: posicao.coords.latitude};
 		}, 1000);
+		map.flyTo({
+			center: [posicao.coords.longitude, posicao.coords.latitude],
+			speed: 0.2,
+			zoom: 14,
+			duration: 0
+		});
 	}
 
 	$("#btn-menu-back").click(function () {
@@ -27,7 +26,10 @@
 	center: [0, 0],
 	container: 'map',
 	antialias: false,
-	minZoom: 14
+	pitch: 45,
+	bearing: -45,
+	minZoom: 14,
+	zoom: 14
 	});
 
 var coordinatesGeocoder = function(query) {
