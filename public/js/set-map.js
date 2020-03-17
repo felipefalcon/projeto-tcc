@@ -10,11 +10,12 @@
 		}, 1000);
 		map.flyTo({
 			center: [posicao.coords.longitude, posicao.coords.latitude],
-			speed: 0.2,
+			speed: 0.3,
 			duration: 0,
 			pitch: 45,
 			bearing: -45,
-			essential: true
+			essential: true,
+			antialias: false
 		});
 	}
 
@@ -24,13 +25,14 @@
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXBlZmFsY29uIiwiYSI6ImNrNHZoNHlocTN3N3MzbnE4eXpnMG5wMnUifQ.qnAXlW-__Z9B8SfszJgioA';
 	var map = new mapboxgl.Map({
-	style: 'mapbox://styles/felipefalcon/ck7mo2d1a072i1ipkjmird6m5?optimize=true',
-	center: [0, 0],
-	container: 'map',
-	antialias: false,
-	pitch: 45,
-	bearing: -45,
-	minZoom: 14,
+		style: 'mapbox://styles/felipefalcon/ck7mo2d1a072i1ipkjmird6m5?optimize=true',
+		center: [0, 0],
+		container: 'map',
+		antialias: false,
+		pitch: 45,
+		bearing: -45,
+		minZoom: 14,
+		essential: true
 	});
 
 var coordinatesGeocoder = function(query) {
