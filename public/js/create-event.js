@@ -57,7 +57,7 @@
 
 	$("#btn-menu-back").click(function () {
 		cacheAllInputs();
-		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return window.location.replace(document.referrer);
+		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return window.location.replace("./main-view.html");
 		setTimeout(function(){
 			Swal.fire({
 				title: 'MUDANÇAS',
