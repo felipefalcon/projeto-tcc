@@ -350,6 +350,10 @@
 
 	function getProfile() {
 		getUser();
+		let qtPics = Object.values(userInfo.pics_url).length;
+		if(qtPics > 1){
+			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPics+"</label></p>");
+		}
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(userInfo.gender == "M"){
@@ -357,8 +361,15 @@
 		}
 		$("#label-user-name").html(gender+"&nbsp&nbsp"+userInfo.name);
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
-		$("#label-user-location").text("São Paulo - SP");
 		$("#main-descript-div").text(userInfo.about);
+		addAnotherInfos();
+	}
+
+	function addAnotherInfos(){
+		let htmlInfos = [];
+		if(userInfo.location.city) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.location.city+"</label>");
+		if(userInfo.work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.work+"</label>");
+		$("#other-label-user-info").append(htmlInfos.join(""));
 	}
 
 	function deleteAccount() {
@@ -393,18 +404,15 @@
 		if(flagInfoProfile) return;
 		$("#other-label-user-info").slideDown(300);
 		$( "#main-descript-div" ).animate({
-			width: "100%",
-			opacity: "1"
+			opacity: "1",
+			height: "100%"
 		}, 600);
 		setTimeout(function(){
 			$("#other-label-user-info").slideUp(600);
 			$( "#main-descript-div" ).animate({
-				width: "0%",
-				left: "100%",
+				height: "0%",
 				opacity: "0"
-			}, 600, function(){
-				$( "#main-descript-div" ).css("left", "0%");
-			});
+			}, 400);
 			flagInfoProfile = false;
 		}, 10000);
 		flagInfoProfile = true;
@@ -416,6 +424,7 @@
 		if(picOrder >= Object.values(userInfo.pics_url).length-1) picOrder = -1;
 		picDiv.fadeOut(150, function(){
 			picDiv.css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
+			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);
 		});
 	});
