@@ -18,10 +18,11 @@
 	<div id="main-div">
 		<div id="main-body-div">
 		<div id="profile-div" class="mx-auto">
-			<div id="user-information-div" class="container">
+			<div id="user-information-div" class="container" style="z-index: 9999;">
 				<div id="name-label-user-info" style="margin-left: 40px;">
 					<label class="title-label" id="label-user-name"></label>
 				</div>
+				<input type='date' id='edit-age-input' />
 				<label class="title-label" id="label-user-age">?</label>
 				<div id="other-label-user-info">
 				</div>
@@ -31,9 +32,11 @@
 			<div id="menu-bottom-prof-other-user" class="col-12" style="height: 56px;">
 				<button id="show-user-info" type="button"
 					class="general-button btns-prof col-3 mx-auto"><i class='fas fa-address-book' style='font-size:32px;color:white'></i></button>
-				<label style="width: 16px;"></label>
-				<button id="btn-change-pic" type="button"
-					class="general-button btns-prof col-3 mx-auto"><i class='fas fa-sync' style='font-size:26px;color:white'></i></button>
+				<input id="btn-prof-edit" type="button" onclick="window.location.href='create-profile.html';"
+					class="general-button col-5 mx-auto mb-2" value="EDITAR">
+				<button id="btn-change-pic" type="button" class="general-button btns-prof col-3 mx-auto">
+					<i class='fas fa-sync' style='font-size:26px;color:white'></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -43,7 +46,7 @@
 	<script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<!-- <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="./js/user-profile.js"></script>
+	<script type="text/javascript" src="./js/create-profile-n.js"></script>
 	<!-- <script async type="text/javascript" src="./js/main-view-geolocation.js"></script> -->
 	<!--<script type="text/javascript" src="cordova.js"></script>-->
 	<!--<script type="text/javascript" src="js/index.js"></script>-->

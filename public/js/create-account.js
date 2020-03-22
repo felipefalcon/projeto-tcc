@@ -35,7 +35,8 @@
 		$.post(nodeHost + "crt-user", {
 			email: $("#email-input").val(),
 			name: $("#name-input").val(),
-			age: $("#age-input").val(),
+			lastname: $("#lastname-input").val(),
+			dt_nasc: $("#dt-nasc-input").val(),
 			gender: genderType,
 			password: hex_md5($("#password-input").val())
 		}).done(function () {

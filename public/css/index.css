@@ -937,7 +937,7 @@
 .radio-edit {
 	display: inline-block;
 	position: relative;
-	padding-left: 60px;
+	padding-left: 50px;
 	cursor: pointer;
 	font-size: 22px;
 	-webkit-user-select: none;
@@ -1058,6 +1058,7 @@
     border-radius: 10px;
 	border-bottom-left-radius: 0px;
 	box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+	width: calc(100% - 32px);
 }
 
   .new-msg {
@@ -1177,24 +1178,25 @@
 		margin-right: 10px;
 	}
 
-	#main-descript-div-other-user{
+	#main-descript-div-other-user {
 		position: fixed;
 		bottom: 0;
-		margin-bottom: 52px;
+		margin: 16px;
+		margin-bottom: 64px;
 		text-align: justify;
-		background: rgba(108, 93, 139, 0.5);
-		height: 72px;
+		background: white;
+		padding: 16px;
+		height: 0%;
 		font-size: 13px;
 		padding-top: 8px;
-		text-shadow: 1px 1px 2px black;
-		color: white;
-		border-left: 4px solid #bb4c87;
-		font-style: italic;
-		overflow: hidden;
-		width: 0%;
+		color: #897ea2;
 		opacity: 0;
-		padding-right: 22px;
-	  }
+		max-height: 74px;
+		border-radius: 10px;
+		border-bottom-left-radius: 0px;
+		box-shadow: 0px 0px 1px rgba(33, 35, 78, 0.25);
+		width: calc(100% - 32px);
+	}
 
 	  #chat-msgs-div{
 		overflow-y: scroll;
@@ -1363,6 +1365,44 @@
 		padding-left: 24px;
 	}
 
+	.edit-icon{
+		position: absolute !important;
+		transform: translateY(-14px) !important;
+		font-size: 20px !important;
+		text-shadow: 2px 3px 1px #8d275d !important;
+    	color: #ff7d7d !important;
+	}
+
+	#edit-name-input, #edit-age-input, #edit-city-input, #edit-work-input, #edit-about-input{
+		width: 158px;
+		border: none;
+		font-weight: bolder;
+		min-width: 100px;
+	}
+
+	#edit-name-input{
+		max-width: 158px;
+	}
+
+	#edit-city-input, #edit-work-input{
+		color: #897ea2;
+	}
+
+	#edit-about-input{
+		color: #897ea2;
+		font-weight: normal;
+		max-height: 74px;
+		text-align: justify;
+		width: 100%;
+		height: 62px;
+		resize:none;
+	}
+
+	#edit-age-input{
+		opacity: 0;
+		position: absolute;
+		width: 0px;
+	}
 
 
 

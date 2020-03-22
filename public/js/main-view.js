@@ -12,6 +12,7 @@
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
+	let qtPicsTotal = Object.values(userInfo.pics_url).filter(function(item){return item != "";}).length;;
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
@@ -350,9 +351,8 @@
 
 	function getProfile() {
 		getUser();
-		let qtPics = Object.values(userInfo.pics_url).length;
-		if(qtPics > 1){
-			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPics+"</label></p>");
+		if(qtPicsTotal > 1){
+			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPicsTotal+"</label></p>");
 		}
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
@@ -369,7 +369,8 @@
 		let htmlInfos = [];
 		if(userInfo.location.city) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.location.city+"</label>");
 		if(userInfo.work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.work+"</label>");
-		$("#other-label-user-info").append(htmlInfos.join(""));
+		if(htmlInfos.length == 0) return;
+		$("#other-label-user-info").empty().append(htmlInfos.join(""));
 	}
 
 	function deleteAccount() {
@@ -421,7 +422,7 @@
 	$("#btn-change-pic").click(function(){
 		const picDiv = $('#main-pic-div-c');
 		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1) return;
-		if(picOrder >= Object.values(userInfo.pics_url).length-1) picOrder = -1;
+		if(picOrder >= qtPicsTotal-1) picOrder = -1;
 		picDiv.fadeOut(150, function(){
 			picDiv.css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
 			$("#act-pic").text(picOrder+1);

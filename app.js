@@ -42,15 +42,19 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
+			let dtNasc = new Date(req.body.dt_nasc);
+			let dtNow = new Date();
 			var myobj = {	email: req.body.email,
 							name: req.body.name,
-							lastname: req.body.lastname, 
-							age: req.body.age, 
+							lastname: req.body.lastname,
+							dt_nasc:  dtNasc,
 							gender: req.body.gender,  
 							password: req.body.password,
 							pics_url: {
-								main_pic: "https://i.imgur.com/XTJcAbt.png"
-							}
+								main_pic: "https://i.imgur.com/XTJcAbt.png",
+								sec_pic: []
+							},
+							dt_register: dtNow
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
 				if (err) throw err;
@@ -65,13 +69,26 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0} }, function(err, result) {
+			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
 				if (err) throw err;
+				result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
 			});
 			db.close();
 		}); 
 	});
+
+	function calcAgeOfUser(dtNasc){
+		if(typeof dtNasc == "undefined") return "?";
+		let dtNow = new Date();
+		let age = dtNow.getFullYear()-dtNasc.getFullYear();
+		if(dtNow.getMonth() <= dtNasc.getMonth()){
+			age--;
+		}else if(dtNow.getDate() <= dtNasc.getDate()){
+			age--;
+		}
+		return age || "?";
+	}
 
 //  [ READ - GET ] ROTA: retorna o horário do servidor (Horário certo - idenpendente do horario do usuário)
 	app.get('/get-time-server', urlencodedParser, function (req, res) {
@@ -89,8 +106,9 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0} }, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
 				if (err) throw err;
+				result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
 			});
 			db.close();
@@ -102,10 +120,15 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
+			let perPage = 12;
+			let page = req.query.page * perPage;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0}}).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
+					result.forEach(function(item){
+						item.age = calcAgeOfUser(item.dt_nasc);
+					});
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});

@@ -6,8 +6,12 @@
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
+	let qtPicsTotal = Object.values(toUser.pics_url).filter(function(item){return item != "";}).length;;
 
 	function getProfile() {
+		if(qtPicsTotal > 1){
+			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPicsTotal+"</label></p>");
+		}
 		$('#main-pic-div-c').css("background-image", "url(" + toUser.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(toUser.gender == "M"){
@@ -17,6 +21,15 @@
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+toUser.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#label-user-location").text("São Paulo - SP");
 		$("#main-descript-div-other-user").text(toUser.about);
+		addAnotherInfos();
+	}
+
+	function addAnotherInfos(){
+		let htmlInfos = [];
+		if(toUser.location.city) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+toUser.location.city+"</label>");
+		if(toUser.work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+toUser.work+"</label>");
+		if(htmlInfos.length == 0) return;
+		$("#other-label-user-info").empty().append(htmlInfos.join(""));
 	}
 
 	$("#show-user-info").click(function () {
@@ -24,20 +37,17 @@
 		$("#other-label-user-info").slideDown(300);
 		if(typeof toUser.about !== "undefined" && toUser.about != ""){
 			$( "#main-descript-div-other-user" ).animate({
-				width: "100%",
-				opacity: "1"
+				opacity: "1",
+				height: "100%"
 			}, 600);
 		}
 		setTimeout(function(){
 			$("#other-label-user-info").slideUp(600);
 			if(typeof toUser.about !== "undefined" && toUser.about != ""){
 				$( "#main-descript-div-other-user" ).animate({
-					width: "0%",
-					left: "100%",
+					height: "0%",
 					opacity: "0"
-				}, 600, function(){
-					$( "#main-descript-div-other-user" ).css("left", "0%");
-				});
+				}, 400);
 			}
 			flagInfoProfile = false;
 		}, 10000);
@@ -51,9 +61,10 @@
 	$("#btn-change-pic").click(function(){
 		const picDiv = $('#main-pic-div-c');
 		if(!("pics_url" in toUser) || picDiv.css("opacity") < 1) return;
-		if(picOrder >= Object.values(toUser.pics_url).length-1) picOrder = -1;
+		if(picOrder >= qtPicsTotal-1) picOrder = -1;
 		picDiv.fadeOut(150, function(){
 			picDiv.css("background-image", "url(" + Object.values(toUser.pics_url)[++picOrder] + ")");
+			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);
 		});
 	});
