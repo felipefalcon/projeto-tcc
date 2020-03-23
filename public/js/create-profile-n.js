@@ -8,12 +8,12 @@
 	let newInfosUser = {};
 	let activeInfo = true;
 	let picOrder = 0;
-	let qtPicsTotal = Object.values(userInfo.pics_url).filter(function(item){return item != "";}).length;
+	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
 	let iconEdit = "<i class='fas fa-compress edit-icon'></i>";
 
 	function getProfile() {
 		if(qtPicsTotal > 1){
-			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPicsTotal+"</label></p>");
+			$("#btn-change-pic").append("<p style='font-size: 12px;' id='qt-pics-p' ><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
@@ -73,8 +73,17 @@
 		const picDiv = $('#main-pic-div-c');
 		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1) return;
 		if(picOrder >= qtPicsTotal-1) picOrder = -1;
+		if(qtPicsTotal == 1) return;
 		picDiv.fadeOut(150, function(){
-			picDiv.css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
+			let picActive = userInfo.pics_url.main_pic;
+			++picOrder;
+			if(picOrder <= 0){
+				$("#general-input-pic-reset-icon-edit-prof").fadeOut(300);
+			}else{
+				$("#general-input-pic-reset-icon-edit-prof").fadeIn(600);
+				picActive = Object.values(userInfo.pics_url.sec_pics)[picOrder-1];
+			}
+			picDiv.css("background-image", "url(" + picActive + ")");
 			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);
 		});
@@ -145,8 +154,112 @@
 	});
 
 	$("#edit-about-input").focusout(function(){
-		newInfosUser.descript = $("#edit-about-input").val();
+		newInfosUser.about = $("#edit-about-input").val();
 	});
+
+	$("#general-input-pic-reset-icon-edit-prof").click(function(){
+		setTimeout(function(){
+			Swal.fire({
+				title: 'DELETAR',
+				html: "Você deseja retirar essa imagem do seu albúm?",
+				padding: "8px",
+				confirmButtonText: 'SIM',
+				cancelButtonText: 'NÃO',
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+			}).then((data) => {
+				if(data.value){
+					let newSecPics = [];
+					let secPicsLength = userInfo.pics_url.sec_pics.length;
+					for(let i = 0; i < secPicsLength; ++i){
+						if(userInfo.pics_url.sec_pics[i] != userInfo.pics_url.sec_pics[picOrder-1]){
+							newSecPics.push(userInfo.pics_url.sec_pics[i]);
+						}
+					}
+					userInfo.pics_url.sec_pics = newSecPics;
+					if(picOrder < qtPicsTotal-1) picOrder--;
+					$("#btn-change-pic").click();
+					qtPicsTotal--;
+					$("#qt-pics").text(qtPicsTotal);
+					if(qtPicsTotal == 1){
+						$("#qt-pics-p").css("display", "none");
+					}else{
+						$("#qt-pics-p").css("display", "block");
+					}
+				}
+			});
+		}, 100);
+	});
+
+	$("#btn-prof-add-pic").click(function(){
+		if(qtPicsTotal >= picsLimit) return;
+		$('#pic-input-add').click(); 
+	});
+
+	$('#pic-input').on("change", function() {
+		uploadImage(this);
+	});
+
+	$('#pic-input-add').on("change", function() {
+		let thisInput = this;
+		$('#main-pic-div-c').animate({
+			opacity: 0.2
+		}, 1000, function(){
+			qtPicsTotal++;
+			userInfo.pics_url.sec_pics.push("");
+			picOrder = qtPicsTotal-2;
+			uploadImage(thisInput);
+			picOrder = qtPicsTotal-1;
+			if(qtPicsTotal >= picsLimit){ 
+				$("#btn-prof-add-pic").animate({"opacity":"0.3"});
+			}else{
+				$("#btn-prof-add-pic").animate({"opacity":"1"});
+			}
+			$("#btn-change-pic").click();
+			if(qtPicsTotal > 1) $("#qt-pics-p").css("display", "block");
+			$("#qt-pics").text(qtPicsTotal);
+			$("#act-pic").text(qtPicsTotal);
+
+		});
+	});
+
+	function uploadImage(elmnt){
+		var $files = $(elmnt).get(0).files;
+
+		if ($files.length) {
+
+			if ($files[0].size > $(elmnt).data("max-size") * 1024) {
+				alert("Arquivo muito pesado.");
+				return false;
+			}
+			$('#main-pic-div-c').animate({
+				opacity: 0.1
+			}, 1000, function(){
+				$('#main-pic-div-c').addClass("loading-img");
+			});
+			$.ajax(uploadImgur($files[0])).done(function(response) {
+				var res = JSON.parse(response);
+				var link = res.data.link.replace(/^http:\/\//i, 'https://');
+				if(picOrder <= 0){
+					userInfo.pics_url.main_pic = link;
+				}else{
+					userInfo.pics_url.sec_pics[picOrder-1] = link;
+				}
+				$('#main-pic-div-c').animate({
+					opacity: 0
+				}, 1000, function(){
+					$('#main-pic-div-c').css("background-image", "url("+link+")");
+					$('#main-pic-div-c').animate({
+						opacity: 1
+					}, 1000, function(){
+						$('#main-pic-div-c').removeClass("loading-img");
+					});
+				});
+			});
+		}
+	}
+
 
 
 

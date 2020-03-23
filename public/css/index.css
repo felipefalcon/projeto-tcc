@@ -1369,8 +1369,20 @@
 		position: absolute !important;
 		transform: translateY(-14px) !important;
 		font-size: 20px !important;
-		text-shadow: 2px 3px 1px #8d275d !important;
-    	color: #ff7d7d !important;
+		text-shadow: 2px 3px 1px #aa388c;
+    	color: #f9a4a4 !important;
+	}
+
+	.add-icon{
+		font-size: 22px;
+		color: #a4f9ba;
+		position: absolute;
+		text-shadow: 2px 3px 1px #38a0aa;
+		transform: translate(64px, 10px);
+		padding: 6px;
+		height: 40px;
+		width: 40px;
+		z-index: 99999;
 	}
 
 	#edit-name-input, #edit-age-input, #edit-city-input, #edit-work-input, #edit-about-input{
@@ -1404,6 +1416,31 @@
 		width: 0px;
 	}
 
+	.general-input-pic-icon-edit-prof, #general-input-pic-reset-icon-edit-prof {
+		font-size: 30px;
+		font-weight: 800;
+		color: white;
+		transform: translateY(-200px);
+		text-shadow: 2px 3px 1px #9f41b7;
+		margin: 16px;
+	}
+
+	#general-input-pic-reset-icon-edit-prof{
+		text-shadow: 2px 3px 1px #ef6a6a;
+		display: none;
+	}
+
+	.loading-img{
+		animation-name: load;
+		animation-duration: 1s;
+		  animation-iteration-count: infinite;
+		  animation-direction: alternate-reverse;
+	}
+
+	@keyframes load {
+		from {opacity: 0.4;}
+		to {opacity: 0.1;}
+	}
 
 
 

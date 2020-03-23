@@ -12,7 +12,7 @@
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
-	let qtPicsTotal = Object.values(userInfo.pics_url).filter(function(item){return item != "";}).length;;
+	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
@@ -352,7 +352,7 @@
 	function getProfile() {
 		getUser();
 		if(qtPicsTotal > 1){
-			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp<label id='qt-pics'>/ "+qtPicsTotal+"</label></p>");
+			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
@@ -424,7 +424,10 @@
 		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1) return;
 		if(picOrder >= qtPicsTotal-1) picOrder = -1;
 		picDiv.fadeOut(150, function(){
-			picDiv.css("background-image", "url(" + Object.values(userInfo.pics_url)[++picOrder] + ")");
+			let picActive = userInfo.pics_url.main_pic;
+			++picOrder;
+			if(picOrder > 0) picActive = Object.values(userInfo.pics_url.sec_pics)[picOrder-1]
+			picDiv.css("background-image", "url(" + picActive + ")");
 			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);
 		});

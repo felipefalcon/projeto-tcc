@@ -11,6 +11,36 @@
 		return dateNow;
 	}
 
+	let apiImgur = "";
+	let picsLimit = 5;
+	function setImgurParams(){
+		if(apiImgur.length > 0) return apiImgur;
+		$.get({url: nodeHost+"get-imgur-params", async: false})
+		.done(function(data){
+			return apiImgur = {
+				async: true,
+				crossDomain: true,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				url: data[0],
+				headers: {
+					Authorization: 'Client-ID ' + data[1],
+					Accept: 'application/json'
+				},
+				mimeType: 'multipart/form-data'
+			};
+		});
+	}
+
+	function uploadImgur(file){
+		let formData = new FormData();
+		formData.append("image", file);
+		setImgurParams();
+		apiImgur.data = formData;
+		return apiImgur;
+	}
+
 	// Function de Tela de Loading
 	// Chamar: loading();            => Chama a Tela de Loading
 	// Chamar: loading('hide')       => Desaparece com a Tela de Loading que foi chamada em algum local

@@ -25,31 +25,10 @@ $("document").ready(function() {
 				alert("Arquivo muito pesado.");
 				return false;
 			}
-
-			var apiUrl = 'https://api.imgur.com/3/image';
-			var apiKey = '4409588f10776f7';
-
-			var settings = {
-				async: true,
-				crossDomain: true,
-				processData: false,
-				contentType: false,
-				type: 'POST',
-				url: apiUrl,
-				headers: {
-					Authorization: 'Client-ID ' + apiKey,
-					Accept: 'application/json'
-				},
-				mimeType: 'multipart/form-data'
-			};
-
-			var formData = new FormData();
-			formData.append("image", $files[0]);
-			settings.data = formData;
 		  
 			loading();
 			
-			$.ajax(settings).done(function(response) {
+			$.ajax(uploadImgur($files[0])).done(function(response) {
 				var res = JSON.parse(response);
 				var link = res.data.link.replace(/^http:\/\//i, 'https://');
 				divImg.css("background-image", "url("+link+")");

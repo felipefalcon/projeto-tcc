@@ -23,6 +23,8 @@
 
 //	NOME DO BANCO DE DADOS
 	const dbName = "leRo_DB";
+	const apiUrl = 'https://api.imgur.com/3/image';
+	const apiKey = '4409588f10776f7';
 	
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO DO MONGODB
@@ -52,7 +54,7 @@
 							password: req.body.password,
 							pics_url: {
 								main_pic: "https://i.imgur.com/XTJcAbt.png",
-								sec_pic: []
+								sec_pics: []
 							},
 							dt_register: dtNow
 						};
@@ -89,6 +91,11 @@
 		}
 		return age || "?";
 	}
+
+//  [ READ - GET ] ROTA: retorna os dados da API do Imgur
+	app.get('/get-imgur-params', urlencodedParser, function (req, res) {
+		res.json([apiUrl, apiKey]);
+	});
 
 //  [ READ - GET ] ROTA: retorna o horário do servidor (Horário certo - idenpendente do horario do usuário)
 	app.get('/get-time-server', urlencodedParser, function (req, res) {
@@ -514,6 +521,12 @@
 			db.close();
 		}); 
 	});
+
+	app.post('/upload-img', function (req, res, next) {
+		// req.file is the `avatar` file
+		// req.body will hold the text fields, if there were any
+	  })
+
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO NODEMAILER
 //	------------------------------------------------------------------------------------------------------------------------
