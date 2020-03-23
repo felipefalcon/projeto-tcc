@@ -1413,7 +1413,8 @@
 	#edit-age-input{
 		opacity: 0;
 		position: absolute;
-		width: 0px;
+		width: 0px !important;
+		z-index: -1;
 	}
 
 	.general-input-pic-icon-edit-prof, #general-input-pic-reset-icon-edit-prof {

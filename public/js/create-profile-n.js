@@ -19,7 +19,7 @@
 		if(userInfo.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
 		}
-		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+"'/>");
+		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+" "+userInfo.lastname+"'/>");
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input'>"+userInfo.about+"</textarea>");
 		let dtNassFormat = new Date(userInfo.dt_nasc);
@@ -44,6 +44,8 @@
 		}, 1000);
 		flagInfoProfile = true;
 		if(activeInfo){
+			$(".general-input-pic-icon-edit-prof").animate({marginTop: "90px"});
+			$(".general-input-reset-pic-icon-edit-prof").animate({marginTop: "90px"});
 			$("#other-label-user-info").slideUp(600);
 			$( "#main-descript-div-other-user" ).animate({
 				height: "0%",
@@ -51,6 +53,8 @@
 			}, 400);
 			return activeInfo = false;
 		}
+		$(".general-input-pic-icon-edit-prof").animate({marginTop: "16px"});
+		$(".general-input-reset-pic-icon-edit-prof").animate({marginTop: "16px"});
 		$("#other-label-user-info").slideDown(300);
 		$("#main-descript-div-other-user" ).animate({
 			opacity: "1",
@@ -68,6 +72,7 @@
 		}else if(dtNow.getDate() <= dtNasc.getDate()){
 			age--;
 		}
+		if(age > 99 || age < 0) age = 99;
 		return age || "?";
 	}
 
@@ -105,10 +110,16 @@
 		$("#edit-city-input").css("width", $("#edit-city-input").val().length*9+"px");
 		$("#edit-work-input").css("width", $("#edit-work-input").val().length*9+"px");
 
+		if(qtPicsTotal >= picsLimit){ 
+			$("#btn-prof-add-pic").animate({"opacity":"0.3"});
+		}else{
+			$("#btn-prof-add-pic").animate({"opacity":"1"});
+		}
+
 	})();
 
 	$("#btn-menu-back").click(function () {
-		window.location.replace(document.referrer);
+		window.location.replace("main-view.html");
 	});
 
 	$("#label-user-age").click(function(){
@@ -120,7 +131,6 @@
 		let age = calcAgeOfUser(dateInput);
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 	});
-
 
 	$("#edit-name-input").keydown(function(){
 		if($("#edit-name-input").width() > 160) return;

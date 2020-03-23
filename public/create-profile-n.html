@@ -12,18 +12,18 @@
 	<title></title>
 </head>
 <body class="text-center" style="overflow: hidden;">
-	<div id="logo-div" class="fixed-top">
+	<div id="logo-div" class="fixed-top" style="z-index: 1000; width: 60px;">
 		<button id="btn-menu-back" class="btn-menu" style="text-shadow: 1px 1px 2px black;"><i class='fas fa-arrow-left'></i></button>
 		</div>
 	<div id="main-div">
 		<div id="main-body-div">
 		<div id="profile-div" class="mx-auto">
-			<div id="user-information-div" class="container" style="z-index: 9999;">
+			<div id="user-information-div" class="container">
 				<div id="name-label-user-info" style="margin-left: 40px;">
 					<label class="title-label" id="label-user-name"></label>
 				</div>
-				<input type='date' id='edit-age-input' />
 				<label class="title-label" id="label-user-age">?</label>
+				<input type='date' id='edit-age-input' min="1910-01-01" />
 				<div id="other-label-user-info">
 				</div>
 			</div>
@@ -34,14 +34,14 @@
 			  <label class="general-input-pic-icon-edit-prof" for="pic-input">
 				<i class='fas fa-cloud-upload-alt'></i>
 			  </label>
-			  <input id="pic-input" name="file" type="file" accept="image/jpeg, image/png" style="opacity: 0;position:absolute;top:0;left:0"/>
+			  <input id="pic-input" name="file" type="file" accept="image/jpeg, image/png" style="width: 0px; opacity: 0;position:absolute;top:0;left:0"/>
 			<div id="main-descript-div-other-user"></div>
 			<div id="menu-bottom-prof-other-user" class="col-12" style="height: 56px;">
 				<button id="show-user-info" type="button"
 					class="general-button btns-prof col-3 mx-auto"><i class='fas fa-address-book' style='font-size:32px;color:white'></i></button>
 				<input id="btn-prof-save" type="button" class="general-button col-5 mx-auto mb-2" value="SALVAR">
 					<i class='fas fa-plus add-icon' id="btn-prof-add-pic"></i>
-					<input id="pic-input-add" name="file" type="file" accept="image/jpeg, image/png" style="opacity: 0;position:absolute;top:0;left:0"/>
+					<input id="pic-input-add" name="file" type="file" accept="image/jpeg, image/png" style="width: 0px; opacity: 0;position:absolute;top:0;left:0"/>
 				<button id="btn-change-pic" type="button" class="general-button btns-prof col-3 mx-auto">
 					<i class='fas fa-sync' style='font-size:26px;color:white'></i>
 				</button>
