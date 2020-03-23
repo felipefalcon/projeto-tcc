@@ -159,6 +159,28 @@
 		}); 
 	});
 
+//  [ UPDATE - GET ] ROTA: atualiza dados do usuário
+	app.get('/upd-user', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var newInfos = req.query.info_user;
+			var objectIdUser = new require('mongodb').ObjectID(newInfos._id);
+			let dtNasc = new Date(newInfos.dt_nasc);
+			let nameSplit = newInfos.name.split(" ");
+			let firstName = nameSplit.shift();
+			let lastName = nameSplit.join(" ");
+			var newvalues = {$set: { "name": firstName, "lastname": lastName, "dt_nasc": dtNasc, "about": newInfos.about,
+			 "work" : newInfos.work, "pics_url.main_pic" : newInfos.main_pic, "pics_url.sec_pics" : newInfos.sec_pics, "fix_local": newInfos.fix_local}};
+			dbo.collection("users").updateOne({ _id: objectIdUser }, newvalues, {upsert: true}, function(err, result) {
+				if (err) throw err;
+				res.json({ ok: 'ok' }); 
+			});
+			db.close();
+		}); 
+	});
+
+
 //  [ UPDATE - GET ] ROTA: atualiza a foto secundária do usuário (Primeira)
 	app.get('/upd-user-sec-pic-1', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {

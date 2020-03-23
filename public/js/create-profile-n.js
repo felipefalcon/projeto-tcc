@@ -5,7 +5,6 @@
 	$("#profile-div").css("min-height", confHeight + "px");
 	
 	let flagInfoProfile = false;
-	let newInfosUser = {};
 	let activeInfo = true;
 	let picOrder = 0;
 	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
@@ -20,9 +19,12 @@
 		if(userInfo.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
 		}
-		$("#label-user-name").html(iconEdit+gender+"&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+"'/>");
+		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+"'/>");
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input'>"+userInfo.about+"</textarea>");
+		let dtNassFormat = new Date(userInfo.dt_nasc);
+		let monthFormat = dtNassFormat.getMonth()+1 < 10 ? "0" : "";
+		$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dtNassFormat.getDate());
 		addAnotherInfos();
 	}
 
@@ -116,17 +118,9 @@
 	$("#edit-age-input").focusout(function(){
 		let dateInput = new Date($("#edit-age-input").val());
 		let age = calcAgeOfUser(dateInput);
-		newInfosUser.dt_nasc = dateInput;
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 	});
 
-	$("#edit-name-input").focusout(function(){
-		newInfosUser.name = $("#edit-name-input").val();
-	});
-
-	$("#edit-city-input").focusout(function(){
-		newInfosUser.fix_local = $("#edit-city-input").val();
-	});
 
 	$("#edit-name-input").keydown(function(){
 		if($("#edit-name-input").width() > 160) return;
@@ -149,12 +143,30 @@
 		$("#main-descript-div-other-user").css("width", $("#edit-about-input").val().length*9+"px");
 	});
 
-	$("#edit-work-input").focusout(function(){
-		newInfosUser.work = $("#edit-work-input").val();
-	});
-
-	$("#edit-about-input").focusout(function(){
-		newInfosUser.about = $("#edit-about-input").val();
+	$("#gender-ico").click(function(){
+		setTimeout(function(){
+			Swal.fire({
+				html: "Selecione o sexo<br><br><i class='fas fa-mars' style='margin: 20px; margin-right: 30px;line-height: 0;font-size:40px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i><i class='fas fa-venus' style='margin: 20px; margin-left: 30px; line-height: 0;font-size:39px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>",
+				confirmButtonText: "M",
+				cancelButtonText: "F",
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+				customClass: {
+					actions: 'action-gender',
+					confirmButton: 'action-btn-gender',
+					cancelButton:  'action-btn-gender'
+				}
+			}).then((data) => {
+				userInfo.gender = "F";
+				let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
+				if(data.value){
+					userInfo.gender = "M";
+					gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
+				}
+				$("#gender-ico").empty().append(gender);
+			});
+		}, 100);
 	});
 
 	$("#general-input-pic-reset-icon-edit-prof").click(function(){
@@ -259,6 +271,47 @@
 			});
 		}
 	}
+	
+	$("#btn-prof-save").click(function(){
+		setTimeout(function(){
+			Swal.fire({
+				title: 'SALVAR',
+				html: "Alterações em seu perfil foram feitas.<br> Tem certeza que deseja salvá-las?",
+				padding: "8px",
+				confirmButtonText: 'SIM',
+				cancelButtonText: 'NÃO',
+				allowOutsideClick: false,
+				width: "80%",
+				showCancelButton: true,
+			}).then((data) => {
+				if(data.value){
+					let newInfos = {
+						_id: 		userInfo._id,
+						name:		$("#edit-name-input").val(),
+						dt_nasc:	$("#edit-age-input").val(),
+						work:		$("#edit-work-input").val(),
+						about:		$("#edit-about-input").val(),
+						fix_local:	$("#edit-city-input").val(),
+						gender:		userInfo.gender,
+						main_pic:	userInfo.pics_url.main_pic,
+						sec_pics:	userInfo.pics_url.sec_pics
+					};
+
+					$.get(nodeHost+"upd-user", {info_user: newInfos}).done(function (data) {
+						if (isNullOrUndefined(data)) {
+							console.log("Deu merda");
+						}else {
+							inCallGetUser = false;
+							if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
+							setUserCache(data);
+							getQtNoReadMsgs();
+							flagUserChanged = true;
+						}
+					});
+				}
+			});
+		}, 100);
+	});
 
 
 

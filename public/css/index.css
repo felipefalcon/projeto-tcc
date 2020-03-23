@@ -811,7 +811,7 @@
 		height: 54px;
 	}
 
-	#btn-prof-edit {
+	#btn-prof-edit, #btn-prof-save {
 		background-color: white;
 		font-weight: bolder;
 		color: #4c376b;
@@ -1440,6 +1440,20 @@
 	@keyframes load {
 		from {opacity: 0.4;}
 		to {opacity: 0.1;}
+	}
+
+	.action-gender{
+		margin: 0 !important;
+		position: absolute;
+		left: 0px;
+		top: 40px;
+		opacity: 0;
+	}
+
+	.action-btn-gender{
+		padding: 18px !important;
+		padding-top: 22px !important;
+		margin: 10px;
 	}
 
 
