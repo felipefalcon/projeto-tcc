@@ -328,6 +328,7 @@
 						if (isNullOrUndefined(data)) {
 							console.log("Deu merda");
 						}else {
+							setUserCache(data);
 							alert("Salvou");
 						}
 					});

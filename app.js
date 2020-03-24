@@ -172,9 +172,11 @@
 			let lastName = nameSplit.join(" ");
 			var newvalues = {$set: { "name": firstName, "lastname": lastName, "dt_nasc": dtNasc, "about": newInfos.about,
 			 "work" : newInfos.work, "pics_url.main_pic" : newInfos.main_pic, "pics_url.sec_pics" : newInfos.sec_pics, "fix_local": newInfos.fix_local}};
-			dbo.collection("users").updateOne({ _id: objectIdUser }, newvalues, {upsert: true}, function(err, result) {
+			dbo.collection("users").findOneAndUpdate({ _id: objectIdUser }, newvalues, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
+				result = result.value;
+				result.age = calcAgeOfUser(result.dt_nasc);
+				res.json(result); 
 			});
 			db.close();
 		}); 
