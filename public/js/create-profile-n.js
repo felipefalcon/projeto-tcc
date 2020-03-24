@@ -143,10 +143,6 @@
 		window.location.replace("main-view.html");
 	});
 
-	$("#label-user-age").click(function(){
-		$("#edit-age-input").focus();
-	});
-
 	$("#edit-age-input").focusout(function(){
 		let dateInput = new Date($("#edit-age-input").val());
 		let age = calcAgeOfUser(dateInput);

@@ -1411,11 +1411,22 @@
 	}
 
 	#edit-age-input{
-		opacity: 0;
+		width: 5px;
+		color: white;
+		background-color: white;
 		position: absolute;
-		width: 0px !important;
-		z-index: -1;
-		height: 0px;
+		right: 0px;
+		opacity: 0;
+		z-index: 1;
+	}
+
+	#edit-age-input::-webkit-calendar-picker-indicator {
+		width: 100%;
+		opacity: 0;
+	}
+
+	#edit-age-input::-webkit-datetime-edit-fields-wrapper{
+		width: 10px;
 	}
 
 	.general-input-pic-icon-edit-prof, #general-input-pic-reset-icon-edit-prof {
