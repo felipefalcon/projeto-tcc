@@ -22,9 +22,11 @@
 		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+" "+userInfo.lastname+"'/>");
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input'>"+userInfo.about+"</textarea>");
-		let dtNassFormat = new Date(userInfo.dt_nasc);
-		let monthFormat = dtNassFormat.getMonth()+1 < 10 ? "0" : "";
-		$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dtNassFormat.getDate());
+		if("dt_nasc" in userInfo){
+			let dtNassFormat = new Date(userInfo.dt_nasc);
+			let monthFormat = dtNassFormat.getMonth()+1 < 10 ? "0" : "";
+			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dtNassFormat.getDate());
+		}
 		addAnotherInfos();
 	}
 
@@ -106,9 +108,20 @@
 			height: "100%"
 		}, 600);
 
-		$("#edit-name-input").css("width", $("#edit-name-input").val().length*9+"px");
-		$("#edit-city-input").css("width", $("#edit-city-input").val().length*9+"px");
-		$("#edit-work-input").css("width", $("#edit-work-input").val().length*9+"px");
+		let widthInputs = $("#edit-name-input").val().length*9;
+		if(widthInputs <= 158){
+			$("#edit-name-input").css("width", widthInputs+"px");
+		}else{
+			$("#edit-name-input").css("width", widthInputs+"px");
+		}
+		widthInputs = $("#edit-city-input").val().length*9;
+		if(widthInputs <= 160){
+			$("#edit-city-input").css("width", widthInputs+"px");
+		}
+		widthInputs = $("#edit-work-input").val().length*9;
+		if(widthInputs <= 160){
+			$("#edit-work-input").css("width", widthInputs+"px");
+		}
 
 		if(qtPicsTotal >= picsLimit){ 
 			$("#btn-prof-add-pic").animate({"opacity":"0.3"});
@@ -133,24 +146,24 @@
 	});
 
 	$("#edit-name-input").keydown(function(){
-		if($("#edit-name-input").width() > 160) return;
 		$("#edit-name-input").css("width", $("#edit-name-input").val().length*9+"px");
+		if($("#edit-name-input").width() > 158) $("#edit-name-input").css("width", "150px");
 	});
 
 	$("#edit-city-input").keydown(function(){
-		if($("#edit-city-input").width() > 160) return;
 		$("#edit-city-input").css("width", $("#edit-city-input").val().length*9+"px");
+		if($("#edit-city-input").width() > 160) $("#edit-city-input").css("width", "160px");
 	});
 
 	$("#edit-work-input").keydown(function(){
-		if($("#edit-work-input").width() > 160) return;
 		$("#edit-work-input").css("width", $("#edit-work-input").val().length*9+"px");
+		if($("#edit-work-input").width() > 160) $("#edit-work-input").css("width", "160px");
 	});
 
 	$("#edit-about-input").keydown(function(){
 		$("#edit-about-input").attr("maxlength", 110+($("#edit-about-input").val().split(" ").length/2));
-		if($("#main-descript-div-other-user").width() > 260) return;
 		$("#main-descript-div-other-user").css("width", $("#edit-about-input").val().length*9+"px");
+		if($("#main-descript-div-other-user").width() > 260) $("#main-descript-div-other-user").css("width", "260px");
 	});
 
 	$("#gender-ico").click(function(){
@@ -311,11 +324,7 @@
 						if (isNullOrUndefined(data)) {
 							console.log("Deu merda");
 						}else {
-							inCallGetUser = false;
-							if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
-							setUserCache(data);
-							getQtNoReadMsgs();
-							flagUserChanged = true;
+							alert("Salvou");
 						}
 					});
 				}

@@ -1393,7 +1393,7 @@
 	}
 
 	#edit-name-input{
-		max-width: 158px;
+		max-width: 150px;
 	}
 
 	#edit-city-input, #edit-work-input{
@@ -1415,6 +1415,7 @@
 		position: absolute;
 		width: 0px !important;
 		z-index: -1;
+		height: 0px;
 	}
 
 	.general-input-pic-icon-edit-prof, #general-input-pic-reset-icon-edit-prof {
