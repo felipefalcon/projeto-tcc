@@ -5,6 +5,9 @@
 	$("#profile-div").css("min-height", confHeight + "px");
 	$("body").css("min-height", $(window).innerHeight() + "px");
 	$("html").css("min-height", $(window).innerHeight() + "px");
+	$("#main-div").css("min-height", $(window).innerHeight() + "px");
+	$("#main-div").css("height", $(window).innerHeight() + "px");
+	$("#profile-div").css("height", $(window).innerHeight() + "px");
 	
 	let flagInfoProfile = false;
 	let activeInfo = true;
