@@ -3,6 +3,7 @@
 	var confHeight = $(window).innerHeight() - 64 - 48;
 	$("#main-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#profile-div").css("min-height", confHeight + "px");
+	$("body").css("height", $(window).innerHeight() + "px");
 	
 	let flagInfoProfile = false;
 	let activeInfo = true;
