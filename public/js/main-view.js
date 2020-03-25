@@ -183,14 +183,16 @@
 			createdDivs += "<div class='user-n-u-div mx-auto'>"
 			+ "<label class='user-n-u-label'>" + data.name + "</label>"
 			+ "<div id='user-n-u-div-content' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'>"
-			+ "<div class='send-msg-button' name='" + JSON.stringify(data) + "'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
+			+ "<div class='send-msg-button' name='" + data._id + "'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
 			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
 		});
 
 		$("#next-u-users").empty().append(createdDivs);
 
 		$(".send-msg-button").click(function () {
-			setToUser($(this).attr('name'));
+			var idSubject = $(this).attr('name').toString();
+			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+			setToUser(subject);
 			window.location.href = "./user-conversation.html";
 		});
 	}
@@ -282,7 +284,7 @@
 				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + JSON.stringify(data) + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic +
+			divsCreated.push("<div class='users-t-chat' name='" + data._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic +
 			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + data.name + 
 			"<span class='chat-date-label'>"+ lastDate +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ lastMsg.text + "</label></div></div>");
@@ -297,7 +299,8 @@
 		$(".users-t-chat").click( function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
 			elmt.css("background-color", "#e8e8e8");
-			var subject = $(this).attr('name');
+			var idSubject = $(this).attr('name').toString();
+			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
 			setTimeout(function () {
 				setToUser(subject);
 				window.location.href = "./user-conversation.html";
@@ -350,11 +353,11 @@
 	}
 
 	function getProfile() {
+		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		getUser();
 		if(qtPicsTotal > 1){
 			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
-		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(userInfo.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
@@ -484,7 +487,7 @@
 			$("#menu-1").slideUp(300);
 		});
 
-		setInterval(  function(){
+		setInterval(function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getUser();
 			checkTab();
