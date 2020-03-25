@@ -15,8 +15,6 @@
 	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
 	let tabActive = -1;
 	let flagUserChanged = true;
-	let cachedMessagesHere = [];
-	let cachedEventsHere = [];
 	let firstTimeProf = true;
 
 	// Para verificar se o serviço ainda está sendo chamado
@@ -96,10 +94,6 @@
 			$("#events-box-div").empty();
 			return;
 		}
-
-		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		if(_.isEqual(cachedEventsHere, allEventsWithoutUser)) return;
-		cachedEventsHere = allEventsWithoutUser.slice();
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach( function (data, i) {
@@ -202,10 +196,6 @@
 		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
 		if(!("messages" in userInfo)) return;
 		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
-		
-		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
-		cachedMessagesHere = usersDistincs.slice();
 
 		userInfo.messages.forEach( function(item){
 			item.date = new Date($.format.date(item.date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
@@ -456,6 +446,13 @@
 		}
 	}
 
+	function clearTabContent(){
+		if(configParams.tab != "main-tab") 		$("#events-box-div").empty();
+		if(configParams.tab != "next-u-tab")	$("#next-u-div").empty();
+		if(configParams.tab != "chat-tab")		$("#chat-users-div").empty();
+		if(configParams.tab != "profile-tab")	$("#profile-div-content").empty();
+	}
+
 	(function(){
 		//getProfile();
 		const MenuBottomHome = $("#menu-bottom-home");
@@ -514,6 +511,7 @@
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
 			makeChatObjects();
+			clearTabContent();
 		});
 	
 		$("#btn-menu-4").click(function(){
@@ -530,15 +528,21 @@
 			}else{
 				MenuBottomProf.slideDown(300);
 			}
-			getProfile();
+			$("#profile-div-content").load("./models/profile-main-view.html", function(){
+				getProfile();
+				clearTabContent();
+			});
 		});
 	
 		$("#btn-menu-5").click(function(){
 			if(tabActive == 1) return;
 			tabActive = 1;
+			configParams.tab = "next-u-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
 			makeUsersNextObjects();
+			clearTabContent();
 		});
 	
 		$("#btn-menu-6").click(function(){
@@ -549,6 +553,7 @@
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
 			makeEventsObjects();
+			clearTabContent();
 		});
 
 	})();
