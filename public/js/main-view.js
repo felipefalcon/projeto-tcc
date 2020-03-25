@@ -353,7 +353,6 @@
 	}
 
 	function getProfile() {
-		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		getUser();
 		if(qtPicsTotal > 1){
 			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
@@ -366,6 +365,7 @@
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div").text(userInfo.about);
 		addAnotherInfos();
+		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 	}
 
 	function addAnotherInfos(){
