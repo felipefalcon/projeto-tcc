@@ -18,7 +18,7 @@
 			return;
 		}
 		$("#create-account-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		$.get(nodeHost + "get-user", { email: $("#email-input").val() })
+		$.get(nodeHost + "get-user-exist", { email: $("#email-input").val() })
 		.done(function (data) {
 			if (isNullOrUndefined(data)) return createUser();
 			$("#create-account-div").LoadingOverlay("hide");

@@ -115,7 +115,25 @@
 			var dbo = db.db(dbName);
 			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
 				if (err) throw err;
-				result.age = calcAgeOfUser(result.dt_nasc);
+				if(result){
+					result.age = calcAgeOfUser(result.dt_nasc);
+				}
+				res.json(result); 
+			});
+			db.close();
+		}); 
+	});
+
+//  [ READ - GET ] ROTA: retorna se uma conta existe com base no email
+	app.get('/get-user-exist', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
+				if (err) throw err;
+				if(result){
+					return res.json({oh_no: "oh-no"});
+				}
 				res.json(result); 
 			});
 			db.close();
