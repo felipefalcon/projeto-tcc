@@ -82,7 +82,7 @@
 		}else if(dtNow.getDate() <= dtNasc.getDate()){
 			age--;
 		}
-		if(age > 99 || age < 0) age = 99;
+		if(age > 99 || age < 0) age = "?";
 		return age || "?";
 	}
 

@@ -44,7 +44,9 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			let dtNasc = new Date(req.body.dt_nasc);
+			let dtNascPure = new Date(newInfos.dt_nasc);
+			let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
+			dtNasc.setDate(dtNasc+1);
 			let dtNow = new Date();
 			var myobj = {	email: req.body.email,
 							name: req.body.name,
@@ -89,6 +91,7 @@
 		}else if(dtNow.getDate() <= dtNasc.getDate()){
 			age--;
 		}
+		if(age > 99 || age < 0) age = "?";
 		return age || "?";
 	}
 
@@ -184,7 +187,8 @@
 			var dbo = db.db(dbName);
 			var newInfos = req.query.info_user;
 			var objectIdUser = new require('mongodb').ObjectID(newInfos._id);
-			let dtNasc = new Date(newInfos.dt_nasc);
+			let dtNascPure = new Date(newInfos.dt_nasc);
+			let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
 			let nameSplit = newInfos.name.split(" ");
 			let firstName = nameSplit.shift();
 			let lastName = nameSplit.join(" ");
