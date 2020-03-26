@@ -187,7 +187,7 @@
 			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
 		});
 
-		$("#next-u-users").empty().append(createdDivs.join(""));
+		$("#next-u-users").empty().append(createdDivs);
 
 		$(".send-msg-button").click(function () {
 			var idSubject = $(this).attr('name').toString();
