@@ -21,7 +21,7 @@
 				"</label><label class='user-d-u-label' style='text-shadow: none; color: #897ea2;'>"+data.email+"</label></div></div>");
 			});
 
-		$("#users-div").empty().append(divsCreated.join(""));
+		$("#users-div").empty().append(divsCreated);
 
 		$(".users-t").click(function(){
 			var elmt = $(".users-t[name='"+$(this).attr('name')+"']");
