@@ -168,6 +168,7 @@
 	});
 
 	$("#gender-ico").click(function(){
+		$("#edit-name-input").blur();
 		setTimeout(function(){
 			Swal.fire({
 				html: "Selecione o sexo<br><br><i class='fas fa-mars' style='margin: 20px; margin-right: 30px;line-height: 0;font-size:40px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i><i class='fas fa-venus' style='margin: 20px; margin-left: 30px; line-height: 0;font-size:39px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>",
@@ -189,6 +190,7 @@
 					gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
 				}
 				$("#gender-ico").empty().append(gender);
+				$("#edit-name-input").blur();
 			});
 		}, 100);
 	});
