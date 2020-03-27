@@ -428,7 +428,7 @@
 
 	$("#btn-change-pic").click(function(){
 		const picDiv = $('#main-pic-div-c');
-		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1) return;
+		if(!("pics_url" in userInfo) || picDiv.css("opacity") < 1 || qtPicsTotal == 1) return;
 		if(picOrder >= qtPicsTotal-1) picOrder = -1;
 		picDiv.fadeOut(150, function(){
 			let picActive = userInfo.pics_url.main_pic;
