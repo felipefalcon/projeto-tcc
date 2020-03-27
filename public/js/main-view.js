@@ -370,8 +370,12 @@
 
 	function addAnotherInfos(){
 		let htmlInfos = [];
-		if(userInfo.location.city) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.location.city+"</label>");
-		if(userInfo.work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+userInfo.work+"</label>");
+		let city = "";
+		let work = "";
+		if(location in userInfo) city = userInfo.location.city;
+		if(work in userInfo) work = userInfo.work;
+		if(city.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+city+"</label>");
+		if(work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+work+"</label>");
 		if(htmlInfos.length == 0) return;
 		$("#other-label-user-info").empty().append(htmlInfos.join(""));
 	}

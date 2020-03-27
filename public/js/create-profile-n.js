@@ -29,10 +29,11 @@
 		}
 		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+" "+userInfo.lastname+"'/>");
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
-		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input'>"+userInfo.about+"</textarea>");
+		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input' placeholder='???'>"+userInfo.about+"</textarea>");
 		if("dt_nasc" in userInfo){
 			let dtNassFormat = new Date(userInfo.dt_nasc);
 			let monthFormat = dtNassFormat.getMonth()+1 < 10 ? "0" : "";
+			let dayFormat = dtNassFormat.getDate()+1 < 10 ? "0" : "";
 			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dtNassFormat.getDate());
 		}
 		addAnotherInfos();
@@ -40,8 +41,10 @@
 
 	function addAnotherInfos(){
 		let htmlInfos = [];
-		let city = userInfo.location.city || "";
-		let work = userInfo.work || "";
+		let city = "";
+		let work = "";
+		if(location in toUser) city = userInfo.location.city;
+		if(work in toUser) work = userInfo.work;
 		htmlInfos.push("<label class='title-label label-name-other'>"+iconEdit+"<i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp<input type='text' id='edit-city-input' placeholder='???' value='"+city+"'/></label>");
 		htmlInfos.push("<label class='title-label label-name-other'>"+iconEdit+"<i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp<input type='text' id='edit-work-input' placeholder='???' value='"+work+"'/></label>");
 		$("#other-label-user-info").empty().append(htmlInfos.join(""));
@@ -162,12 +165,6 @@
 	$("#edit-work-input").keydown(function(){
 		$("#edit-work-input").css("width", $("#edit-work-input").val().length*9+"px");
 		if($("#edit-work-input").width() > 160) $("#edit-work-input").css("width", "160px");
-	});
-
-	$("#edit-about-input").keydown(function(){
-		$("#edit-about-input").attr("maxlength", 110+($("#edit-about-input").val().split(" ").length/2));
-		$("#main-descript-div-other-user").css("width", $("#edit-about-input").val().length*9+"px");
-		if($("#main-descript-div-other-user").width() > 260) $("#main-descript-div-other-user").css("width", "260px");
 	});
 
 	$("#gender-ico").click(function(){

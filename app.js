@@ -58,6 +58,8 @@
 								main_pic: "https://i.imgur.com/XTJcAbt.png",
 								sec_pics: []
 							},
+							work: "",
+							about: "",
 							dt_register: dtNow
 						};
 			dbo.collection("users").insertOne(myobj, function(err, res) {
@@ -165,21 +167,6 @@
 		}); 
 	});
 
-//  [ UPDATE - GET ] ROTA: atualiza a foto principal do usuário
-	app.get('/upd-user-main-pic', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: { "pics_url.main_pic": req.query.pic_url}};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
-			});
-			db.close();
-		}); 
-	});
-
 //  [ UPDATE - GET ] ROTA: atualiza dados do usuário
 	app.get('/upd-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
@@ -192,79 +179,14 @@
 			let nameSplit = newInfos.name.split(" ");
 			let firstName = nameSplit.shift();
 			let lastName = nameSplit.join(" ");
+			let secPics = newInfos.sec_pics || [];
 			var newvalues = {$set: { "name": firstName, "lastname": lastName, "dt_nasc": dtNasc, "about": newInfos.about,
-			 "work" : newInfos.work, "pics_url.main_pic" : newInfos.main_pic, "pics_url.sec_pics" : newInfos.sec_pics, "fix_local": newInfos.fix_local}};
+			 "work" : newInfos.work, "pics_url.main_pic" : newInfos.main_pic, "pics_url.sec_pics" : secPics, "fix_local": newInfos.fix_local}};
 			dbo.collection("users").findOneAndUpdate({ _id: objectIdUser }, newvalues, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				result = result.value;
 				result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
-			});
-			db.close();
-		}); 
-	});
-
-
-//  [ UPDATE - GET ] ROTA: atualiza a foto secundária do usuário (Primeira)
-	app.get('/upd-user-sec-pic-1', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: { "pics_url.sec_pic1": req.query.pic_url}};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
-			});
-			db.close();
-		}); 
-	});
-	
-//  [ UPDATE - GET ] ROTA: atualiza a foto secundária do usuário (Segunda)
-	app.get('/upd-user-sec-pic-2', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: { "pics_url.sec_pic2": req.query.pic_url}};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
-			});
-			db.close();
-		}); 
-	});
-	
-//  [ UPDATE - GET ] ROTA: atualiza a foto secundária do usuário (Terceira)
-	app.get('/upd-user-sec-pic-3', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: { "pics_url.sec_pic3": req.query.pic_url}};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
-			});
-			db.close();
-		}); 
-	});
-
-//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (idade, trabalho, etc)
-	app.get('/upd-user-profile', urlencodedParser, function (req, res) {
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
-			var newvalues = {$set: 	{ 	about: req.query.about, 
-										work: req.query.work, 
-										age: req.query.age, 
-										gender: req.query.gender 
-									}
-							};
-			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
-				if (err) throw err;
-				res.json({ ok: 'ok' }); 
 			});
 			db.close();
 		}); 
@@ -336,61 +258,6 @@
 		}); 
 	});
 
-	// OLD - 01/02/2020
-//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
-	// app.get('/upd-users-messages', urlencodedParser, function (req, res) {
-	// 	MongoClient.connect(url, paramsM, function(err, db) {
-	// 		if (err) throw err;
-	// 		var dbo = db.db(dbName);
-	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
-	// 		var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
-	// 		var message = req.query.message;
-	// 		message.date = getTimeServer();
-	// 		message.status = 1;
-	// 		var message2 = {...message};
-	// 		message2.status = 0;
-	// 		dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
-	// 			if (err) throw err;
-	// 		});
-	// 		dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
-	// 			if (err) throw err;
-	// 			res.json({ ok: "ok"});
-	// 		});
-	// 		db.close();
-	// 	}); 
-	// });
-
-//  !!!OLD!!! [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
-	// app.get('/upd-users-messages', urlencodedParser, function (req, res) {
-	// 	MongoClient.connect(url, paramsM, function(err, db) {
-	// 		if (err) throw err;
-	// 		var dbo = db.db(dbName);
-	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
-	// 		var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
-	// 		var query = {_id: { "$in": [objectIdUserFrom, objectIdUserTo]}};
-	// 		var newvalues = {$push: 	{ messages: {"$each": [req.query.message] , "$position": 0}}};
-	// 		dbo.collection("users").updateMany(query, newvalues, {upsert: true}, async function(err, result) {
-	// 			if (err) throw err;
-	// 			res.json({ ok: "ok"});
-	// 		});
-	// 		db.close();
-	// 	}); 
-	// });
-
-//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
-	// app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
-	// 	MongoClient.connect(url, paramsM, function(err, db) {
-	// 		if (err) throw err;
-	// 		var dbo = db.db(dbName);
-	// 		var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-	// 		dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages: req.query.messages }}, function(err, result) {
-	// 			if (err) throw err;
-	// 			res.json({ ok: "ok"});
-	// 		});
-	// 		db.close();
-	// 	}); 
-	// });
-
 //  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
 	app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
@@ -449,20 +316,6 @@
 			});
 		}); 
 	});
-
-//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
-	// app.get('/upd-users-rd-messages', urlencodedParser, function (req, res) {
-	// 	MongoClient.connect(url, paramsM, function(err, db) {
-	// 		if (err) throw err;
-	// 		var dbo = db.db(dbName);
-	// 		var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-	// 		dbo.collection("users").updateOne({_id: objectIdUser}, {$set: 	{ messages_read: req.query.messages_read }}, function(err, result) {
-	// 			if (err) throw err;
-	// 			res.json({ ok: "ok"});
-	// 		});
-	// 		db.close();
-	// 	}); 
-	// });
 
 //  [ DELETE - GET ] ROTA: deleta um usuário
 	app.get('/del-user', urlencodedParser, function (req, res) {
@@ -567,11 +420,6 @@
 			db.close();
 		}); 
 	});
-
-	app.post('/upload-img', function (req, res, next) {
-		// req.file is the `avatar` file
-		// req.body will hold the text fields, if there were any
-	  })
 
 //  ------------------------------------------------------------------------------------------------------------------------
 //	CONFIGURAÇÃO DO MÓDULO NODEMAILER

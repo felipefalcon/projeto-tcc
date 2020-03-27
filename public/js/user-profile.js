@@ -26,8 +26,12 @@
 
 	function addAnotherInfos(){
 		let htmlInfos = [];
-		if(toUser.location.city) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+toUser.location.city+"</label>");
-		if(toUser.work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+toUser.work+"</label>");
+		let city = "";
+		let work = "";
+		if(location in toUser) city = toUser.location.city;
+		if(work in toUser) work = toUser.work;
+		if(city.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+city+"</label>");
+		if(work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+work+"</label>");
 		if(htmlInfos.length == 0) return;
 		$("#other-label-user-info").empty().append(htmlInfos.join(""));
 	}
