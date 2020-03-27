@@ -180,10 +180,10 @@
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
-			createdDivs += "<div class='user-n-u-div mx-auto'>"
-			+ "<label class='user-n-u-label'>" + data.name + "</label>"
+			createdDivs += "<div class='user-n-u-div col-6'>"
+			+ "<label class='user-n-u-label'>" + data.name +" "+ data.lastname + "</label>"
 			+ "<div id='user-n-u-div-content' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'>"
-			+ "<div class='send-msg-button' name='" + data._id + "'><i class='fas fa-comment-dots' style='font-size:28px; color:white; transform: translateY(-6px); float: right;text-shadow: 2px 2px 2px black'></i></div></div>"
+			+ "<div class='send-msg-button' name='" + data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div>"
 			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
 		});
 
@@ -501,6 +501,7 @@
 			switch(configParams.tab){
 				case "chat-tab": $("#btn-menu-8").click(); break;
 				case "profile-tab": $("#btn-menu-4").click(); break;
+				case "next-u-tab": $("#btn-menu-5").click(); break;
 				default: $("#btn-menu-6").click(); break;
 			}
 			//$(".search-div").fadeIn();
@@ -543,6 +544,8 @@
 		$("#btn-menu-5").click(function(){
 			if(tabActive == 1) return;
 			tabActive = 1;
+			configParams.tab = "next-u-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
 			makeUsersNextObjects();
