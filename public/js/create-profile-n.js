@@ -33,8 +33,8 @@
 		if("dt_nasc" in userInfo){
 			let dtNassFormat = new Date(userInfo.dt_nasc);
 			let monthFormat = dtNassFormat.getMonth()+1 < 10 ? "0" : "";
-			let dayFormat = dtNassFormat.getDate()+1 < 10 ? "0" : "";
-			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dtNassFormat.getDate());
+			let dayFormat = dtNassFormat.getDate() < 10 ? "0" : "";
+			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dayFormat+dtNassFormat.getDate());
 		}
 		addAnotherInfos();
 	}
