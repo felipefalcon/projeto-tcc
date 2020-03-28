@@ -466,17 +466,17 @@
 	}
 
 	.user-n-u-div{
-		height: 150px;
-		background: rgba(255,255,255,0.15);
-		width: 160px;
-		margin-bottom: 16px;
-		border-radius: 10px;
-		border-bottom-left-radius: 0px;
-		border: 4px solid white;
+		height: 142px;
+		/* background: rgba(255,255,255,0.15); */
+		overflow: hidden;
+		width: 100%;
+		/* border-radius: 10px; */
+		/* border-bottom-left-radius: 0px; */
+		/* border: 4px solid white; */
 	}
 
 	.user-n-u-block{
-		width: 50%;
+		width: 33%;
 		float: left;
 		display: flex;
   		align-items: center;
@@ -484,8 +484,8 @@
 	}
 
 	#user-n-u-div-content{
-		width: 102px;
-		height: 102px;
+		width: 88px;
+		height: 88px;
 		border: 2px solid white;
 		background-color: white;
 		border-radius: 320px;
@@ -498,10 +498,10 @@
 	.user-n-u-label {
 		color: white;
 		margin: 0;
-		font-size: 13px;
+		font-size: 12px;
 		overflow: hidden;
 		white-space: nowrap;
-		width: 100%;
+		width: 80%;
 		text-overflow: ellipsis;
 		text-shadow: 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b;
 		font-weight: 600;
@@ -527,9 +527,10 @@
 		color: white;
 		background: transparent;
 		border-radius: 30px;
-		transform: translate(-76px,70px);
+		transform: translate(-48px,55px);
 		float: right;
 		border: 6px solid #582480;
+		background: #582480;
 		text-shadow: 2px 3px 1px #b74182;
 	}
 
@@ -539,9 +540,10 @@
 		background: transparent;
 		border-radius: 30px;
 		float: right;
+		background: #582480;
 		border: 6px solid #582480;
 		text-shadow: 2px 3px 1px #b74182;
-		transform: translate(-10px,71px);
+		transform: translate(-3px,58px);
 	}
 
 	/* admin-page.html */

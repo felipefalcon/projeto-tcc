@@ -17,7 +17,7 @@
 		if(toUser.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
 		}
-		$("#label-user-name").html(gender+"&nbsp&nbsp"+toUser.name);
+		$("#label-user-name").html(gender+"&nbsp&nbsp<p style='display: contents; line-height: 25px;'>"+toUser.name+" "+toUser.lastname+"</p>");
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+toUser.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#label-user-location").text("São Paulo - SP");
 		$("#main-descript-div-other-user").text(toUser.about);
