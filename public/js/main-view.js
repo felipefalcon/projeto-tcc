@@ -147,6 +147,7 @@
 	}
 
 	$(window).scroll(function(){
+		if (tabActive != 1) return;
 		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
 		$(".events-t").each(function(){
 			let poseItem = $(this).offset().top - $(window).height();
@@ -473,6 +474,15 @@
 				opacity: "1"
 			}, 600);
 			$("#qt-msgs").text(qtNoReadMsgs.toString());
+		}
+	}
+
+	function clearTabs(){
+		switch(tabActive){
+			case 4:  	makeChatObjects(); break;
+			case 2: 	makeEventsObjects(); break;
+			// case 1: 	makeUsersNextObjects(); break;
+			default: 	break;
 		}
 	}
 
