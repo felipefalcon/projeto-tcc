@@ -228,32 +228,36 @@
 		cachedMessagesHere = usersDistincs.slice();
 
 		userInfo.conversations.forEach(function(item){
-			item.messages[0].date = new Date($.format.date(item.date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
+			item.messages[0].date = new Date($.format.date(item.messages[0].date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
 		});
 
 		let profiles = [];
 		let userMsgs = [];
 
 		//console.log(usersDistincs);
-		usersDistincs.forEach( function(data){
-			//console.log(data);
-			let prof = "";
-			if(data[0].subject == userInfo._id) {
-				prof = getProfileSubject(data[0].author);
-			}else if(data[0].author == userInfo._id){
-				//prof = getProfileSubject(data[0].subject); // Ver se pega sem isso
-				userMsgs = Object.values(_.groupBy(data, msg => msg.subject));
-				userMsgs.forEach( function(data){
-					prof = getProfileSubject(data[0].subject);
-					if(!profiles.includes(prof) && typeof prof !== "undefined"){
-						profiles.push(prof);
-					}
-				});
-			}
-			if(!profiles.includes(prof) && typeof prof !== "undefined"){
-				profiles.push(prof);
-			}
-		});
+		// usersDistincs.forEach( function(data){
+		// 	//console.log(data);
+		// 	let prof = "";
+		// 	if(data[0].subject == userInfo._id) {
+		// 		prof = getProfileSubject(data[0].author);
+		// 	}else if(data[0].author == userInfo._id){
+		// 		//prof = getProfileSubject(data[0].subject); // Ver se pega sem isso
+		// 		userMsgs = Object.values(_.groupBy(data, msg => msg.subject));
+		// 		userMsgs.forEach( function(data){
+		// 			prof = getProfileSubject(data[0].subject);
+		// 			if(!profiles.includes(prof) && typeof prof !== "undefined"){
+		// 				profiles.push(prof);
+		// 			}
+		// 		});
+		// 	}
+		// 	if(!profiles.includes(prof) && typeof prof !== "undefined"){
+		// 		profiles.push(prof);
+		// 	}
+		// });
+
+		// usersDistincs.forEach(function(item){
+		// 	profiles.push(getProfInAllUsersById(item._id));
+		// });
 
 		// profiles.forEach( function(data){
 		// 	data.messages.forEach( function(msg){
@@ -264,48 +268,54 @@
 		// profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
 		//console.log(profiles);
 
+		// console.log(userInfo.conversations);
+
 		let divsCreated = []; 
 		const dateN = (new Date(getServerDate())).toLocaleDateString();
 		
-		profiles.forEach(  function(data){
+		usersDistincs.forEach(function(item){
 			//console.log(getLastMessage(data._id, usersDistincs));
 			//var userLength = userMsgs.length;
-			let lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
-			// for(var i = 0; i < userLength; ++i){
-			// 	if(data._id == userMsgs[i][0].subject){
-			// 		lastMsgUser = userMsgs[i][0];
-			// 		break;
-			// 	}
-			// }
-			let lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
-			lastMsgUser = typeof lastMsgUser === "undefined" ? "" : lastMsgUser[0];
+			// let lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
+			// // for(var i = 0; i < userLength; ++i){
+			// // 	if(data._id == userMsgs[i][0].subject){
+			// // 		lastMsgUser = userMsgs[i][0];
+			// // 		break;
+			// // 	}
+			// // }
+			// let lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
+			// lastMsgUser = typeof lastMsgUser === "undefined" ? "" : lastMsgUser[0];
 
-			let dateMsgUser = new Date(lastMsgUser.date);
-			var dateMsgSubject = typeof lastMsgSubject !== "undefined" ? new Date(lastMsgSubject.date) : dateMsgUser;
+			// let dateMsgUser = new Date(lastMsgUser.date);
+			// var dateMsgSubject = typeof lastMsgSubject !== "undefined" ? new Date(lastMsgSubject.date) : dateMsgUser;
 			
-			if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
-				var lastMsg = lastMsgSubject;
-				var lastDate = dateMsgSubject;
-			}else {//if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
-				var lastMsg = lastMsgUser;
-				var lastDate = dateMsgUser;
-			}
+			// if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
+			// 	var lastMsg = lastMsgSubject;
+			// 	var lastDate = dateMsgSubject;
+			// }else {//if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
+			// 	var lastMsg = lastMsgUser;
+			// 	var lastDate = dateMsgUser;
+			// }
+
+			let profile = getProfInAllUsersById(item._id);
+			let dateLastMsg = new Date(item.messages[0].date);
+			console.log(item);
 			
-			if(lastDate.toLocaleDateString() == dateN){
-				lastDate = "Hoje às " + (lastDate.getHours() < 10 ? "0" : "") + lastDate.getHours() + ":" + (lastDate.getMinutes() < 10 ? "0" : "") + lastDate.getMinutes();
+			if(dateLastMsg.toLocaleDateString() == dateN){
+				dateLastMsg = "Hoje às " + (dateLastMsg.getHours() < 10 ? "0" : "") + dateLastMsg.getHours() + ":" + (dateLastMsg.getMinutes() < 10 ? "0" : "") + dateLastMsg.getMinutes();
 			}else{
-				lastDate = lastDate.toLocaleDateString();
+				dateLastMsg = dateLastMsg.toLocaleDateString();
 			}
 
 			let newMsgAlert = "";
-			if(lastMsg.status == "0"){
+			if(item.messages[0].status == "0"){
 				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + data._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + data.pics_url.main_pic +
-			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + data.name + 
-			"<span class='chat-date-label'>"+ lastDate +"</span></label><label class='user-d-u-label chat-msg-label'>" 
-			+ lastMsg.text + "</label></div></div>");
+			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
+			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + 
+			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
+			+ item.messages[0].text + "</label></div></div>");
 		});
 
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
@@ -350,7 +360,7 @@
 	// 	}
 	// }
 
-	function getProfileSubject(id){
+	function getProfInAllUsersById(id){
 		return allUsersInfo.find(function(item){return item._id == id;});
 	}
 

@@ -280,25 +280,34 @@
 				let userAuthor = result[0];
 				let userSubject = result[1];
 				let foundId = false;
+				let copyConversation = "";
 				for(let i = 0; i < userAuthor.conversations.length; ++i){
 					if(userAuthor.conversations[i]._id == req.query._id_to){
 						userAuthor.conversations[i].messages.unshift(message);
 						userAuthor.conversations[i].allread = 1;
+						copyConversation = userAuthor.conversations[i];
+						userAuthor.conversations.splice(i, 1);
 						foundId = true;
 						break;
 					}
 				}
-				if(!foundId) userAuthor.conversations.push({_id: req.query._id_to, messages: [message], allread: 1});
+				if(!foundId) userAuthor.conversations.unshift({_id: req.query._id_to, messages: [message], allread: 1});
+				if(copyConversation != "") userAuthor.conversations.unshift(copyConversation);
+
 				foundId = false;
+				copyConversation = "";
 				for(let i = 0; i < userSubject.conversations.length; ++i){
 					if(userSubject.conversations[i]._id == req.query._id_from){
 						userSubject.conversations[i].messages.unshift(message2);
 						userSubject.conversations[i].allread = 0;
+						copyConversation = userSubject.conversations[i];
+						userSubject.conversations.splice(i, 1);
 						foundId = true;
 						break;
 					}
 				}
-				if(!foundId) userSubject.conversations.push({_id: req.query._id_from, messages: [message2], allread: 0});
+				if(!foundId) userSubject.conversations.unshift({_id: req.query._id_from, messages: [message2], allread: 0});
+				if(copyConversation != "") userSubject.conversations.unshift(copyConversation);
 
 				Promise.all([
 					promiseUpdUser({_id: objectIdUserFrom}, {$set: 	{ conversations: userAuthor.conversations}}),
