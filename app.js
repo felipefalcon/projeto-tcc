@@ -208,6 +208,57 @@
 	});
 
 //  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
+	// app.get('/upd-users-messages', urlencodedParser, function (req, res) {
+	// 	MongoClient.connect(url, paramsM, function(err, db) {
+	// 		if (err) throw err;
+	// 		var dbo = db.db(dbName);
+	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+	// 		var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
+	// 		var message = req.query.message;
+	// 		message.date = getTimeServer();
+	// 		message.day = message.date.getDate();
+	// 		message.status = 1;
+	// 		var message2 = {...message};
+	// 		message2.status = 0;
+	// 		// dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
+	// 		// 	if (err) throw err;
+	// 		// });
+	// 		// dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
+	// 		// 	if (err) throw err;
+	// 		// 	res.json({ ok: "ok"});
+	// 		// });
+	// 		// db.close();
+
+	// 		Promise.all([
+	// 			queryPromise({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}),
+	// 			queryPromise({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}})
+	// 		]).then(function(result) {
+	// 			// result is an array of responses here
+	// 			console.log(result[0]);
+	// 			db.close();
+	// 			res.json({ ok: "ok"});
+	// 		}).catch(function(err) {
+	// 			console.log(err);
+	// 			db.close();
+	// 		});
+		
+		
+	// 		function queryPromise(query, newValues) {
+	// 			return new Promise(function(resolve, reject) {
+	// 				dbo.collection("users").updateOne(query, newValues, function(err, resp) {
+	// 					if (err) {
+	// 						reject(err);
+	// 					} else {
+	// 						resolve(resp);
+	// 					}
+	// 				});
+	// 			})
+	// 		}
+
+	// 	}); 
+	// });
+
+//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
 	app.get('/upd-users-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
@@ -220,32 +271,67 @@
 			message.status = 1;
 			var message2 = {...message};
 			message2.status = 0;
-			// dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}, function(err, result) {
-			// 	if (err) throw err;
-			// });
-			// dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}}, function(err, result) {
-			// 	if (err) throw err;
-			// 	res.json({ ok: "ok"});
-			// });
-			// db.close();
 
 			Promise.all([
-				queryPromise({_id: objectIdUserFrom}, {$push: 	{ messages: {"$each": [message] , "$position": 0}}}),
-				queryPromise({_id: objectIdUserTo}, {$push: 	{ messages: {"$each": [message2] , "$position": 0}}})
+				promiseGetUser({_id: objectIdUserFrom}),
+				promiseGetUser({_id: objectIdUserTo})
 			]).then(function(result) {
 				// result is an array of responses here
-				console.log(result[0]);
-				db.close();
-				res.json({ ok: "ok"});
+				let userAuthor = result[0];
+				let userSubject = result[1];
+				let foundId = false;
+				for(let i = 0; i < userAuthor.conversations.length; ++i){
+					if(userAuthor.conversations[i]._id == req.query._id_to){
+						userAuthor.conversations[i].messages.unshift(message);
+						userAuthor.conversations[i].allread = 1;
+						foundId = true;
+						break;
+					}
+				}
+				if(!foundId) userAuthor.conversations.push({_id: req.query._id_to, messages: [message], allread: 1});
+				foundId = false;
+				for(let i = 0; i < userSubject.conversations.length; ++i){
+					if(userSubject.conversations[i]._id == req.query._id_from){
+						userSubject.conversations[i].messages.unshift(message2);
+						userSubject.conversations[i].allread = 0;
+						foundId = true;
+						break;
+					}
+				}
+				if(!foundId) userSubject.conversations.push({_id: req.query._id_from, messages: [message2], allread: 0});
+
+				Promise.all([
+					promiseUpdUser({_id: objectIdUserFrom}, {$set: 	{ conversations: userAuthor.conversations}}),
+					promiseUpdUser({_id: objectIdUserTo},   {$set: 	{ conversations: userSubject.conversations}})
+				]).then(function() {
+					db.close();
+					res.json({ ok: "ok"});
+				}).catch(function(err) {
+					console.log(err);
+					db.close();
+				});
+
 			}).catch(function(err) {
 				console.log(err);
 				db.close();
 			});
 		
 		
-			function queryPromise(query, newValues) {
+			function promiseUpdUser(query, newValues) {
 				return new Promise(function(resolve, reject) {
 					dbo.collection("users").updateOne(query, newValues, function(err, resp) {
+						if (err) {
+							reject(err);
+						} else {
+							resolve(resp);
+						}
+					});
+				})
+			}
+
+			function promiseGetUser(query) {
+				return new Promise(function(resolve, reject) {
+					dbo.collection("users").findOne(query, {projection: {conversations: 1}}, function(err, resp) {
 						if (err) {
 							reject(err);
 						} else {

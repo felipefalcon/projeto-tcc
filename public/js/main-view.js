@@ -147,7 +147,7 @@
 	}
 
 	$(window).scroll(function(){
-		if (tabActive != 1) return;
+		if (tabActive != 2) return;
 		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
 		$(".events-t").each(function(){
 			let poseItem = $(this).offset().top - $(window).height();
@@ -221,26 +221,21 @@
 	}
 
 	function makeChatObjects() {
-		// userInfo.messages.forEach(function(item){
-		// 	item.date = new Date(item.date);
-		// });
-		//userInfo.messages = _.orderBy(userInfo.messages, 'date', 'desc' );
-		if(!("messages" in userInfo)) return;
-		let usersDistincs = Object.values(_.groupBy(userInfo.messages, msg => msg.author));
+		let usersDistincs = userInfo.conversations;
 		
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
 		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
 		cachedMessagesHere = usersDistincs.slice();
 
-		userInfo.messages.forEach( function(item){
-			item.date = new Date($.format.date(item.date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
+		userInfo.conversations.forEach(function(item){
+			item.messages[0].date = new Date($.format.date(item.date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
 		});
 
 		let profiles = [];
 		let userMsgs = [];
 
 		//console.log(usersDistincs);
-		usersDistincs.forEach(  function(data){
+		usersDistincs.forEach( function(data){
 			//console.log(data);
 			let prof = "";
 			if(data[0].subject == userInfo._id) {
