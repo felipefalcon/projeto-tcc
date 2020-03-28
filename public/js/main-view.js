@@ -23,21 +23,12 @@
 	let inCallGetUser = false;
 
 	function getAllUsersInfo() {
-		//$("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
-//			$(".search-div").fadeIn();
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
-				//makeChatObjects();
-				//makeUsersNextObjects();
 			}
-			//setTimeout(function(){$("#main-body-div").LoadingOverlay('hide');}, 1000);
-			//$("#btn-menu-1").attr("disabled", false);
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-//			$("#main-body-div").LoadingOverlay('hide');
-//			$("#btn-menu-1").attr("disabled", false);
-//			$(".search-div").fadeIn();
 		});
 	}
 
@@ -54,14 +45,10 @@
 
 			} else {
 				setAllEvents(data);
-				//console.log(allEvents);
-				//makeEventsObjects();
 			}
 			
 		}).fail(function(){
 			$("#error-div").css("display", "show");
-			// $("#main-body-div").LoadingOverlay('hide');
-			// $("#btn-menu-1").attr("disabled", false);
 		});
 	}
 
@@ -69,21 +56,6 @@
 		// console.log(allEvents);
 		if(allEvents.length == 0 || !allEvents) return;
 		let allEventsWithoutUser = [];//allEvents.slice();
-		// allEvents.forEach(function(data){
-		// 	var flag = false;
-		// 	var participantLength = data.participants.length;
-		// 	for(var i = 0; i < participantLength; ++i){
-		// 		if(userInfo._id != data.participants[i]._id){
-		// 			flag = true;
-		// 		}else{
-		// 			flag = false;
-		// 			break;
-		// 		}
-		// 	}
-		// 	if(flag){
-		// 		allEventsWithoutUser.push(data);
-		// 	}
-		// });
 
 		allEvents.forEach(function(data){
 			let userFound = data.participants.find(function(item){return item == userInfo._id});
@@ -161,32 +133,6 @@
 		});
 	});
 
-	// BACKUP da função de eventos - que só puxava usuários
-	// function makeEventsObjects2() {
-	// 	allUsersInfo.forEach(function (data, i) {
-	// 		if (i % 2 == 0) {
-	// 			$("#events-div").append("<div class='users-t' style='background-color: rgba(255, 255, 255, 0.24);' name='" + data._id + "'>" +
-	// 				"<div id='profile-img-div' name='" + data._id + "'></div>" +
-	// 				"<div class='profile-info-div'>" +
-	// 				"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-	// 				"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
-	// 				"<label class='user-d-u-label'>" + data.email + "</label>" +
-	// 				"</div></div>");
-	// 			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-	// 		} else {
-	// 			$("#events-div").append("<div class='users-t' name='" + data._id + "'>" +
-	// 				"<div id='profile-img-div' name='" + data._id + "'></div>" +
-	// 				"<div class='profile-info-div'>" +
-	// 				"<label class='user-d-u-label chat-user-label'>" + data.name + "</label>" +
-	// 				"<label class='user-d-u-label chat-msg-label'>" + data.age + " anos - " + data.gender + "</label>" +
-	// 				"<label class='user-d-u-label'>" + data.email + "</label>" +
-	// 				"</div></div>");
-	// 			$("#profile-img-div[name='" + data._id + "']").css("background-image", "url(" + data.pics_url.main_pic + "");
-	// 		}
-	// 	});
-	// 	$(".users-t").fadeIn("slow");
-	// }
-
 	function makeUsersNextObjects() {
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
@@ -231,71 +177,10 @@
 			item.messages[0].date = new Date($.format.date(item.messages[0].date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
 		});
 
-		let profiles = [];
-		let userMsgs = [];
-
-		//console.log(usersDistincs);
-		// usersDistincs.forEach( function(data){
-		// 	//console.log(data);
-		// 	let prof = "";
-		// 	if(data[0].subject == userInfo._id) {
-		// 		prof = getProfileSubject(data[0].author);
-		// 	}else if(data[0].author == userInfo._id){
-		// 		//prof = getProfileSubject(data[0].subject); // Ver se pega sem isso
-		// 		userMsgs = Object.values(_.groupBy(data, msg => msg.subject));
-		// 		userMsgs.forEach( function(data){
-		// 			prof = getProfileSubject(data[0].subject);
-		// 			if(!profiles.includes(prof) && typeof prof !== "undefined"){
-		// 				profiles.push(prof);
-		// 			}
-		// 		});
-		// 	}
-		// 	if(!profiles.includes(prof) && typeof prof !== "undefined"){
-		// 		profiles.push(prof);
-		// 	}
-		// });
-
-		// usersDistincs.forEach(function(item){
-		// 	profiles.push(getProfInAllUsersById(item._id));
-		// });
-
-		// profiles.forEach( function(data){
-		// 	data.messages.forEach( function(msg){
-		// 		msg.day = (new Date(msg.date)).getDate();
-		// 	});
-		// });
-
-		// profiles = _.orderBy(profiles, ['messages[0].day', 'messages[0].date'] , ['desc', 'desc']);
-		//console.log(profiles);
-
-		// console.log(userInfo.conversations);
-
 		let divsCreated = []; 
 		const dateN = (new Date(getServerDate())).toLocaleDateString();
 		
 		usersDistincs.forEach(function(item){
-			//console.log(getLastMessage(data._id, usersDistincs));
-			//var userLength = userMsgs.length;
-			// let lastMsgSubject = getLastMessage(data._id, usersDistincs) || "";
-			// // for(var i = 0; i < userLength; ++i){
-			// // 	if(data._id == userMsgs[i][0].subject){
-			// // 		lastMsgUser = userMsgs[i][0];
-			// // 		break;
-			// // 	}
-			// // }
-			// let lastMsgUser = userMsgs.find(function(item){return data._id == item[0].subject});
-			// lastMsgUser = typeof lastMsgUser === "undefined" ? "" : lastMsgUser[0];
-
-			// let dateMsgUser = new Date(lastMsgUser.date);
-			// var dateMsgSubject = typeof lastMsgSubject !== "undefined" ? new Date(lastMsgSubject.date) : dateMsgUser;
-			
-			// if(lastMsgUser == "" || dateMsgSubject.getTime() > dateMsgUser.getTime()){
-			// 	var lastMsg = lastMsgSubject;
-			// 	var lastDate = dateMsgSubject;
-			// }else {//if(lastMsgSubject == "" || dateMsgSubject.getTime() <= dateMsgUser.getTime()){
-			// 	var lastMsg = lastMsgUser;
-			// 	var lastDate = dateMsgUser;
-			// }
 
 			let profile = getProfInAllUsersById(item._id);
 			let dateLastMsg = new Date(item.messages[0].date);
@@ -319,10 +204,7 @@
 		});
 
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");
-		//$("#chat-users-div").fadeOut(200);
-		//$("#chat-users-div").empty();
 		$("#chat-users-div").empty().append(divsCreated.join(""));
-		//$("#chat-users-div").fadeIn(200);
 
 		$(".users-t-chat").click( function () {
 			var elmt = $(".users-t-chat[name='" + $(this).attr('name') + "']");
@@ -336,29 +218,6 @@
 		});
 	}
 
-	// function getLastMessage(id, usersDistincs){
-	// 	var usersDistincsLength = usersDistincs.length;
-	// 	for(var i = 0; i < usersDistincsLength; ++i){
-	// 		if(usersDistincs[i][0].author == id){
-	// 			return usersDistincs[i][0];
-	// 		}
-	// 	}
-	// 	return "";
-	// }
-
-	function getLastMessage(id, usersDistincs){
-		var lastMsg = usersDistincs.find(function(item){return item[0].author == id;});
-		return typeof lastMsg === "undefined" ? "" : lastMsg[0];
-	}
-
-	// function getProfileSubject(id){
-	// 	var allUsersInfoLength = allUsersInfo.length;
-	// 	for(var i = 0; i < allUsersInfoLength; ++i){
-	// 		if(allUsersInfo[i]._id == id){
-	// 			return allUsersInfo[i];
-	// 		}
-	// 	}
-	// }
 
 	function getProfInAllUsersById(id){
 		return allUsersInfo.find(function(item){return item._id == id;});
@@ -469,10 +328,15 @@
 	});
 
 	function getQtNoReadMsgs(){
-		if(!("messages" in userInfo)) return;
 		let qtNoReadMsgs = 0;
-		userInfo.messages.forEach(function(message){
-			if(parseInt(message.status) == 0) qtNoReadMsgs++;
+		userInfo.conversations.forEach(function(item){
+			if(item.allread == 0){
+				let messagesLength = item.messages.length;
+				for(let i = 0; i < messagesLength; ++i){
+					if(parseInt(item.messages[i].status) == 0) qtNoReadMsgs++;
+					else break;
+				}
+			}
 		});
 		if(qtNoReadMsgs > 0){
 			$("#qt-msgs").animate({

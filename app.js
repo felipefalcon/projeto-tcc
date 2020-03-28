@@ -363,14 +363,20 @@
 			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
 				if (err) throw err;
 				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
-				let resultMessages = resultUser.messages;
-				let resultMessagesLength = resultMessages.length;
-				for(let i = 0; i < resultMessagesLength; ++i){
-					if(resultMessages[i].author == objectIdUserTo){
-						resultMessages[i].status = 1;
+				let conversationsLength = resultUser.conversations.length;
+				for(let i = 0; i < conversationsLength; ++i){
+					if(resultUser.conversations[i]._id == objectIdUserTo){
+						let messages = resultUser.conversations[i].messages;
+						let messagesLength = resultUser.conversations[i].messages.length;
+						for(let i2 = 0; i2 < messagesLength; ++i2){
+							messages[i2].status = 1;
+							if(messages[i2].status == 0) break;
+						}
+						resultUser.conversations[i].allread = 1;
+						break;
 					}
 				}
-				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ messages: resultMessages }}, function(err, result) {
+				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
 					if (err) throw err;
 					res.json(resultUser);
 					db.close();
@@ -389,21 +395,7 @@
 			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
 				if (err) throw err;
 				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
-				let resultMessages = resultUser.messages;
-				let resultMessages2 = resultMessages.filter(function(data){
-					return data.author != objectIdUserTo;
-				});
-
-				let resultMessages3 = resultMessages2.filter(function(data){
-					return data.author == objectIdUserFrom && data.subject != objectIdUserTo;
-				});
-
-				// for(let i = 0; i < resultMessagesLength; ++i){
-				// 	if(resultMessages[i].author == objectIdUserTo){
-				// 		resultMessages[i].status = 1;
-				// 	}
-				// }
-				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ messages: resultMessages3 }}, function(err, result) {
+				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations.filter(function(item){ return item._id != objectIdUserTo;}) }}, function(err, result) {
 					if (err) throw err;
 					res.json(resultUser);
 					db.close();
