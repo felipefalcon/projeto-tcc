@@ -468,9 +468,7 @@
 	.user-n-u-div{
 		height: 150px;
 		background: rgba(255,255,255,0.15);
-		width: 156px;
-		margin-left: 6px;
-		margin-right: 6px;
+		width: 160px;
 		margin-bottom: 16px;
 		border-radius: 10px;
 		border-bottom-left-radius: 0px;
@@ -523,15 +521,25 @@
 	}
 
 	.send-msg-icon {
-		font-size: 24px;
+		font-size: 21px;
 		color: white;
 		background: transparent;
 		border-radius: 30px;
-		transform: translate(-74px,76px);
+		transform: translate(-76px,70px);
 		float: right;
-		border-right: 7px solid #582480;
-		border-top: 4px solid #582480;
-		text-shadow: 2px 3px 1px #b74182, 0px -4px 0px #582480;;
+		border: 6px solid #582480;
+		text-shadow: 2px 3px 1px #b74182;
+	}
+
+	.view-prof-icon{
+		font-size: 22px;
+		color: white;
+		background: transparent;
+		border-radius: 30px;
+		float: right;
+		border: 6px solid #582480;
+		text-shadow: 2px 3px 1px #b74182;
+		transform: translate(-10px,71px);
 	}
 
 	/* admin-page.html */
