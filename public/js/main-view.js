@@ -144,22 +144,21 @@
 			});
 		});
 
-		$(window).scroll(function(){
-			let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
-			$(".events-t").each(function(){
-				let poseItem = $(this).offset().top - $(window).height();
-				if(poseItem < poseWindow){
-					if($(this).css("opacity") <= 0.4) return;
-					$(this).animate({opacity: "0.4"}, 300);
-				}else{
-					if($(this).css("opacity") >= 1) return;
-					$(this).animate({opacity: "1"}, 300);
-				} 
-				//console.log($(this).offset().top - $(window).height());
-			});
-		});
-
 	}
+
+	$(window).scroll(function(){
+		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
+		$(".events-t").each(function(){
+			let poseItem = $(this).offset().top - $(window).height();
+			if(poseItem < poseWindow){
+				if($(this).css("opacity") <= 0.4) return;
+				$(this).animate({opacity: "0.4"}, 200);
+			}else{
+				if($(this).css("opacity") >= 1) return;
+				$(this).animate({opacity: "1"}, 200);
+			} 
+		});
+	});
 
 	// BACKUP da função de eventos - que só puxava usuários
 	// function makeEventsObjects2() {
