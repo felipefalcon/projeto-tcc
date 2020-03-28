@@ -466,14 +466,28 @@
 	}
 
 	.user-n-u-div{
-		height: 160px;
+		height: 150px;
+		background: rgba(255,255,255,0.15);
+		width: 156px;
+		margin-left: 6px;
+		margin-right: 6px;
+		margin-bottom: 16px;
+		border-radius: 10px;
+		border-bottom-left-radius: 0px;
+		border: 4px solid white;
+	}
+
+	.user-n-u-block{
+		width: 50%;
 		float: left;
-		overflow: hidden;
+		display: flex;
+  		align-items: center;
+  		justify-content: center;
 	}
 
 	#user-n-u-div-content{
-		width: 108px;
-		height: 108px;
+		width: 102px;
+		height: 102px;
 		border: 2px solid white;
 		background-color: white;
 		border-radius: 320px;
@@ -513,7 +527,7 @@
 		color: white;
 		background: transparent;
 		border-radius: 30px;
-		transform: translate(-80px,80px);
+		transform: translate(-74px,76px);
 		float: right;
 		border-right: 7px solid #582480;
 		border-top: 4px solid #582480;

@@ -180,11 +180,11 @@
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
-			createdDivs += "<div class='user-n-u-div col-6'>"
+			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'>"
 			+ "<label class='user-n-u-label'>" + data.name +" "+ data.lastname + "</label>"
 			+ "<div id='user-n-u-div-content' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'>"
 			+ "<div class='send-msg-button' name='" + data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div>"
-			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div>";
+			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div></div>";
 		});
 
 		$("#next-u-users").empty().append(createdDivs);
