@@ -59,6 +59,12 @@
 	});
 
 	$("#btn-menu-back").click(function () {
+		if(configParams.history == "next-u-main-view"){
+			window.location.replace("main-view.html");
+			configParams.history = "";
+			setConfigParams(configParams);
+			return;
+		}
 		window.location.replace(document.referrer);
 	});
 

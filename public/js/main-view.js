@@ -105,11 +105,7 @@
 		allEventsWithoutUser.forEach( function (data, i) {
 			let imgData = "";
 			if("img" in data) imgData = "background: url("+data.img+") center; background-size: cover; background-color: rgba(250, 237, 255, 0.3);"
-			if(i == 0){
-				divsCreated.push("<div class='carousel-item events-t active' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
-			}else{
-				divsCreated.push("<div class='carousel-item events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
-			}
+			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
 			
 			let dateEvent = new Date(data.data);
 			let dayEvent = new Number(dateEvent.getDate())+1;
@@ -123,7 +119,7 @@
 			+ data.horario +"</label></div>");
 
 		});
-		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+$("#menu-bottom-home").innerHeight()+"px'></div>");
+		divsCreated.push("<div style=' height: 100px'></div>");
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
 
@@ -145,6 +141,21 @@
 					setTimeout(function(){makeEventsObjects();}, 5000);
 					// $("#main-body-div").LoadingOverlay('hide');
 				}
+			});
+		});
+
+		$(window).scroll(function(){
+			let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
+			$(".events-t").each(function(){
+				let poseItem = $(this).offset().top - $(window).height();
+				if(poseItem < poseWindow){
+					if($(this).css("opacity") <= 0.4) return;
+					$(this).animate({opacity: "0.4"}, 300);
+				}else{
+					if($(this).css("opacity") >= 1) return;
+					$(this).animate({opacity: "1"}, 300);
+				} 
+				//console.log($(this).offset().top - $(window).height());
 			});
 		});
 
@@ -180,11 +191,12 @@
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			var cityD = data.location ? data.location.city_district : "???";
-			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'>"
-			+ "<label class='user-n-u-label'>" + data.name +" "+ data.lastname + "</label><i class='fas fa-user-circle view-prof-icon' ></i>"
-			+ "<div id='user-n-u-div-content' name='" + data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'>"
-			+ "<div class='send-msg-button' name='" + data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div>"
-			+ "<label id='city-district-n-u-label'>" + cityD + "</label></div></div>";
+			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" + 
+			data.name +" "+ data.lastname + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+"' ></i>"+
+			"<div id='user-n-u-div-content' name='" +
+			data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'><div class='send-msg-button' name='" +
+			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
+			cityD + "</label></div></div>";
 		});
 
 		$("#next-u-users").empty().append(createdDivs);
@@ -194,6 +206,17 @@
 			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
 			setToUser(subject);
 			window.location.href = "./user-conversation.html";
+		});
+
+		$(".view-prof-icon").click( function () {
+			var idSubject = $(this).attr('name').toString();
+			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+			setTimeout(function () {
+				setToUser(subject);
+				configParams.history = "next-u-main-view";
+				setConfigParams(configParams);
+				window.location.href = "./user-profile.html";
+			}, 60);
 		});
 	}
 
@@ -473,10 +496,6 @@
 		getAllUsersInfo();
 		getAllEvents();
 		verifyAdminPermission();
-
-		$('.carousel').carousel({
-			interval: false
-		});
 
 		$("#btn-menu-1").click(function () {
 			$("#menu-1").slideToggle(300);

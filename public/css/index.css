@@ -509,15 +509,17 @@
 	}
 
 	#city-district-n-u-label{
+		line-height: 11px;
 		color: white;
-		text-shadow: 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b;
 		margin: 0;
-		font-size: 12px;
-		transform: translateY(-14px);
-		padding-left: 8px;
-		padding-right: 8px;
+		font-size: 11px;
+		transform: translateY(-12px);
 		background-color: rgb(88, 36, 128);
-		border-radius: 30px;
+		border-radius: 12px;
+		max-width: 98px;
+		padding: 6px;
+		padding-top: 3px;
+		padding-bottom: 3px;
 	}
 
 	.send-msg-icon {
@@ -681,12 +683,11 @@
 	.events-t{
 		overflow: hidden;
 		text-align: left;
-		margin-top: 0px;
-		margin-bottom: 0;
+		margin-bottom: 8px;
 		background-color: rgba(63, 51, 74, 0.29);
 		background: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg') center;
 		background-size: cover;
-		height: 100%;
+		height: 134px;
 		background-blend-mode: color-burn;
 		border: 4px solid white;
     	border-radius: 10px;
