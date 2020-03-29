@@ -92,9 +92,11 @@
 	function makeChatMessage() {
 		if(JSON.stringify(userInfo) === JSON.stringify(cachedUser)) return;
 		cachedUser = userInfo;
+		if(userInfo.conversations.length == 0) return;
 
 		let divsCreated = []; 
 		var toUserMessages = userInfo.conversations.filter(function(item){return item._id == toUser._id;})[0];
+		if(!toUserMessages) return;
 
 		toUserMessages.messages.reverse().forEach(function(msg){
 			if (msg.author == userInfo._id && msg.subject == toUser._id) {
