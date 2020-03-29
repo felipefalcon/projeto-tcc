@@ -335,12 +335,8 @@
 	function getQtNoReadMsgs(){
 		let qtNoReadMsgs = 0;
 		userInfo.conversations.forEach(function(item){
-			if(item.allread == 0){
-				let messagesLength = item.messages.length;
-				for(let i = 0; i < messagesLength; ++i){
-					if(parseInt(item.messages[i].status) == 0) qtNoReadMsgs++;
-					else break;
-				}
+			if(item.newmsgs != 0){
+				qtNoReadMsgs += item.newmsgs;
 			}
 		});
 		if(qtNoReadMsgs > 0){
@@ -403,14 +399,28 @@
 			if(flagUserChanged) getAllUsersInfo();
 		}, 10000);
 
-		setTimeout(function(){
-			switch(configParams.tab){
-				case "chat-tab": $("#btn-menu-8").click(); break;
-				case "profile-tab": $("#btn-menu-4").click(); break;
-				case "next-u-tab": $("#btn-menu-5").click(); break;
-				default: $("#btn-menu-6").click(); break;
+		let initTabs = setInterval(function(){
+			if(userInfo){
+				if(configParams.tab == "chat-tab"){
+					$("#btn-menu-8").click();
+					clearInterval(initTabs);
+				}else if(configParams.tab == "profile-tab"){ 
+					$("#btn-menu-4").click();
+					clearInterval(initTabs);
+				}
 			}
-			//$(".search-div").fadeIn();
+			if(allUsersInfo){
+				if(configParams.tab == "next-u-tab"){
+					$("#btn-menu-5").click();
+					clearInterval(initTabs);
+				}
+			}
+			if(allEvents){
+				if(configParams.tab == "main-tab"){
+					$("#btn-menu-6").click();
+					clearInterval(initTabs);
+				}
+			}
 		}, 50);
 
 		$("#btn-menu-7").click(function(){

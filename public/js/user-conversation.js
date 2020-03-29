@@ -8,7 +8,6 @@
 	let inCallGetUser = false;
 	let inCallUpdMsgs = false;
 	let inCallUpdMsgsBD = false;
-	let cachedUpdStatusMsgs = false;
 	let cachedUser = {};
 
 	function setInfoToUser() {
@@ -41,7 +40,6 @@
 					inCallUpdMsgs = false;
 					$("#message-send-input").val("");
 					// getNewMessages();
-					cachedUpdStatusMsgs = true;
 				}
 			});
 		let divsCreated = [];
@@ -110,13 +108,12 @@
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text.toString() + "</p></div>"
 				);
-				if(msg.status == "0") cachedUpdStatusMsgs = true;
 			}
 		});
 		
 		$("#chat-msgs-div").empty().append(divsCreated.join(""));
 
-		if(inCallUpdMsgsBD || !cachedUpdStatusMsgs) return;
+		if(inCallUpdMsgsBD || toUserMessages.newmsgs == 0) return;
 		inCallUpdMsgsBD = true;
 		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 		.done(function(data){
@@ -124,7 +121,6 @@
 				return alert("Algum erro");
 			}
 			inCallUpdMsgsBD = false;
-			cachedUpdStatusMsgs = false;
 			setUserCache(data);
 		});
 	}

@@ -219,9 +219,6 @@
 			var message = req.query.message;
 			message.date = getTimeServer();
 			message.day = message.date.getDate();
-			message.status = 1;
-			var message2 = {...message};
-			message2.status = 0;
 
 			Promise.all([
 				promiseGetUser({_id: objectIdUserFrom}),
@@ -232,32 +229,34 @@
 				let userSubject = result[1];
 				let foundId = false;
 				let copyConversation = "";
-				for(let i = 0; i < userAuthor.conversations.length; ++i){
+				let conversationsAuthorLength = userAuthor.conversations.length;
+				let conversationsSubjectLength = userSubject.conversations.length;
+				for(let i = 0; i < conversationsAuthorLength; ++i){
 					if(userAuthor.conversations[i]._id == req.query._id_to){
 						userAuthor.conversations[i].messages.unshift(message);
-						userAuthor.conversations[i].allread = 1;
+						userAuthor.conversations[i].newmsgs = 0;
 						copyConversation = userAuthor.conversations[i];
 						userAuthor.conversations.splice(i, 1);
 						foundId = true;
 						break;
 					}
 				}
-				if(!foundId) userAuthor.conversations.unshift({_id: req.query._id_to, messages: [message], allread: 1});
+				if(!foundId) userAuthor.conversations.unshift({_id: req.query._id_to, messages: [message], newmsgs: 0});
 				if(copyConversation != "") userAuthor.conversations.unshift(copyConversation);
 
 				foundId = false;
 				copyConversation = "";
-				for(let i = 0; i < userSubject.conversations.length; ++i){
+				for(let i = 0; i < conversationsSubjectLength; ++i){
 					if(userSubject.conversations[i]._id == req.query._id_from){
-						userSubject.conversations[i].messages.unshift(message2);
-						userSubject.conversations[i].allread = 0;
+						userSubject.conversations[i].messages.unshift(message);
+						userSubject.conversations[i].newmsgs++;
 						copyConversation = userSubject.conversations[i];
 						userSubject.conversations.splice(i, 1);
 						foundId = true;
 						break;
 					}
 				}
-				if(!foundId) userSubject.conversations.unshift({_id: req.query._id_from, messages: [message2], allread: 0});
+				if(!foundId) userSubject.conversations.unshift({_id: req.query._id_from, messages: [message], newmsgs: 1});
 				if(copyConversation != "") userSubject.conversations.unshift(copyConversation);
 
 				Promise.all([
@@ -310,32 +309,32 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
-	 		var objectIdUserTo = req.query._id_to;
+			var objectIdUserTo = req.query._id_to;
+			var needUpd = true;
 			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
 				if (err) throw err;
 				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
 				let conversationsLength = resultUser.conversations.length;
 				for(let i = 0; i < conversationsLength; ++i){
 					if(resultUser.conversations[i]._id == objectIdUserTo){
-						if(resultUser.conversations[i].allread == 1){
-							res.json(resultUser);
-							db.close();
+						if(resultUser.conversations[i].newmsgs == 0){
+							needUpd = false;
+							break;
 						}
-						let messages = resultUser.conversations[i].messages;
-						let messagesLength = resultUser.conversations[i].messages.length;
-						for(let i2 = 0; i2 < messagesLength; ++i2){
-							messages[i2].status = 1;
-							if(messages[i2].status == 0) break;
-						}
-						resultUser.conversations[i].allread = 1;
+						resultUser.conversations[i].newmsgs = 0;
 						break;
 					}
 				}
-				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
-					if (err) throw err;
+				if(!needUpd) {
 					res.json(resultUser);
 					db.close();
-				});
+				}else{
+					dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
+						if (err) throw err;
+						res.json(resultUser);
+						db.close();
+					});
+				}
 			});
 		}); 
 	});
