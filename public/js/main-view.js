@@ -75,8 +75,8 @@
 		}
 
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		if(_.isEqual(cachedEventsHere, allEventsWithoutUser)) return;
-		cachedEventsHere = allEventsWithoutUser.slice();
+		// if(_.isEqual(cachedEventsHere, allEventsWithoutUser)) return;
+		// cachedEventsHere = allEventsWithoutUser.slice();
 
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach( function (data, i) {
@@ -245,7 +245,7 @@
 	}
 
 	function getProfile() {
-		getUser();
+		// getUser();
 		if(qtPicsTotal > 1){
 			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
@@ -347,16 +347,14 @@
 		}
 	}
 
-	function clearTabs(){
-		switch(tabActive){
-			case 4:  	makeChatObjects(); break;
-			case 2: 	makeEventsObjects(); break;
-			// case 1: 	makeUsersNextObjects(); break;
-			default: 	break;
-		}
+	function clearAnotherTabs(){
+		if(tabActive != 2) 	$("#events-box-div").empty();
+		if(tabActive != 1)	$("#next-u-users").empty();
+		if(tabActive != 4)	$("#chat-users-div").empty()
 	}
 
 	function checkTab(){
+		clearAnotherTabs();
 		switch(tabActive){
 			case 4:  	makeChatObjects(); break;
 			case 2: 	makeEventsObjects(); break;
@@ -438,6 +436,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
+			cachedMessagesHere = [];
 			checkTab();
 		});
 	
