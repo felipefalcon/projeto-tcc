@@ -28,8 +28,8 @@
 		let htmlInfos = [];
 		let city = "";
 		let work = "";
-		if(location in toUser) city = toUser.location.city;
-		if(work in toUser) work = toUser.work;
+		if("location" in toUser) city = toUser.location.city;
+		if("work" in toUser) work = toUser.work;
 		if(city.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+city+"</label>");
 		if(work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+work+"</label>");
 		if(htmlInfos.length == 0) return;

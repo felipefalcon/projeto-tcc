@@ -43,8 +43,8 @@
 		let htmlInfos = [];
 		let city = "";
 		let work = "";
-		if(location in toUser) city = userInfo.location.city;
-		if(work in toUser) work = userInfo.work;
+		if("location" in userInfo) city = userInfo.location.city;
+		if("work" in userInfo) work = userInfo.work;
 		htmlInfos.push("<label class='title-label label-name-other'>"+iconEdit+"<i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp<input type='text' id='edit-city-input' placeholder='???' value='"+city+"'/></label>");
 		htmlInfos.push("<label class='title-label label-name-other'>"+iconEdit+"<i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp<input type='text' id='edit-work-input' placeholder='???' value='"+work+"'/></label>");
 		$("#other-label-user-info").empty().append(htmlInfos.join(""));

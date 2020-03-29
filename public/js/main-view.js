@@ -243,6 +243,7 @@
 
 	function getProfile() {
 		// getUser();
+		$("#profile-content-div").prepend("<div id='user-information-div' class='container'> <div id='name-label-user-info'> <label class='title-label' id='label-user-name'></label> </div> <label class='title-label' id='label-user-age'>?</label> <div id='other-label-user-info'> </div> </div> <div id='main-pic-div-c'></div> <div id='main-descript-div'></div>");
 		if(qtPicsTotal > 1){
 			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
@@ -261,8 +262,8 @@
 		let htmlInfos = [];
 		let city = "";
 		let work = "";
-		if(location in userInfo) city = userInfo.location.city;
-		if(work in userInfo) work = userInfo.work;
+		if("location" in userInfo) city = userInfo.location.city;
+		if("work" in userInfo) work = userInfo.work;
 		if(city.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-street-view' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+city+"</label>");
 		if(work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+work+"</label>");
 		if(htmlInfos.length == 0) return;
@@ -348,6 +349,7 @@
 		if(tabActive != 2) 	$("#events-box-div").empty();
 		if(tabActive != 1)	$("#next-u-users").empty();
 		if(tabActive != 4)	$("#chat-users-div").empty()
+		if(tabActive != 0)  $("#profile-content-div").empty();
 	}
 
 	function checkTab(){
