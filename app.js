@@ -169,6 +169,20 @@
 		}); 
 	});
 
+//  [ READ - GET ] ROTA: retorna as conversas de uma conta com base no email
+	app.get('/get-user-msgs', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { conversations: 1} }, function(err, result) {
+				if (err) throw err;
+				res.json(result); 
+			});
+			db.close();
+		}); 
+	});
+
 //  [ UPDATE - GET ] ROTA: atualiza dados do usuário
 	app.get('/upd-user', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
