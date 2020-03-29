@@ -21,14 +21,19 @@
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
+	let inCallGetAllUsers = false;
 
 	function getAllUsersInfo() {
+		if(inCallGetAllUsers) return;
+		inCallGetAllUsers = true;
 		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
 			}
+			inCallGetAllUsers = false;
 		}).fail(function(){
 			$("#error-div").css("display", "show");
+			inCallGetAllUsers = false;
 		});
 	}
 
@@ -168,23 +173,17 @@
 
 	function makeChatObjects() {
 		let usersDistincs = userInfo.conversations;
-		
+		if(userInfo.conversations.length == 0) return;
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		if(_.isEqual(cachedMessagesHere, usersDistincs)) return;
-		cachedMessagesHere = usersDistincs.slice();
-
-		userInfo.conversations.forEach(function(item){
-			item.messages[0].date = new Date($.format.date(item.messages[0].date.toString(), 'ddd MMM dd yyyy HH:mm:ss'));
-		});
+		if(JSON.stringify(cachedMessagesHere) == JSON.stringify(usersDistincs)) return;
+		cachedMessagesHere = [...usersDistincs];
 
 		let divsCreated = []; 
 		const dateN = (new Date(getServerDate())).toLocaleDateString();
-		
 		usersDistincs.forEach(function(item){
 
 			let profile = getProfInAllUsersById(item._id);
 			let dateLastMsg = new Date(item.messages[0].date);
-			console.log(item);
 			
 			if(dateLastMsg.toLocaleDateString() == dateN){
 				dateLastMsg = "Hoje às " + (dateLastMsg.getHours() < 10 ? "0" : "") + dateLastMsg.getHours() + ":" + (dateLastMsg.getMinutes() < 10 ? "0" : "") + dateLastMsg.getMinutes();
@@ -230,11 +229,17 @@
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
-				inCallGetUser = false;
-				if(JSON.stringify(userInfo) === JSON.stringify(data)) return flagUserChanged = false;
+				data.conversations.forEach(function(item){
+					item.messages[0].date = new Date($.format.date(item.messages[0].date, 'ddd MMM dd yyyy HH:mm:ss'));
+				});
+				if(JSON.stringify(userInfo) == JSON.stringify(data)) {
+					flagUserChanged = false;
+					return inCallGetUser = false;
+				}
 				setUserCache(data);
 				getQtNoReadMsgs();
 				flagUserChanged = true;
+				inCallGetUser = false;
 			}
 		});
 	}
@@ -359,7 +364,8 @@
 		switch(tabActive){
 			case 4:  	makeChatObjects(); break;
 			case 2: 	makeEventsObjects(); break;
-			// case 1: 	makeUsersNextObjects(); break;
+			case 1: 	makeUsersNextObjects(); break;
+			case 0: 	getProfile(); break;
 			default: 	break;
 		}
 	}
@@ -389,10 +395,13 @@
 		});
 
 		setInterval(function(){
-			if(flagUserChanged) getAllUsersInfo();
 			getUser();
-			checkTab();
+			if(tabActive == 4) checkTab();
 		}, 1000);
+
+		setInterval(function(){
+			if(flagUserChanged) getAllUsersInfo();
+		}, 10000);
 
 		setTimeout(function(){
 			switch(configParams.tab){
@@ -409,6 +418,7 @@
 			tabActive = 3;
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
+			checkTab();
 		});
 	
 		$("#btn-menu-8").click(function(){
@@ -418,7 +428,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
-			makeChatObjects();
+			checkTab();
 		});
 	
 		$("#btn-menu-4").click(function(){
@@ -435,7 +445,7 @@
 			}else{
 				MenuBottomProf.slideDown(300);
 			}
-			getProfile();
+			checkTab();
 		});
 	
 		$("#btn-menu-5").click(function(){
@@ -445,7 +455,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
-			makeUsersNextObjects();
+			checkTab();
 		});
 	
 		$("#btn-menu-6").click(function(){
@@ -455,7 +465,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
-			makeEventsObjects();
+			checkTab();
 		});
 
 	})();
