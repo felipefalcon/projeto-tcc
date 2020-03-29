@@ -315,12 +315,11 @@
 				if (err) throw err;
 				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
 				let conversationsLength = resultUser.conversations.length;
-				let needUpd = true;
 				for(let i = 0; i < conversationsLength; ++i){
 					if(resultUser.conversations[i]._id == objectIdUserTo){
 						if(resultUser.conversations[i].allread == 1){
-							needUpd = false;
-							break;
+							res.json(resultUser);
+							db.close();
 						}
 						let messages = resultUser.conversations[i].messages;
 						let messagesLength = resultUser.conversations[i].messages.length;
@@ -331,10 +330,6 @@
 						resultUser.conversations[i].allread = 1;
 						break;
 					}
-				}
-				if(!needUpd){
-					res.json(resultUser);
-					db.close();
 				}
 				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
 					if (err) throw err;
