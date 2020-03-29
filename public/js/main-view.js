@@ -89,8 +89,8 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + "<button class='event-subscribe-btn' name='"+data._id+"'>"
-			+ "<i class='fas fa-hand-peace'></i></button></label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + "<button class='event-subscribe-btn' name='"+data._id+
+			"'><i class='fas fa-hand-peace'></i></button></label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label></div>");
@@ -99,9 +99,6 @@
 		divsCreated.push("<div style=' height: 100px'></div>");
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
-
-		$("#events-box-div").animate({ opacity: "1"}, 300);
-		$("#events-tags-div").animate({ opacity: "1"}, 300);
 
 		$(".event-subscribe-btn").click(function () {
 			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });

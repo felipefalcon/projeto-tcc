@@ -982,7 +982,6 @@
   #events-box-div{
 	  height: 166px;
 	  border: 10px solid rgba(0,0,0,0);
-	  opacity: 0;
   }
 
   .event-msg-label{
@@ -1101,7 +1100,6 @@
 		padding-bottom: 8px;
 		scroll-behavior: smooth;
 		padding-right: 6px;
-		opacity: 0;
 	}
 
 	#events-tag-div::-webkit-scrollbar {
