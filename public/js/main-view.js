@@ -416,7 +416,7 @@
 				}
 			}
 			if(allEvents){
-				if(configParams.tab == "main-tab"){
+				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
 					$("#btn-menu-6").click();
 					clearInterval(initTabs);
 				}
