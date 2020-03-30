@@ -248,6 +248,11 @@
 		configParams = JSON.parse(window.sessionStorage.getItem('configParams'));
 	}
 
+	function resetConfigParams() {
+		window.sessionStorage.setItem('configParams', '{}');
+		configParams = JSON.parse(window.sessionStorage.getItem('configParams'));
+	}
+
 	function setCachedEvent(params) {
 		window.sessionStorage.setItem('cachedEvent', JSON.stringify(params));
 		cachedEvent = JSON.parse(window.sessionStorage.getItem('cachedEvent'));

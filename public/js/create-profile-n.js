@@ -146,7 +146,7 @@
 		window.location.replace("main-view.html");
 	});
 
-	$("#edit-age-input").focusout(function(){
+	$("#edit-age-input").change(function(){
 		let dateInput = new Date($("#edit-age-input").val());
 		let age = calcAgeOfUser(dateInput);
 		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");

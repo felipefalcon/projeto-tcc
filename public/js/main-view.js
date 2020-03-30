@@ -18,10 +18,12 @@
 	let cachedMessagesHere = [];
 	let cachedEventsHere = [];
 	let firstTimeProf = true;
+	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
 	let inCallGetAllUsers = false;
+	let inCallGetAllEvents = false;
 
 	function getAllUsersInfo() {
 		if(inCallGetAllUsers) return;
@@ -37,15 +39,18 @@
 	}
 
 	function getAllEvents() {
+		if(inCallGetAllEvents) return;
+		inCallGetAllEvents = true;
 		$.get("./get-events").done(function (data) {
 			if (data == null || data == "undefined") {
 
 			} else {
 				setAllEvents(data);
+				inCallGetAllEvents = false;
 			}
 			
 		}).fail(function(){
-			
+			inCallGetAllEvents = false;
 		});
 	}
 
@@ -65,7 +70,7 @@
 			$("#events-box-div").empty();
 			return;
 		}
-
+		
 		let divsCreated = []; 
 		allEventsWithoutUser.forEach( function (data) {
 			let imgData = "";
@@ -217,6 +222,7 @@
 					flagUserChanged = false;
 					return inCallGetUser = false;
 				}
+				if(exitApp) return;
 				setUserCache(data);
 				getQtNoReadMsgs();
 				flagUserChanged = true;
@@ -275,11 +281,15 @@
 	}
 
 	$("#exit-app-btn").click(function(){
+		exitApp = true;
 		resetAllUsersCache();
 		resetToUser();
 		resetAllEvents();
+		resetConfigParams();
 		resetUserCache();
-		window.location.replace("/");
+		setTimeout(function(){
+			window.location.replace("/");
+		}, 500);
 	});
 
 	$("#show-user-info").click(function () {
@@ -396,8 +406,8 @@
 					clearInterval(initTabs);
 				}
 			}
-			if(allEvents){
-				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}" || !configParams){
+			if(allEvents && !inCallGetAllEvents){
+				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
 					$("#btn-menu-6").click();
 					clearInterval(initTabs);
 				}

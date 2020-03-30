@@ -44,7 +44,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			let dtNascPure = new Date(newInfos.dt_nasc);
+			let dtNascPure = new Date(req.body.dt_nasc);
 			let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
 			dtNasc.setDate(dtNasc+1);
 			let dtNow = new Date();
