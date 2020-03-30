@@ -32,17 +32,9 @@
 			}
 			inCallGetAllUsers = false;
 		}).fail(function(){
-			$("#error-div").css("display", "show");
 			inCallGetAllUsers = false;
 		});
 	}
-
-	$("#reload-error").click(function(){
-		$("#error-div").css("display", "none");
-		getAllUsersInfo();
-		getProfile();
-		verifyAdminPermission();
-	});
 
 	function getAllEvents() {
 		$.get("./get-events").done(function (data) {
@@ -53,7 +45,7 @@
 			}
 			
 		}).fail(function(){
-			$("#error-div").css("display", "show");
+			
 		});
 	}
 
@@ -74,12 +66,8 @@
 			return;
 		}
 
-		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
-		// if(_.isEqual(cachedEventsHere, allEventsWithoutUser)) return;
-		// cachedEventsHere = allEventsWithoutUser.slice();
-
 		let divsCreated = []; 
-		allEventsWithoutUser.forEach( function (data, i) {
+		allEventsWithoutUser.forEach( function (data) {
 			let imgData = "";
 			if("img" in data) imgData = "background: url("+data.img+") center; background-size: cover; background-color: rgba(250, 237, 255, 0.3);"
 			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
@@ -96,7 +84,7 @@
 			+ data.horario +"</label></div>");
 
 		});
-		divsCreated.push("<div style=' height: 100px'></div>");
+		divsCreated.push("<div style=' height: 48px'></div>");
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
 
@@ -122,16 +110,12 @@
 
 	$(window).scroll(function(){
 		if (tabActive != 2) return;
-		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - $("#logo-div").innerHeight();
+		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - 120;
 		$(".events-t").each(function(){
-			let poseItem = $(this).offset().top - $(window).height();
-			if(poseItem < poseWindow){
-				if($(this).css("opacity") <= 0.4) return;
-				$(this).animate({opacity: "0.4"}, 200);
-			}else{
-				if($(this).css("opacity") >= 1) return;
-				$(this).animate({opacity: "1"}, 200);
-			} 
+			if($(this).offset().top - $(window).height() < poseWindow){
+				return $(this).css("opacity", "0.4");
+			}
+			$(this).css("opacity", "1");
 		});
 	});
 
@@ -413,7 +397,7 @@
 				}
 			}
 			if(allEvents){
-				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
+				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}" || !configParams){
 					$("#btn-menu-6").click();
 					clearInterval(initTabs);
 				}
@@ -471,7 +455,7 @@
 			tabActive = 2;
 			configParams.tab = "main-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideDown(300);
+			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideUp(300);
 			checkTab();
 		});

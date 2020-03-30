@@ -6,7 +6,7 @@
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
 	<script type="text/javascript" src="./js/commom-functions.js"></script>
 	<title>Tela Principal</title>
@@ -22,29 +22,6 @@
 	</div>
 	<div id="main-div">
 		<div id="main-body-div" class="tab-content">
-		<div id="events-div" class="mx-auto tab-pane fade">
-			<!-- <div id="search-div" class="search-div col-12">
-				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
-			</div> -->
-			<div id="events-tags-div">
-				<label class="label-tag-event"><span>Festa / Show</span></label>
-				<label class="label-tag-event"><span>Festa / Show</span></label>
-				<label class="label-tag-event"><span>Festa / Show</span></label>
-				<label class="label-tag-event"><span>Festa / Show</span></label>
-				<label class="label-tag-event"><span>Festa / Show</span></label>
-			</div>
-			<div id="events-box-div" ></div>
-			<div id="menu-bottom-home" class="col-12">
-			<input type="button" onclick="window.location.replace('create-event.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="NOVO">
-			<input type="button" onclick="window.location.replace('subscribed-events.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="SUBSCRIÇÕES">
-			</div>
-		</div>
-		<div id="error-div" class="mx-auto" style="display: none; height: 100%;">
-				<p style="color: rgb(255, 89, 89); font-size: 90px; font-weight: bolder;">!</p>
-				<p style="color: white; font-weight: bolder;">Houve um erro</p>
-				<input id="reload-error" type="button"  class="general-button col-6 mx-auto mt-4 mb-4"
-				value="RECARREGAR" style="font-size: 0.8em;">
-		</div>
 		<div id="profile-div" class="mx-auto tab-pane fade">
 			<div id="profile-content-div"></div>
 			<div id="menu-bottom-prof" class="col-12">
@@ -59,13 +36,31 @@
 					value="DELETAR CONTA" style="font-size: 0.8em;"> -->
 			</div>
 		</div>
-		<div id="pr-div2" class="mx-auto tab-pane fade">
-		</div>
 		<div id="next-u-div" class="mx-auto tab-pane fade">
 			<!-- <div id="search-div" class="search-div col-12">
 				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
 			</div> -->
 			<div id="next-u-users">
+			</div>
+		</div>
+		<div id="events-div" class="mx-auto tab-pane fade">
+			<!-- <div id="search-div" class="search-div col-12">
+				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
+			</div> -->
+			<div id="events-tags-div">
+				<label class="label-tag-event"><span>Festa / Show</span></label>
+				<label class="label-tag-event"><span>Festa / Show</span></label>
+				<label class="label-tag-event"><span>Festa / Show</span></label>
+				<label class="label-tag-event"><span>Festa / Show</span></label>
+				<label class="label-tag-event"><span>Festa / Show</span></label>
+			</div>
+			<div id="events-box-div" ></div>
+		</div>
+		<div id="my-events-div" class="mx-auto tab-pane fade">
+			<div id="events-box-div" ></div>
+			<div id="menu-bottom-home" class="col-12">
+			<input type="button" onclick="window.location.replace('create-event.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="NOVO">
+			<input type="button" onclick="window.location.replace('subscribed-events.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="SUBSCRIÇÕES">
 			</div>
 		</div>
 		<div id="chat-div" class="mx-auto tab-pane fade">
@@ -77,9 +72,9 @@
 	</div>
 	<div id="menu-bottom-div" class="mx-auto nav nav-tabs">
 		<button data-toggle="tab" href="#profile-div" id="btn-menu-4" class="btn-menu"><i class="fa fa-user-circle"></i></button>
-		<button data-toggle="tab" href="#next-u-div" id="btn-menu-5" class="btn-menu"><i class="far fas fa-map-marker-alt"></i></button>
+		<button data-toggle="tab" href="#next-u-div" id="btn-menu-5" class="btn-menu"><i class="fa fa-users"></i></button>
 		<button data-toggle="tab" href="#events-div" id="btn-menu-6" class="btn-menu"><i class="far fas fa-home"></i></button>
-		<button data-toggle="tab" href="#pr-div2" id="btn-menu-7" class="btn-menu"><i class="fa fa-users"></i></button>
+		<button data-toggle="tab" href="#my-events-div" id="btn-menu-7" class="btn-menu"><i class="fas fa-bolt"></i></button>
 		<button data-toggle="tab" href="#chat-div" id="btn-menu-8" class="btn-menu"><i class="far fas fa-comment-alt" style="padding-top: 2px;"><span id="qt-msgs"></span></i></button>
 	</div>
 	</div>
