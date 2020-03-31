@@ -9,77 +9,72 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
       <script type="text/javascript" src="./js/commom-functions.js"></script>
-      <title>Criação de Evento</title>
+      <title>Evento</title>
     </head>
 
     <body class="fix-bg text-center">
       <div id="logo-div" style="position: absolute;">
-        <label class="title-label-top mx-auto">NOVO EVENTO</label>
+        <label class="title-label-top mx-auto">INFORMAÇÕES</label>
         <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
+        <button id="btn-menu-1" class="btn-menu">...</button>
+        <div id="menu-1">
+          <a id="show-prof-btn">Ver Perfil</a>
+          <a id="del-chat-btn" href="#">Excluir conversa</a>
+          <a id="report-user-btn">Denunciar</a>
+        </div>
       </div>
-      <div>
-        <label id="general-input-pic-reset-icon">
-          <i class='fas fa-times'></i>
-        </label>
-        <label class="general-input-pic-icon" for="pic-input">
-          <i class='fas fa-cloud-upload-alt'></i>
-        </label>
-        <div id="img-event"></div>
-        <input id="pic-input" name="file" type="file" accept="image/jpeg, image/png" style="display: none;"/>
-      </div>
+      <div id="img-event"></div>
 			<div id="form-create-profile-div">
         <span class="title-input-text">Título</span>
-        <input type="text" name="title" id="title-input" class="general-input col-10" placeholder="Nome do evento" required>
+        <input type="text" name="title" id="title-input" class="general-view-event-block col-10"  disabled>
         <hr class="light-hr col-10 mx-auto">
           <button id="map-button"><i class="fas fa-map-signs" style="vertical-align: middle;"></i></button>
           <span class="title-input-text">Endereço</span>
-          <input type="text" name="adress" id="local-input" class="general-input col-8" value="Clique para definir" required>
-          <hr class="light-hr col-10 mx-auto mb-3">
+          <input type="text" name="adress" id="local-input" class="general-view-event-block col-8" value="Clique para definir" disabled>
+          <hr class="light-hr col-10 mx-auto mb-2">
         <span class="title-input-text">Data</span>
-          <input type="date" name="date" id="data-input" class="general-input col-6" required>
+          <input type="date" name="date" id="data-input" class="general-view-event-block col-6" disabled>
           <span class="title-input-text">Horário</span>
-					<input type="time" name="time" id="horario-input" class="general-input col-4" required>
-					<hr class="light-hr col-10 mx-auto mb-3">  
+					<input type="time" name="time" id="horario-input" class="general-view-event-block col-4" disabled>
+					<hr class="light-hr col-10 mx-auto mb-2">  
           <span class="title-input-text">Descrição</span>
-          <textarea id="descricao-input" rows="4" maxlength="130" class="general-textarea col-10" placeholder="Descreva como será o evento"></textarea>
+          <textarea id="descricao-input" maxlength="130" class="general-textarea-view-event-block col-10" disabled></textarea>
           <hr class="light-hr col-10 mx-auto">
 
-          <div style="background-color: rgba(255, 255, 255, 0.25); display: flex; border-radius: 10px;" class="col-10 mx-auto">
+          <div style="display: flex;" class="col-10 mx-auto">
             <span class="title-input-text">Tags</span>
             <div style="width: 100%; padding-top: 18px;" class="mx-auto">
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-1">
+                <input type="checkbox" id="tag-1" disabled>
                   <span class="checkmark-tag">Festa / Show</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-2">
+                <input type="checkbox" id="tag-2" disabled>
                   <span class="checkmark-tag">Bar / Conversa</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-3">
+                <input type="checkbox" id="tag-3" disabled>
                   <span class="checkmark-tag">Parque</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-4">
+                <input type="checkbox" id="tag-4" disabled>
                   <span class="checkmark-tag">Encontro</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-5">
+                <input type="checkbox" id="tag-5" disabled>
                   <span class="checkmark-tag">Passeio</span>
               </label>
               <label class="tag-div-ce">
-                <input type="checkbox" id="tag-6">
+                <input type="checkbox" id="tag-6" disabled>
                   <span class="checkmark-tag">Outro</span>
               </label>
            </div>
           </div>
-
-          <input type="button" id="btn-criar-evento" class="general-button col-10 mt-4 mb-2" value="CRIAR">
 			</div>
-    <script async type="text/javascript" src="./js/create-event.js"></script>
+    <script async type="text/javascript" src="./js/view-event.js"></script>
     <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	
+    <!-- <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	 -->
     <!--<script type="text/javascript" src="cordova.js"></script>-->
     </body>
 </html>

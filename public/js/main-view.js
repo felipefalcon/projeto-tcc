@@ -16,7 +16,6 @@
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
-	let cachedEventsHere = [];
 	let firstTimeProf = true;
 	let exitApp = false;
 
@@ -82,8 +81,9 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + "<button class='event-subscribe-btn' name='"+data._id+
-			"'><i class='fas fa-hand-peace'></i></button></label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
+			// "<button class='event-subscribe-btn' name='"+data._id+"'><i class='fas fa-hand-peace'></i></button>"+
+			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label></div>");
@@ -93,7 +93,28 @@
 
 		$("#events-box-div").empty().append(divsCreated.join(""));
 
-		$(".event-subscribe-btn").click(function () {
+		// $(".event-subscribe-btn").click(function () {
+		// 	// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+		// 	var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
+		// 	$(this).parent().parent().fadeOut(600);
+		// 	$.get("./upd-event", {
+		// 		_id: 	$(this).attr('name'),
+		// 		user: userBasic
+		// 	}).done(function( data ) {
+		// 		if(isNullOrUndefined(data)){
+		// 			console.log("Deu merda");
+		// 		}else{
+		// 			getAllEvents();
+		// 			setTimeout(function(){makeEventsObjects();}, 5000);
+		// 			// $("#main-body-div").LoadingOverlay('hide');
+		// 		}
+		// 	});
+		// });
+
+		$(".events-t").click(function () {
+			cachedEvent = getEventInAllEventsById($(this).attr('name'));
+			setCachedEvent(cachedEvent);
+			window.location.href = "./view-event.html";
 			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
 			$(this).parent().parent().fadeOut(600);
@@ -206,6 +227,10 @@
 
 	function getProfInAllUsersById(id){
 		return allUsersInfo.find(function(item){return item._id == id;});
+	}
+
+	function getEventInAllEventsById(id){
+		return allEvents.find(function(item){return item._id == id;});
 	}
 
 	function getUser(){

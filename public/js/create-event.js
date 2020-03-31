@@ -190,6 +190,7 @@
 		}
 		if(cachedEvent.img) {
 			$("#general-input-pic-reset-icon").css("display", "block");
+			$("#img-event").css("background-image", "url("+cachedEvent.img+")");
 		}
 	}
 

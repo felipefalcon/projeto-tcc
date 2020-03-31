@@ -389,7 +389,7 @@
 		background: none;
 		right: 0;
 		font-size: 40px;
-		text-shadow: 1px 2px 2px #5a487c;
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
 		letter-spacing: 2px;
 		color: #fdf6ff;
 		padding-bottom: 8px;
@@ -571,6 +571,7 @@
 		color: white;
 		display: block;
 		margin: 0;
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
 	}
 
 	#users-div{
@@ -580,7 +581,7 @@
 	.user-d-u-label{
 		margin: 0;
 		color: white;
-		text-shadow: 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b;
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
 		font-size: 15px;
 		display: inherit;
 		line-height: 22px;
@@ -985,7 +986,7 @@
   }
 
   .event-msg-label{
-	text-shadow: 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b, 1px 1px 2px #260b3b;
+	text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
     height: 58px;
     width: 62px;
     font-size: 10px;
@@ -1436,7 +1437,28 @@
 		margin: 10px;
 	}
 
+	.general-view-event-block {
+		color: white;
+		height: 52px;
+		border: none;
+		font-size: 13px;
+		font-weight: bolder;
+		letter-spacing: 1px;
+		text-align: center;
+		padding-top: 12px;
+		background: none;
+	}
 
+	.general-textarea-view-event-block{
+		color: white;
+		border: none;
+		font-size: 13px;
+		font-weight: bolder;
+		letter-spacing: 1px;
+		text-align: center;
+		padding-top: 24px;
+		background: none;
+	}
 
 
 
