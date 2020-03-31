@@ -178,12 +178,12 @@
 			}
 
 			let newMsgAlert = "";
-			if(item.messages[0].status == "0"){
+			if(item.newmsgs > 0){
 				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
-			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + 
+			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ item.messages[0].text + "</label></div></div>");
 		});
