@@ -1,7 +1,5 @@
 
 	$("#btn-menu-back").click(function () {
-		cachedEvent = undefined;
-		window.sessionStorage.removeItem('cachedEvent');
 		window.location.replace("./main-view.html");
 	});
 

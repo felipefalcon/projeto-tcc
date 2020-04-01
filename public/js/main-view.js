@@ -112,9 +112,9 @@
 		// });
 
 		$(".events-t").click(function () {
-			cachedEvent = getEventInAllEventsById($(this).attr('name'));
-			setCachedEvent(cachedEvent);
+			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
 			window.location.href = "./view-event.html";
+			return;
 			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
 			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
 			$(this).parent().parent().fadeOut(600);
@@ -365,7 +365,12 @@
 	}
 
 	function clearAnotherTabs(){
-		if(tabActive != 2) 	$("#events-box-div").empty();
+		if(tabActive != 2) 	{
+			$("#events-box-div").empty();
+			$("#menu-bottom-div").css("box-shadow", "none");
+		}else{
+			$("#menu-bottom-div").css("box-shadow", "rgba(39, 19, 81, 0.75) 0px -1px 5px");
+		}
 		if(tabActive != 1)	$("#next-u-users").empty();
 		if(tabActive != 4)	$("#chat-users-div").empty()
 		if(tabActive != 0)  $("#profile-content-div").empty();

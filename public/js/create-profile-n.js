@@ -20,7 +20,7 @@
 
 	function getProfile() {
 		if(qtPicsTotal > 1){
-			$("#btn-change-pic").append("<p style='font-size: 12px;' id='qt-pics-p' ><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
+			$("#btn-change-pic").append("<p style='font-size: 12px; height: 20px; margin-bottom: 0px;' id='qt-pics-p' ><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";

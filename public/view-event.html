@@ -1,80 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-br" style="background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);">
-    <head>
-      <meta name="format-detection" content="telephone=no">
-      <meta name="msapplication-tap-highlight" content="no">
-      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-      <link rel="stylesheet" type="text/css" href="css/index.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
-      <script type="text/javascript" src="./js/commom-functions.js"></script>
-      <title>Evento</title>
-    </head>
+<html lang="pt-br"
+  style="background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);">
 
-    <body class="fix-bg text-center">
-      <div id="logo-div" style="position: absolute;">
-        <label class="title-label-top mx-auto">INFORMAÇÕES</label>
-        <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
-        <button id="btn-menu-1" class="btn-menu">...</button>
-        <div id="menu-1">
-          <a id="show-prof-btn">Ver Perfil</a>
-          <a id="del-chat-btn" href="#">Excluir conversa</a>
-          <a id="report-user-btn">Denunciar</a>
-        </div>
+<head>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport"
+    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
+  <script type="text/javascript" src="./js/commom-functions.js"></script>
+  <title>Evento</title>
+</head>
+
+<body class="fix-bg text-center">
+  <div id="logo-div" style="position: absolute;">
+    <label class="title-label-top mx-auto">INFORMAÇÕES</label>
+    <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
+    <button id="btn-menu-1" class="btn-menu">...</button>
+    <div id="menu-1">
+      <a id="show-prof-btn">Ver Perfil</a>
+      <a id="del-chat-btn" href="#">Excluir conversa</a>
+      <a id="report-user-btn">Denunciar</a>
+    </div>
+  </div>
+  <div id="img-event" style="margin-bottom: 0px;"></div>
+  <div id="qt-participants">
+    <i class='fas fa-user-friends' id="qt-participants-icon"></i>
+    <label id="qt-participants-text">42</label><label style="font-size: 12px;">Pessoas</label>
+  </div>
+  <div id="form-create-profile-div">
+    <span class="title-input-text">Título</span>
+    <input type="text" name="title" id="title-input" class="general-view-event-block col-10" disabled>
+    <hr class="light-hr col-10 mx-auto">
+    <span class="title-input-text">Endereço</span>
+    <input type="text" name="adress" id="local-input" class="general-view-event-block col-10" disabled>
+    <hr class="light-hr col-10 mx-auto mb-2">
+    <span class="title-input-text">Data</span>
+    <input type="date" name="date" id="data-input" class="general-view-event-block col-6" disabled>
+    <span class="title-input-text">Horário</span>
+    <input type="time" name="time" id="horario-input" class="general-view-event-block col-4" disabled>
+    <hr class="light-hr col-10 mx-auto mb-2">
+    <span class="title-input-text">Descrição</span>
+    <textarea id="descricao-input" maxlength="130" class="general-textarea-view-event-block col-10" disabled></textarea>
+    <hr class="light-hr col-10 mx-auto">
+
+    <div style="display: flex;" class="col-10 mx-auto">
+      <span class="title-input-text">Tags</span>
+      <div style="width: 100%; padding-top: 18px;" class="mx-auto">
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-1" disabled>
+          <span class="checkmark-tag">Festa / Show</span>
+        </label>
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-2" disabled>
+          <span class="checkmark-tag">Bar / Conversa</span>
+        </label>
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-3" disabled>
+          <span class="checkmark-tag">Parque</span>
+        </label>
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-4" disabled>
+          <span class="checkmark-tag">Encontro</span>
+        </label>
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-5" disabled>
+          <span class="checkmark-tag">Passeio</span>
+        </label>
+        <label class="tag-div-ce">
+          <input type="checkbox" id="tag-6" disabled>
+          <span class="checkmark-tag">Outro</span>
+        </label>
       </div>
-      <div id="img-event"></div>
-			<div id="form-create-profile-div">
-        <span class="title-input-text">Título</span>
-        <input type="text" name="title" id="title-input" class="general-view-event-block col-10"  disabled>
-        <hr class="light-hr col-10 mx-auto">
-          <button id="map-button"><i class="fas fa-map-signs" style="vertical-align: middle;"></i></button>
-          <span class="title-input-text">Endereço</span>
-          <input type="text" name="adress" id="local-input" class="general-view-event-block col-8" value="Clique para definir" disabled>
-          <hr class="light-hr col-10 mx-auto mb-2">
-        <span class="title-input-text">Data</span>
-          <input type="date" name="date" id="data-input" class="general-view-event-block col-6" disabled>
-          <span class="title-input-text">Horário</span>
-					<input type="time" name="time" id="horario-input" class="general-view-event-block col-4" disabled>
-					<hr class="light-hr col-10 mx-auto mb-2">  
-          <span class="title-input-text">Descrição</span>
-          <textarea id="descricao-input" maxlength="130" class="general-textarea-view-event-block col-10" disabled></textarea>
-          <hr class="light-hr col-10 mx-auto">
+    </div>
+    <div style="height: 102px;"></div>
+  </div>
+  <div id="menu-bottom-div-view-event">
+    <button id="set-interest" type="button" class="general-button btns-prof col-3 mx-auto"><i
+        class='fas fa-hand-peace' style='font-size:32px;color:white'></i>
+        <p id="text-set-interest">BORA !</p>
+      </button>
+    <label style="width: 16px;"></label>
+    <button id="get-map" type="button" class="general-button btns-prof col-3 mx-auto"><i
+      class='fas fa-map-marked-alt' style='font-size:32px;color:white'></i>
+      <p id="text-get-map">MAPA</p>
+    </button>
+  </div>
+  <script async type="text/javascript" src="./js/view-event.js"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	 -->
+  <!--<script type="text/javascript" src="cordova.js"></script>-->
+</body>
 
-          <div style="display: flex;" class="col-10 mx-auto">
-            <span class="title-input-text">Tags</span>
-            <div style="width: 100%; padding-top: 18px;" class="mx-auto">
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-1" disabled>
-                  <span class="checkmark-tag">Festa / Show</span>
-              </label>
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-2" disabled>
-                  <span class="checkmark-tag">Bar / Conversa</span>
-              </label>
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-3" disabled>
-                  <span class="checkmark-tag">Parque</span>
-              </label>
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-4" disabled>
-                  <span class="checkmark-tag">Encontro</span>
-              </label>
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-5" disabled>
-                  <span class="checkmark-tag">Passeio</span>
-              </label>
-              <label class="tag-div-ce">
-                <input type="checkbox" id="tag-6" disabled>
-                  <span class="checkmark-tag">Outro</span>
-              </label>
-           </div>
-          </div>
-			</div>
-    <script async type="text/javascript" src="./js/view-event.js"></script>
-    <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	 -->
-    <!--<script type="text/javascript" src="cordova.js"></script>-->
-    </body>
 </html>
