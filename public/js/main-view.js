@@ -134,17 +134,6 @@
 
 	}
 
-	$(window).scroll(function(){
-		if (tabActive != 2) return;
-		let poseWindow = $(window).scrollTop() - $("#events-div").innerHeight() - 120;
-		$(".events-t").each(function(){
-			if($(this).offset().top - $(window).height() < poseWindow){
-				return $(this).css("opacity", "0.4");
-			}
-			$(this).css("opacity", "1");
-		});
-	});
-
 	function makeUsersNextObjects() {
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
