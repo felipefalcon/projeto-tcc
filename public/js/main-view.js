@@ -16,7 +16,9 @@
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
+	let showBoxSubscriptions = false;
 	let firstTimeProf = true;
+	let titleTab = "";
 	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
@@ -53,25 +55,56 @@
 		});
 	}
 
-	function makeEventsObjects() {
+	function makeEventsObjects(type = "events-without-you") {
 		// console.log(allEvents);
 		if(allEvents.length == 0 || !allEvents) return;
-		let allEventsWithoutUser = [];//allEvents.slice();
-
-		allEvents.forEach(function(data){
-			let userFound = data.participants.find(function(item){return item == userInfo._id});
-			if((typeof userFound === "undefined")){
-				allEventsWithoutUser.push(data);
+		let allEventsOftUser = [];
+		let allEventsWithtUser = [];
+		let allEventsWithoutUser = [];
+		let eventsToDraw = [];
+		
+		if(type == 1){
+			allEvents.forEach(function(data){
+				if(data.author == userInfo._id){
+					allEventsOftUser.push(data);
+				}
+			});
+			if(allEventsOftUser.length == 0){
+				$("#my-events-author-box-div").empty();
+				return;
 			}
-		});
-
-		if(allEventsWithoutUser.length == 0){
-			$("#events-box-div").empty();
-			return;
+			eventsToDraw = allEventsOftUser;
+		}else if(type == 2){
+			allEvents.forEach(function(data){
+				let userFound = data.participants.find(function(item){return item == userInfo._id});
+				if(userFound){
+					allEventsWithtUser.push(data);
+				}
+			});
+			if(allEventsWithtUser.length == 0){
+				$("#my-events-box-div").empty();
+				return;
+			}
+			eventsToDraw = allEventsWithtUser;
+		}else{
+			allEvents.forEach(function(data){
+				if(data.author != userInfo._id){
+					let userFound = data.participants.find(function(item){return item == userInfo._id});
+					if((typeof userFound === "undefined")){
+						allEventsWithoutUser.push(data);
+					}
+				}
+			});
+			if(allEventsWithoutUser.length == 0){
+				$("#events-tags-div").css("display", "block");
+				$("#events-box-div").empty();
+				return;
+			}
+			eventsToDraw = allEventsWithoutUser;
 		}
 		
 		let divsCreated = []; 
-		allEventsWithoutUser.forEach( function (data) {
+		eventsToDraw.forEach( function (data) {
 			let imgData = "";
 			if("img" in data) imgData = "background: url("+data.img+") center; background-size: cover; background-color: rgba(250, 237, 255, 0.3);"
 			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
@@ -91,47 +124,18 @@
 		});
 		divsCreated.push("<div style=' height: 48px'></div>");
 
-		$("#events-box-div").empty().append(divsCreated.join(""));
-
-		// $(".event-subscribe-btn").click(function () {
-		// 	// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-		// 	var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
-		// 	$(this).parent().parent().fadeOut(600);
-		// 	$.get("./upd-event", {
-		// 		_id: 	$(this).attr('name'),
-		// 		user: userBasic
-		// 	}).done(function( data ) {
-		// 		if(isNullOrUndefined(data)){
-		// 			console.log("Deu merda");
-		// 		}else{
-		// 			getAllEvents();
-		// 			setTimeout(function(){makeEventsObjects();}, 5000);
-		// 			// $("#main-body-div").LoadingOverlay('hide');
-		// 		}
-		// 	});
-		// });
+		if(type == 1){
+			$("#my-events-author-box-div").empty().append(divsCreated.join(""));
+		}else if(type == 2){
+			$("#my-events-box-div").empty().append(divsCreated.join(""));
+		}else{
+			$("#events-box-div").empty().append(divsCreated.join(""));
+		}
 
 		$(".events-t").click(function () {
 			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
-			window.location.href = "./view-event.html";
-			return;
-			// $("#main-body-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
-			var userBasic = {_id: userInfo._id, name: userInfo.name, main_pic: userInfo.pics_url.main_pic};
-			$(this).parent().parent().fadeOut(600);
-			$.get("./upd-event", {
-				_id: 	$(this).attr('name'),
-				user: userBasic
-			}).done(function( data ) {
-				if(isNullOrUndefined(data)){
-					console.log("Deu merda");
-				}else{
-					getAllEvents();
-					setTimeout(function(){makeEventsObjects();}, 5000);
-					// $("#main-body-div").LoadingOverlay('hide');
-				}
-			});
+			return window.location.href = "./view-event.html";
 		});
-
 	}
 
 	function makeUsersNextObjects() {
@@ -353,6 +357,42 @@
 		}
 	}
 
+	$("#btn-subscript").click(function(){
+		showBoxSubscriptions = !showBoxSubscriptions;
+		if(showBoxSubscriptions){
+			$("#my-events-box-div").empty();
+			$("#my-events-author-box-div").empty();
+			makeEventsObjects(1);
+		}else{
+			$("#my-events-box-div").empty();
+			$("#my-events-author-box-div").empty();
+			makeEventsObjects(2);
+		}
+	});
+
+	function titleTopTable(){
+		let titleTabHere = "";
+		if(tabActive == 4) titleTabHere = "CONVERSAS";
+		if(tabActive == 3) titleTabHere = "SEUS EVENTOS";
+		if(tabActive == 2) titleTabHere = "EVENTOS";
+		if(tabActive == 1) titleTabHere = "PESSOAS";
+		if(tabActive == 0) titleTabHere = "";
+		if(titleTab == titleTabHere) return;
+		titleTab = titleTabHere;
+		if(tabActive == 0) {
+			$("#title-tab-top").css("opacity", 0);
+			return;
+		}
+		$("#title-tab-top").animate(
+			{opacity: 0}, 100,
+			function(){
+				$("#title-tab-top").text(titleTab);
+				$("#title-tab-top").animate(
+					{opacity: 1}, 100);
+			}
+		);
+	}
+
 	function clearAnotherTabs(){
 		if(tabActive != 2) 	{
 			$("#events-box-div").empty();
@@ -363,12 +403,18 @@
 		if(tabActive != 1)	$("#next-u-users").empty();
 		if(tabActive != 4)	$("#chat-users-div").empty()
 		if(tabActive != 0)  $("#profile-content-div").empty();
+		if(tabActive != 3) {
+			$("#my-events-author-box-div").empty();
+			$("#my-events-box-div").empty();
+		}
 	}
 
 	function checkTab(){
+		titleTopTable();
 		clearAnotherTabs();
 		switch(tabActive){
 			case 4:  	makeChatObjects(); break;
+			case 3:		makeEventsObjects(1); break;
 			case 2: 	makeEventsObjects(); break;
 			case 1: 	makeUsersNextObjects(); break;
 			case 0: 	getProfile(); break;
@@ -382,9 +428,9 @@
 		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
+		getAllEvents();
 		getQtNoReadMsgs();
 		getAllUsersInfo();
-		getAllEvents();
 		verifyAdminPermission();
 
 		$("#btn-menu-1").click(function () {

@@ -404,9 +404,9 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var myObj = req.query.evento;
-			myObj.participants = [req.query._id];
-			dbo.collection("events").insertOne(myObj, function(err, res) {
+			let event = req.query.evento;
+			event.author = req.query._id;
+			dbo.collection("events").insertOne(event, function(err, res) {
 				if (err) throw err;
 			});
 			res.send({ok: "ok"});
@@ -444,33 +444,31 @@
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
-	app.get('/upd-event', urlencodedParser, function (req, res) {
+	//  [ UPDATE - GET ] ROTA: adiciona usuario na lista de participantes de certo evento
+	app.get('/set-interest-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var objectId = new require('mongodb').ObjectID(req.query._id);
-			var query = {_id: objectId};
-			var newvalues = {$push: 	{ participants: req.query.user }};
-			dbo.collection("events").updateOne(query, newvalues, {upsert: true}, function(err, result) {
+			var eventId = new require('mongodb').ObjectID(req.query._id);
+			var newInsert = {$push: 	{ participants: req.query.user_id }};
+			dbo.collection("events").findOneAndUpdate({_id: eventId}, newInsert, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
+				res.json(result.value); 
 			});
 			db.close();
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
-	app.get('/exit-event', urlencodedParser, function (req, res) {
+	//  [ UPDATE - GET ] ROTA: remove usuario na lista de participantes de certo evento
+	app.get('/set-desistence-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var objectId = new require('mongodb').ObjectID(req.query._id);
-			var query = {_id: objectId};
-			var newvalues = {$pull: 	{ participants: req.query.user }};
-			dbo.collection("events").updateOne(query, newvalues, function(err, result) {
+			var eventId = new require('mongodb').ObjectID(req.query._id);
+			var newRemove = {$pull: 	{ participants: req.query.user_id }};
+			dbo.collection("events").findOneAndUpdate({_id: eventId}, newRemove, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
-				res.json({ ok: 'ok' }); 
+				res.json(result.value); 
 			});
 			db.close();
 		}); 

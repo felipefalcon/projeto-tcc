@@ -13,6 +13,7 @@
 </head>
 <body class="text-center">
 	<div id="logo-div" class="fixed-top">
+		<label class="title-label-top mx-auto" id="title-tab-top" style="opacity: 0;"></label>
 		<button id="btn-menu-1" class="btn-menu">...</button>
 		<div id="menu-1">
 			<a href="#">Configurações</a>
@@ -47,7 +48,7 @@
 			<!-- <div id="search-div" class="search-div col-12">
 				<input class="general-input-white col-11" type="text" placeholder="Procurar por..." />
 			</div> -->
-			<div id="events-tags-div">
+			<div id="events-tags-div" style="display: none;">
 				<label class="label-tag-event"><span>Festa / Show</span></label>
 				<label class="label-tag-event"><span>Festa / Show</span></label>
 				<label class="label-tag-event"><span>Festa / Show</span></label>
@@ -57,10 +58,11 @@
 			<div id="events-box-div" ></div>
 		</div>
 		<div id="my-events-div" class="mx-auto tab-pane fade">
-			<div id="events-box-div" ></div>
+			<div id="my-events-box-div" ></div>
+			<div id="my-events-author-box-div" ></div>
 			<div id="menu-bottom-home" class="col-12">
 			<input type="button" onclick="window.location.replace('create-event.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="NOVO">
-			<input type="button" onclick="window.location.replace('subscribed-events.html');" id="btn-prof-edit" class="general-button col-5 mb-1" style="margin-top: 12px;" value="SUBSCRIÇÕES">
+			<input type="button" id="btn-subscript" class="general-button col-5 mb-1" style="margin-top: 12px;" value="SUBSCRIÇÕES">
 			</div>
 		</div>
 		<div id="chat-div" class="mx-auto tab-pane fade">

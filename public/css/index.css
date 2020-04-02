@@ -315,7 +315,7 @@
 		min-height: 100%;
 	}
 
-	#events-div{
+	#events-div, #my-events-div{
 		width: 100%;
 	}
 
@@ -782,7 +782,7 @@
 		height: 54px;
 	}
 
-	#btn-prof-edit, #btn-prof-save {
+	#btn-prof-edit, #btn-prof-save, #btn-subscript {
 		background-color: white;
 		font-weight: bolder;
 		color: #4c376b;
@@ -981,7 +981,7 @@
 		text-align: center;
 	}
 
-  #events-box-div{
+  #events-box-div, #my-events-box-div, #my-events-author-box-div{
 	  height: 166px;
 	  border: 10px solid rgba(0,0,0,0);
   }
@@ -1505,31 +1505,31 @@
 	}
 
 	#qt-participants{
-		width: 68px;
-		height: 68px;
+		width: 74px;
+		height: 74px;
 		background: #fefeff;
 		border-radius: 160px;
 		position: absolute;
 		right: 0;
-		border: 2px solid white;
-		transform: translate(-10px, -36px);
+		border: 3px solid #d7acfa;
+		transform: translate(-10px, -38px);
 		color: #aa98c5;
 	}
 
 	#qt-participants-icon{
-		font-size: 22px;
-		padding: 8px;
+		font-size: 20px;
+		padding: 4px;
 		padding-bottom: 2px;
 	}
 
 	#qt-participants-text{
 		margin-bottom: 0px;
 		display: block;
-		top: -8px;
+		top: -6px;
 		position: relative;
 		font-size: 18px;
 		font-weight: 600;
-		height: 3px;
+		height: 10px;
 	}
 
 
