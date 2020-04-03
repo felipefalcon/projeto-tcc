@@ -20,7 +20,7 @@
 	let firstTimeProf = true;
 	let titleTab = "";
 	let exitApp = false;
-	let todayDate = new Date();
+	let todayDate = (new Date()).toLocaleDateString();
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
