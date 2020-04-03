@@ -20,6 +20,7 @@
 	let firstTimeProf = true;
 	let titleTab = "";
 	let exitApp = false;
+	let todayDate = new Date();
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
@@ -187,13 +188,12 @@
 		cachedMessagesHere = [...usersDistincs];
 
 		let divsCreated = []; 
-		const dateN = (new Date(getServerDate())).toLocaleDateString();
 		usersDistincs.forEach(function(item){
 
 			let profile = getProfInAllUsersById(item._id);
 			let dateLastMsg = new Date(item.messages[0].date);
 			
-			if(dateLastMsg.toLocaleDateString() == dateN){
+			if(dateLastMsg.toLocaleDateString() == todayDate){
 				dateLastMsg = "Hoje às " + (dateLastMsg.getHours() < 10 ? "0" : "") + dateLastMsg.getHours() + ":" + (dateLastMsg.getMinutes() < 10 ? "0" : "") + dateLastMsg.getMinutes();
 			}else{
 				dateLastMsg = dateLastMsg.toLocaleDateString();
@@ -453,7 +453,7 @@
 	}
 
 	(function(){
-		//getProfile();
+		todayDate = getServerDate();
 		const MenuBottomHome = $("#menu-bottom-home");
 		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
@@ -485,6 +485,10 @@
 			if(flagUserChanged) getAllUsersInfo();
 			getAllEvents();
 		}, 10000);
+
+		setInterval(function(){
+			todayDate = getServerDate();
+		}, 60000);
 
 		let initTabs = setInterval(function(){
 			if(userInfo){

@@ -3,12 +3,10 @@
 
 	// Função para pegar hora do servidor - Dispositivos as vezes tem horário diferente
 	function getServerDate(){
-		let dateNow = "";
-		$.get({url: nodeHost + "get-time-server", async: false})
+		$.get({url: nodeHost + "get-time-server"})
 		.done(function (data) {
-			dateNow = data;
+			return (new Date(data)).toLocaleDateString();
 		});
-		return dateNow;
 	}
 
 	let apiImgur = "";
