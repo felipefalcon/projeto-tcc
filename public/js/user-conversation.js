@@ -11,7 +11,7 @@
 	let cachedMsgsHere = {};
 
 	function setInfoToUser() {
-		$("#send-to-name-label").text(toUser.name);
+		$("#send-to-name-label").text(toUser.name+toUser.lastname.split(" ")[0]);
 		$("#profile-img-div-chat").css("background-image", "url(" + toUser.pics_url.main_pic + "");
 	}
 

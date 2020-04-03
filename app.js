@@ -406,6 +406,7 @@
 			var dbo = db.db(dbName);
 			let event = req.query.evento;
 			event.author = req.query._id;
+			event.participants = [];
 			dbo.collection("events").insertOne(event, function(err, res) {
 				if (err) throw err;
 			});

@@ -16,7 +16,7 @@
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
-	let showBoxSubscriptions = false;
+	let showBoxSubscriptions = true;
 	let firstTimeProf = true;
 	let titleTab = "";
 	let exitApp = false;
@@ -55,7 +55,7 @@
 		});
 	}
 
-	function makeEventsObjects(type = "events-without-you") {
+	function makeEventsObjects(type = 0) {
 		// console.log(allEvents);
 		if(allEvents.length == 0 || !allEvents) return;
 		let allEventsOftUser = [];
@@ -76,9 +76,11 @@
 			eventsToDraw = allEventsOftUser;
 		}else if(type == 2){
 			allEvents.forEach(function(data){
-				let userFound = data.participants.find(function(item){return item == userInfo._id});
-				if(userFound){
-					allEventsWithtUser.push(data);
+				if(data.author != userInfo._id){
+					let userFound = data.participants.find(function(item){return item == userInfo._id});
+					if(userFound){
+						allEventsWithtUser.push(data);
+					}
 				}
 			});
 			if(allEventsWithtUser.length == 0){
@@ -96,9 +98,11 @@
 				}
 			});
 			if(allEventsWithoutUser.length == 0){
-				$("#events-tags-div").css("display", "block");
+				$("#events-tags-div").css("display", "none");
 				$("#events-box-div").empty();
 				return;
+			}else{
+				$("#events-tags-div").css("display", "block");
 			}
 			eventsToDraw = allEventsWithoutUser;
 		}
@@ -135,6 +139,10 @@
 		$(".events-t").click(function () {
 			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
 			return window.location.href = "./view-event.html";
+		});
+
+		$(".events-t").each(function(){
+			$(this).animate({opacity: 1}, 300);
 		});
 	}
 
@@ -173,7 +181,7 @@
 
 	function makeChatObjects() {
 		let usersDistincs = userInfo.conversations;
-		if(userInfo.conversations.length == 0) return;
+		if(usersDistincs.length == 0) return;
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
 		if(JSON.stringify(cachedMessagesHere) == JSON.stringify(usersDistincs)) return;
 		cachedMessagesHere = [...usersDistincs];
@@ -215,6 +223,7 @@
 				window.location.href = "./user-conversation.html";
 			}, 60);
 		});
+
 	}
 
 
@@ -358,25 +367,42 @@
 	}
 
 	$("#btn-subscript").click(function(){
+		$("#btn-subscript").animate({opacity: 0.4}, 200, function(){
+			$("#btn-subscript").animate({opacity: 1});
+		});
 		showBoxSubscriptions = !showBoxSubscriptions;
+		$("#my-events-box-div").empty();
+		$("#my-events-author-box-div").empty();
+		let titleTabHere = "MEUS EVENTOS";
+		let option = 1;
 		if(showBoxSubscriptions){
-			$("#my-events-box-div").empty();
-			$("#my-events-author-box-div").empty();
-			makeEventsObjects(1);
+			$("#my-events-box-div").css("display", "none");
+			$("#my-events-author-box-div").css("display", "block");
+			$("#btn-subscript").val("SUBSCRIÇÕES");
 		}else{
-			$("#my-events-box-div").empty();
-			$("#my-events-author-box-div").empty();
-			makeEventsObjects(2);
+			$("#my-events-author-box-div").css("display", "none");
+			$("#my-events-box-div").css("display", "block");
+			$("#btn-subscript").val("CRIAÇÕES");
+			titleTabHere = "EVENTOS SUBSCRITOS"
+			option = 2;
 		}
+		$("#title-tab-top").animate(
+			{opacity: 0}, 100,
+			function(){
+				$("#title-tab-top").text(titleTabHere);
+				$("#title-tab-top").animate(
+					{opacity: 1}, 100);
+			}
+		);
+		makeEventsObjects(option);
 	});
 
 	function titleTopTable(){
 		let titleTabHere = "";
 		if(tabActive == 4) titleTabHere = "CONVERSAS";
-		if(tabActive == 3) titleTabHere = "SEUS EVENTOS";
+		if(tabActive == 3) titleTabHere = "MEUS EVENTOS";
 		if(tabActive == 2) titleTabHere = "EVENTOS";
-		if(tabActive == 1) titleTabHere = "PESSOAS";
-		if(tabActive == 0) titleTabHere = "";
+		if(tabActive == 1) titleTabHere = "PESSOAS PRÓXIMAS";
 		if(titleTab == titleTabHere) return;
 		titleTab = titleTabHere;
 		if(tabActive == 0) {
@@ -406,6 +432,10 @@
 		if(tabActive != 3) {
 			$("#my-events-author-box-div").empty();
 			$("#my-events-box-div").empty();
+			$("#btn-subscript").val("SUBSCRIÇÕES");
+			$("#my-events-author-box-div").css("display", "block");
+			$("#my-events-box-div").css("display", "none");
+			showBoxSubscriptions = true;
 		}
 	}
 
@@ -453,6 +483,7 @@
 
 		setInterval(function(){
 			if(flagUserChanged) getAllUsersInfo();
+			getAllEvents();
 		}, 10000);
 
 		let initTabs = setInterval(function(){
@@ -475,6 +506,9 @@
 				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
 					$("#btn-menu-6").click();
 					clearInterval(initTabs);
+				}else if(configParams.tab == "your-events-tab"){
+					$("#btn-menu-7").click();
+					clearInterval(initTabs);
 				}
 			}
 		}, 50);
@@ -482,6 +516,8 @@
 		$("#btn-menu-7").click(function(){
 			if(tabActive == 3) return;
 			tabActive = 3;
+			configParams.tab = "your-events-tab";
+			setConfigParams(configParams);
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
 			checkTab();

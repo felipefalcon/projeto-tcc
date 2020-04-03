@@ -694,7 +694,8 @@
 		height: 134px;
 		background-blend-mode: color-burn;
 		border: 3px solid white;
-    	border-radius: 10px;
+		border-radius: 10px;
+		opacity: 0;
 	}
 
 	.chat-date-label{
@@ -983,7 +984,9 @@
 
   #events-box-div, #my-events-box-div, #my-events-author-box-div{
 	  height: 166px;
-	  border: 10px solid rgba(0,0,0,0);
+	  padding: 9px;
+      padding-top: 5px;
+	  /* border: 10px solid rgba(0,0,0,0); */
   }
 
   .event-msg-label{
