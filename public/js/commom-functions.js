@@ -272,21 +272,8 @@
 		window.location.replace("main-view.html");
 		$.get(nodeHost + "get-user", { email: userInfo.email })
 		.done(function (data) {
-			if (isNullOrUndefined(data)) window.location.replace("main-view.html");
+			if (isNullOrUndefined(data)) window.location.replace("index.html");
 		});
 	}
 
-	// Ajuste do tamanho da Tela
-	// var confSize = {
-	// 	windowH: function(){
-	// 		return window.innerHeight/10;
-	// 	},
-	// 	confViewHeight: function (){
-	// 		document.body.style.height = window.innerHeight+"px";
-	// 	}
-	// }
-
-	// window.onload = function() {
-	// 	confSize.confViewHeight();
-	// };
 	
