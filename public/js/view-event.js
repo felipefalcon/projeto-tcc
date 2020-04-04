@@ -1,5 +1,6 @@
 
 	let userParticipant = false;
+	let userAuthor = false;
 
 	$("#btn-menu-back").click(function () {
 		window.location.replace("./main-view.html");
@@ -13,20 +14,28 @@
 
 	$("#set-interest").click(function(){
 		let serviceName = "set-interest-event";
-		if(!userParticipant){
-			$("#set-interest").css("opacity", 1);
-			$("#set-interest").animate({zoom: 1.1}, 300, function(){
-				$("#set-interest").animate({zoom: 1}, 300);
-				$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
-			});
+		if(!userAuthor){
+			if(!userParticipant){
+				$("#set-interest").css("opacity", 1);
+				$("#set-interest").animate({zoom: 1.1}, 300, function(){
+					$("#set-interest").animate({zoom: 1}, 300);
+					$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
+				});
+			}else{
+				$("#set-interest").css("opacity", 1);
+				$("#set-interest").animate({zoom: 1.1}, 300, function(){
+					$("#set-interest").animate({zoom: 1}, 300);
+					$("#set-interest").animate({opacity: 0.7});
+					$("#set-interest").empty().append("<i class='fas fa-hand-peace' style='font-size:32px;color:white'></i> <p id='text-set-interest'>BORA !</p>");
+				});
+				serviceName = "set-desistence-event";
+			}
 		}else{
 			$("#set-interest").css("opacity", 1);
-			$("#set-interest").animate({zoom: 1.1}, 300, function(){
-				$("#set-interest").animate({zoom: 1}, 300);
-				$("#set-interest").animate({opacity: 0.7});
-				$("#set-interest").empty().append("<i class='fas fa-hand-peace' style='font-size:32px;color:white'></i> <p id='text-set-interest'>BORA !</p>");
-			});
-			serviceName = "set-desistence-event";
+				$("#set-interest").animate({zoom: 1.1}, 300, function(){
+					$("#set-interest").animate({zoom: 1}, 300);
+				});
+				serviceName = "set-cancel-event";
 		}
 		$.get(nodeHost+serviceName, {
 			_id: 	cachedEvent._id,
@@ -43,6 +52,26 @@
 	});
 	
 	function verifyUserAlreadyInterested(event, user_id){
+		if(event.status == 1){
+			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-lock' style='font-size:32px;color:white'></i><p id='text-see-cancel'>CANCELADO !</p>");
+			return;
+		}
+
+		let dateEvent = new Date(event.data);
+		dateEvent.setDate(dateEvent.getDate()+1);
+		dateEvent.setHours(event.horario.split(":")[0]);
+		dateEvent.setMinutes(event.horario.split(":")[1]);
+		if(dateEvent.getTime() < todayDate.getTime()){
+			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-calendar-check' style='font-size:32px;color:white'></i><p id='text-see-cancel'>FINALIZADO !</p>");
+			return;
+		}
+
+		if(event.author == userInfo._id){
+			$("#set-interest").css("opacity", 1);
+			$("#set-interest").empty().append("<i class='fas fa-ban' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>CANCELA !</p>");
+			userAuthor = true;
+			return;
+		}
 		let userFound = event.participants.find(function(item){return item == user_id});
 		if(userFound){
 			$("#set-interest").css("opacity", 1);
@@ -52,6 +81,7 @@
 	}
 
 	function loadCachedEvent(){
+		getServerDate();
 		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return;
 		verifyUserAlreadyInterested(cachedEvent, userInfo._id); 
 		$("#qt-participants-text").text(cachedEvent.participants.length);
@@ -73,6 +103,8 @@
 		if(cachedEvent.img) {
 			$("#img-event").css("background-image", "url("+cachedEvent.img+")");
 		}
+		$("#get-map").css("display", "inline-block");
+		$("#set-interest").css("display", "inline-block");
 	}
 
 	loadCachedEvent();

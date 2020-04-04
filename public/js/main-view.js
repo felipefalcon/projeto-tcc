@@ -20,12 +20,15 @@
 	let firstTimeProf = true;
 	let titleTab = "";
 	let exitApp = false;
-	let todayDate = (new Date()).toLocaleDateString();
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
 	let inCallGetAllUsers = false;
 	let inCallGetAllEvents = false;
+
+	// Estilos de labels Finalizado e Cancelado
+	let labelFinalizado = "<div class='label-warning-events label-finalizado'><i class='fas fa-calendar-check' style='margin-right: 8px'></i>FINALIZADO</div>";
+	let labelCancelado = "<div class='label-warning-events label-cancelado'><i class='fas fa-ban' style='margin-right: 8px'></i>CANCELADO</div>";
 
 	function getAllUsersInfo() {
 		if(inCallGetAllUsers) return;
@@ -93,7 +96,7 @@
 			eventsToDraw = allEventsWithtUser;
 		}else{
 			allEvents.forEach(function(data){
-				if(data.author != userInfo._id){
+				if(data.author != userInfo._id && data.status == 1){
 					let userFound = data.participants.find(function(item){return item == userInfo._id});
 					if((typeof userFound === "undefined")){
 						allEventsWithoutUser.push(data);
@@ -114,10 +117,19 @@
 		let divsCreated = []; 
 		eventsToDraw.forEach( function (data) {
 			let imgData = "";
-			if("img" in data) imgData = "background: url("+data.img+") center; background-size: cover; background-color: rgba(250, 237, 255, 0.3);"
-			divsCreated.push("<div class='events-t' style='background-color: rgba(250, 237, 255, 0.3);"+imgData+"' name='" + data._id + "'>");
-			
 			let dateEvent = new Date(data.data);
+			dateEvent.setHours(data.horario.split(":")[0]);
+			dateEvent.setMinutes(data.horario.split(":")[1]);
+			
+			if(dateEvent.getTime() <= todayDate.getTime() || data.status == 1){
+				imgData += "<div class='events-t events-t-faded' style='";
+			}else{
+				imgData += "<div class='events-t' style='";
+			}
+
+			if("img" in data) imgData += "background-image: url("+data.img+");";
+			divsCreated.push(imgData+"' name='" + data._id + "'>");
+			
 			let dayEvent = new Number(dateEvent.getDate())+1;
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
@@ -128,6 +140,14 @@
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label></div>");
+
+			if(data.status == 1){
+				divsCreated.push(labelCancelado);
+			}else{
+				if(dateEvent.getTime() <= todayDate.getTime()){
+					divsCreated.push(labelFinalizado);
+				}
+			}
 
 		});
 		divsCreated.push("<div style=' height: 48px'></div>");
@@ -148,6 +168,11 @@
 		$(".events-t").each(function(){
 			$(this).animate({opacity: 1}, 300);
 		});
+
+		$(".label-warning-events").each(function(){
+			$(this).animate({opacity: 1}, 300);
+		});
+
 	}
 
 	function makeUsersNextObjects() {
@@ -200,8 +225,7 @@
 
 			let profile = getProfInAllUsersById(item._id);
 			let dateLastMsg = new Date(item.messages[0].date);
-			
-			if(dateLastMsg.toLocaleDateString() == todayDate){
+			if(dateLastMsg.toLocaleDateString() == todayDate.toLocaleDateString()){
 				dateLastMsg = "Hoje às " + (dateLastMsg.getHours() < 10 ? "0" : "") + dateLastMsg.getHours() + ":" + (dateLastMsg.getMinutes() < 10 ? "0" : "") + dateLastMsg.getMinutes();
 			}else{
 				dateLastMsg = dateLastMsg.toLocaleDateString();
@@ -455,7 +479,7 @@
 	}
 
 	(function(){
-		todayDate = getServerDate();
+		getServerDate();
 		const MenuBottomHome = $("#menu-bottom-home");
 		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
@@ -489,7 +513,7 @@
 		}, 10000);
 
 		setInterval(function(){
-			todayDate = getServerDate();
+			getServerDate();
 		}, 60000);
 
 		let initTabs = setInterval(function(){

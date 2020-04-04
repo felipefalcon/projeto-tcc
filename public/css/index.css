@@ -688,14 +688,31 @@
 		overflow: hidden;
 		text-align: left;
 		margin-bottom: 8px;
-		background-color: rgba(63, 51, 74, 0.29);
-		background: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg') center;
+		background-color: rgba(250, 237, 255, 0.3);
+		background-position: center;
+		background-image: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg');
 		background-size: cover;
 		height: 134px;
 		background-blend-mode: color-burn;
 		border: 3px solid white;
 		border-radius: 10px;
 		opacity: 0;
+	}
+
+	.events-t-faded{
+		overflow: hidden;
+		text-align: left;
+		margin-bottom: 8px;
+		background-color: rgba(250, 237, 255, 0.3);
+		background-position: center;
+		background-image: url('https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg');
+		background-size: cover;
+		height: 134px;
+		background-blend-mode: color-burn;
+		border: 3px solid white;
+		border-radius: 10px;
+		opacity: 0;
+		filter: opacity(0.5);
 	}
 
 	.chat-date-label{
@@ -1477,6 +1494,7 @@
 
 	#set-interest{
 		text-shadow: 2px 3px 0px #c84d4d;
+		display: none;
 	}
 
 	#text-set-interest{
@@ -1490,8 +1508,24 @@
 		text-shadow: 1px 1px 0px #c84d4d;
 	}
 
+	#text-see-cancel{
+		position: absolute;
+		font-size: 12px;
+		height: 20px;
+		margin-bottom: 0px;
+		margin-left: 7px;
+		margin-top: 4px;
+		letter-spacing: 1px;
+		text-shadow: 1px 1px 0px #c84d4d;
+		color: white;
+		width: 100%;
+		margin-left: -2px;
+		font-weight: bolder;
+	}
+
 	#get-map{
 		text-shadow: 2px 3px 0px #4dc8bd;
+		display: none;
 	}
 
 	#text-get-map{
@@ -1549,6 +1583,37 @@
 		text-transform: uppercase;
 		text-shadow: 1px 1px 0px #8441b7;
 	}
+
+	.label-finalizado{
+		position: absolute;
+		color: white;
+		background: #cb4444;
+		padding: 12px;
+		padding-bottom: 3px;
+		padding-top: 4px;
+		border-radius: 60px;
+		right: 0;
+		font-weight: bold;
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
+		transform: translate(-16px, -48px);
+		opacity: 0;
+	}
+
+	.label-cancelado{
+		position: absolute;
+		color: white;
+		background: #7b7a9a;
+		padding: 12px;
+		padding-bottom: 3px;
+		padding-top: 4px;
+		border-radius: 60px;
+		right: 0;
+		font-weight: bold;
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
+		transform: translate(-16px, -48px);
+		opacity: 0;
+	}
+
 
 
 

@@ -2,10 +2,11 @@
 	const nodeHost = "./";
 
 	// Função para pegar hora do servidor - Dispositivos as vezes tem horário diferente
+	let todayDate = new Date();
 	function getServerDate(){
 		$.get({url: nodeHost + "get-time-server"})
 		.done(function (data) {
-			return (new Date(data)).toLocaleDateString();
+			todayDate = new Date(data);
 		});
 	}
 

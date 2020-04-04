@@ -420,7 +420,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("events").find({}).toArray(function(err, result) {
+			dbo.collection("events").find({}).sort({data: -1, horario: 1}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result) res.json(result);
 			});
@@ -470,6 +470,34 @@
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, newRemove, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
+			});
+			db.close();
+		}); 
+	});
+
+	//  [ UPDATE - GET ] ROTA: seta um evento como cancelado
+	app.get('/set-cancel-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var eventId = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {status: 1}}, {upsert: true, returnOriginal: false}, function(err, result) {
+				if (err) throw err;
+				res.json(result.value); 
+			});
+			db.close();
+		}); 
+	});
+
+	//  [ UPDATE - GET ] ROTA: exclui um evento
+	app.get('/upd-del-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var eventId = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("events").deleteOne({_id: eventId}, function(err, result) {
+				if (err) throw err;
+				res.json({ok: "ok"}); 
 			});
 			db.close();
 		}); 
