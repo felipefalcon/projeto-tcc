@@ -404,9 +404,11 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
+			let dtNow = new Date();
 			let event = req.query.evento;
 			event.author = req.query._id;
 			event.participants = [];
+			event.dt_creation = dtNow;
 			dbo.collection("events").insertOne(event, function(err, res) {
 				if (err) throw err;
 			});
@@ -420,7 +422,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("events").find({}).sort({data: -1, horario: 1}).toArray(function(err, result) {
+			dbo.collection("events").find({}, {projection: {dt_creation: 0}}).sort({data: -1, horario: 1}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result) res.json(result);
 			});
@@ -490,7 +492,7 @@
 	});
 
 	//  [ UPDATE - GET ] ROTA: exclui um evento
-	app.get('/upd-del-event', urlencodedParser, function (req, res) {
+	app.get('/set-del-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);

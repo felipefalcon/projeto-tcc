@@ -35,8 +35,44 @@
 				$("#set-interest").animate({zoom: 1.1}, 300, function(){
 					$("#set-interest").animate({zoom: 1}, 300);
 				});
-				serviceName = "set-cancel-event";
+				serviceName = "";
+				if(cachedEvent.participants.length == 0){
+					setTimeout(function(){
+						Swal.fire({
+							title: 'EXCLUIR',
+							html: "Não há nenhum usuário interessado ainda neste evento. Se você cancela-lo, você irá exclui-lo.<br> Você tem certeza que deseja excluir este evento?",
+							padding: "8px",
+							confirmButtonText: 'SIM',
+							cancelButtonText: 'NÃO',
+							allowOutsideClick: false,
+							width: "80%",
+							showCancelButton: true,
+						}).then((data) => {
+							if(data.value){
+								serviceName = "set-del-event";
+							}
+						});
+					}, 100);
+				}else{
+					setTimeout(function(){
+						Swal.fire({
+							title: 'CANCELAR',
+							html: "Você tem certeza que deseja cancelar este evento?<br>Os usuários interessados receberão uma notificação com essa alteração.",
+							padding: "8px",
+							confirmButtonText: 'SIM',
+							cancelButtonText: 'NÃO',
+							allowOutsideClick: false,
+							width: "80%",
+							showCancelButton: true,
+						}).then((data) => {
+							if(data.value){
+								serviceName = "set-cancel-event";
+							}
+						});
+					}, 100);
+				}
 		}
+		if(serviceName == "") return;
 		$.get(nodeHost+serviceName, {
 			_id: 	cachedEvent._id,
 			user_id: userInfo._id
