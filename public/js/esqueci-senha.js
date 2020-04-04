@@ -18,6 +18,9 @@
             if(isNullOrUndefined(data)){
                 loading('hide');
                 alerts.errorServer();
+            }else if(data.oh_no){
+                loading('hide');
+                alerts.emailNotFound();
             }else{
                 loading('hide');
                 alerts.emailSent();

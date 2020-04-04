@@ -148,6 +148,19 @@
 				});
 			}, 600);
 		},
+		emailNotFound: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'E-mail não encontrado!',
+					text: 'O e-mail informado não coincide com nenhum cadastrado. Tente novamente.',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
 		emptyInputs: function alertError(){
 			setTimeout(function(){
 				Swal.fire({

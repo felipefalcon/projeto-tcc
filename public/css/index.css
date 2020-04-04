@@ -983,10 +983,8 @@
 	}
 
   #events-box-div, #my-events-box-div, #my-events-author-box-div{
-	  height: 166px;
 	  padding: 9px;
       padding-top: 5px;
-	  /* border: 10px solid rgba(0,0,0,0); */
   }
 
   .event-msg-label{
@@ -1489,7 +1487,7 @@
 		margin-left: 7px;
 		margin-top: 4px;
 		letter-spacing: 1px;
-		text-shadow: 2px 1px 0px #c84d4d;
+		text-shadow: 1px 1px 0px #c84d4d;
 	}
 
 	#get-map{
@@ -1504,7 +1502,7 @@
 		margin-left: 7px;
 		margin-top: 4px;
 		letter-spacing: 1px;
-		text-shadow: 2px 1px 0px #4dc8bd;
+		text-shadow: 1px 1px 0px #4dc8bd;
 	}
 
 	#qt-participants{
@@ -1533,6 +1531,23 @@
 		font-size: 18px;
 		font-weight: 600;
 		height: 10px;
+	}
+
+	#empty-events, #empty-conversations{
+		opacity: 0;
+		color: white;
+		font-size: 62px;
+		margin-top: 50%;
+		text-shadow: 2px 3px 1px #8441b7;
+	}
+
+	#empty-events p, #empty-conversations p{
+		font-size: 9px;
+		letter-spacing: 1px;
+		line-height: 2px;
+		font-weight: bolder;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 0px #8441b7;
 	}
 
 

@@ -72,6 +72,7 @@
 			});
 			if(allEventsOftUser.length == 0){
 				$("#my-events-author-box-div").empty();
+				emptyTab("#my-events-author-box-div");
 				return;
 			}
 			eventsToDraw = allEventsOftUser;
@@ -86,6 +87,7 @@
 			});
 			if(allEventsWithtUser.length == 0){
 				$("#my-events-box-div").empty();
+				emptyTab("#my-events-box-div");
 				return;
 			}
 			eventsToDraw = allEventsWithtUser;
@@ -101,6 +103,7 @@
 			if(allEventsWithoutUser.length == 0){
 				$("#events-tags-div").css("display", "none");
 				$("#events-box-div").empty();
+				emptyTab("#events-box-div");
 				return;
 			}else{
 				$("#events-tags-div").css("display", "block");
@@ -182,7 +185,12 @@
 
 	function makeChatObjects() {
 		let usersDistincs = userInfo.conversations;
-		if(usersDistincs.length == 0) return;
+		if(usersDistincs.length == 0) {
+			 if($("#empty-conversations").length == 0){
+				emptyTab("#chat-users-div", false);
+			 }
+			return;
+		}
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
 		if(JSON.stringify(cachedMessagesHere) == JSON.stringify(usersDistincs)) return;
 		cachedMessagesHere = [...usersDistincs];
@@ -351,6 +359,18 @@
 		});
 	});
 
+	function emptyTab(tabSelector, tabEvents = true){
+		if(tabEvents){
+			$(tabSelector).load("empty-events.html", function(){
+				$("#empty-events").animate({opacity: 1}, 200);
+			});
+			return;
+		}
+		$(tabSelector).load("empty-conversations.html", function(){
+			$("#empty-conversations").animate({opacity: 1}, 200);
+		});
+	}
+
 	function getQtNoReadMsgs(){
 		let qtNoReadMsgs = 0;
 		userInfo.conversations.forEach(function(item){
@@ -386,14 +406,7 @@
 			titleTabHere = "EVENTOS SUBSCRITOS"
 			option = 2;
 		}
-		$("#title-tab-top").animate(
-			{opacity: 0}, 100,
-			function(){
-				$("#title-tab-top").text(titleTabHere);
-				$("#title-tab-top").animate(
-					{opacity: 1}, 100);
-			}
-		);
+		$("#title-tab-top").text(titleTabHere);
 		makeEventsObjects(option);
 	});
 
@@ -405,18 +418,7 @@
 		if(tabActive == 1) titleTabHere = "PESSOAS PRÓXIMAS";
 		if(titleTab == titleTabHere) return;
 		titleTab = titleTabHere;
-		if(tabActive == 0) {
-			$("#title-tab-top").css("opacity", 0);
-			return;
-		}
-		$("#title-tab-top").animate(
-			{opacity: 0}, 100,
-			function(){
-				$("#title-tab-top").text(titleTab);
-				$("#title-tab-top").animate(
-					{opacity: 1}, 100);
-			}
-		);
+		$("#title-tab-top").text(titleTab);
 	}
 
 	function clearAnotherTabs(){
@@ -478,7 +480,7 @@
 
 		setInterval(function(){
 			getUser();
-			if(tabActive == 4) checkTab();
+			if(tabActive == 4 && flagUserChanged) checkTab();
 		}, 1000);
 
 		setInterval(function(){
