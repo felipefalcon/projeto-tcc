@@ -467,7 +467,7 @@
 	}
 
 	.user-n-u-div{
-		height: 142px;
+		height: 132px;
 		/* background: rgba(255,255,255,0.15); */
 		overflow: hidden;
 		width: 100%;
@@ -486,8 +486,8 @@
 	}
 
 	#user-n-u-div-content{
-		width: 88px;
-		height: 88px;
+		width: 84px;
+		height: 84px;
 		border: 2px solid white;
 		background-color: white;
 		border-radius: 320px;

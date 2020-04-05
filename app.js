@@ -155,11 +155,20 @@
 			let perPage = 12;
 			let page = req.query.page * perPage;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			var latUser = req.query.lat || "???";
+			var lngUser = req.query.lng || "???";
 			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){
 						item.age = calcAgeOfUser(item.dt_nasc);
+						if(!("location" in item)){
+							item.location = {};
+							item.location.lat = item.location.lat || "???";
+							item.location.lng = item.location.lng || "???";
+						}
+						item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
+						if(item.location.distance != "???") item.location.distance += " km";
 					});
 					return res.json(result);
 				}
@@ -168,6 +177,29 @@
 			db.close();
 		}); 
 	});
+
+	function distanceBetweenTwoPoints(lat1 = "???", lon1 = "???", lat2, lon2, unit) {
+		if(lat2 == "???" && lon2 == "???") return "???";
+		if ((lat1 == lat2) && (lon1 == lon2)) {
+			return 0;
+		}
+		else {
+			var radlat1 = Math.PI * lat1/180;
+			var radlat2 = Math.PI * lat2/180;
+			var theta = lon1-lon2;
+			var radtheta = Math.PI * theta/180;
+			var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+			if (dist > 1) {
+				dist = 1;
+			}
+			dist = Math.acos(dist);
+			dist = dist * 180/Math.PI;
+			dist = dist * 60 * 1.1515;
+			if (unit=="K") { dist = dist * 1.609344 }
+			if (unit=="N") { dist = dist * 0.8684 }
+			return dist;
+		}
+	}
 
 //  [ READ - GET ] ROTA: retorna as conversas de uma conta com base no email
 	app.get('/get-user-msgs', urlencodedParser, function (req, res) {
