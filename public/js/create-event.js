@@ -172,6 +172,7 @@
 	});
 
 	function loadCachedEvent(){
+		getServerDate();
 		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return;
 		if(cachedEvent.title) $("#title-input").val(cachedEvent.title);
 		if(cachedEvent.data) $("#data-input").val(cachedEvent.data);
@@ -192,6 +193,8 @@
 			$("#general-input-pic-reset-icon").css("display", "block");
 			$("#img-event").css("background-image", "url("+cachedEvent.img+")");
 		}
+		let dateString = todayDate.getFullYear()+"-"+((todayDate.getMonth()+1) < 10 ? "0"+(todayDate.getMonth()+1) : (todayDate.getMonth()+1))+"-"+((todayDate.getDate()) < 10 ? "0"+(todayDate.getDate()) : (todayDate.getDate()));
+		$("#data-input").attr("min", dateString);
 	}
 
 	loadCachedEvent();

@@ -118,10 +118,16 @@
 		eventsToDraw.forEach( function (data) {
 			let imgData = "";
 			let dateEvent = new Date(data.data);
-			dateEvent.setHours(data.horario.split(":")[0]);
-			dateEvent.setMinutes(data.horario.split(":")[1]);
+			let todayDatehere = todayDate;
+			dateEvent.setDate(dateEvent.getDate());
+			dateEvent.setHours(0);
+			dateEvent.setMinutes(0);
+			dateEvent.setSeconds(0);
+			todayDatehere.setHours(0);
+			todayDatehere.setMinutes(0);
+			todayDatehere.setSeconds(0)
 			
-			if(dateEvent.getTime() <= todayDate.getTime() || data.status == 1){
+			if(dateEvent.getTime() < todayDatehere.getTime() || data.status == 1){
 				imgData += "<div class='events-t events-t-faded' style='";
 			}else{
 				imgData += "<div class='events-t' style='";
@@ -144,7 +150,7 @@
 			if(data.status == 1){
 				divsCreated.push(labelCancelado);
 			}else{
-				if(dateEvent.getTime() <= todayDate.getTime()){
+				if(dateEvent.getTime() < todayDate.getTime()){
 					divsCreated.push(labelFinalizado);
 				}
 			}
