@@ -168,7 +168,11 @@
 							item.location.lng = item.location.lng || "???";
 						}
 						item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
-						if(item.location.distance != "???") item.location.distance += " km";
+						if(!isNaN(item.location.distance)) {
+							item.location.distance = item.location.distance.toFixed(2) + " km";
+						}else{
+							item.location.distance = "???";
+						}
 					});
 					return res.json(result);
 				}
@@ -178,8 +182,7 @@
 		}); 
 	});
 
-	function distanceBetweenTwoPoints(lat1 = "???", lon1 = "???", lat2, lon2, unit) {
-		if(lat2 == "???" && lon2 == "???") return "???";
+	function distanceBetweenTwoPoints(lat1, lon1, lat2, lon2, unit) {
 		if ((lat1 == lat2) && (lon1 == lon2)) {
 			return 0;
 		}

@@ -10,6 +10,7 @@
 			location.region = data.display_name.split(",")[8];
 			location.lat = posicao.coords.latitude;
 			location.lng = posicao.coords.longitude;
+			console.log(location.lat);
 			$.get("./upd-user-location", {
 				email: userInfo.email,
 				location: location

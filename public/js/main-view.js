@@ -40,7 +40,7 @@
 			requesParams.lat = userInfo.location.lat;
 			requesParams.lng = userInfo.location.lng;
 		}
-		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
+		$.get("./get-users", requesParams).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
 			}
