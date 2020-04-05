@@ -561,9 +561,11 @@
 			tabActive = 3;
 			configParams.tab = "your-events-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideDown(300);
-			MenuBottomProf.slideUp(300);
-			setTimeout(function(){checkTab();}, 300);
+			checkTab();
+			setTimeout(function(){
+				MenuBottomHome.slideDown(300);
+				MenuBottomProf.slideUp(0);
+			}, 200);
 		});
 	
 		$("#btn-menu-8").click(function(){
@@ -571,8 +573,8 @@
 			tabActive = 4;
 			configParams.tab = "chat-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideUp(300);
-			MenuBottomProf.slideUp(300);
+			MenuBottomHome.slideUp(0);
+			MenuBottomProf.slideUp(0);
 			cachedMessagesHere = [];
 			checkTab();
 		});
@@ -582,9 +584,11 @@
 			tabActive = 0;
 			configParams.tab = "profile-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideUp(300);
-			MenuBottomProf.slideDown(300);
-			setTimeout(function(){checkTab();}, 300);
+			checkTab();
+			setTimeout(function(){
+				MenuBottomProf.slideDown(300);
+				MenuBottomHome.slideUp(0);
+			}, 200);
 		});
 	
 		$("#btn-menu-5").click(function(){
@@ -592,8 +596,8 @@
 			tabActive = 1;
 			configParams.tab = "next-u-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideUp(300);
-			MenuBottomProf.slideUp(300);
+			MenuBottomHome.slideUp(0);
+			MenuBottomProf.slideUp(0);
 			checkTab();
 		});
 	
@@ -602,8 +606,8 @@
 			tabActive = 2;
 			configParams.tab = "main-tab";
 			setConfigParams(configParams);
-			MenuBottomHome.slideUp(300);
-			MenuBottomProf.slideUp(300);
+			MenuBottomHome.slideUp(0);
+			MenuBottomProf.slideUp(0);
 			checkTab();
 		});
 
