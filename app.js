@@ -422,9 +422,23 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("events").find({}, {projection: {dt_creation: 0}}).sort({data: -1, horario: 1}).toArray(function(err, result) {
+			dbo.collection("events").find({}, {projection: {dt_creation: 0}}).sort({status: 1, data: 1, horario: 1}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result) res.json(result);
+			});
+			db.close();
+		}); 
+	});
+
+//  [ READ - GET ] ROTA: retorna um evento do banco
+	app.get('/get-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var eventId = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("events").findOne({_id: eventId}, {projection: {dt_creation: 0}}, function(err, result) {
+				if (err) throw err;
+				res.json(result); 
 			});
 			db.close();
 		}); 
@@ -447,7 +461,7 @@
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: adiciona usuario na lista de participantes de certo evento
+//  [ UPDATE - GET ] ROTA: adiciona usuario na lista de participantes de certo evento
 	app.get('/set-interest-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
@@ -462,7 +476,7 @@
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: remove usuario na lista de participantes de certo evento
+//  [ UPDATE - GET ] ROTA: remove usuario na lista de participantes de certo evento
 	app.get('/set-desistence-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
@@ -477,7 +491,7 @@
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: seta um evento como cancelado
+//  [ UPDATE - GET ] ROTA: seta um evento como cancelado
 	app.get('/set-cancel-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
@@ -491,8 +505,8 @@
 		}); 
 	});
 
-	//  [ UPDATE - GET ] ROTA: exclui um evento
-	app.get('/set-del-event', urlencodedParser, function (req, res) {
+//  [ UPDATE - GET ] ROTA: exclui um evento
+	app.get('/del-event', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
@@ -500,6 +514,21 @@
 			dbo.collection("events").deleteOne({_id: eventId}, function(err, result) {
 				if (err) throw err;
 				res.json({ok: "ok"}); 
+			});
+			db.close();
+		}); 
+	});
+
+//  [ UPDATE - GET ] ROTA: atualiza um evento
+	app.get('/upd-event', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			let event = req.query.evento;
+			var eventId = new require('mongodb').ObjectID(event._id);
+			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {title: event.title, data: event.data, horario: event.horario, address: event.address, descricao: event.descricao, tags: event.tags, img: event.img}}, {upsert: true, returnOriginal: false}, function(err, result) {
+				if (err) throw err;
+				res.json(result.value); 
 			});
 			db.close();
 		}); 

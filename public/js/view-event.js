@@ -3,6 +3,7 @@
 	let userAuthor = false;
 
 	$("#btn-menu-back").click(function () {
+		window.sessionStorage.removeItem('cachedEvent');
 		window.location.replace("./main-view.html");
 	});
 
@@ -13,7 +14,6 @@
 	});
 
 	$("#set-interest").click(function(){
-		let serviceName = "set-interest-event";
 		if(!userAuthor){
 			if(!userParticipant){
 				$("#set-interest").css("opacity", 1);
@@ -21,6 +21,7 @@
 					$("#set-interest").animate({zoom: 1}, 300);
 					$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
 				});
+				callService("set-interest-event");
 			}else{
 				$("#set-interest").css("opacity", 1);
 				$("#set-interest").animate({zoom: 1.1}, 300, function(){
@@ -28,51 +29,51 @@
 					$("#set-interest").animate({opacity: 0.7});
 					$("#set-interest").empty().append("<i class='fas fa-hand-peace' style='font-size:32px;color:white'></i> <p id='text-set-interest'>BORA !</p>");
 				});
-				serviceName = "set-desistence-event";
+				callService("set-desistence-event");
 			}
 		}else{
 			$("#set-interest").css("opacity", 1);
-				$("#set-interest").animate({zoom: 1.1}, 300, function(){
-					$("#set-interest").animate({zoom: 1}, 300);
-				});
-				serviceName = "";
-				if(cachedEvent.participants.length == 0){
-					setTimeout(function(){
-						Swal.fire({
-							title: 'EXCLUIR',
-							html: "Não há nenhum usuário interessado ainda neste evento. Se você cancela-lo, você irá exclui-lo.<br> Você tem certeza que deseja excluir este evento?",
-							padding: "8px",
-							confirmButtonText: 'SIM',
-							cancelButtonText: 'NÃO',
-							allowOutsideClick: false,
-							width: "80%",
-							showCancelButton: true,
-						}).then((data) => {
-							if(data.value){
-								serviceName = "set-del-event";
-							}
-						});
-					}, 100);
-				}else{
-					setTimeout(function(){
-						Swal.fire({
-							title: 'CANCELAR',
-							html: "Você tem certeza que deseja cancelar este evento?<br>Os usuários interessados receberão uma notificação com essa alteração.",
-							padding: "8px",
-							confirmButtonText: 'SIM',
-							cancelButtonText: 'NÃO',
-							allowOutsideClick: false,
-							width: "80%",
-							showCancelButton: true,
-						}).then((data) => {
-							if(data.value){
-								serviceName = "set-cancel-event";
-							}
-						});
-					}, 100);
-				}
+			$("#set-interest").animate({zoom: 1.1}, 300, function(){
+				$("#set-interest").animate({zoom: 1}, 300);
+				$("#set-interest").animate({opacity: 0.7});
+			});
+			if(cachedEvent.participants.length == 0){
+				setTimeout(function(){
+					Swal.fire({
+						title: 'EXCLUIR',
+						html: "Não há nenhum usuário interessado ainda neste evento. Se você cancela-lo, você irá exclui-lo.<br> Você tem certeza que deseja excluir este evento?",
+						padding: "8px",
+						confirmButtonText: 'SIM',
+						cancelButtonText: 'NÃO',
+						allowOutsideClick: false,
+						width: "80%",
+						showCancelButton: true,
+					}).then((data) => {
+						if(data.value) {
+							callService("del-event");
+						}
+					});
+				}, 100);
+			}else{
+				setTimeout(function(){
+					Swal.fire({
+						title: 'CANCELAR',
+						html: "Você tem certeza que deseja cancelar este evento?<br>Os usuários interessados receberão uma notificação com essa alteração.",
+						padding: "8px",
+						confirmButtonText: 'SIM',
+						cancelButtonText: 'NÃO',
+						allowOutsideClick: false,
+						width: "80%",
+						showCancelButton: true,
+					}).then((data) => {
+						if(data.value) callService("set-cancel-event");
+					});
+				}, 100);
+			}
 		}
-		if(serviceName == "") return;
+	});
+
+	function callService(serviceName){
 		$.get(nodeHost+serviceName, {
 			_id: 	cachedEvent._id,
 			user_id: userInfo._id
@@ -80,12 +81,13 @@
 			if(isNullOrUndefined(data)){
 				alerts.errorServer();
 			}else{
+				if(serviceName == "del-event") return $("#btn-menu-back").click();
 				setCachedEvent(data);
 				loadCachedEvent();
 				// $("#main-body-div").LoadingOverlay('hide');
 			}
 		});
-	});
+	}
 	
 	function verifyUserAlreadyInterested(event, user_id){
 		if(event.status == 1){
@@ -99,17 +101,26 @@
 		dateEvent.setHours(0);
 		dateEvent.setMinutes(0);
 		dateEvent.setSeconds(0);
+		dateEvent.setMilliseconds(0);
 		todayDatehere.setHours(0);
 		todayDatehere.setMinutes(0);
-		todayDatehere.setSeconds(0)
+		todayDatehere.setSeconds(0);
+		todayDatehere.setMilliseconds(0);
 		if(dateEvent.getTime() < todayDate.getTime()){
 			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-calendar-check' style='font-size:32px;color:white'></i><p id='text-see-cancel'>FINALIZADO !</p>");
 			return;
 		}
 
 		if(event.author == userInfo._id){
-			$("#set-interest").css("opacity", 1);
-			$("#set-interest").empty().append("<i class='fas fa-ban' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>CANCELA !</p>");
+			$("#set-interest").empty().append("<i class='fas fa-ban' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -6px;'>CANCELAR</p>");
+			$("#separator-lbl").remove();
+			$("#menu-bottom-div-view-event").prepend("<button id='edit-event' type='button' class='general-button btns-prof col-3 mx-auto'><i class='fas fa-marker' style='font-size:32px;color:white'></i> <p id='text-edit-event'>EDITAR</p> </button>");
+			$("#edit-event").css("display", "inline-block");
+			$("#edit-event").click(function(){
+				configParams.upd_event = true;
+				setConfigParams(configParams);
+				window.location.href = "./create-event.html";	
+			});
 			userAuthor = true;
 			return;
 		}

@@ -70,9 +70,23 @@
 				showCancelButton: true,
 			}).then((data) => {
 				if(data.value){
-					cachedEvent = undefined;
-					window.sessionStorage.removeItem('cachedEvent');
-					window.location.replace("./main-view.html");
+					if(configParams.upd_event){
+						$.get(nodeHost+"get-event", { _id: cachedEvent._id}).done(function (data) {
+							if (isNullOrUndefined(data)) {
+								console.log("Deu merda");
+							}else {
+								cachedEvent = data;
+								setCachedEvent(cachedEvent);
+								configParams.upd_event = undefined;
+								setConfigParams(configParams);
+								window.location.replace("./view-event.html");
+							}
+						});
+					}else{
+						cachedEvent = undefined;
+						window.sessionStorage.removeItem('cachedEvent');
+						window.location.replace("./main-view.html");
+					}
 				}
 			});
 		}, 100);
@@ -131,20 +145,32 @@
 
 		loading();
 
-		$.get("./crt-event", {
-			_id: userInfo._id,
-			evento: cachedEvent
-		}).done(function (data) {
+		let nameService = "crt-event";
+		if(configParams.upd_event) nameService = "upd-event";
+
+		$.get(nodeHost + nameService, {_id: userInfo._id, evento: cachedEvent})
+		.done(function (data) {
 			loading('hide');
-			if (data == null || data == "undefined") {
-				alert("Deu merda");
+			if (isNullOrUndefined(data)) {
+				alerts.errorServer();
 			} else {
-				alerts.registerEventSuccess();
-				setTimeout(function () {
-					cachedEvent = undefined;
-					window.sessionStorage.removeItem('cachedEvent');
-					window.location.replace("./main-view.html");
-				}, 8000);
+				if(configParams.upd_event){
+					alerts.updateEventSuccess();
+					setTimeout(function () {
+						cachedEvent = data;
+						setCachedEvent(cachedEvent);
+						configParams.upd_event = undefined;
+						setConfigParams(configParams);
+						window.location.replace("./view-event.html");
+					}, 6000);
+				}else{
+					alerts.registerEventSuccess();
+					setTimeout(function () {
+						cachedEvent = undefined;
+						window.sessionStorage.removeItem('cachedEvent');
+						window.location.replace("./main-view.html");
+					}, 8000);
+				}
 			}
 		});
 	}
@@ -172,6 +198,9 @@
 	});
 
 	function loadCachedEvent(){
+		if(configParams.upd_event){
+			$("#btn-criar-evento").val("ATUALIZAR");
+		}
 		getServerDate();
 		if(JSON.stringify(cachedEvent) === JSON.stringify({})) return;
 		if(cachedEvent.title) $("#title-input").val(cachedEvent.title);

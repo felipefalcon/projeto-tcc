@@ -179,10 +179,24 @@
 			setTimeout(function(){
 				Swal.fire({
 					title: 'Evento criado!',
-					html: 'Cadastrado com sucesso, também foi incluído em suas subscrições.<br>Acesse "SUBSCRIÇÕES" para ver detalhes ou editar as informações.',
+					html: 'Cadastrado com sucesso, agora todos podem ver seu evento.<br>Acesse a aba "MEUS EVENTOS" para mais informações.',
 					icon: 'success',
 					padding: "8px",
 					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		updateEventSuccess: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Evento atualizado!',
+					html: 'Editado com sucesso.<br>As novas informações já estão disponíveis a todos os usuários.',
+					icon: 'success',
+					padding: "8px",
+					timer: 7000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"

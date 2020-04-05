@@ -119,13 +119,15 @@
 			let imgData = "";
 			let dateEvent = new Date(data.data);
 			let todayDatehere = todayDate;
-			dateEvent.setDate(dateEvent.getDate());
+			dateEvent.setDate(dateEvent.getDate()+1);
 			dateEvent.setHours(0);
 			dateEvent.setMinutes(0);
 			dateEvent.setSeconds(0);
+			dateEvent.setMilliseconds(0);
 			todayDatehere.setHours(0);
 			todayDatehere.setMinutes(0);
-			todayDatehere.setSeconds(0)
+			todayDatehere.setSeconds(0);
+			todayDatehere.setMilliseconds(0);
 			
 			if(dateEvent.getTime() < todayDatehere.getTime() || data.status == 1){
 				imgData += "<div class='events-t events-t-faded' style='";
@@ -136,7 +138,7 @@
 			if("img" in data) imgData += "background-image: url("+data.img+");";
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
 			
-			let dayEvent = new Number(dateEvent.getDate())+1;
+			let dayEvent = new Number(dateEvent.getDate());
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
@@ -156,7 +158,7 @@
 			}
 
 		});
-		divsCreated.push("<div style=' height: 48px'></div>");
+		divsCreated.push("<div style=' height: 96px'></div>");
 
 		if(type == 1){
 			$("#my-events-author-box-div").empty().append(divsCreated.join(""));
