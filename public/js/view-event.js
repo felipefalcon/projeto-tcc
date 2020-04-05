@@ -7,9 +7,9 @@
 		window.location.replace("./main-view.html");
 	});
 
-	$("#btn-criar-evento").click(function () { createEvent(); });
-
-	$("#local-input").click(function(){
+	$("#get-map").click(function(){
+		configParams.show_map = true;
+		setConfigParams(configParams);
 		window.location.href = "./set-map.html";	
 	});
 
@@ -143,7 +143,7 @@
 		if(cachedEvent.descricao) $("#descricao-input").val(cachedEvent.descricao);
 		if(cachedEvent.address) {
 			$("#local-input").css("opacity", "1");
-			$("#local-input").val(cachedEvent.address.road);
+			$("#local-input").val(cachedEvent.address.road + " - " + cachedEvent.address.house_number);
 			$("#map-button").css({"color":"#4dcc80", "border": "2px solid #4dcc80", "opacity": "1"});
 		}
 		if(cachedEvent.tags) {

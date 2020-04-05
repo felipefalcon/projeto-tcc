@@ -1302,7 +1302,7 @@
 		margin-bottom: 32px !important;
 		border: none;
 		text-align: center;
-		background: #4dcc80;
+		background: white;
 		border-radius: 60px;
 		font-weight: bolder;
 		color: #4c376b;
@@ -1346,6 +1346,11 @@
 		padding: 6px;
 		padding-left: 42px;
 		padding-right: 28px;
+	}
+
+	.popup-map{
+		color: red;
+		font-weight: bolder;
 	}
 
 	#local-input{
