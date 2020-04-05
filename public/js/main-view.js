@@ -9,6 +9,9 @@
 	$("#chat-div").css("min-height", confHeight + "px");
 	$("#chat-users-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
+
+	const MenuBottomHome = $("#menu-bottom-home");
+	const MenuBottomProf = $("#menu-bottom-prof");
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
@@ -17,7 +20,6 @@
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
 	let showBoxSubscriptions = true;
-	let firstTimeProf = true;
 	let titleTab = "";
 	let exitApp = false;
 
@@ -173,12 +175,12 @@
 			return window.location.href = "./view-event.html";
 		});
 
-		$(".events-t").each(function(index){
-			$(this).animate({opacity: 1}, (index+1)*300);
+		$(".events-t").each(function(){
+			$(this).animate({opacity: 1}, 300);
 		});
 
 		$(".label-warning-events").each(function(){
-			$(this).animate({opacity: 1}, 900);
+			$(this).animate({opacity: 1}, 600);
 		});
 
 	}
@@ -488,8 +490,6 @@
 
 	(function(){
 		getServerDate();
-		const MenuBottomHome = $("#menu-bottom-home");
-		const MenuBottomProf = $("#menu-bottom-prof");
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
 		getAllEvents();
@@ -578,14 +578,7 @@
 			configParams.tab = "profile-tab";
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
-			if(firstTimeProf){
-				setTimeout(function(){
-					MenuBottomProf.slideDown(300);
-					firstTimeProf = false;
-				}, 200);
-			}else{
-				MenuBottomProf.slideDown(300);
-			}
+			MenuBottomProf.slideDown(300);
 			checkTab();
 		});
 	
