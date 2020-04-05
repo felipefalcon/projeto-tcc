@@ -421,6 +421,7 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
+		opacity: 0;
 	}
 	
 	#user-information-div{
@@ -480,7 +481,8 @@
 		float: left;
 		display: flex;
   		align-items: center;
-  		justify-content: center;
+		  justify-content: center;
+		  opacity: 0;
 	}
 
 	#user-n-u-div-content{

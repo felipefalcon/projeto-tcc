@@ -216,6 +216,10 @@
 				window.location.href = "./user-profile.html";
 			}, 60);
 		});
+
+		$(".user-n-u-block").each(function(){
+			$(this).animate({opacity: 1}, 300);
+		});
 	}
 
 	function makeChatObjects() {
@@ -315,6 +319,7 @@
 		$("#main-descript-div").text(userInfo.about);
 		addAnotherInfos();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
+		$("#main-pic-div-c").animate({opacity: 1}, 300);
 	}
 
 	function addAnotherInfos(){
@@ -396,12 +401,12 @@
 	function emptyTab(tabSelector, tabEvents = true){
 		if(tabEvents){
 			$(tabSelector).load("empty-events.html", function(){
-				$("#empty-events").animate({opacity: 1}, 200);
+				$("#empty-events").animate({opacity: 1}, 300);
 			});
 			return;
 		}
 		$(tabSelector).load("empty-conversations.html", function(){
-			$("#empty-conversations").animate({opacity: 1}, 200);
+			$("#empty-conversations").animate({opacity: 1}, 300);
 		});
 	}
 
@@ -558,7 +563,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideDown(300);
 			MenuBottomProf.slideUp(300);
-			checkTab();
+			setTimeout(function(){checkTab();}, 300);
 		});
 	
 		$("#btn-menu-8").click(function(){
@@ -579,7 +584,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(300);
 			MenuBottomProf.slideDown(300);
-			checkTab();
+			setTimeout(function(){checkTab();}, 300);
 		});
 	
 		$("#btn-menu-5").click(function(){
