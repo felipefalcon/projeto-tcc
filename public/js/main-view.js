@@ -176,11 +176,11 @@
 		});
 
 		$(".events-t").each(function(){
-			$(this).animate({opacity: 1}, 250);
+			$(this).animate({opacity: 1}, 200);
 		});
 
 		$(".label-warning-events").each(function(){
-			$(this).animate({opacity: 1}, 250);
+			$(this).animate({opacity: 1}, 205);
 		});
 
 	}
