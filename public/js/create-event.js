@@ -2,7 +2,7 @@
 	var imgLink = "";
 	
 	$("document").ready(function () {
-		function uploadImage(elmnt, divImg){
+		function uploadImage(elmnt){
 			var $files = $(elmnt).get(0).files;
 	
 			if ($files.length) {
@@ -11,46 +11,36 @@
 					alert("Arquivo muito pesado.");
 					return false;
 				}
-	
-				var apiUrl = 'https://api.imgur.com/3/image';
-				var apiKey = '4409588f10776f7';
-	
-				var settings = {
-					async: true,
-					crossDomain: true,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					url: apiUrl,
-					headers: {
-						Authorization: 'Client-ID ' + apiKey,
-						Accept: 'application/json'
-					},
-					mimeType: 'multipart/form-data'
-				};
-	
-				var formData = new FormData();
-				formData.append("image", $files[0]);
-				settings.data = formData;
-			
-				loading();
+
+				$('#img-event').animate({
+					opacity: 0.1
+				}, 1000, function(){
+					$('#img-event').addClass("loading-img");
+				});
 				
-				$.ajax(settings).done(function(response) {
+				$.ajax(uploadImgur($files[0])).done(function(response) {
 					var res = JSON.parse(response);
 					var link = res.data.link.replace(/^http:\/\//i, 'https://');
 					imgLink = link;
-					divImg.css("background-image", "url("+imgLink+")");
-					loading('hide');
-					cachedEvent.img = imgLink;
-					setCachedEvent(cachedEvent);
-					$("#general-input-pic-reset-icon").css("display", "block");
-					//addImgInUser(urlUpd, link, divImg);
+					$('#img-event').animate({
+						opacity: 0
+					}, 1000, function(){
+						$('#img-event').css("background-image", "url("+imgLink+")");
+						$('#img-event').animate({
+							opacity: 1
+						}, 1000, function(){
+							$('#img-event').removeClass("loading-img");
+							cachedEvent.img = imgLink;
+							setCachedEvent(cachedEvent);
+							$("#general-input-pic-reset-icon").css("display", "block");
+						});
+					});
 				});
 			}
 		}
 	
 		$('#pic-input').on("change", function() {
-			uploadImage(this, $("#img-event"));
+			uploadImage(this);
 		});
 	
 	});
@@ -61,7 +51,7 @@
 		setTimeout(function(){
 			Swal.fire({
 				title: 'MUDANÇAS',
-				html: "Você preencheu alguns campos, se você sair as mudanças serão perdidas.<br>Tem certeza que deseja sair?",
+				html: "Se você sair as mudanças serão perdidas.<br>Tem certeza que deseja sair?",
 				padding: "8px",
 				confirmButtonText: 'OK',
 				cancelButtonText: 'NÃO',

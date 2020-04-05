@@ -1170,7 +1170,7 @@
 		position: fixed;
 		bottom: 0;
 		margin: 16px;
-		margin-bottom: 94px;
+		margin-bottom: 110px;
 		text-align: justify;
 		background: white;
 		padding: 16px;
@@ -1427,7 +1427,7 @@
 		font-size: 30px;
 		font-weight: 800;
 		color: white;
-		transform: translateY(-230px);
+		transform: translateY(-248px);
 		text-shadow: 2px 3px 1px #9f41b7;
 		margin: 16px;
 	}

@@ -1,8 +1,8 @@
 	
 	$("document").ready(function () {
-		$("#set-location-btn").remove();
-		$(".mapboxgl-ctrl-top-right").remove();
 		if(configParams.show_map) {
+			$("#set-location-btn").remove();
+			$(".mapboxgl-ctrl-top-right").remove();
 			let posicao = {
 				coords: {
 					longitude: cachedEvent.address.lng,
