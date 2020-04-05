@@ -173,12 +173,12 @@
 			return window.location.href = "./view-event.html";
 		});
 
-		$(".events-t").each(function(){
-			$(this).animate({opacity: 1}, 300);
+		$(".events-t").each(function(index){
+			$(this).animate({opacity: 1}, (index+1)*300);
 		});
 
 		$(".label-warning-events").each(function(){
-			$(this).animate({opacity: 1}, 300);
+			$(this).animate({opacity: 1}, 900);
 		});
 
 	}
