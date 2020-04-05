@@ -176,11 +176,11 @@
 		});
 
 		$(".events-t").each(function(){
-			$(this).animate({opacity: 1}, 300);
+			$(this).animate({opacity: 1}, 250);
 		});
 
 		$(".label-warning-events").each(function(){
-			$(this).animate({opacity: 1}, 600);
+			$(this).animate({opacity: 1}, 250);
 		});
 
 	}
@@ -565,7 +565,7 @@
 			setTimeout(function(){
 				MenuBottomHome.slideDown(300);
 				MenuBottomProf.slideUp(0);
-			}, 200);
+			}, 100);
 		});
 	
 		$("#btn-menu-8").click(function(){
