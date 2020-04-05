@@ -79,7 +79,7 @@
 			var dbo = db.db(dbName);
 			dbo.collection("users").findOne({email: req.body.email, password: req.body.password}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
 				if (err) throw err;
-				result.age = calcAgeOfUser(result.dt_nasc);
+				if(result) result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
 			});
 			db.close();
