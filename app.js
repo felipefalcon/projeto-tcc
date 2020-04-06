@@ -164,16 +164,17 @@
 						item.age = calcAgeOfUser(item.dt_nasc);
 						if(!("location" in item)){
 							item.location = {};
-							item.location.lat = item.location.lat || "???";
-							item.location.lng = item.location.lng || "???";
-						}
-						item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
-						if(!isNaN(item.location.distance)) {
-							item.location.distance = item.location.distance.toFixed(2) + " km";
-						}else{
 							item.location.distance = "???";
+						}else{
+							item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
+							if(!isNaN(item.location.distance)) {
+								item.location.distance = item.location.distance.toFixed(2) + " km";
+							}else{
+								item.location.distance = "???";
+							}
 						}
 					});
+					result.sort(compareDistances);
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
@@ -181,6 +182,16 @@
 			db.close();
 		}); 
 	});
+
+	function compareDistances( a, b ) {
+		if (a.location.distance < b.location.distance ){
+		  return -1;
+		}
+		if ( a.location.distance > b.location.distance ){
+		  return 1;
+		}
+		return 0;
+	  }
 
 	function distanceBetweenTwoPoints(lat1, lon1, lat2, lon2, unit) {
 		if ((lat1 == lat2) && (lon1 == lon2)) {
