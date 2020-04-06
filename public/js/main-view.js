@@ -103,7 +103,7 @@
 			eventsToDraw = allEventsWithtUser;
 		}else{
 			allEvents.forEach(function(data){
-				if(data.author != userInfo._id && data.status == 1){
+				if(data.author != userInfo._id && data.status != 1){
 					let userFound = data.participants.find(function(item){return item == userInfo._id});
 					if((typeof userFound === "undefined")){
 						allEventsWithoutUser.push(data);
