@@ -430,6 +430,11 @@
 		}
 	}
 
+	$("#btn-event-new").click(function(){
+		setCachedEvent({});
+		window.location.replace('create-event.html');
+	});
+
 	$("#btn-subscript").click(function(){
 		$("#btn-subscript").animate({opacity: 0.4}, 200, function(){
 			$("#btn-subscript").animate({opacity: 1});

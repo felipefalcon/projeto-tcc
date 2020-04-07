@@ -804,7 +804,7 @@
 		height: 54px;
 	}
 
-	#btn-prof-edit, #btn-prof-save, #btn-subscript {
+	#btn-prof-edit, #btn-prof-save, #btn-subscript, #btn-event-new {
 		background-color: white;
 		font-weight: bolder;
 		color: #4c376b;
