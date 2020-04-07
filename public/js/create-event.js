@@ -136,9 +136,15 @@
 		loading();
 
 		let nameService = "crt-event";
-		if(configParams.upd_event) nameService = "upd-event";
+		let paramsService = {evento: cachedEvent};
+		
+		if(configParams.upd_event) {
+			nameService = "upd-event";
+		}else{
+			paramsService._id = userInfo._id;
+		}
 
-		$.get(nodeHost + nameService, {_id: userInfo._id, evento: cachedEvent})
+		$.get(nodeHost + nameService, paramsService)
 		.done(function (data) {
 			loading('hide');
 			if (isNullOrUndefined(data)) {

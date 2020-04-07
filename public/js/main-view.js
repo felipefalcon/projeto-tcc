@@ -283,7 +283,8 @@
 	}
 
 	function getEventInAllEventsById(id){
-		return allEvents.find(function(item){return item._id == id;});
+		console.log(allEvents);
+		return allEvents.find(function(item){return item._id === id;});
 	}
 
 	function getUser(){
