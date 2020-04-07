@@ -283,7 +283,6 @@
 	}
 
 	function getEventInAllEventsById(id){
-		console.log(allEvents);
 		return allEvents.find(function(item){return item._id === id;});
 	}
 
