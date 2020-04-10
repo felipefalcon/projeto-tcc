@@ -223,7 +223,7 @@
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { conversations: 1} }, function(err, result) {
 				if (err) throw err;
-				res.json(result); 
+				res.json(result.conversations); 
 			});
 			db.close();
 		}); 
@@ -277,6 +277,7 @@
 			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
 			var objectIdUserTo = new require('mongodb').ObjectID(req.query._id_to);
 			var message = req.query.message;
+			message.author = req.query._id_from;
 			message.date = getTimeServer();
 			message.day = message.date.getDate();
 
