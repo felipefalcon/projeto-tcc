@@ -238,7 +238,7 @@
 	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
 
 	setInterval(function () {
-		if(!inCallGetMessages) getNewMessages(); 
+		if(!inCallGetMessages || !inCallUpdMsgs) getNewMessages(); 
 		// makeChatMessage(); 
 	}, 300);
 
