@@ -27,8 +27,6 @@
 	$("#send-message-button").click(function () {
 		if ($("#message-send-input").val() == "") return;
 		var message = {
-			author: userInfo._id,
-			subject: toUser._id,
 			text: $("#message-send-input").val(),
 		};
 		inCallUpdMsgs = true;
@@ -72,7 +70,7 @@
 	}
 
 	function getNewMessages() {
-		if(inCallGetMessages || inCallUpdMsgs) return;
+		// if(inCallGetMessages || inCallUpdMsgs) return;
 		inCallGetMessages = true;
 		$.get("./get-user-msgs", { _id: userInfo._id })
 			.done(function (data) {
@@ -80,9 +78,9 @@
 					alert("Algum erro");
 				} else {
 					inCallGetMessages = false;
-					if(inCallUpdMsgs || cachedMsgsHere == JSON.stringify(data.conversations)) return;
-					cachedMsgsHere = JSON.stringify(data.conversations);
-					userInfo.conversations = data.conversations;
+					if(inCallUpdMsgs || cachedMsgsHere == JSON.stringify(data)) return;
+					cachedMsgsHere = JSON.stringify(data);
+					userInfo.conversations = data;
 					setUserCache(userInfo);
 					makeChatMessage();
 				}
@@ -98,16 +96,16 @@
 		if(!toUserMessages) return;
 
 		toUserMessages.messages.reverse().forEach(function(msg){
-			if (msg.author == userInfo._id && msg.subject == toUser._id) {
+			if (msg.author == userInfo._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
-				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text.toString() + "</p></div>"
+				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text + "</p></div>"
 				);
 			} else{
 				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
 					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
-					msg.text.toString() + "</p></div>"
+					msg.text + "</p></div>"
 				);
 			}
 		});
@@ -240,9 +238,9 @@
 	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
 
 	setInterval(function () {
-		getNewMessages(); 
+		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
-	}, 100);
+	}, 300);
 
 	// setInterval(function () {
 	// 	// getNewMessages(); 
