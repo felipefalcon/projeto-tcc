@@ -38,8 +38,10 @@
 		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
+		ajaxMsgs.abort();
+		inCallGetMessages = true;
 		$("#chat-msgs-div").animate({scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)}, 3000);
-		$("#message-send-input").val("");
+		setTimeout(function(){inCallGetMessages = false;}, 300);
 
 	});
 
@@ -124,31 +126,6 @@
 	});
 
 	$("#report-user-btn").click(function () {
-		// setTimeout(function(){
-		// 	Swal.fire({
-		// 		title: 'Denunciar usuário',
-		// 		text: 'Você tem certeza que deseja apagar a conversa que teve com este usuário?',
-		// 		icon: 'warning',
-		// 		padding: "8px",
-		// 		showCancelButton: true,
-		// 		allowOutsideClick: false,
-		// 		confirmButtonText: 'SIM',
-		// 		cancelButtonText: 'NÃO',
-		// 		focusCancel: true,
-		// 		width: "80%"
-		// 	}).then(function(data){
-		// 		if(data == true){
-		// 			$.get("./del-user-messages", {_id_from: userInfo._id, _id_to: toUser._id})
-		// 			.done(function(data){
-		// 				if (isNullOrUndefined(data)) {
-		// 					return alert("Algum erro");
-		// 				}
-		// 				setUserCache(data);
-		// 				$("#btn-menu-back").click();
-		// 			});
-		// 		}
-		// 	});
-		// }, 100);
 		setTimeout(function(){
 			Swal.mixin({
 				confirmButtonText: 'PRÓX. &rarr;',
