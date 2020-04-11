@@ -46,6 +46,8 @@
 		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
+		ajaxMsgs.abort();
+		inCallGetMessages = false;
 		if(parseInt($("#chat-msgs-div").scrollTop()) <= parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
 			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
 				if(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520) == parseInt($("#chat-msgs-div").scrollTop())) return;
@@ -55,8 +57,6 @@
 				$("#message-send-input").val("");
 			}
 		}
-		ajaxMsgs.abort();
-		inCallGetMessages = false;
 	});
 
 	function scrollChat(){
