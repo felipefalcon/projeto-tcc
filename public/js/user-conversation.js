@@ -6,7 +6,6 @@
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetMessages = false;
-	let inCallUpdMsgsBD = false;
 	let cachedMsgsHere = {};
 	let ajaxMsgs = "";
 
@@ -16,12 +15,14 @@
 	}
 
 	$("#btn-menu-back").click(function () {
-		if(configParams.history == "main-view") {
-			window.location.replace("./main-view.html");
-			configParams.history = "";
-			return setConfigParams(configParams);
-		}
-		window.location.replace(document.referrer);
+		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id}).done(function(data){
+			if(configParams.history == "main-view") {
+				window.location.replace("./main-view.html");
+				configParams.history = "";
+				return setConfigParams(configParams);
+			}
+			window.location.replace(document.referrer);
+		});
 	});
 
 	$("#send-message-button").click(function () {
@@ -35,8 +36,6 @@
 		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
-		ajaxMsgs.abort();
-		inCallGetMessages = false;
 		$("#chat-msgs-div").animate({scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)}, 3000);
 		$("#message-send-input").val("");
 
@@ -84,16 +83,6 @@
 		});
 		
 		$("#chat-msgs-div").empty().append(divsCreated.join(""));
-
-		if(toUserMessages.newmsgs == 0) return;
-		inCallUpdMsgsBD = true;
-		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id})
-		.done(function(data){
-			if (isNullOrUndefined(data)) {
-				return alert("Algum erro");
-			}
-			inCallUpdMsgsBD = false;
-		});
 	}
 
 	$("#btn-menu-1").click(function () {
@@ -212,7 +201,7 @@
 	setInterval(function () {
 		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
-	}, 500);
+	}, 100);
 
 	// setInterval(function () {
 	// 	// getNewMessages(); 
