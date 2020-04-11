@@ -137,7 +137,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
+			dbo.collection("users").find({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				if(result){
 					return res.json({oh_no: "oh-no"});
@@ -285,7 +285,7 @@
 			message.date = getTimeServer();
 			message.day = message.date.getDate();
 
-			dbo.collection("users").findOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
+			dbo.collection("users").find({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
 				if (err) throw err;
 				if(result){
 					dbo.collection("users").updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
@@ -297,7 +297,7 @@
 					});
 				}
 			});
-			dbo.collection("users").findOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
+			dbo.collection("users").find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
 				if (err) throw err;
 				if(result){
 					dbo.collection("users").updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
