@@ -32,32 +32,31 @@
 		};
 		inCallUpdMsgs = true;
 		$("#message-send-input").val("");
-		let divsCreated = [];
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message })
 		.done(function (data) {
 				if (data == null || data == "undefined") {
 					alert("Algum erro");
 				} else {
 					inCallUpdMsgs = false;
-					let msg = data;
 					$("#message-send-input").val("");
-					divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-					$.format.date(msg.date_msg.toString(), 'dd/MM/yyyy - HH:mm') +
-					" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + message.text + "</p></div>");
-					$("#chat-msgs-div").append(divsCreated.join(""));
-					ajaxMsgs.abort();
-					inCallGetMessages = false;
-					if(parseInt($("#chat-msgs-div").scrollTop()) <= parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
-						if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
-							if(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520) == parseInt($("#chat-msgs-div").scrollTop())) return;
-							$("#chat-msgs-div").animate({
-								scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
-							}, 3000);
-							$("#message-send-input").val("");
-						}
-					}
+					// getNewMessages();
 				}
 			});
+		let divsCreated = [];
+		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
+		message.text.toString() + "</p></div>");
+		$("#chat-msgs-div").append(divsCreated.join(""));
+		ajaxMsgs.abort();
+		inCallGetMessages = false;
+		if(parseInt($("#chat-msgs-div").scrollTop()) <= parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)){
+			if(parseInt($("#chat-msgs-div").scrollTop()) > parseInt(document.getElementById("chat-msgs-div").scrollHeight-520)-110){
+				if(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520) == parseInt($("#chat-msgs-div").scrollTop())) return;
+				$("#chat-msgs-div").animate({
+					scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)
+				}, 3000);
+				$("#message-send-input").val("");
+			}
+		}
 	});
 
 	function scrollChat(){

@@ -313,7 +313,7 @@
 						});
 					}
 					db.close();
-					res.json({date_msg: message.date});
+					res.json({ date_msg: "ok"});
 				});
 			});
 
