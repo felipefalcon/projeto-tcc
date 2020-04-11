@@ -15,6 +15,8 @@
 	}
 
 	$("#btn-menu-back").click(function () {
+		userInfo.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));})
+		setUserCache(userInfo);
 		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id}).done(function(data){
 			if(configParams.history == "main-view") {
 				window.location.replace("./main-view.html");
@@ -52,7 +54,7 @@
 							inCallGetMessages = false;
 							if(cachedMsgsHere == JSON.stringify(data)) return;
 							cachedMsgsHere = JSON.stringify(data);
-							userInfo.conversations = data;
+							userInfo.conversations = data ;
 							setUserCache(userInfo);
 							makeChatMessage();
 						}

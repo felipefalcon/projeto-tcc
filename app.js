@@ -225,7 +225,7 @@
 			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { conversations: 1} }, function(err, result) {
 				if (err) throw err;
 				if(result){
-					result = result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
+					result = result.conversations;
 				}
 				res.json(result);
 			});
@@ -286,35 +286,34 @@
 
 			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				collection.find({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
-					if (err) throw err;
-					if(result){
-						collection.updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
-					}else{
-						collection.updateOne({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
+				collection.updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
+					if (err) {
+						if(err.code == 2){
+							collection.updateOne({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
+								if (err) throw err;
+							});
+						}else{
+							throw err;
+						}
 					}
 				});
 			});
 			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				collection.find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
-					if (err) throw err;
-					if(result){
-						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
-					}else{
-						collection.updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
+				collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
+					if (err) {
+						if(err.code == 2){
+							collection.updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
+								if (err) throw err;
+							});
+						}else{
+							throw err;
+						}
 					}
 					db.close();
-					res.json({ date_msg: "ok"});
 				});
+				res.json({ ok: "ok"});
+
 			});
 
 		 }); 
@@ -329,17 +328,15 @@
 
 			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				collection.find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to, newmsgs: {$ne: 0}}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+				collection.find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to, newmsgs: {$ne: 0}}}}, {projection: {_id: 0, conversations: 1}}).limit(1).toArray(function(err, result) {
 					if (err) throw err;
-					if(result){
+					if(result.length > 0){
 						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
 							if (err) throw err;
-							db.close();
-							res.json({ ok: "ok"});
 						});
 					}
 					db.close();
-					res.json({ oh_no: "oh_no"});
+					res.json({ ok: "ok"});
 				});
 			});
 		}); 
