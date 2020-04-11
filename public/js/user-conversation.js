@@ -9,6 +9,7 @@
 	let inCallUpdMsgs = false;
 	let inCallUpdMsgsBD = false;
 	let cachedMsgsHere = {};
+	let ajaxMsgs = "";
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name+" "+toUser.lastname.split(" ")[0]);
@@ -54,6 +55,8 @@
 				$("#message-send-input").val("");
 			}
 		}
+		inCallGetMessages = false;
+		ajaxMsgs.abort();
 		getNewMessages();
 	});
 
@@ -73,19 +76,19 @@
 	function getNewMessages() {
 		// if(inCallGetMessages || inCallUpdMsgs) return;
 		inCallGetMessages = true;
-		$.get("./get-user-msgs", { _id: userInfo._id })
-			.done(function (data) {
-				if (data == null || data == "undefined") {
-					alert("Algum erro");
-				} else {
-					inCallGetMessages = false;
-					if(inCallUpdMsgs || cachedMsgsHere == JSON.stringify(data)) return;
-					cachedMsgsHere = JSON.stringify(data);
-					userInfo.conversations = data;
-					setUserCache(userInfo);
-					makeChatMessage();
-				}
-			});
+		ajaxMsgs = $.get("./get-user-msgs", { _id: userInfo._id })
+					.done(function (data) {
+						if (data == null || data == "undefined") {
+							alert("Algum erro");
+						} else {
+							inCallGetMessages = false;
+							if(inCallUpdMsgs || cachedMsgsHere == JSON.stringify(data)) return;
+							cachedMsgsHere = JSON.stringify(data);
+							userInfo.conversations = data;
+							setUserCache(userInfo);
+							makeChatMessage();
+						}
+					});
 	}
 
 	function makeChatMessage() {
