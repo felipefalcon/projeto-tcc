@@ -306,16 +306,14 @@
 					if(result){
 						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
 							if (err) throw err;
-							db.close();
-							res.json({ ok: "ok"});
 						});
 					}else{
 						collection.updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
 							if (err) throw err;
-							db.close();
-							res.json({ ok: "ok"});
 						});
 					}
+					db.close();
+					res.json({date_msg: message.date});
 				});
 			});
 
