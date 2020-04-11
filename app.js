@@ -285,33 +285,39 @@
 			message.date = getTimeServer();
 			message.day = message.date.getDate();
 
-			dbo.collection("users").find({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				if(result){
-					dbo.collection("users").updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
-						if (err) throw err;
-					});
-				}else{
-					dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
-						if (err) throw err;
-					});
-				}
+				collection.find({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+					if (err) throw err;
+					if(result){
+						collection.updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
+							if (err) throw err;
+						});
+					}else{
+						collection.updateOne({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
+							if (err) throw err;
+						});
+					}
+				});
 			});
-			dbo.collection("users").find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				if(result){
-					dbo.collection("users").updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
-						if (err) throw err;
-						db.close();
-						res.json({ ok: "ok"});
-					});
-				}else{
-					dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
-						if (err) throw err;
-						db.close();
-						res.json({ ok: "ok"});
-					});
-				}
+				collection.find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+					if (err) throw err;
+					if(result){
+						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
+							if (err) throw err;
+							db.close();
+							res.json({ ok: "ok"});
+						});
+					}else{
+						collection.updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
+							if (err) throw err;
+							db.close();
+							res.json({ ok: "ok"});
+						});
+					}
+				});
 			});
 
 		 }); 
