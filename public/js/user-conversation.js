@@ -95,7 +95,7 @@
 		let toUserMessages = userInfo.conversations.filter(function(item){return item._id == toUser._id;})[0];
 		if(!toUserMessages) return;
 
-		toUserMessages.messages.reverse().forEach(function(msg){
+		toUserMessages.messages.forEach(function(msg){
 			if (msg.author == userInfo._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
