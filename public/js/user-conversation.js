@@ -123,7 +123,6 @@
 				return alert("Algum erro");
 			}
 			inCallUpdMsgsBD = false;
-			setUserCache(data);
 		});
 	}
 
@@ -243,7 +242,7 @@
 	setInterval(function () {
 		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
-	}, 300);
+	}, 500);
 
 	// setInterval(function () {
 	// 	// getNewMessages(); 

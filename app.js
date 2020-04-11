@@ -283,7 +283,6 @@
 			var message = req.query.message;
 			message.author = req.query._id_from;
 			message.date = getTimeServer();
-			message.day = message.date.getDate();
 
 			dbo.collection("users", function(err, collection){
 				if (err) throw err;
@@ -329,35 +328,61 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
-			var objectIdUserTo = req.query._id_to;
-			var needUpd = true;
-			dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
+
+			dbo.collection("users", function(err, collection){
 				if (err) throw err;
-				if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
-				let conversationsLength = resultUser.conversations.length;
-				for(let i = 0; i < conversationsLength; ++i){
-					if(resultUser.conversations[i]._id == objectIdUserTo){
-						if(resultUser.conversations[i].newmsgs == 0){
-							needUpd = false;
-							break;
-						}
-						resultUser.conversations[i].newmsgs = 0;
-						break;
+				collection.find({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to, newmsgs: {$ne: 0}}}}, {projection: {_id: 0, conversations: 1}}).limit(1).close(function(err, result) {
+					if (err) throw err;
+					if(result){
+						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
+							if (err) throw err;
+							db.close();
+							res.json({ ok: "ok"});
+						});
 					}
-				}
-				if(!needUpd) {
-					res.json(resultUser);
 					db.close();
-				}else{
-					dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
-						if (err) throw err;
-						res.json(resultUser);
-						db.close();
-					});
-				}
+					res.json({ oh_no: "oh_no"});
+				});
 			});
 		}); 
 	});
+
+//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
+	// app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
+	// 	MongoClient.connect(url, paramsM, function(err, db) {
+	// 		if (err) throw err;
+	// 		var dbo = db.db(dbName);
+	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
+	// 		var objectIdUserTo = req.query._id_to;
+	// 		var needUpd = true;
+	// 		dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
+	// 			if (err) throw err;
+	// 			if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
+	// 			let conversationsLength = resultUser.conversations.length;
+	// 			for(let i = 0; i < conversationsLength; ++i){
+	// 				if(resultUser.conversations[i]._id == objectIdUserTo){
+	// 					if(resultUser.conversations[i].newmsgs == 0){
+	// 						needUpd = false;
+	// 						break;
+	// 					}
+	// 					resultUser.conversations[i].newmsgs = 0;
+	// 					break;
+	// 				}
+	// 			}
+	// 			if(!needUpd) {
+	// 				res.json(resultUser);
+	// 				db.close();
+	// 			}else{
+	// 				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
+	// 					if (err) throw err;
+	// 					res.json(resultUser);
+	// 					db.close();
+	// 				});
+	// 			}
+	// 		});
+	// 	}); 
+	// });
+	
 
 //  [ UPDATE - GET ] ROTA: Deleta só as mensagens de um usuário em especifico
 	app.get('/del-user-messages', urlencodedParser, function (req, res) {
