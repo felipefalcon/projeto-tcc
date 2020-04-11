@@ -6,6 +6,7 @@
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetMessages = false;
+	let inCallUpdMessages = false;
 	let cachedMsgsHere = {};
 	let ajaxMsgs = "";
 
@@ -33,7 +34,10 @@
 			text: $("#message-send-input").val(),
 		};
 		$("#message-send-input").val("");
-		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message });
+		inCallUpdMessages = true;
+		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message }).done(function(data){
+			inCallUpdMessages = false;
+		});
 		let divsCreated = [];
 		divsCreated.push("<div class='message-p' style='opacity: 0.5; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
@@ -178,7 +182,7 @@
 	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
 
 	setInterval(function () {
-		if(!inCallGetMessages) getNewMessages(); 
+		if(!inCallGetMessages || !inCallUpdMessages) getNewMessages(); 
 		// makeChatMessage(); 
 	}, 100);
 
