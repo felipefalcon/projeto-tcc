@@ -55,9 +55,8 @@
 				$("#message-send-input").val("");
 			}
 		}
-		inCallGetMessages = false;
 		ajaxMsgs.abort();
-		getNewMessages();
+		inCallGetMessages = false;
 	});
 
 	function scrollChat(){
