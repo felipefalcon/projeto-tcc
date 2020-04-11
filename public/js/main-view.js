@@ -235,10 +235,12 @@
 			 }
 			return;
 		}
+
+		console.log(usersDistincs);
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
 		if(JSON.stringify(cachedMessagesHere) == JSON.stringify(usersDistincs)) return;
 		cachedMessagesHere = [...usersDistincs];
-
+		
 		let divsCreated = []; 
 		usersDistincs.forEach(function(item){
 
@@ -258,7 +260,7 @@
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
 			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
-			+ item.messages[0].text + "</label></div></div>");
+			+ item.messages[item.messages.length-1].text + "</label></div></div>");
 		});
 
 		divsCreated.push("<div style=' height: "+$("#menu-bottom-div").innerHeight()+"px'></div>");

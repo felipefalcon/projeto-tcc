@@ -124,6 +124,7 @@
 				if (err) throw err;
 				if(result){
 					result.age = calcAgeOfUser(result.dt_nasc);
+					result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
 				}
 				res.json(result); 
 			});
@@ -157,7 +158,7 @@
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			var latUser = req.query.lat || "???";
 			var lngUser = req.query.lng || "???";
-			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){
@@ -223,7 +224,10 @@
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { conversations: 1} }, function(err, result) {
 				if (err) throw err;
-				res.json(result.conversations); 
+				if(result){
+					result = result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
+				}
+				res.json(result);
 			});
 			db.close();
 		}); 
@@ -293,7 +297,6 @@
 					});
 				}
 			});
-			
 			dbo.collection("users").findOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
 				if (err) throw err;
 				if(result){
