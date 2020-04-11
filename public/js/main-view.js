@@ -235,8 +235,6 @@
 			 }
 			return;
 		}
-
-		console.log(usersDistincs);
 		// Verifica se algo mudou, se não mudou ele volta e não faz mais nada
 		if(JSON.stringify(cachedMessagesHere) == JSON.stringify(usersDistincs)) return;
 		cachedMessagesHere = [...usersDistincs];
@@ -245,7 +243,7 @@
 		usersDistincs.forEach(function(item){
 
 			let profile = getProfInAllUsersById(item._id);
-			let dateLastMsg = new Date(item.messages[0].date);
+			let dateLastMsg = new Date($.format.date(item.messages[item.messages.length-1].date, 'yyyy-MMM-dd HH:mm'));
 			if(dateLastMsg.toLocaleDateString() == todayDate.toLocaleDateString()){
 				dateLastMsg = "Hoje às " + (dateLastMsg.getHours() < 10 ? "0" : "") + dateLastMsg.getHours() + ":" + (dateLastMsg.getMinutes() < 10 ? "0" : "") + dateLastMsg.getMinutes();
 			}else{
@@ -295,9 +293,9 @@
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
-				data.conversations.forEach(function(item){
-					item.messages[0].date = new Date($.format.date(item.messages[0].date, 'ddd MMM dd yyyy HH:mm:ss'));
-				});
+				// data.conversations.forEach(function(item){
+				// 	item.messages[item.messages.length-1].date = new Date($.format.date(item.messages[item.messages.length-1].date, 'ddd MMM dd yyyy HH:mm:ss'));
+				// });
 				if(JSON.stringify(userInfo) == JSON.stringify(data)) {
 					flagUserChanged = false;
 					return inCallGetUser = false;
