@@ -35,13 +35,13 @@
 		$("#message-send-input").val("");
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message });
 		let divsCreated = [];
+		ajaxMsgs.abort();
+		inCallGetMessages = true;
 		divsCreated.push("<div class='message-p' style='opacity: 0.6; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
-		ajaxMsgs.abort();
-		inCallGetMessages = true;
 		$("#chat-msgs-div").animate({scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)}, 3000);
-		setTimeout(function(){inCallGetMessages = false;}, 300);
+		setTimeout(function(){inCallGetMessages = false;}, 500);
 
 	});
 
@@ -66,7 +66,7 @@
 	function makeChatMessage() {
 		// if(JSON.stringify(userInfo) === JSON.stringify(cachedUserHere)) return;
 		// cachedUserHere = userInfo;
-		if(userInfo.conversations.length == 0) return;
+		if(userInfo.conversations.length == 0 || inCallGetMessages) return;
 		let divsCreated = []; 
 		let toUserMessages = userInfo.conversations.filter(function(item){return item._id == toUser._id;})[0];
 		if(!toUserMessages) return;
