@@ -281,113 +281,35 @@
 			message.date = getTimeServer();
 			message.day = message.date.getDate();
 
-			// let userAuthor = {};
+			dbo.collection("users").findOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
+				if (err) throw err;
+				if(result){
+					dbo.collection("users").updateOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
+						if (err) throw err;
+					});
+				}else{
+					dbo.collection("users").updateOne({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
+						if (err) throw err;
+					});
+				}
+			});
 			
-				// let userAuthor = result[0];
-				// let userSubject = result[1];
-				// let conversationsAuthorLength = userAuthor.conversations.length;
-				// let conversationsSubjectLength = userSubject.conversations.length;
-				// for(let i = 0; i < conversationsAuthorLength; ++i){
-				// 	if(userAuthor.conversations[i]._id == req.query._id_to){
-				// 		userAuthor.conversations[i].messages.unshift(message);
-				// 		userAuthor.conversations[i].newmsgs = 0;
-				// 		userAuthor.conversations[i].lastmsg = message.date;
-
-				// dbo.collection("users").findOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, function(err, result) {
-				// 	if (err) throw err;
-				// 	//userAuthor = result; 
-				// 	console.log(result);
-				// 	res.json(result);
-				// });
-
-				dbo.collection("users").findOne({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
-					if (err) throw err;
-					if(result){
-						dbo.collection("users").findOneAndUpdate({_id: objectIdUserTo, conversations: {$elemMatch: {_id: req.query._id_from}}}, {$push: {"conversations.$.messages": message}, $inc: {"conversations.$.newmsgs": 1}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
-					}else{
-						dbo.collection("users").findOneAndUpdate({_id: objectIdUserTo}, {$push: {conversations: {_id: req.query._id_from, messages: [message], newmsgs: 1}}}, {upsert: true}, function(err, result) {
-							if (err) throw err;
-						});
-					}
-				});
-
-				dbo.collection("users").findOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
-					if (err) throw err;
-					if(result){
-						dbo.collection("users").findOneAndUpdate({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true, returnOriginal: false}, function(err, result) {
-							if (err) throw err;
-							db.close();
-							res.json({ ok: "ok"});
-						});
-					}else{
-						dbo.collection("users").findOneAndUpdate({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true, returnOriginal: false}, function(err, result) {
-							if (err) throw err;
-							db.close();
-							res.json({ ok: "ok"});
-						});
-					}
-				});
-				// 		foundId = true;
-				// 		break;
-				// 	}
-				// }
-				
-				// userAuthor.conversations.push({_id: req.query._id_to, messages: [message], newmsgs: 0, lastmsg: message.date});
-
-				// foundId = false;
-				// for(let i = 0; i < conversationsSubjectLength; ++i){
-				// 	if(userSubject.conversations[i]._id == req.query._id_from){
-				// 		userSubject.conversations[i].messages.unshift(message);
-				// 		userSubject.conversations[i].newmsgs++;
-				// 		userSubject.conversations[i].lastmsg = message.date;
-				// 		foundId = true;
-				// 		break;
-				// 	}
-				// }
-				// if(!foundId) userSubject.conversations.unshift({_id: req.query._id_from, messages: [message], newmsgs: 1});
-
-				// Promise.all([
-				// 	promiseUpdUser({_id: objectIdUserFrom}, {$set: 	{ conversations: userAuthor.conversations}}),
-				// 	promiseUpdUser({_id: objectIdUserTo},   {$set: 	{ conversations: userSubject.conversations}})
-				// ]).then(function() {
-				// 	db.close();
-				// 	res.json({ ok: "ok"});
-				// }).catch(function(err) {
-				// 	console.log(err);
-				// 	db.close();
-				// });
-
-		// 	}).catch(function(err) {
-		// 		console.log(err);
-		// 		db.close();
-		// 	});
-		
-		
-			// function promiseUpdUser(params) {
-			// 	return new Promise(function(resolve, reject) {
-			// 		dbo.collection("users").updateOne(query, newValues, function(err, resp) {
-			// 			if (err) {
-			// 				reject(err);
-			// 			} else {
-			// 				resolve(resp);
-			// 			}
-			// 		});
-			// 	})
-			// }
-
-		// 	function promiseGetUser(query) {
-		// 		return new Promise(function(resolve, reject) {
-		// 			dbo.collection("users").findOne(query, {projection: {conversations: 1}}, function(err, resp) {
-		// 				if (err) {
-		// 					reject(err);
-		// 				} else {
-		// 					resolve(resp);
-		// 				}
-		// 			});
-		// 		})
-		// 	}
+			dbo.collection("users").findOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {projection: {_id: 0, conversations: 1}}, function(err, result) {
+				if (err) throw err;
+				if(result){
+					dbo.collection("users").updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$push: {"conversations.$.messages": message}, $set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
+						if (err) throw err;
+						db.close();
+						res.json({ ok: "ok"});
+					});
+				}else{
+					dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
+						if (err) throw err;
+						db.close();
+						res.json({ ok: "ok"});
+					});
+				}
+			});
 
 		 }); 
 	});

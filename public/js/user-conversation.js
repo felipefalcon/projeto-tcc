@@ -54,6 +54,7 @@
 				$("#message-send-input").val("");
 			}
 		}
+		getNewMessages();
 	});
 
 	function scrollChat(){
@@ -238,7 +239,7 @@
 	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
 
 	setInterval(function () {
-		if(!inCallGetMessages || !inCallUpdMsgs) getNewMessages(); 
+		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
 	}, 300);
 
