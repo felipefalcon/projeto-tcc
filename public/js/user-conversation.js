@@ -41,7 +41,7 @@
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
 		$("#chat-msgs-div").animate({scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)}, 3000);
-		setTimeout(function(){inCallGetMessages = false;}, 500);
+		setTimeout(function(){inCallGetMessages = false;}, 300);
 
 	});
 
@@ -74,7 +74,7 @@
 		toUserMessages.messages.forEach(function(msg){
 			if (msg.author == userInfo._id) {
 				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
+				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm:ss') +
 				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text + "</p></div>"
 				);
 			} else{
@@ -172,6 +172,7 @@
 		$("#menu-1").slideUp(300);
 	});
 
+	$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
 	setInfoToUser();
 	makeChatMessage();
 	// getNewMessages();
@@ -180,7 +181,7 @@
 	setInterval(function () {
 		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
-	}, 100);
+	}, 200);
 
 	// setInterval(function () {
 	// 	// getNewMessages(); 
