@@ -7,7 +7,6 @@
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetMessages = false;
 	let cachedMsgsHere = {};
-	let ajaxMsgs = "";
 	let indexMsg = 0;
 
 	function setInfoToUser() {
@@ -46,17 +45,19 @@
 	function getNewMessages() {
 		// if(inCallGetMessages || inCallUpdMsgs) return;
 		inCallGetMessages = true;
-		ajaxMsgs = $.get("./get-user-msgs", { _id: userInfo._id })
-					.done(function (data) {
-						if (data == null || data == "undefined") {
-							alert("Algum erro");
-						} else {
-							inCallGetMessages = false;
-							userInfo.conversations = data;
-							setUserCache(userInfo);
-							makeChatMessage();
-						}
-					});
+		$.get({url: nodeHost+"get-user-msgs", timeout: 3000}, { _id: userInfo._id })
+		.done(function (data) {
+			if (data == null || data == "undefined") {
+				alert("Algum erro");
+			} else {
+				inCallGetMessages = false;
+				userInfo.conversations = data;
+				setUserCache(userInfo);
+				makeChatMessage();
+			}
+		}).fail(function(data){
+			inCallGetMessages = false;
+		});
 	}
 
 	function makeChatMessage() {
