@@ -64,11 +64,11 @@
 							fix_local: "",
 							dt_register: dtNow
 						};
-			dbo.collection("users").insertOne(myobj, function(err, res) {
+			dbo.collection("users").insertOne(myobj, function(err, result) {
 				if (err) throw err;
+				res.send("");
+				db.close();
 			});
-			res.send("");
-			db.close();
 		}); 
 	});
 	
@@ -81,8 +81,8 @@
 				if (err) throw err;
 				if(result) result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -127,8 +127,8 @@
 					result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
 				}
 				res.json(result); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -143,8 +143,8 @@
 					return res.json({oh_no: "oh-no"});
 				}
 				res.json(result); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 	
@@ -176,11 +176,12 @@
 						}
 					});
 					result.sort(compareDistances);
+					db.close();
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -228,8 +229,8 @@
 					result = result.conversations;
 				}
 				res.json(result);
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -253,8 +254,8 @@
 				result = result.value;
 				result.age = calcAgeOfUser(result.dt_nasc);
 				res.json(result); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -268,8 +269,8 @@
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;
 				res.json({ ok: 'ok' }); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -305,12 +306,14 @@
 						if(err.code == 2){
 							collection.updateOne({_id: objectIdUserFrom}, {$push: {conversations: {_id: req.query._id_to, messages: [message], newmsgs: 0}}}, {upsert: true}, function(err, result) {
 								if (err) throw err;
+								db.close();
 							});
 						}else{
 							throw err;
 						}
+					}else{
+						db.close();
 					}
-					db.close();
 				});
 				res.json({ ok: "ok"});
 
@@ -333,9 +336,11 @@
 					if(result.length > 0){
 						collection.updateOne({_id: objectIdUserFrom, conversations: {$elemMatch: {_id: req.query._id_to}}}, {$set: {"conversations.$.newmsgs": 0}}, {upsert: true}, function(err, result) {
 							if (err) throw err;
+							db.close();
 						});
+					}else{
+						db.close();
 					}
-					db.close();
 					res.json({ ok: "ok"});
 				});
 			});
@@ -406,8 +411,8 @@
 			dbo.collection("users").deleteOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				res.json(result);
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -420,8 +425,8 @@
 			dbo.collection("users").deleteOne({_id: objectId}, function(err, result) {
 				if (err) throw err;
 				res.json(result);
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -437,9 +442,9 @@
 			event.dt_creation = dtNow;
 			dbo.collection("events").insertOne(event, function(err, res) {
 				if (err) throw err;
+				db.close();
 			});
 			res.send({ok: "ok"});
-			db.close();
 		}); 
 	});
 
@@ -451,8 +456,8 @@
 			dbo.collection("events").find({}, {projection: {dt_creation: 0}}).sort({status: 1, data: 1, horario: 1}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result) res.json(result);
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -465,8 +470,8 @@
 			dbo.collection("events").findOne({_id: eventId}, {projection: {dt_creation: 0}}, function(err, result) {
 				if (err) throw err;
 				res.json(result); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -482,8 +487,8 @@
 				}else{
 					res.json({oh_no: "oh-no"});
 				}
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -497,8 +502,8 @@
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, newInsert, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -512,8 +517,8 @@
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, newRemove, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -526,8 +531,8 @@
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {status: 1}}, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -540,8 +545,8 @@
 			dbo.collection("events").deleteOne({_id: eventId}, function(err, result) {
 				if (err) throw err;
 				res.json({ok: "ok"}); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -555,8 +560,8 @@
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {title: event.title, data: event.data, horario: event.horario, address: event.address, descricao: event.descricao, tags: event.tags, img: event.img}}, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 
@@ -596,8 +601,8 @@
 				}else{
 					res.json({ oh_no: 'oh-no' }); 
 				}
+				db.close();
 			});
-			db.close();
 		}); 
 	});
 	
