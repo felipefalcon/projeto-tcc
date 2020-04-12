@@ -440,6 +440,7 @@
 			event.author = req.query._id;
 			event.participants = [];
 			event.dt_creation = dtNow;
+			event.status = 0;
 			dbo.collection("events").insertOne(event, function(err, res) {
 				if (err) throw err;
 				db.close();

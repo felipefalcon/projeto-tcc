@@ -95,18 +95,7 @@
 			return;
 		}
 
-		let dateEvent = new Date(event.data);
-		let todayDatehere = todayDate;
-		dateEvent.setDate(dateEvent.getDate()+1);
-		dateEvent.setHours(0);
-		dateEvent.setMinutes(0);
-		dateEvent.setSeconds(0);
-		dateEvent.setMilliseconds(0);
-		todayDatehere.setHours(0);
-		todayDatehere.setMinutes(0);
-		todayDatehere.setSeconds(0);
-		todayDatehere.setMilliseconds(0);
-		if(dateEvent.getTime() < todayDate.getTime()){
+		if(event.status == 2){
 			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-calendar-check' style='font-size:32px;color:white'></i><p id='text-see-cancel'>FINALIZADO !</p>");
 			return;
 		}

@@ -125,18 +125,13 @@
 		eventsToDraw.forEach( function (data) {
 			let imgData = "";
 			let dateEvent = new Date(data.data);
-			let todayDatehere = todayDate;
 			dateEvent.setDate(dateEvent.getDate()+1);
 			dateEvent.setHours(0);
 			dateEvent.setMinutes(0);
 			dateEvent.setSeconds(0);
 			dateEvent.setMilliseconds(0);
-			todayDatehere.setHours(0);
-			todayDatehere.setMinutes(0);
-			todayDatehere.setSeconds(0);
-			todayDatehere.setMilliseconds(0);
 			
-			if(dateEvent.getTime() < todayDatehere.getTime() || data.status == 1){
+			if(data.status == 2 || data.status == 1){
 				imgData += "<div class='events-t events-t-faded' style='";
 			}else{
 				imgData += "<div class='events-t' style='";
@@ -150,7 +145,6 @@
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
 			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
-			// "<button class='event-subscribe-btn' name='"+data._id+"'><i class='fas fa-hand-peace'></i></button>"+
 			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
@@ -158,10 +152,8 @@
 
 			if(data.status == 1){
 				divsCreated.push(labelCancelado);
-			}else{
-				if(dateEvent.getTime() < todayDate.getTime()){
-					divsCreated.push(labelFinalizado);
-				}
+			}else if(data.status == 2){
+				divsCreated.push(labelFinalizado);
 			}
 
 		});
@@ -250,12 +242,12 @@
 				dateLastMsg = dateLastMsg.toLocaleDateString();
 			}
 
-			let newMsgAlert = "";
+			let newMsgAlert = "style='opacity: 0.8'>";
 			if(item.newmsgs > 0){
-				newMsgAlert = "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
+				newMsgAlert = "><span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			
-			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'>"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
+			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
 			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ item.messages[item.messages.length-1].text + "</label></div></div>");
@@ -269,14 +261,13 @@
 			elmt.css("background-color", "#e8e8e8");
 			var idSubject = $(this).attr('name').toString();
 			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+			setToUser(subject);
 			setTimeout(function () {
-				setToUser(subject);
 				window.location.href = "./user-conversation.html";
 			}, 60);
 		});
 
 	}
-
 
 	function getProfInAllUsersById(id){
 		return allUsersInfo.find(function(item){return item._id == id;});
