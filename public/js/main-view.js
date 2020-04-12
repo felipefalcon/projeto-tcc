@@ -426,7 +426,7 @@
 			$("#qt-msgs").animate({
 				opacity: "1"
 			}, 600);
-			$("#qt-msgs").text(qtNoReadMsgs.toString());
+			$("#qt-msgs").text(qtNoReadMsgs < 100 ? qtNoReadMsgs.toString() : "99+");
 		}
 	}
 

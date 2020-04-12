@@ -93,7 +93,7 @@
 				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text + "</p></div>"
 				);
 			} else{
-				$(".message-p-send").first().replaceWith("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
+				$(".message-p-send").append("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
 					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text + "</p></div>"
