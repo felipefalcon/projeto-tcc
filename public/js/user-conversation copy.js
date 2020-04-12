@@ -8,7 +8,6 @@
 	let inCallGetMessages = false;
 	let cachedMsgsHere = {};
 	let ajaxMsgs = "";
-	let indexMsg = 0;
 
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name+" "+toUser.lastname.split(" ")[0]);
@@ -36,10 +35,13 @@
 		$("#message-send-input").val("");
 		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message });
 		let divsCreated = [];
-		divsCreated.push("<div class='message-p message-p-send' style='opacity: 0.6; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
+		ajaxMsgs.abort();
+		inCallGetMessages = true;
+		divsCreated.push("<div class='message-p' style='opacity: 0.6; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");
 		$("#chat-msgs-div").append(divsCreated.join(""));
 		$("#chat-msgs-div").animate({scrollTop: parseInt(document.getElementById("chat-msgs-div").scrollHeight+520)}, 3000);
+		setTimeout(function(){inCallGetMessages = false;}, 300);
 
 	});
 
@@ -52,7 +54,9 @@
 							alert("Algum erro");
 						} else {
 							inCallGetMessages = false;
-							userInfo.conversations = data;
+							if(cachedMsgsHere == JSON.stringify(data)) return;
+							cachedMsgsHere = JSON.stringify(data);
+							userInfo.conversations = data ;
 							setUserCache(userInfo);
 							makeChatMessage();
 						}
@@ -60,47 +64,29 @@
 	}
 
 	function makeChatMessage() {
+		// if(JSON.stringify(userInfo) === JSON.stringify(cachedUserHere)) return;
+		// cachedUserHere = userInfo;
 		if(userInfo.conversations.length == 0 || inCallGetMessages) return;
 		let divsCreated = []; 
 		let toUserMessages = userInfo.conversations.filter(function(item){return item._id == toUser._id;})[0];
 		if(!toUserMessages) return;
 
-		if(indexMsg == toUserMessages.messages.length) return;
-		
-		if(indexMsg == 0){
-			toUserMessages.messages.forEach(function(msg){
-				if (msg.author == userInfo._id) {
-					divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
-					" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text + "</p></div>"
-					);
-				} else{
-					divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
-						$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
-						" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
-						msg.text + "</p></div>"
-					);
-				}
-			});
-			$("#chat-msgs-div").empty().append(divsCreated.join(""));
-			indexMsg = toUserMessages.messages.length;
-			return;
-		}else{
-			let msg = toUserMessages.messages[indexMsg];
+		toUserMessages.messages.forEach(function(msg){
 			if (msg.author == userInfo._id) {
-				$(".message-p-send").first().replaceWith("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
-				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
+				divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
+				$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm:ss') +
 				" - Você diz:</p><p class='chat-msg-p' style='color: #706589;'>" + msg.text + "</p></div>"
 				);
 			} else{
-				$(".message-p-send").first().replaceWith("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
+				divsCreated.push("<div class='message-p' style='border-bottom-left-radius: 0px; margin-right: 8px;'><p class='chat-sub-p'>" +
 					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
 					" - " + toUser.name + " diz:</p><p class='chat-msg-p'>" + 
 					msg.text + "</p></div>"
 				);
 			}
-		}
-		indexMsg++;
+		});
+		
+		$("#chat-msgs-div").empty().append(divsCreated.join(""));
 	}
 
 	$("#btn-menu-1").click(function () {
