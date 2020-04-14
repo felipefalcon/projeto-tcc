@@ -103,7 +103,7 @@
 			eventsToDraw = allEventsWithtUser;
 		}else{
 			allEvents.forEach(function(data){
-				if(data.author != userInfo._id && data.status != 1){
+				if(data.author != userInfo._id && data.status != 2){
 					let userFound = data.participants.find(function(item){return item == userInfo._id});
 					if((typeof userFound === "undefined")){
 						allEventsWithoutUser.push(data);
@@ -150,9 +150,9 @@
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label></div>");
 
-			if(data.status == 1){
+			if(data.status == 2){
 				divsCreated.push(labelCancelado);
-			}else if(data.status == 2){
+			}else if(data.status == 1){
 				divsCreated.push(labelFinalizado);
 			}
 

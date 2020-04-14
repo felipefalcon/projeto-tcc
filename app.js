@@ -529,7 +529,7 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var eventId = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {status: 1}}, {upsert: true, returnOriginal: false}, function(err, result) {
+			dbo.collection("events").findOneAndUpdate({_id: eventId}, {$set: {status: 2}}, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
 				res.json(result.value); 
 				db.close();

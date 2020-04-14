@@ -90,12 +90,12 @@
 	}
 	
 	function verifyUserAlreadyInterested(event, user_id){
-		if(event.status == 1){
+		if(event.status == 2){
 			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-lock' style='font-size:32px;color:white'></i><p id='text-see-cancel'>CANCELADO !</p>");
 			return;
 		}
 
-		if(event.status == 2){
+		if(event.status == 1){
 			$("#menu-bottom-div-view-event").empty().append("<i class='fas fa-calendar-check' style='font-size:32px;color:white'></i><p id='text-see-cancel'>FINALIZADO !</p>");
 			return;
 		}
