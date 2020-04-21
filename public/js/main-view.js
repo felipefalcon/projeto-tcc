@@ -21,6 +21,7 @@
 	let cachedMessagesHere = [];
 	let showBoxSubscriptions = true;
 	let titleTab = "";
+	let filterEvent = 0;
 	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
@@ -118,6 +119,13 @@
 			}else{
 				$("#events-tags-div").css("display", "block");
 			}
+			if(filterEvent.toString() != "0"){
+				allEventsWithoutUser = allEventsWithoutUser.filter(function(event){return event.tags.includes(filterEvent.toString())});
+				if(allEventsWithoutUser.length == 0){
+					$("#events-box-div").empty();
+					return;
+				}
+			}
 			eventsToDraw = allEventsWithoutUser;
 		}
 		
@@ -179,17 +187,17 @@
 		$(".label-warning-events").each(function(){
 			$(this).animate({opacity: 1}, 205);
 		});
-
 	}
 
 	function makeUsersNextObjects() {
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			let distance = data.location.distance;
+			let online = data.online == 1 ? "box-shadow: 0 0 0 3px #50eab1;" : "";
 			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" + 
 			data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
 			"' ></i><div id='user-n-u-div-content' name='" +
-			data._id + "' style='background-image: url(" + data.pics_url.main_pic + "'><div class='send-msg-button' name='" +
+			data._id + "' style='background-image: url(" + data.pics_url.main_pic + "); "+online+"'><div class='send-msg-button' name='" +
 			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
 			distance + "</label></div></div>";
 		});
@@ -392,6 +400,18 @@
 			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);
 		});
+	});
+
+	$("#events-tags-div").children().click(function(){
+		let filterButton = $(this);
+		if(filterEvent.toString() == filterButton.attr('option').toString()) return;
+		$("#events-tags-div").children().css("opacity", "0.3");
+		$(".events-t").animate({opacity: 0}, 200);
+		$(".events-t").animate({opacity: 0}, 200);
+		$(".label-warning-events").animate({opacity: 0}, 200);
+		filterButton.animate({opacity: 1}, 200);
+		filterEvent = filterButton.attr('option');
+		setTimeout(makeEventsObjects, 300)
 	});
 
 	function emptyTab(tabSelector, tabEvents = true){
