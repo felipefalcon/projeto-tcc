@@ -28,7 +28,7 @@
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
 		}
 		$("#label-user-name").html(iconEdit+"<div id='gender-ico' style='display: inherit; width: 20px;'>"+gender+"</div>&nbsp&nbsp"+iconEdit+"<input type='text' id='edit-name-input' placeholder='???' value='"+userInfo.name+" "+userInfo.lastname+"'/>");
-		$("#label-user-age").html(iconEdit+"<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
+		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div-other-user").html(iconEdit+"<textarea maxlength='114' id='edit-about-input' placeholder='???'>"+userInfo.about+"</textarea>");
 		if("dt_nasc" in userInfo){
 			let dtNassFormat = new Date(userInfo.dt_nasc);
