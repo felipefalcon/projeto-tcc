@@ -470,6 +470,14 @@
 		makeEventsObjects(option);
 	});
 
+	function setStatusOnline(){
+		$.get(nodeHost+"upd-user-status", {_id: userInfo._id}).done(function (data) {
+			if (isNullOrUndefined(data)) {
+				console.log("Deu merda");
+			}
+		});
+	}
+
 	function titleTopTable(){
 		let titleTabHere = "";
 		if(tabActive == 4) titleTabHere = "CONVERSAS";
@@ -516,6 +524,7 @@
 
 	(function(){
 		getServerDate();
+		setStatusOnline();
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
 		getAllEvents();
@@ -548,6 +557,7 @@
 
 		setInterval(function(){
 			getServerDate();
+			setStatusOnline();
 		}, 60000);
 
 		let initTabs = setInterval(function(){

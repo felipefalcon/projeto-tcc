@@ -274,6 +274,21 @@
 		}); 
 	});
 
+//  [ UPDATE - GET ] ROTA: atualiza dados do usuário (estado, se está online ou não)
+	app.get('/upd-user-status', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectId = new require('mongodb').ObjectID(req.query._id);
+			var newStatus = {$set: 	{ online: 1 }};
+			dbo.collection("users").updateOne({_id: objectId}, newStatus, {upsert: true}, function(err, result) {
+				if (err) throw err;
+				res.json({ ok: 'ok' }); 
+				db.close();
+			});
+		}); 
+	});
+
 //  [ UPDATE - GET ] ROTA: atualiza mensagens (from e to)
 	app.get('/upd-users-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
