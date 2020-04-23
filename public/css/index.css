@@ -1639,6 +1639,73 @@
 		text-shadow: 1px 1px 0px #9e4dc8;
 	}
 
+	#menu-bottom-next-u{
+		position: fixed;
+		bottom: 0;
+		margin-bottom: 48px;
+		background-color: rgba(39, 19, 81, 0.75);
+		padding: 0;
+		height: 54px;
+	}
+
+	#menu-bottom-next-u .btn-menu{
+		transition: 0.25s;
+		color: #675985;
+		border-color: #675985;
+	}
+	
+	#menu-bottom-next-u .btn-menu.active{
+		transition: 0.5s;
+		color: white;
+		border-color: white;
+	}
+
+	.slider {
+		-webkit-appearance: none;
+		appearance: none;
+		height: 6px;
+		outline: none;
+		border-radius: 30px;
+		background-color: #b54082;
+	}
+	  
+	  /* Mouse-over effects */
+	  .slider:hover {
+		opacity: 1; /* Fully shown on mouse-over */
+	  }
+	  
+	  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+	  .slider::-webkit-slider-thumb {
+		-webkit-appearance: none; /* Override default look */
+		appearance: none;
+		background-color: #bab3c7;
+		width: 14px; /* Set a specific slider handle width */
+		height: 25px; /* Slider handle height */
+		cursor: pointer; /* Cursor on hover */
+		border: 2px solid #b54082;
+		border-radius: 40px;
+	  }
+	  
+	  .slider::-moz-range-thumb {
+		width: 25px; /* Set a specific slider handle width */
+		height: 25px; /* Slider handle height */
+		background: #4CAF50; /* Green background */
+		cursor: pointer; /* Cursor on hover */
+	  }
+
+	  #slider-div{
+		  display: inline;
+	  }
+
+	  #slider-div span{
+		color: white;
+		position: absolute;
+		left: 50%;
+		font-weight: bolder;
+		transform: translateX(-50%);
+		top: -4px;
+	}
+
 
 
 

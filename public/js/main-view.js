@@ -12,6 +12,7 @@
 
 	const MenuBottomHome = $("#menu-bottom-home");
 	const MenuBottomProf = $("#menu-bottom-prof");
+	const MenuBottomNextU = $("#menu-bottom-next-u");
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
@@ -66,6 +67,10 @@
 			inCallGetAllEvents = false;
 		});
 	}
+
+	$("#slider-location-range").change(function(){
+		$("#slider-div span").text($("#slider-location-range").val()+" KM")
+	});
 
 	function makeEventsObjects(type = 0) {
 		// console.log(allEvents);
@@ -527,6 +532,7 @@
 		setStatusOnline();
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
+		MenuBottomNextU.slideUp(1);
 		getAllEvents();
 		getQtNoReadMsgs();
 		getAllUsersInfo();
@@ -595,6 +601,7 @@
 			checkTab();
 			setTimeout(function(){
 				MenuBottomHome.slideDown(300);
+				MenuBottomNextU.slideUp(0);
 				MenuBottomProf.slideUp(0);
 			}, 100);
 		});
@@ -606,6 +613,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(0);
 			MenuBottomProf.slideUp(0);
+			MenuBottomNextU.slideUp(0);
 			cachedMessagesHere = [];
 			checkTab();
 		});
@@ -619,6 +627,7 @@
 			setTimeout(function(){
 				MenuBottomProf.slideDown(300);
 				MenuBottomHome.slideUp(0);
+				MenuBottomNextU.slideUp(0);
 			}, 200);
 		});
 	
@@ -627,6 +636,7 @@
 			tabActive = 1;
 			configParams.tab = "next-u-tab";
 			setConfigParams(configParams);
+			MenuBottomNextU.slideDown(300);
 			MenuBottomHome.slideUp(0);
 			MenuBottomProf.slideUp(0);
 			checkTab();
@@ -639,6 +649,7 @@
 			setConfigParams(configParams);
 			MenuBottomHome.slideUp(0);
 			MenuBottomProf.slideUp(0);
+			MenuBottomNextU.slideUp(0);
 			checkTab();
 		});
 
