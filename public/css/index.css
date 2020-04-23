@@ -1706,6 +1706,18 @@
 		top: -4px;
 	}
 
+	#next-u-func-1{
+		display: inline;
+	}
+
+	#next-u-func-2{
+		display: none;
+	}
+
+	#change-next-u-func{
+		text-shadow: 2px 3px 1px #b7417f;
+	}
+
 
 
 

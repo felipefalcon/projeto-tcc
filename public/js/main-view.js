@@ -21,6 +21,7 @@
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
 	let showBoxSubscriptions = true;
+	let showBoxUserEvents = false;
 	let titleTab = "";
 	let filterEvent = 0;
 	let exitApp = false;
@@ -70,6 +71,41 @@
 
 	$("#slider-location-range").change(function(){
 		$("#slider-div span").text($("#slider-location-range").val()+" KM")
+	});
+
+	$("#change-next-u-func").click(function(){
+		$("#change-next-u-func").animate({"opacity": "1 !important"}, 200, function(){
+			$("#change-next-u-func").animate({"opacity": "0.7 !important"});
+			$("#next-u-func-1").animate({opacity: 0}, 200);
+			$("#next-u-func-2").animate({opacity: 0}, 200);
+
+			showBoxUserEvents = !showBoxUserEvents;
+			// $("#my-events-box-div").empty();
+			// $("#my-events-author-box-div").empty();
+			let titleTabHere = "PESSOAS DE INTERESSE";
+			let option = 1;
+			$("#change-next-u-func i").removeClass();
+			if(showBoxUserEvents){
+				$("#change-next-u-func i").addClass("fas fa-map-marker-alt");
+				$("#next-u-func-1").css("display", "none");
+				$("#next-u-func-2").css("display", "inline");
+				$("#next-u-func-2").animate({opacity: 1}, 200);
+				// $("#my-events-box-div").css("display", "none");
+				// $("#my-events-author-box-div").css("display", "block");
+				// $("#btn-subscript").val("SUBSCRIÇÕES");
+			}else{
+				$("#change-next-u-func i").addClass("fas fa-fire-alt");
+				$("#next-u-func-2").css("display", "none");
+				$("#next-u-func-1").css("display", "inline");
+				$("#next-u-func-1").animate({opacity: 1}, 200);
+				// $("#my-events-box-div").css("display", "block");
+				// $("#btn-subscript").val("CRIAÇÕES");
+				titleTabHere = "PESSOAS PRÓXIMAS"
+				option = 2;
+			}
+			$("#title-tab-top").text(titleTabHere);
+
+		});
 	});
 
 	function makeEventsObjects(type = 0) {
