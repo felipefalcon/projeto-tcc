@@ -467,7 +467,7 @@
 	}
 
 	.user-n-u-div{
-		height: 132px;
+		height: 124px;
 		/* background: rgba(255,255,255,0.15); */
 		overflow: hidden;
 		width: 100%;
@@ -922,6 +922,9 @@
 
 	#next-u-div{
 		overflow: scroll;
+		padding-left: 8px;
+		padding-right: 8px;
+		padding-top: 6px;
 	}
 
 	/* INPUT RADIO EDIT */
@@ -1716,6 +1719,49 @@
 
 	#change-next-u-func{
 		text-shadow: 2px 3px 1px #b7417f;
+	}
+
+	#online-circle{
+		width: 18px;
+		height: 18px;
+		background-color: #50eab1;
+		position: absolute;
+		right: 0;
+		margin-right: 24px;
+		border-radius: 40px;
+		border: 2px solid white;
+	}
+
+	.events-t-header-next-u{
+		overflow: hidden;
+		text-align: left;
+		margin-bottom: 8px;
+		background-color: rgba(250, 237, 255, 0.3);
+		background-position: center;
+		background-image: url(https://blog.egestor.com.br/wp-content/uploads/2017/04/evento.jpeg);
+		background-size: cover;
+		height: 134px;
+		background-blend-mode: color-burn;
+		border: 3px solid white;
+		border-radius: 10px;
+		border-bottom: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+		-webkit-mask-size: 100% 110%;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: left top, left bottom;
+	}
+
+	.user-n-u-block-events{
+		width: 33%;
+		float: left;
+		display: flex;
+  		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		position: relative;
+		top: -100px;
 	}
 
 

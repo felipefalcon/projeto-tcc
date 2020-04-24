@@ -90,9 +90,7 @@
 				$("#next-u-func-1").css("display", "none");
 				$("#next-u-func-2").css("display", "inline");
 				$("#next-u-func-2").animate({opacity: 1}, 200);
-				// $("#my-events-box-div").css("display", "none");
-				// $("#my-events-author-box-div").css("display", "block");
-				// $("#btn-subscript").val("SUBSCRIÇÕES");
+				makeUsersInEvents();
 			}else{
 				$("#change-next-u-func i").addClass("fas fa-fire-alt");
 				$("#next-u-func-2").css("display", "none");
@@ -102,11 +100,158 @@
 				// $("#btn-subscript").val("CRIAÇÕES");
 				titleTabHere = "PESSOAS PRÓXIMAS"
 				option = 2;
+				makeUsersNextObjects();
 			}
 			$("#title-tab-top").text(titleTabHere);
 
 		});
 	});
+
+	// function makeUsersInEvents() {
+	// 	let createdDivs = "<div>TESTE ABBBBBBBB</div>";
+	// 	allUsersInfo.forEach( function (data) {
+	// 		let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
+	// 		createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
+	// 		data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
+	// 		"' ></i><div id='user-n-u-div-content' name='" +
+	// 		data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
+	// 		+"<div class='send-msg-button' name='" +
+	// 		data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
+	// 		"</label></div></div>";
+	// 	});
+
+	// 	$("#next-u-users").empty().append(createdDivs);
+
+	// 	$(".send-msg-button").click(function () {
+	// 		var idSubject = $(this).attr('name').toString();
+	// 		var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+	// 		setToUser(subject);
+	// 		window.location.href = "./user-conversation.html";
+	// 	});
+
+	// 	$(".view-prof-icon").click( function () {
+	// 		var idSubject = $(this).attr('name').toString();
+	// 		var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+	// 		setTimeout(function () {
+	// 			setToUser(subject);
+	// 			configParams.history = "next-u-main-view";
+	// 			setConfigParams(configParams);
+	// 			window.location.href = "./user-profile.html";
+	// 		}, 60);
+	// 	});
+
+	// 	$(".user-n-u-block").each(function(){
+	// 		$(this).animate({opacity: 1}, 300);
+	// 	});
+	// }
+
+	function makeUsersInEvents() {
+		// console.log(allEvents);
+		if(allEvents.length == 0 || !allEvents) return;
+		let allEventsSubscribed = [];
+		let eventsToDraw = [];
+
+		allEvents.forEach(function(data){
+			if(data.status == 0){
+				if(data.author == userInfo._id){
+					allEventsSubscribed.push(data);
+				}
+				if(data.author != userInfo._id){
+					let userFound = data.participants.find(function(item){return item == userInfo._id});
+					if(userFound){
+						allEventsSubscribed.push(data);
+					}
+				}
+			}
+		});
+		if(allEventsSubscribed.length == 0){
+			return;
+		}
+		eventsToDraw = allEventsSubscribed;
+		
+		let divsCreated = []; 
+		eventsToDraw.forEach( function (data) {
+			let imgData = "";
+			let dateEvent = new Date(data.data);
+			dateEvent.setDate(dateEvent.getDate()+1);
+			dateEvent.setHours(0);
+			dateEvent.setMinutes(0);
+			dateEvent.setSeconds(0);
+			dateEvent.setMilliseconds(0);
+			
+			imgData += "<div class='events-t-header-next-u' style='";
+
+			if("img" in data) imgData += "background-image: url("+data.img+");";
+			divsCreated.push(imgData+"' name='" + data._id + "'>");
+			
+			let dayEvent = new Number(dateEvent.getDate());
+			let monthEvent = new Number(dateEvent.getMonth())+1;
+			if(dayEvent < 10) dayEvent = "0" + dayEvent;
+			if(monthEvent < 10) monthEvent = "0" + monthEvent;
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
+			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
+			+ dateEvent.getFullYear() 
+			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
+			+ data.horario +"</label></div>");
+
+			let createdDivs = "<div class='user-n-u-block-events'><div class='user-n-u-div'></div></div>";
+			data.participants.push(data.author.toString());
+
+			allUsersInfo.forEach( function (user) {
+				if(!(data.participants.includes(user._id.toString()))) return;
+				let online = user.online == 1 ? "<div id='online-circle'></div>" : "";
+				createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
+				user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
+				"' ></i><div id='user-n-u-div-content' name='" +
+				user._id + "' style='background-image: url(" + user.pics_url.main_pic + ");'>" + online
+				+"<div class='send-msg-button' name='" +
+				user._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div></div></div>";
+			});
+	
+			divsCreated.push(createdDivs);
+	
+			$(".send-msg-button").click(function () {
+				var idSubject = $(this).attr('name').toString();
+				var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+				setToUser(subject);
+				window.location.href = "./user-conversation.html";
+			});
+	
+			$(".view-prof-icon").click( function () {
+				var idSubject = $(this).attr('name').toString();
+				var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+				setTimeout(function () {
+					setToUser(subject);
+					configParams.history = "next-u-main-view";
+					setConfigParams(configParams);
+					window.location.href = "./user-profile.html";
+				}, 60);
+			});
+
+		});
+
+		divsCreated.push("<div style=' height: 96px'></div>");
+
+		$("#next-u-users").empty().append(divsCreated.join(""));
+
+		$(".user-n-u-block-events").each(function(){
+			$(this).animate({opacity: 1}, 300);
+		});
+
+		$(".events-t").each(function(){
+			$(this).animate({opacity: 1}, 200);
+		});
+
+	}
+
+
+
+
+
+
+
+
+
 
 	function makeEventsObjects(type = 0) {
 		// console.log(allEvents);
@@ -234,11 +379,12 @@
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			let distance = data.location.distance;
-			let online = data.online == 1 ? "box-shadow: 0 0 0 3px #50eab1;" : "";
-			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" + 
+			let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
+			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 			data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
 			"' ></i><div id='user-n-u-div-content' name='" +
-			data._id + "' style='background-image: url(" + data.pics_url.main_pic + "); "+online+"'><div class='send-msg-button' name='" +
+			data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
+			+"<div class='send-msg-button' name='" +
 			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
 			distance + "</label></div></div>";
 		});
