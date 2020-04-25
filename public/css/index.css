@@ -1765,8 +1765,6 @@
 	}
 
 	.fix-users-events-div{
-		min-height: 180px;
-		height: 0px;
 		overflow: hidden;
 	}
 

@@ -170,6 +170,7 @@
 		eventsToDraw = allEventsSubscribed;
 		
 		let divsCreated = []; 
+		let heightEventsDiv = [];
 		eventsToDraw.forEach( function (data) {
 			let imgData = "";
 			let dateEvent = new Date(data.data);
@@ -201,6 +202,7 @@
 
 			let allUsersInfoLength = allUsersInfo.length;
 			let i = 0;
+			let maxUsers = 0;
 			for(i = 0; i < allUsersInfoLength; ++i){
 				let user = allUsersInfo[i];
 				if(data.participants.includes(user._id.toString())){
@@ -213,13 +215,14 @@
 					+"<div class='send-msg-button' name='" +
 					user._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
 					distance + "</label></div></div>";
-					if(i > 7) break;
+					maxUsers++;
 				}
+				if(maxUsers == 8) break;
 			};
-
-			$(".fix-users-events-div").last().css("height", (i%3)*124+"px");
 	
 			divsCreated.push(createdDivs+"</div>");
+			let calcHeight = ((maxUsers-1)%3)*160;
+			heightEventsDiv.push(calcHeight < 160 ? 160 : calcHeight);
 	
 			$(".send-msg-button").click(function () {
 				var idSubject = $(this).attr('name').toString();
@@ -241,9 +244,12 @@
 
 		});
 
-		divsCreated.push("<div style=' height: 96px'></div>");
+		divsCreated.push("<div style=' height: 112px'></div>");
 
 		$("#next-u-users").empty().append(divsCreated.join(""));
+		$(".fix-users-events-div").each(function(i){
+			$(this).css("height", heightEventsDiv[i]+"px");
+		});
 
 		$(".user-n-u-block-events").each(function(){
 			$(this).animate({opacity: 1}, 300);
