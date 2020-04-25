@@ -104,12 +104,11 @@
 			return;
 		}
 
-		if(event.participants.length > 0){
-			$("#menu-bottom-div-view-event").prepend("<div class='col-3 mx-auto' style='display: inline-block; max-width: 22% !important;'><button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:26px;color:white'></i></button></div>");
-			$("#separator-lbl").remove();
-		}
-
 		if(event.author == userInfo._id){
+			if(event.participants.length > 0){
+				$("#menu-bottom-div-view-event").prepend("<div class='col-3 mx-auto' style='display: inline-block; max-width: 22% !important;'><button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:26px;color:white'></i></button></div>");
+			}
+
 			$("#set-interest").remove();
 			$("#separator-lbl").remove();
 			$("#menu-bottom-div-view-event").append("<button style='max-width: 22% !important;' id='edit-event' type='button' class='general-button btns-prof col-3 mx-auto'><i class='fas fa-marker' style='font-size:32px;color:white'></i> <p id='text-edit-event'>EDITAR</p> </button>");
@@ -129,7 +128,13 @@
 			return;
 		}
 		let userFound = event.participants.find(function(item){return item == user_id});
+
 		if(userFound){
+			if(event.participants.length > 0){
+				$("#menu-bottom-div-view-event").prepend("<div class='col-3 mx-auto' style='display: inline-block; max-width: 22% !important;'><button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:26px;color:white'></i></button></div>");
+				$("#separator-lbl").remove();
+			}
+			
 			$("#set-interest").css("opacity", 1);
 			$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
 			userParticipant = true;
