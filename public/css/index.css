@@ -1682,7 +1682,7 @@
 		-webkit-appearance: none; /* Override default look */
 		appearance: none;
 		background-color: #bab3c7;
-		width: 14px; /* Set a specific slider handle width */
+		width: 10px; /* Set a specific slider handle width */
 		height: 25px; /* Slider handle height */
 		cursor: pointer; /* Cursor on hover */
 		border: 2px solid #b54082;
@@ -1697,7 +1697,9 @@
 	  }
 
 	  #slider-div{
-		  display: inline;
+		display: inline;
+		position: relative;
+		top: -16px;
 	  }
 
 	  #slider-div span{
@@ -1706,7 +1708,6 @@
 		left: 50%;
 		font-weight: bolder;
 		transform: translateX(-50%);
-		top: -4px;
 	}
 
 	#next-u-func-1{
