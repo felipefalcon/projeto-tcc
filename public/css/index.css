@@ -515,7 +515,7 @@
 		color: white;
 		margin: 0;
 		font-size: 11px;
-		transform: translateY(-12px);
+		transform: translate(-2px,-14px);
 		background-color: rgb(88, 36, 128);
 		border-radius: 12px;
 		max-width: 98px;
@@ -1747,7 +1747,7 @@
 		border-bottom: 0px;
 		border-bottom-left-radius: 0px;
 		border-bottom-right-radius: 0px;
-		-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+		-webkit-mask-image: linear-gradient(to bottom,rgba(0,0,0,1), rgba(0,0,0,1), rgba(0,0,0,0));
 		-webkit-mask-size: 100% 110%;
 		-webkit-mask-repeat: no-repeat;
 		-webkit-mask-position: left top, left bottom;
@@ -1762,6 +1762,21 @@
 		opacity: 0;
 		position: relative;
 		top: -100px;
+	}
+
+	.fix-users-events-div{
+		min-height: 180px;
+		height: 0px;
+		overflow: hidden;
+	}
+
+	#btn-view-all-users-events{
+		text-shadow: 2px 3px 1px #32719e;
+		position: relative;
+		top: 6px;
+		background: #65afc5;
+		width: 50px;
+		height: 50px;
 	}
 
 

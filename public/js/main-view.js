@@ -179,7 +179,7 @@
 			dateEvent.setSeconds(0);
 			dateEvent.setMilliseconds(0);
 			
-			imgData += "<div class='events-t-header-next-u' style='";
+			imgData += "<div class='fix-users-events-div'><div class='events-t-header-next-u' style='";
 
 			if("img" in data) imgData += "background-image: url("+data.img+");";
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
@@ -189,26 +189,37 @@
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
 			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
-			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
+			"</label></div>");
+
+			let createdDivs = "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='event-msg-label' style='margin: 25%; margin-top: 4px; margin-bottom: 0px;'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
-			+ data.horario +"</label></div>");
-
-			let createdDivs = "<div class='user-n-u-block-events'><div class='user-n-u-div'></div></div>";
+			+ data.horario +"</label>"+
+			"<button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:26px;color:white'></i></button>"+
+			"</div></div>";
 			data.participants.push(data.author.toString());
 
-			allUsersInfo.forEach( function (user) {
-				if(!(data.participants.includes(user._id.toString()))) return;
-				let online = user.online == 1 ? "<div id='online-circle'></div>" : "";
-				createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
-				user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
-				"' ></i><div id='user-n-u-div-content' name='" +
-				user._id + "' style='background-image: url(" + user.pics_url.main_pic + ");'>" + online
-				+"<div class='send-msg-button' name='" +
-				user._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div></div></div>";
-			});
+			let allUsersInfoLength = allUsersInfo.length;
+			let i = 0;
+			for(i = 0; i < allUsersInfoLength; ++i){
+				let user = allUsersInfo[i];
+				if(data.participants.includes(user._id.toString())){
+					let distance = user.location.distance;
+					let online = user.online == 1 ? "<div id='online-circle'></div>" : "";
+					createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
+					user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
+					"' ></i><div id='user-n-u-div-content' name='" +
+					user._id + "' style='background-image: url(" + user.pics_url.main_pic + ");'>" + online
+					+"<div class='send-msg-button' name='" +
+					user._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
+					distance + "</label></div></div>";
+					if(i > 7) break;
+				}
+			};
+
+			$(".fix-users-events-div").last().css("height", (i%3)*124+"px");
 	
-			divsCreated.push(createdDivs);
+			divsCreated.push(createdDivs+"</div>");
 	
 			$(".send-msg-button").click(function () {
 				var idSubject = $(this).attr('name').toString();

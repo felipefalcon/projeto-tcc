@@ -137,7 +137,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").find({email: req.query.email}, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
 				if (err) throw err;
 				if(result){
 					return res.json({oh_no: "oh-no"});
@@ -169,7 +169,7 @@
 						}else{
 							item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
 							if(!isNaN(item.location.distance)) {
-								item.location.distance = item.location.distance.toFixed(2) + " km";
+								item.location.distance = item.location.distance.toFixed(1) + " km";
 							}else{
 								item.location.distance = "???";
 							}
