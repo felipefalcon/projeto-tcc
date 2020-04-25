@@ -169,9 +169,9 @@
 						}else{
 							item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
 							if(!isNaN(item.location.distance)) {
-								item.location.distance = item.location.distance.toFixed(1) + " km";
+								item.location.distance = item.location.distance.toFixed(1);
 							}else{
-								item.location.distance = "???";
+								item.location.distance = 9999;
 							}
 						}
 					});

@@ -902,6 +902,12 @@
 		top: -3px;
 	}
 
+	#btn-reload-next-u{
+		text-shadow: 2px 3px 1px #9f41b7;
+		position: relative;
+		top: -3px;
+	}
+
 	#menu-bottom-home{
 		position: fixed;
 		bottom: 0;
@@ -1776,6 +1782,7 @@
 		background: #65afc5;
 		width: 50px;
 		height: 50px;
+		border: 2px solid white;
 	}
 
 

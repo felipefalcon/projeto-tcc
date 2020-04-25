@@ -24,3 +24,7 @@
 	function failedGeoLocation(error) {
 
 	}
+
+	function callUpdUserLocation(){
+		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
+	}

@@ -24,6 +24,7 @@
 	let showBoxUserEvents = false;
 	let titleTab = "";
 	let filterEvent = 0;
+	let filterDistance = 5;
 	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
@@ -70,7 +71,14 @@
 	}
 
 	$("#slider-location-range").change(function(){
+		filterDistance = $("#slider-location-range").val();
 		$("#slider-div span").text($("#slider-location-range").val()+" KM")
+	});
+
+	$("#btn-reload-next-u").click(function(){
+		callUpdUserLocation();
+		getAllUsersInfo();
+		makeUsersNextObjects();
 	});
 
 	$("#change-next-u-func").click(function(){
@@ -107,44 +115,6 @@
 		});
 	});
 
-	// function makeUsersInEvents() {
-	// 	let createdDivs = "<div>TESTE ABBBBBBBB</div>";
-	// 	allUsersInfo.forEach( function (data) {
-	// 		let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
-	// 		createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
-	// 		data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
-	// 		"' ></i><div id='user-n-u-div-content' name='" +
-	// 		data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
-	// 		+"<div class='send-msg-button' name='" +
-	// 		data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
-	// 		"</label></div></div>";
-	// 	});
-
-	// 	$("#next-u-users").empty().append(createdDivs);
-
-	// 	$(".send-msg-button").click(function () {
-	// 		var idSubject = $(this).attr('name').toString();
-	// 		var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
-	// 		setToUser(subject);
-	// 		window.location.href = "./user-conversation.html";
-	// 	});
-
-	// 	$(".view-prof-icon").click( function () {
-	// 		var idSubject = $(this).attr('name').toString();
-	// 		var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
-	// 		setTimeout(function () {
-	// 			setToUser(subject);
-	// 			configParams.history = "next-u-main-view";
-	// 			setConfigParams(configParams);
-	// 			window.location.href = "./user-profile.html";
-	// 		}, 60);
-	// 	});
-
-	// 	$(".user-n-u-block").each(function(){
-	// 		$(this).animate({opacity: 1}, 300);
-	// 	});
-	// }
-
 	function makeUsersInEvents() {
 		// console.log(allEvents);
 		if(allEvents.length == 0 || !allEvents) return;
@@ -154,6 +124,7 @@
 		allEvents.forEach(function(data){
 			if(data.status == 0){
 				if(data.author == userInfo._id){
+					if(data.participants.length == 0) return;
 					allEventsSubscribed.push(data);
 				}
 				if(data.author != userInfo._id){
@@ -206,7 +177,9 @@
 			for(i = 0; i < allUsersInfoLength; ++i){
 				let user = allUsersInfo[i];
 				if(data.participants.includes(user._id.toString())){
-					let distance = user.location.distance;
+					let distance = new Number(user.location.distance);
+					if(distance <= 0) distance = 0;
+					distance = user.location.distance >= 999 ? "???" : distance+" km";
 					let online = user.online == 1 ? "<div id='online-circle'></div>" : "";
 					createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 					user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
@@ -223,24 +196,6 @@
 			divsCreated.push(createdDivs+"</div>");
 			let calcHeight = ((maxUsers-1)%3)*160;
 			heightEventsDiv.push(calcHeight < 160 ? 160 : calcHeight);
-	
-			$(".send-msg-button").click(function () {
-				var idSubject = $(this).attr('name').toString();
-				var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
-				setToUser(subject);
-				window.location.href = "./user-conversation.html";
-			});
-	
-			$(".view-prof-icon").click( function () {
-				var idSubject = $(this).attr('name').toString();
-				var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
-				setTimeout(function () {
-					setToUser(subject);
-					configParams.history = "next-u-main-view";
-					setConfigParams(configParams);
-					window.location.href = "./user-profile.html";
-				}, 60);
-			});
 
 		});
 
@@ -257,6 +212,24 @@
 
 		$(".events-t").each(function(){
 			$(this).animate({opacity: 1}, 200);
+		});
+
+		$(".send-msg-button").click(function () {
+			var idSubject = $(this).attr('name').toString();
+			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+			setToUser(subject);
+			window.location.href = "./user-conversation.html";
+		});
+
+		$(".view-prof-icon").click( function () {
+			var idSubject = $(this).attr('name').toString();
+			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
+			setTimeout(function () {
+				setToUser(subject);
+				configParams.history = "next-u-main-view";
+				setConfigParams(configParams);
+				window.location.href = "./user-profile.html";
+			}, 60);
 		});
 
 	}
@@ -396,6 +369,8 @@
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
 			let distance = data.location.distance;
+			if(new Number(distance) >= filterDistance || data.location.distance == "???") return;
+			if(new Number(distance) == 0) distance = 0;
 			let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
 			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 			data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
@@ -403,7 +378,7 @@
 			data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
 			+"<div class='send-msg-button' name='" +
 			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
-			distance + "</label></div></div>";
+			distance + " km</label></div></div>";
 		});
 
 		$("#next-u-users").empty().append(createdDivs);
