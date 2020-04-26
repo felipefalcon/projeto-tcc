@@ -91,8 +91,8 @@
 		if(cachedAllIdUsersHere.includes(cachedEvent.participants[userOrder])){
 			setToUser(JSON.stringify(cachedAllUsersHere.find(function(user){ return user._id == cachedEvent.participants[userOrder];})));
 			qtPicsTotal = 1+toUser.pics_url.sec_pics.filter(function(item){return item != "";}).length;
-			getProfile();
-			setTimeout(function(){eventSwipe = false;}, 500);
+			eventSwipe = false;
+			removeEffects();
 			return;
 		}
 		$.get(nodeHost+"get-user-by-id", {
@@ -108,16 +108,37 @@
 				cachedAllIdUsersHere.push(toUser._id);
 				cachedAllUsersHere.push(toUser);
 				qtPicsTotal = 1+toUser.pics_url.sec_pics.filter(function(item){return item != "";}).length;
-				getProfile();
-				setTimeout(function(){eventSwipe = false;}, 500);
+				removeEffects();
+				eventSwipe = false;
 			}
 		});
 	}
 
+	function removeEffects(){
+		if($("#main-pic-div-c").hasClass("loading-img")){
+			$("#main-pic-div-c").animate({"opacity": "0.4"}, 800);
+			$("#main-pic-div-c").animate({"opacity": "1"}, 800);
+			$("#main-pic-div-c").removeClass("loading-img");
+		}
+		$("#user-information-div").animate({"filter": "blur(1px)"}, 800, function(){
+			$("#user-information-div").removeClass("blur-effect");
+		});
+		$("#menu-bottom-prof-other-user").animate({"filter": "blur(0px)"}, 800, function(){
+			$("#menu-bottom-prof-other-user").removeClass("blur-effect");
+			getProfile();
+		});
+	}
+
 	function changeUser(factor){
+		$("#other-label-user-info").slideUp(600);
+		if(typeof toUser.about !== "undefined" && toUser.about != ""){
+			$( "#main-descript-div-other-user" ).animate({
+				height: "0%",
+				opacity: "0"
+			}, 400);
+		}
 		flagInfoProfile = false;
 		picOrder = 0;
-		console.log(userOrder);
 		userOrder += factor;
 		if(factor == 1){
 			if(userOrder >= cachedEvent.participants.length) userOrder = 0;
@@ -128,6 +149,7 @@
 	}
 
 	(function(){
+		cachedEvent.participants = cachedEvent.participants.filter(function(participant){return participant != userInfo._id;});
 		changeUser(1);
 		configParams.history = "main-view";
 		setConfigParams(configParams);
@@ -138,13 +160,19 @@
 		$("body").on("swipeleft", function(){
 			if(eventSwipe) return;
 			eventSwipe = true;
-			changeUser(1);
+			$("#main-pic-div-c").addClass("loading-img");
+			$("#user-information-div").addClass("blur-effect");
+			$("#menu-bottom-prof-other-user").addClass("blur-effect");
+			setTimeout(function(){changeUser(1);}, 300);
 		});
 
 		$("body").on( "swiperight", function(){
 			if(eventSwipe) return;
 			eventSwipe = true;
-			changeUser(-1);
+			$("#main-pic-div-c").addClass("loading-img");
+			$("#user-information-div").addClass("blur-effect");
+			$("#menu-bottom-prof-other-user").addClass("blur-effect");
+			setTimeout(function(){changeUser(-1);}, 300);
 		});
 
 	  });

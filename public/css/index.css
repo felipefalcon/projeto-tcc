@@ -1785,6 +1785,10 @@
 		border: 2px solid white;
 	}
 
+	.blur-effect{
+		filter: blur(1px);
+	}
+
 
 
 

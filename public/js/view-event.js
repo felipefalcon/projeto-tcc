@@ -107,6 +107,9 @@
 		if(event.author == userInfo._id){
 			if(event.participants.length > 0){
 				$("#menu-bottom-div-view-event").prepend("<div class='col-3 mx-auto' style='display: inline-block; max-width: 22% !important;'><button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:21px;color:white;'></i></button></div>");
+				$("#btn-view-all-users-events").click(function(){
+					window.location.href = "./view-profiles.html";	
+				});
 			}
 
 			$("#set-interest").remove();

@@ -170,7 +170,9 @@
 			"<button name='"+data._id+"' id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto btn-view-ev' style='opacity: 1; background-color: #6b65c5; margin-right: 10px !important;'><i class='fas fa-poll-h' style='font-size:21px;color:white; padding-top: 4px;'></i></button>"+
 			"<button name='"+data._id+"' id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto btn-view-users-ev' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:21px;color:white; padding-top: 4px;'></i></button>"+
 			"</div></div>";
-			data.participants.push(data.author.toString());
+			if(data.author != userInfo._id){
+				data.participants.push(data.author.toString());
+			}
 
 			let allUsersInfoLength = allUsersInfo.length;
 			let i = 0;
