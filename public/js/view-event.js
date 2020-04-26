@@ -139,6 +139,10 @@
 			$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
 			userParticipant = true;
 		}
+
+		$("#btn-view-all-users-events").click(function(){
+			window.location.href = "./view-profiles.html";	
+		});
 	}
 
 	function loadCachedEvent(){

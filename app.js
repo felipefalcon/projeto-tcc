@@ -132,6 +132,24 @@
 		}); 
 	});
 
+//  [ READ - GET ] ROTA: retorna dados de uma conta com base no id
+	app.get('/get-user-by-id', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
+				if (err) throw err;
+				if(result){
+					result.age = calcAgeOfUser(result.dt_nasc);
+					result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
+				}
+				res.json(result); 
+				db.close();
+			});
+		}); 
+	});
+
 //  [ READ - GET ] ROTA: retorna se uma conta existe com base no email
 	app.get('/get-user-exist', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
