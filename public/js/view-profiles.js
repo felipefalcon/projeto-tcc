@@ -100,8 +100,7 @@
 		})
 		.done(function( data ) {
 			cachedEvent.participants[userOrder];
-			console.log(data);
-			if(data == null || data == "undefined"){
+			if(isNullOrUndefined(data)){
 				console.log("Deu merda");
 			}else{
 				setToUser(JSON.stringify(data));
