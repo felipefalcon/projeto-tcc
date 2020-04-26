@@ -167,7 +167,8 @@
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
 			+ data.horario +"</label>"+
-			"<button id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:26px;color:white'></i></button>"+
+			"<button name='"+data._id+"' id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto btn-view-ev' style='opacity: 1; background-color: #6b65c5; margin-right: 10px !important;'><i class='fas fa-poll-h' style='font-size:21px;color:white; padding-top: 4px;'></i></button>"+
+			"<button name='"+data._id+"' id='btn-view-all-users-events' type='button' class='general-button btns-prof mx-auto btn-view-users-ev' style='opacity: 1;'><i class='fas fa-user-friends' style='font-size:21px;color:white; padding-top: 4px;'></i></button>"+
 			"</div></div>";
 			data.participants.push(data.author.toString());
 
@@ -194,8 +195,8 @@
 			};
 	
 			divsCreated.push(createdDivs+"</div>");
-			let calcHeight = ((maxUsers-1)%3)*160;
-			heightEventsDiv.push(calcHeight < 160 ? 160 : calcHeight);
+			let calcHeight = ((maxUsers-1)%3)*154;
+			heightEventsDiv.push(calcHeight < 180 ? 180 : calcHeight);
 
 		});
 
@@ -210,8 +211,18 @@
 			$(this).animate({opacity: 1}, 300);
 		});
 
-		$(".events-t").each(function(){
-			$(this).animate({opacity: 1}, 200);
+		// $(".events-t").each(function(){
+		// 	$(this).animate({opacity: 1}, 200);
+		// });
+
+		$(".btn-view-ev").click(function () {
+			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
+			return window.location.href = "./view-event.html";
+		});
+
+		$(".btn-view-users-ev").click(function () {
+			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
+			return window.location.href = "./view-profiles.html";	
 		});
 
 		$(".send-msg-button").click(function () {
