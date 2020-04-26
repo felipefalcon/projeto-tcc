@@ -150,15 +150,17 @@
 
 	(function(){
 		cachedEvent.participants = cachedEvent.participants.filter(function(participant){return participant != userInfo._id;});
-		changeUser(1);
+		$("#main-pic-div-c").addClass("loading-img");
+		$("#user-information-div").addClass("blur-effect");
+		$("#menu-bottom-prof-other-user").addClass("blur-effect");
+		setTimeout(function(){changeUser(1);}, 300);
 		configParams.history = "main-view";
 		setConfigParams(configParams);
 	})();
 
-
 	$(function(){
 		$("body").on("swipeleft", function(){
-			if(eventSwipe) return;
+			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
 			$("#user-information-div").addClass("blur-effect");
@@ -167,7 +169,7 @@
 		});
 
 		$("body").on( "swiperight", function(){
-			if(eventSwipe) return;
+			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
 			$("#user-information-div").addClass("blur-effect");

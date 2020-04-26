@@ -183,7 +183,7 @@
 					let distance = new Number(user.location.distance);
 					if(distance <= 0) distance = 0;
 					distance = user.location.distance >= 999 ? "???" : distance+" km";
-					let online = user.online == 1 ? "<div id='online-circle'></div>" : "";
+					let online = user.online == 1 ? "<div id='online-circle' style='margin-right: 20px;'></div>" : "";
 					createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 					user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
 					"' ></i><div id='user-n-u-div-content' name='" +
@@ -446,9 +446,10 @@
 			if(item.newmsgs > 0){
 				newMsgAlert = "><span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
-			
-			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
-			 "'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
+
+			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 68px; left: 0; z-index: 9'></div>" : "";
+			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert + online +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
+			"'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ item.messages[item.messages.length-1].text + "</label></div></div>");
 		});
