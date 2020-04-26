@@ -142,7 +142,7 @@
 				if (err) throw err;
 				if(result){
 					result.age = calcAgeOfUser(result.dt_nasc);
-					result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
+					//result.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));}) 
 				}
 				res.json(result); 
 				db.close();

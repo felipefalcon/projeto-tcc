@@ -13,8 +13,8 @@
 	let cachedAllUsersHere = [];
 
 	function getProfile() {
+		$("#btn-change-pic p").remove();
 		if(qtPicsTotal > 1){
-			$("#btn-change-pic p").remove();
 			$("#btn-change-pic").append("<p style='font-size: 12px; height: 20px; margin-bottom: 0px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
 		}
 		$('#main-pic-div-c').css("background-image", "url(" + toUser.pics_url.main_pic + ")");
@@ -99,6 +99,8 @@
 			_id: cachedEvent.participants[userOrder]
 		})
 		.done(function( data ) {
+			cachedEvent.participants[userOrder];
+			console.log(data);
 			if(data == null || data == "undefined"){
 				console.log("Deu merda");
 			}else{
@@ -112,39 +114,38 @@
 		});
 	}
 
-	function changeUser(factor = 1){
+	function changeUser(factor){
 		flagInfoProfile = false;
 		picOrder = 0;
-		if(userOrder+1 >= cachedEvent.participants.length) userOrder = -1;
+		console.log(userOrder);
 		userOrder += factor;
+		if(factor == 1){
+			if(userOrder >= cachedEvent.participants.length) userOrder = 0;
+		}else{
+			if(userOrder < 0) userOrder = cachedEvent.participants.length-1;
+		}
 		getUserInScreen();
 	}
 
 	(function(){
-		changeUser();
-		setTimeout(function(){eventSwipe = false;}, 2000);
+		changeUser(1);
 		configParams.history = "main-view";
 		setConfigParams(configParams);
 	})();
 
 
 	$(function(){
-		$( "body" ).on( "swipeleft", swipeleftHandler );
-		$( "body" ).on( "swiperight", swiperightHandler );
-	   
-		function swipeleftHandler(){
-
+		$("body").on("swipeleft", function(){
 			if(eventSwipe) return;
 			eventSwipe = true;
-			changeUser();
-		}
+			changeUser(1);
+		});
 
-		function swiperightHandler(){
-
+		$("body").on( "swiperight", function(){
 			if(eventSwipe) return;
 			eventSwipe = true;
 			changeUser(-1);
-		}
+		});
 
 	  });
 
