@@ -113,6 +113,10 @@
 		});
 	}
 
+	$("#send-msg-to-user").click(function () {
+		window.location.href = "./user-conversation.html";
+	});
+
 	function removeEffects(){
 		if($("#main-pic-div-c").hasClass("loading-img")){
 			$("#main-pic-div-c").animate({"opacity": "0.4"}, 800);

@@ -896,6 +896,10 @@
 		text-shadow: 2px 3px 1px #b7417f;
 	}
 
+	#send-msg-to-user{
+		text-shadow: 2px 3px 1px #b74182;
+	}
+
 	#btn-change-pic{
 		text-shadow: 2px 3px 1px #9f41b7;
 		position: relative;
