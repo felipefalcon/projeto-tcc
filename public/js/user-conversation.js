@@ -111,6 +111,8 @@
 	});
 
 	$("#show-prof-btn").click(function () {
+		configParams.show_msg_icon = false;
+		setConfigParams(configParams);
 		window.location.href = "./user-profile.html";
 	});
 

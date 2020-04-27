@@ -68,6 +68,12 @@
 		window.location.replace(document.referrer);
 	});
 
+	$("#send-msg-to-user").click(function () {
+		configParams.history == "user-profile";
+		setConfigParams(configParams);
+		window.location.href = "./user-conversation.html";
+	});
+
 	$("#btn-change-pic").click(function(){
 		const picDiv = $('#main-pic-div-c');
 		if(!("pics_url" in toUser) || picDiv.css("opacity") < 1) return;
@@ -83,6 +89,12 @@
 	});
 
 	(function(){
+		if(configParams.show_msg_icon == false){
+			$("#send-msg-to-user").remove();
+			configParams.show_msg_icon = undefined;
+		}else{
+			$("#menu-bottom-prof-other-user label").remove();
+		}
 		getProfile();
 		configParams.history = "main-view";
 		setConfigParams(configParams);
