@@ -1204,6 +1204,7 @@
 
 	  #chat-msgs-div{
 		overflow-y: scroll;
+		height: calc(100% - 60px);
 	  }
 
 	  #form-create-profile-div{
