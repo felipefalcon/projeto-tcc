@@ -4,6 +4,8 @@
 // user: 'projeto-tcc-2020@outlook.com',
 // 					pass: 'Projeto2020'
 					// USuario login é o mesmo do DB ATLAS MONGO => Senha: PrLeRo20
+
+	const nodeHost = "https://tcc-lero.herokuapp.com/";
 	var express = require('express');
 	var compression = require('compression');
 
@@ -723,7 +725,7 @@
 				from: '"projeto-tcc-2020@outlook.com', // sender address
 				to: email_to_send, // list of receivers
 				subject: 'Recuperação de conta - Próximos passos', // Subject line
-				html: "Você solicitou a recuperação da sua senha da sua conta do aplicativo LeRo. <br> Para prosseguir clique no botão abaixo: <br><br><br><a href='" + __dirname + "/r?t=" + urlText   + "' style='background: #8544bb;padding: 14px;vertical-align: -moz-middle-with-baseline;color: white;font-weight: bolder; text-decoration: none;'>CLIQUE AQUI</a>"
+				html: "Você solicitou a recuperação da sua senha da sua conta do aplicativo LeRo. <br> Para prosseguir clique no botão abaixo: <br><br><br><a href='" + nodeHost + "r?t=" + urlText   + "' style='background: #8544bb;padding: 14px;vertical-align: -moz-middle-with-baseline;color: white;font-weight: bolder; text-decoration: none;'>CLIQUE AQUI</a>"
 			};
 			// send mail with defined transport object
 			transporter.sendMail(mailOptions, (error, info) => {
