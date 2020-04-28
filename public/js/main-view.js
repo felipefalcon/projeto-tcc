@@ -568,16 +568,20 @@
 	$("#show-user-info").click(function () {
 		if(flagInfoProfile) return;
 		$("#other-label-user-info").slideDown(300);
-		$( "#main-descript-div" ).animate({
-			opacity: "1",
-			height: "100%"
-		}, 600);
+		if(userInfo.about.length > 0){
+			$( "#main-descript-div" ).animate({
+				opacity: "1",
+				height: "100%"
+			}, 600);
+		}
 		setTimeout(function(){
 			$("#other-label-user-info").slideUp(600);
-			$( "#main-descript-div" ).animate({
-				height: "0%",
-				opacity: "0"
-			}, 400);
+			if(userInfo.about.length > 0){
+				$( "#main-descript-div" ).animate({
+					height: "0%",
+					opacity: "0"
+				}, 400);
+			}
 			flagInfoProfile = false;
 		}, 10000);
 		flagInfoProfile = true;
