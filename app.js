@@ -62,6 +62,7 @@
 							work: "",
 							about: "",
 							fix_local: "",
+							pass_redef: false,
 							dt_register: dtNow
 						};
 			dbo.collection("users").insertOne(myobj, function(err, result) {
@@ -120,7 +121,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, { projection: { password: 0, dt_register: 0, pass_redef: 0} }, function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.age = calcAgeOfUser(result.dt_nasc);
@@ -138,7 +139,7 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { password: 0, dt_register: 0} }, function(err, result) {
+			dbo.collection("users").findOne({_id: objectIdUser}, { projection: { password: 0, dt_register: 0, pass_redef: 0} }, function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.age = calcAgeOfUser(result.dt_nasc);
@@ -176,7 +177,7 @@
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			var latUser = req.query.lat || "???";
 			var lngUser = req.query.lng || "???";
-			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){
@@ -607,7 +608,42 @@
 	
 //  [ READ - GET ] ROTA: verifica se o email informado para recuperação existe no banco e em seguida envia o email de rec.
 	app.get('/send-email-recover', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
+				if (err) throw err;
+				if(result){
+					var randPass = () => {
+						var result           = '';
+						var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
+						var charactersLength = characters.length;
+						for ( var i = 0; i < 32; i++ ) {
+						result += characters.charAt(Math.floor(Math.random() * charactersLength));
+						}
+						return result;
+					};
+					var randomPass = randPass();
+					let dtNow = new Date();
+					dbo.collection("passwords_solicited").insertOne({email: req.query.email, url: randomPass, dt_solicited: dtNow }, function(err, result2) {
+						if (err) throw err;
+						let returnedInsert = result2.ops[0];
+						sendEmailNextSteps(returnedInsert.email, returnedInsert.url, returnedInsert.dt_solicited);
+						res.json({ ok: 'ok' }); 
+						db.close();
+					});
+				}else{
+					res.json({ oh_no: 'oh-no' }); 
+					db.close();
+				}
+			});
+		});
 		
+	});
+
+//  [ READ - GET ] ROTA: verifica se o email informado para recuperação existe no banco e em seguida envia o email de rec.
+	app.get('/send-email-recover2', urlencodedParser, function (req, res) {
+			
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
@@ -616,10 +652,10 @@
 				var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
 				var charactersLength = characters.length;
 				for ( var i = 0; i < 8; i++ ) {
-				   result += characters.charAt(Math.floor(Math.random() * charactersLength));
+				result += characters.charAt(Math.floor(Math.random() * charactersLength));
 				}
 				return result;
-			 };
+			};
 			var newPassword = randPass();
 			var newPasswordMd5 = crypto.createHash('md5').update(newPassword.toString()).digest("hex");
 			// mystr += mykey.final('hex');
@@ -669,5 +705,77 @@
 			});
 	}
 
+//  [ FUNÇÃO ] recebe email como parametro e envia um email de redefinição para ele
+	function sendEmailNextSteps(email_to_send, urlText, dt_inserted){
+		let transporter = nodemailer.createTransport({
+				host: 'smtp-mail.outlook.com',
+				secureConnection: false, // TLS requires secureConnection to be false
+				port: 587, // port for secure SMTP
+				tls: {
+					ciphers:'SSLv3'
+				},
+				auth: {
+					user: 'projeto-tcc-2020@outlook.com',
+					pass: 'Projeto2020'
+				}
+		});
+		let mailOptions = {
+				from: '"projeto-tcc-2020@outlook.com', // sender address
+				to: email_to_send, // list of receivers
+				subject: 'Recuperação de conta - Próximos passos', // Subject line
+				html: "Você solicitou a recuperação da sua senha da sua conta do aplicativo LeRo. <br> Para prosseguir clique no link abaixo: <br><a href='" + __dirname + "/r?t=" + urlText   + "' style='background: #8544bb;padding: 14px;vertical-align: -moz-middle-with-baseline;color: white;font-weight: bolder;'>CLIQUE AQUI</a>"
+			};
+			// send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return console.log(error);
+				}
+			});
+	}
+
+//  [ READ - GET ] ROTA: retorna um evento do banco
+	app.get('/r', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var urlString = req.query.t;
+			dbo.collection("passwords_solicited").findOne({url: urlString}, function(err, result) {
+				if (err) throw err;
+				if(result){
+					var randPass = () => {
+						var result           = '';
+						var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
+						var charactersLength = characters.length;
+						for ( var i = 0; i < 8; i++ ) {
+						result += characters.charAt(Math.floor(Math.random() * charactersLength));
+						}
+						return result;
+					};
+					var newPassword = randPass();
+					var newPasswordMd5 = crypto.createHash('md5').update(newPassword.toString()).digest("hex");
+					dbo.collection("users").updateOne({email: result.email}, {$set: {password: newPasswordMd5, pass_redef: true}}, function(err, result2) {
+						if (err) throw err;
+					});
+					dbo.collection("users").findOne({email: req.query.email}, function(err, result3) {
+						if (err) throw err;
+						if(result3){
+							sendEmailRecover(result3.email, newPassword);
+							dbo.collection("passwords_solicited").deleteMany({email: result3.email}, function(err, result4) {
+								if (err) throw err;
+								res.send("Um novo email com sua nova senha foi enviado, verifique sua caixa de mensagens"); 
+								db.close();
+							});
+						}else{
+							res.send("Não foi encontrado um usuário com este email"); 
+							db.close();
+						}
+					});
+				}else{
+					res.send("Senha já redefinida. Verifique sua caixa de mensagens."); 
+					db.close();
+				}
+			});
+		}); 
+	});
 
 
