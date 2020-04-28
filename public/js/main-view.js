@@ -136,6 +136,8 @@
 			}
 		});
 		if(allEventsSubscribed.length == 0){
+			$("#next-u-users").empty();
+			emptyTab("#next-u-users");
 			return;
 		}
 		eventsToDraw = allEventsSubscribed;
@@ -609,6 +611,12 @@
 
 	function emptyTab(tabSelector, tabEvents = true){
 		if(tabEvents){
+			$(tabSelector).load("empty-events.html", function(){
+				$("#empty-events").animate({opacity: 1}, 300);
+			});
+			return;
+		}
+		if(tabSelector == "#next-u-users"){
 			$(tabSelector).load("empty-events.html", function(){
 				$("#empty-events").animate({opacity: 1}, 300);
 			});
