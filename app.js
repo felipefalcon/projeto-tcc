@@ -651,7 +651,7 @@
 			var dbo = db.db(dbName);
 			var randPass = () => {
 				var result           = '';
-				var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
+				var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-@';
 				var charactersLength = characters.length;
 				for ( var i = 0; i < 8; i++ ) {
 				result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -758,7 +758,7 @@
 					dbo.collection("users").updateOne({email: result.email}, {$set: {password: newPasswordMd5, pass_redef: true}}, function(err, result2) {
 						if (err) throw err;
 					});
-					dbo.collection("users").findOne({email: req.query.email}, function(err, result3) {
+					dbo.collection("users").findOne({email: result.email}, function(err, result3) {
 						if (err) throw err;
 						if(result3){
 							sendEmailRecover(result3.email, newPassword);
