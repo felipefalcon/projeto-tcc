@@ -72,6 +72,7 @@
 		
 		if(indexMsg == 0){
 			toUserMessages.messages.forEach(function(msg){
+				$(".message-p-send").first().remove();
 				if (msg.author == userInfo._id) {
 					divsCreated.push("<div class='message-p' style='border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>" + 
 					$.format.date(msg.date.toString(), 'dd/MM/yyyy - HH:mm') +
