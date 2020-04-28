@@ -618,7 +618,7 @@
 				if(result){
 					var randPass = () => {
 						var result           = '';
-						var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$';
+						var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@-';
 						var charactersLength = characters.length;
 						for ( var i = 0; i < 32; i++ ) {
 						result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -641,41 +641,6 @@
 			});
 		});
 		
-	});
-
-//  [ READ - GET ] ROTA: verifica se o email informado para recuperação existe no banco e em seguida envia o email de rec.
-	app.get('/send-email-recover2', urlencodedParser, function (req, res) {
-			
-		MongoClient.connect(url, paramsM, function(err, db) {
-			if (err) throw err;
-			var dbo = db.db(dbName);
-			var randPass = () => {
-				var result           = '';
-				var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-@';
-				var charactersLength = characters.length;
-				for ( var i = 0; i < 8; i++ ) {
-				result += characters.charAt(Math.floor(Math.random() * charactersLength));
-				}
-				return result;
-			};
-			var newPassword = randPass();
-			var newPasswordMd5 = crypto.createHash('md5').update(newPassword.toString()).digest("hex");
-			// mystr += mykey.final('hex');
-
-			dbo.collection("users").updateOne({email: req.query.email}, {$set: {password: newPasswordMd5}}, function(err, result) {
-				if (err) throw err;
-			});
-			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
-				if (err) throw err;
-				if(result){
-					sendEmailRecover(result.email, newPassword);
-					res.json({ ok: 'ok' }); 
-				}else{
-					res.json({ oh_no: 'oh-no' }); 
-				}
-				db.close();
-			});
-		}); 
 	});
 	
 //  [ FUNÇÃO ] recebe email como parametro e envia um email de recuperação para ele
