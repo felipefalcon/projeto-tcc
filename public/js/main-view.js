@@ -697,7 +697,14 @@
 		}else{
 			$("#menu-bottom-div").css("box-shadow", "rgba(39, 19, 81, 0.75) 0px -1px 5px");
 		}
-		if(tabActive != 1)	$("#next-u-users").empty();
+		if(tabActive != 1) {
+			$("#next-u-users").empty();
+			showBoxUserEvents = false;
+			$("#change-next-u-func i").addClass("fas fa-fire-alt");
+			$("#next-u-func-2").css("display", "none");
+			$("#next-u-func-1").css("display", "inline");
+			$("#next-u-func-1").animate({opacity: 1}, 200);
+		}
 		if(tabActive != 4)	$("#chat-users-div").empty()
 		if(tabActive != 0)  $("#profile-content-div").empty();
 		if(tabActive != 3) {
