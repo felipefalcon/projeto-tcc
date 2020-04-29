@@ -58,6 +58,13 @@
 				loading('hide');
 				alerts.userNotFound();
 			} else {
+				if("status_account" in data){
+					if(data.status_account == false){
+						loading('hide');
+						alerts.accountBlock();
+						return;
+					}
+				}
 				setUserCache(data);
 				window.location.replace("./main-view.html");
 			}

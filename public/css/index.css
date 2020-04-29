@@ -1795,6 +1795,23 @@
 		filter: blur(1px);
 	}
 
+	.links-config{
+		text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
+		color: white;
+		height: 32px;
+		padding-top: 8px;
+		width: 100%;
+	}
+
+	#config-account-div{
+		padding: 58px;
+		width: 100%;
+		box-sizing: border-box;
+		height: 100%;
+		padding-top: 16px;
+		text-align: left;
+	}
+
 
 
 

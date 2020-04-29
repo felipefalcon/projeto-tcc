@@ -202,6 +202,59 @@
 					width: "80%"
 				});
 			}, 600);
+		},
+		passwordChanged: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Senha alterada!',
+					text: 'A sua senha foi alterada com sucesso.',
+					icon: 'success',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		passwordError: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Senha incorreta!',
+					text: 'A senha informada não confere com a senha atual. Tente novamente.',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		accountDeactivate: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Conta desativada!',
+					text: 'A conta foi desativada, você será desconectado.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		accountBlock: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Conta desativada!',
+					html: 'A conta referida se encontra em estado desativado.<br>Contate um administrador para mais informações.',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
 		}
 	}
 
