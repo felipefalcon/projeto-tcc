@@ -255,7 +255,21 @@
 					width: "80%"
 				});
 			}, 600);
-		}
+		},
+		updatePassSuccess: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Senha redefinida!',
+					html: 'A sua senha foi alterada com sucesso.<br>Agora você já pode acessar sua conta com suas novas credenciais.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
 	}
 
 	// Function para verificação de respostas nulas, indefinidas, whatever

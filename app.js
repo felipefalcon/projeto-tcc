@@ -298,6 +298,24 @@
 		}); 
 	});
 
+//  [ UPDATE - GET ] ROTA: atualiza a senha de um usuario sem necessitar senha anterior
+	app.get('/upd-passw-w-p', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("users").findOneAndUpdate({ _id: objectIdUser}, {$set: {password: req.query.new_pass, pass_redef: false}}, function(err, result) {
+				if (err) throw err;
+				if(result.value){
+					res.json({ok: "ok"}); 
+				}else{
+					res.json({oh_no: "oh_no"}); 
+				}
+				db.close();
+			});
+		}); 
+	});
+
 //  [ UPDATE - GET ] ROTA: atualiza a senha de um usuario
 app.get('/upd-status-acc', urlencodedParser, function (req, res) {
 	MongoClient.connect(url, paramsM, function(err, db) {

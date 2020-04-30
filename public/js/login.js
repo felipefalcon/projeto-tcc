@@ -49,6 +49,8 @@
 
 	})();
 
+	let idTempUser = "";
+
 	// Function para logar o usuário
 	function loginUser() {
 		loading();
@@ -65,14 +67,80 @@
 						return;
 					}
 				}
-				setUserCache(data);
-				window.location.replace("./main-view.html");
+				tempUser = data;
+				if(!data.pass_redef){
+					setUserCache(data);
+					window.location.replace("./main-view.html");
+				}else{
+					loading('hide');
+					mandatoryRedef();
+				}
 			}
 		}).fail(function () {
 			loading('hide');
 			alerts.errorServer();
 		});
 		event.preventDefault();
+	}
+
+	function mandatoryRedef(){
+		setTimeout(function(){
+			Swal.mixin({
+				confirmButtonText: 'PRÓX.',
+				progressSteps: ['1', '2'],
+				width: "80%",
+				allowOutsideClick: false
+			}).queue([
+				{
+				title: 'Redefinição de senha',
+				html: 'É necessário redefinir sua senha antes de entrar.<br> Digite sua nova senha<br><br>',
+				input: 'password',
+				inputValidator: (value) => {
+					if (!value) {
+					  return 'Você não digitou nada no campo de nova senha';
+					}
+					else if(value.length < 8){
+						return "A senha deve conter 8 digítos no mínimo";
+					}
+				  }
+				},
+				{
+				title: 'Redefinição de senha',
+				html: 'Confirme a sua nova senha<br><br>',
+				input: 'password',
+				inputValidator: (value) => {
+					if (!value) {
+					  return 'Você não digitou nada no campo de confirmação de nova senha'
+					}else if(value.length < 8){
+						return "A senha deve conter 8 digítos no mínimo";
+					}
+				  }
+				}
+			]).then((result) => {
+				if (result.value) {
+				const resultFinal = result.value;
+				if(resultFinal[0] == resultFinal[1]){
+					$.get(nodeHost+"upd-passw-w-p", {_id: tempUser._id, new_pass: hex_md5(resultFinal[0]) }).done(function (data) {
+						if (isNullOrUndefined(data)) {
+							console.log("Deu merda");
+						}else if(data.oh_no == "oh_no"){
+							alerts.passwordError();
+						}else{
+							alerts.updatePassSuccess();
+							setTimeout(function () {
+								loading();
+								setUserCache(tempUser);
+								window.location.replace("./main-view.html");
+								loading('hide');
+							}, 8000);
+						}
+					});
+				}else{
+					alerts.notEqualsPasswords();
+				}
+				}
+			});
+		}, 300);
 	}
 
 	// Chamada da Function que reseta o cache da conta do usuário (commom-functions.js)
