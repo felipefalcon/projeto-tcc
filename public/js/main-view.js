@@ -155,7 +155,9 @@
 			
 			imgData += "<div class='fix-users-events-div'><div class='events-t-header-next-u' style='";
 
-			if("img" in data) imgData += "background-image: url("+data.img+");";
+			if("img" in data) {
+				if(data.img != null) imgData += "background-image: url("+data.img+");";
+			}
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
 			
 			let dayEvent = new Number(dateEvent.getDate());
@@ -336,7 +338,9 @@
 				imgData += "<div class='events-t' style='";
 			}
 
-			if("img" in data) imgData += "background-image: url("+data.img+");";
+			if("img" in data) {
+				if(data.img != null) imgData += "background-image: url("+data.img+");";
+			}
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
 			
 			let dayEvent = new Number(dateEvent.getDate());
