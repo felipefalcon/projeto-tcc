@@ -228,7 +228,7 @@
 					width: "80%"
 				});
 			}, 600);
-		},
+		},	
 		accountDeactivate: function alertError(){
 			setTimeout(function(){
 				Swal.fire({
@@ -265,6 +265,19 @@
 					padding: "8px",
 					timer: 9000,
 					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		errorBirth: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Opa',
+					text: 'Você precisa ter mais de 16 anos para usar este aplicativo',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
 					allowOutsideClick: false,
 					width: "80%"
 				});

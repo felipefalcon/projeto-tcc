@@ -12,6 +12,10 @@
 	// Function para verificar se o e-mail já possui cadastro, antes de cadastrar um novo com o mesmo
 	function verifyAccountExists() {
 		event.preventDefault();
+		if (checkBirth() == true) {
+			alerts.errorBirth();
+			return; 
+		}
 		if ($("#password-input").val() != $("#password-c-input").val()) {
 			alerts.notEqualsPasswords();
 			$("#password-c-input").focus();
@@ -46,6 +50,17 @@
 				loginUser();
 			}, 8000);
 		});
+	}
+
+	// Function para validar dt nascimento
+	function checkBirth() {
+		var data_Nascimento = new Date($("#dt-nasc-input").val()); 
+		var data_Hoje = new Date(); 
+		var anoAutorizado = data_Hoje.getFullYear() - data_Nascimento.getFullYear(); 
+		if (anoAutorizado < 16) {
+			return true; 
+		}
+		 return false; 
 	}
 
 	// Function para logar o usuário
