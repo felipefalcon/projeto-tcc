@@ -266,7 +266,8 @@
 		
 		if(type == 1){
 			allEvents.forEach(function(data){
-				if(data.author == userInfo._id){
+				var eventoData =  moment(data.data);
+				if(data.author == userInfo._id && moment().diff(eventoData, 'days') <= 60){
 					allEventsOftUser.push(data);
 				}
 			});
@@ -840,6 +841,8 @@
 			MenuBottomNextU.slideUp(0);
 			checkTab();
 		});
+		moment().format();
+		console.log(moment().format());
 
 	})();
 
