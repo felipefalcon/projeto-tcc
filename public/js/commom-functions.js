@@ -283,6 +283,32 @@
 				});
 			}, 600);
 		},
+		emptyNome: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Preenchimento obrigatório',
+					html: 'O campo nome é obrigatório, preencha ao menos 3 caracteres.',
+					icon: 'warning',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 100);
+		},
+		saveMensagem: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Alterações salvas!',
+					html: 'Suas modificações foram salvas com sucesso.',
+					icon: 'success',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
 	}
 
 	// Function para verificação de respostas nulas, indefinidas, whatever

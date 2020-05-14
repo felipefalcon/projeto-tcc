@@ -299,6 +299,8 @@
 	}
 	
 	$("#btn-prof-save").click(function(){
+		var nomePerfil = $("#edit-name-input").val();
+		if (nomePerfil.length < 3) return alerts.emptyNome(); 
 		setTimeout(function(){
 			Swal.fire({
 				title: 'SALVAR',
@@ -328,7 +330,7 @@
 							console.log("Deu merda");
 						}else {
 							setUserCache(data);
-							alert("Salvou");
+							alerts.saveMensagem();
 						}
 					});
 				}
