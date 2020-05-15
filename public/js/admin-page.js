@@ -5,6 +5,6 @@
 	});
 
 	$("#btn-menu-del-users").click(function(){
-		window.location.href = "./admin-page-del-users.html"
+		window.location.href = "./admin-page-block-users.html"
 	});
 	
