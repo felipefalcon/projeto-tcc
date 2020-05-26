@@ -146,9 +146,14 @@
 	});
 
 	$("#report-user-btn").click(function () {
+		let inputsQuestion = {
+			0: "Racismo",
+			1: "Preconceito",
+			2: "Abuso",
+		};
 		setTimeout(function(){
 			Swal.mixin({
-				confirmButtonText: 'PRÓX. &rarr;',
+				confirmButtonText: 'PRÓX.',
 				cancelButtonText: 'NÃO',
 				showCancelButton: true,
 				focusCancel: true,
@@ -163,25 +168,30 @@
 					title: 'Denúncia',
 					text: 'Selecione a razão para a denúncia',
 					input: 'select',
-					inputOptions: {
-						reason_1: "Motivo 1",
-						reason_2: "Motivo 2",
-						reason_2: "Motivo 3",
-					},
+					inputOptions: inputsQuestion,
 					confirmButtonText: 'ENVIAR'
 				}
 			]).then((result) => {
 				if (result.value) {
-				const answers = JSON.stringify(result.value)
-				Swal.fire({
-					title: 'Denúncia registrada',
-					text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
-					timer: 10000,
-					icon: 'success',
-					showConfirmButton: false,
-					allowOutsideClick: false,
-					width: "80%"
-				})
+					const answersVal = Object.values(inputsQuestion);
+					let report = {
+						reason: answersVal[new Number(result.value[1])],
+						user_id: userInfo._id
+					};
+					$.get(nodeHost+"upd-user-reports", {_id_to: toUser._id, report: report})
+						.done(function( data ) {
+							if(!isNullOrUndefined(data)){
+								Swal.fire({
+									title: 'Denúncia registrada',
+									text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
+									timer: 5000,
+									icon: 'success',
+									showConfirmButton: false,
+									allowOutsideClick: false,
+									width: "80%"
+								})
+							}
+					});
 				}
 			});
 		}, 600);
