@@ -1591,21 +1591,34 @@
 		height: 10px;
 	}
 
-	#empty-events, #empty-conversations{
+	#empty-events, #empty-conversations, #loading-data{
 		opacity: 0;
 		color: white;
 		font-size: 62px;
-		margin-top: 50%;
 		text-shadow: 2px 3px 1px #8441b7;
+		height: calc(100vh - 108px);
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 
-	#empty-events p, #empty-conversations p{
+	#loading-data{
+		text-shadow: none;
+	}
+
+	#empty-events p, #empty-conversations p, #loading-data p{
 		font-size: 9px;
 		letter-spacing: 1px;
 		line-height: 2px;
 		font-weight: bolder;
 		text-transform: uppercase;
 		text-shadow: 1px 1px 0px #8441b7;
+	}
+
+	#empty-events i, #empty-conversations i{
+		padding-bottom: 20px;
 	}
 
 	.label-finalizado{

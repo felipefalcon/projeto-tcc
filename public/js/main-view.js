@@ -771,7 +771,7 @@
 		setInterval(function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getAllEvents();
-		}, 10000);
+		}, 10003);
 
 		setInterval(function(){
 			getServerDate();
