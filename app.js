@@ -206,6 +206,46 @@
 		}); 
 	});
 
+//  [ READ - GET ] ROTA: retorna todos os usuários do banco
+	app.get('/get-users-reported', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			let perPage = 12;
+			let page = req.query.page * perPage;
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			var latUser = req.query.lat || "???";
+			var lngUser = req.query.lng || "???";
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+				if (err) throw err;
+				if(result){
+					result.forEach(function(item){
+						item.reports ? item.reports : item.reports = [];
+						item.age = calcAgeOfUser(item.dt_nasc);
+						if(!("location" in item)){
+							item.location = {};
+							item.location.distance = "???";
+						}else{
+							item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
+							if(!isNaN(item.location.distance)) {
+								item.location.distance = item.location.distance.toFixed(1);
+							}else{
+								item.location.distance = 9999;
+							}
+						}
+					});
+					result.sort(compareDistances);
+					db.close();
+					result = result.filter(function(item){return item.reports.length > 0;});
+					console.log(result);
+					return res.json(result);
+				}
+				res.json({oh_no: "oh-no"});
+				db.close();
+			});
+		}); 
+	});
+
 	function compareDistances( a, b ) {
 		if (a.location.distance < b.location.distance ){
 		  return -1;

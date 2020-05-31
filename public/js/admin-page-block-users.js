@@ -1,12 +1,20 @@
 
+	$("#logo-div").innerHeight(60);
+	var confHeight = $(window).innerHeight() - 64 - 64;
+	$("#users-div").css("min-height", confHeight + "px");
+	$("#users-div").css("max-height", confHeight + "px");
+
+
 	$("#btn-menu-back").click(function(){
 		window.location.replace("./admin-page.html");
 	});
 
+	let allUsersReported = [];
+
 	function getAllUsersInfo(){
-		$.get("./get-users", {_id: userInfo._id}).done(function (data) {
+		$.get("./get-users-reported", {_id: userInfo._id}).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
-				setAllUsersCache(data);
+				allUsersReported = data;
 				makeUsersObjects();
 			}
 		});
@@ -14,7 +22,7 @@
 
 	function makeUsersObjects(){
 		let divsCreated = []; 
-			allUsersInfo.forEach(function(data){
+		allUsersReported.forEach(function(data){
 				divsCreated.push("<div class='users-t' name='"+data._id+"'><div id='profile-img-div' name='"+data._id+
 				"' style='background-image: url("+data.pics_url.main_pic+");' ></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>"+data.name+
 				" "+data.lastname+"</label><label class='user-d-u-label chat-msg-label' style='height: 28px;'>"+data.age+" anos - "+data.gender+
