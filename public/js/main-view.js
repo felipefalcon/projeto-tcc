@@ -201,8 +201,13 @@
 			};
 	
 			divsCreated.push(createdDivs+"</div>");
-			let calcHeight = ((maxUsers-1)%3)*154;
-			heightEventsDiv.push(calcHeight < 180 ? 180 : calcHeight);
+			let calcHeight = 436;
+			if(maxUsers < 3){
+				calcHeight = 180;
+			}else if(maxUsers < 6){
+				calcHeight = 310;
+			}
+			heightEventsDiv.push(calcHeight);
 
 		});
 
