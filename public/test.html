@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+</head>
+<body class="text-center">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $.get("./crt-usert", {dt_nasc: '1995-06-12'}).done(function (data) {
+			console.log(data);
+		}).fail(function(){
+			
+		});
+  </script>
+</body>
+
+</html>

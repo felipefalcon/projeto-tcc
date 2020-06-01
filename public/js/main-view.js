@@ -611,7 +611,7 @@
 		if(filterEvent.toString() == filterButton.attr('option').toString()) return;
 		$("#events-tags-div").children().css("opacity", "0.3");
 		$(".events-t").animate({opacity: 0}, 200);
-		$(".events-t").animate({opacity: 0}, 200);
+		// $(".events-t").animate({opacity: 0}, 200);
 		$(".label-warning-events").animate({opacity: 0}, 200);
 		filterButton.animate({opacity: 1}, 200);
 		filterEvent = filterButton.attr('option');
@@ -864,8 +864,6 @@
 			MenuBottomNextU.slideUp(0);
 			checkTab();
 		});
-		moment().format();
-		console.log(moment().format());
 
 	})();
 

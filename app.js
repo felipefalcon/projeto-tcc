@@ -47,13 +47,15 @@
 			if (err) throw err;
 			var dbo = db.db(dbName);
 			let dtNascPure = new Date(req.body.dt_nasc);
-			let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
-			dtNasc.setDate(dtNasc+1);
+			dtNascPure.setDate(req.body.dt_nasc.substr(8,3));
+			dtNascPure.setHours(-3);
+			dtNascPure.setMinutes(0);
+			dtNascPure.setSeconds(0);
 			let dtNow = new Date();
 			var myobj = {	email: req.body.email,
 							name: req.body.name,
 							lastname: req.body.lastname,
-							dt_nasc:  dtNasc,
+							dt_nasc:  dtNascPure,
 							gender: req.body.gender,  
 							password: req.body.password,
 							pics_url: {
