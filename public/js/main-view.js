@@ -604,7 +604,7 @@
 		picDiv.fadeOut(150, function(){
 			let picActive = userInfo.pics_url.main_pic;
 			++picOrder;
-			if(picOrder > 0) picActive = Object.values(userInfo.pics_url.sec_pics)[picOrder-1]
+			if(picOrder > 0) picActive = Object.values(userInfo.pics_url.sec_pics)[picOrder-1];
 			picDiv.css("background-image", "url(" + picActive + ")");
 			$("#act-pic").text(picOrder+1);
 			picDiv.fadeIn(150);

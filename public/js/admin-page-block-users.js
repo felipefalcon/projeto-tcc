@@ -20,6 +20,10 @@
 		});
 	}
 
+	function getUserClickedReports(id){
+		return allUsersReported.find(function(item){return item._id === id;}).reports;
+	}
+
 	function makeUsersObjects(){
 		let divsCreated = []; 
 		allUsersReported.forEach(function(data){
@@ -27,30 +31,52 @@
 				"' style='background-image: url("+data.pics_url.main_pic+");' ></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>"+data.name+
 				" "+data.lastname+"</label><label class='user-d-u-label chat-msg-label' style='height: 28px;'>"+data.age+" anos - "+data.gender+
 				"</label><label class='user-d-u-label' style='text-shadow: none; color: #897ea2;'>"+data.email+"</label></div></div>");
-			});
+		});
 
 		$("#users-div").empty().append(divsCreated);
 
 		$(".users-t").click(function(){
 			var elmt = $(".users-t[name='"+$(this).attr('name')+"']");
+			var userClickedReports = getUserClickedReports($(this).attr('name'));
 			var selected = $(this).attr('name');
 			var bgColorPrev = elmt.css("background-color");
-			elmt.css("background-color", "rgb(255, 118, 118)");
+			elmt.css("background-color", "rgb(255, 255, 200)");
+
+			let DOMElementReports = [];
+
+			userClickedReports.forEach(function(report){
+				DOMElementReports.push("<div class='report-div-unit'><label class='user-d-u-label chat-user-label'>"+(new Date(report.dt_report)).toLocaleDateString()+
+				"</label><label class='user-d-u-label chat-msg-label'>"+report.reason+"</labe></div>");
+			});
+
 			setTimeout(function(){
-				if(window.confirm("Você tem certeza que deseja deletar a conta selecionada?\nEsta ação é irreversível!")){
-					$.get("./admin-del-user", { _id: selected})
-					.done(function( data ) {
-						if(data == null || data == "undefined"){
-							alert("Algum erro");
-						}else{
-							alert("A conta foi deletada!");
-							$("#users-div").empty();
-							getAllUsersInfo();
-						}
-					});
-				}else{
-					elmt.css("background-color", bgColorPrev);
-				}
+				// if(window.confirm("Você tem certeza que deseja deletar a conta selecionada?\nEsta ação é irreversível!")){
+				// 	$.get("./admin-del-user", { _id: selected})
+				// 	.done(function( data ) {
+				// 		if(data == null || data == "undefined"){
+				// 			alert("Algum erro");
+				// 		}else{
+				// 			alert("A conta foi deletada!");
+				// 			$("#users-div").empty();
+				// 			getAllUsersInfo();
+				// 		}
+				// 	});
+				// }else{
+				// 	elmt.css("background-color", bgColorPrev);
+				// }
+				console.log(userClickedReports);
+				elmt.css("background-color", bgColorPrev);
+				Swal.fire({
+					title: 'Denúncias',
+					html: DOMElementReports.join(""),
+					padding: "8px",
+					confirmButtonText: 'BLOQUEAR',
+					cancelButtonText: 'VOLTAR',
+					allowOutsideClick: false,
+					width: "80%",
+					showCancelButton: true,
+					focusCancel: true,
+				});
 			}, 200);
 		});
 	}

@@ -14,7 +14,7 @@
 <body class="text-center">
   <div id="logo-div" style="position: absolute; top: 0;">
     <button id="btn-menu-back" class="btn-menu"><i class='fas fa-arrow-left'></i></button>
-    <label class="title-label-top mx-auto">CONTAS DENUNCIADAS</label>
+    <label class="title-label-top mx-auto">DENÚNCIAS</label>
   </div>
   <div id="admin-page-div">
     <div id="admin-page-users-div">
@@ -25,11 +25,20 @@
       </div>
     </div>
   </div>
+  <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script async type="text/javascript" src="./js/commom-functions.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script async type="text/javascript" src="./js/admin-page-block-users.js"></script>
   <!--<script type="text/javascript" src="cordova.js"></script>-->
   <!--<script type="text/javascript" src="js/index.js"></script>-->
 </body>
+<style>
+  .swal2-confirm {
+    width: 155px !important;
+  }
+  .swal2-cancel {
+    width: 145px !important;
+  }
+</style>
 
 </html>
