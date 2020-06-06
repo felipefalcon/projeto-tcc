@@ -309,6 +309,34 @@
 				});
 			}, 600);
 		},
+		blockedAccountSuccess: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Conta bloqueada!',
+					html: 'A conta selecionada foi bloqueada com sucesso.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
+		recoverAccountSuccess: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Conta reativada!',
+					html: 'A conta selecionada foi reativada com sucesso.',
+					icon: 'success',
+					padding: "8px",
+					timer: 9000,
+					showConfirmButton: false,
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
 	}
 
 	// Function para verificação de respostas nulas, indefinidas, whatever

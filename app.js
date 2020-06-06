@@ -67,7 +67,9 @@
 							about: "",
 							fix_local: "",
 							pass_redef: false,
-							dt_register: dtNow
+							dt_register: dtNow,
+							status_account: true,
+							reports: []
 						};
 			dbo.collection("users").insertOne(myobj, function(err, result) {
 				if (err) throw err;
@@ -216,30 +218,34 @@
 			let perPage = 12;
 			let page = req.query.page * perPage;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			var latUser = req.query.lat || "???";
-			var lngUser = req.query.lng || "???";
-			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}, status_account: {$ne: false}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){
 						item.reports ? item.reports : item.reports = [];
-						item.age = calcAgeOfUser(item.dt_nasc);
-						if(!("location" in item)){
-							item.location = {};
-							item.location.distance = "???";
-						}else{
-							item.location.distance = distanceBetweenTwoPoints(item.location.lat, item.location.lng, latUser, lngUser, "K");
-							if(!isNaN(item.location.distance)) {
-								item.location.distance = item.location.distance.toFixed(1);
-							}else{
-								item.location.distance = 9999;
-							}
-						}
 					});
-					result.sort(compareDistances);
 					db.close();
 					result = result.filter(function(item){return item.reports.length > 0;});
-					console.log(result);
+					return res.json(result);
+				}
+				res.json({oh_no: "oh-no"});
+				db.close();
+			});
+		}); 
+	});
+
+//  [ READ - GET ] ROTA: retorna todos os usuários do banco
+	app.get('/get-users-inactivate', urlencodedParser, function (req, res) {
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			let perPage = 12;
+			let page = req.query.page * perPage;
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			dbo.collection("users").find({_id: {$ne : objectIdUser}, status_account: {$eq: false}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+				if (err) throw err;
+				if(result){
+					db.close();
 					return res.json(result);
 				}
 				res.json({oh_no: "oh-no"});
@@ -304,13 +310,14 @@
 			var dbo = db.db(dbName);
 			var newInfos = req.query.info_user;
 			var objectIdUser = new require('mongodb').ObjectID(newInfos._id);
-			let dtNascPure = new Date(newInfos.dt_nasc);
-			let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
+			// let dtNascPure = new Date(newInfos.dt_nasc);
+			// let dtNasc = new Date(dtNascPure.getFullYear(), dtNascPure.getMonth()+1, dtNascPure.getDate()+1);
 			let nameSplit = newInfos.name.split(" ");
+			nameSplit = nameSplit.filter(function(string){return string != "";});
 			let firstName = nameSplit.shift();
 			let lastName = nameSplit.join(" ");
 			let secPics = newInfos.sec_pics || [];
-			var newvalues = {$set: { "name": firstName, "lastname": lastName, "dt_nasc": dtNasc, "about": newInfos.about,
+			var newvalues = {$set: { "name": firstName, "lastname": lastName, "about": newInfos.about,
 			 "work" : newInfos.work, "pics_url.main_pic" : newInfos.main_pic, "pics_url.sec_pics" : secPics, "fix_local": newInfos.fix_local}};
 			dbo.collection("users").findOneAndUpdate({ _id: objectIdUser }, newvalues, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
@@ -495,43 +502,6 @@ app.get('/upd-status-acc', urlencodedParser, function (req, res) {
 		}); 
 	});
 
-//  [ UPDATE - GET ] ROTA: atualiza status das mensagens (Deixa igual como está no client)
-	// app.get('/upd-users-status-messages', urlencodedParser, function (req, res) {
-	// 	MongoClient.connect(url, paramsM, function(err, db) {
-	// 		if (err) throw err;
-	// 		var dbo = db.db(dbName);
-	// 		var objectIdUserFrom = new require('mongodb').ObjectID(req.query._id_from);
-	// 		var objectIdUserTo = req.query._id_to;
-	// 		var needUpd = true;
-	// 		dbo.collection("users").findOne({_id: objectIdUserFrom}, function(err, resultUser) {
-	// 			if (err) throw err;
-	// 			if(resultUser === "undefined") return res.json({ oh_no: "oh-no"});
-	// 			let conversationsLength = resultUser.conversations.length;
-	// 			for(let i = 0; i < conversationsLength; ++i){
-	// 				if(resultUser.conversations[i]._id == objectIdUserTo){
-	// 					if(resultUser.conversations[i].newmsgs == 0){
-	// 						needUpd = false;
-	// 						break;
-	// 					}
-	// 					resultUser.conversations[i].newmsgs = 0;
-	// 					break;
-	// 				}
-	// 			}
-	// 			if(!needUpd) {
-	// 				res.json(resultUser);
-	// 				db.close();
-	// 			}else{
-	// 				dbo.collection("users").updateOne({_id: objectIdUserFrom}, {$set: 	{ conversations: resultUser.conversations }}, function(err, result) {
-	// 					if (err) throw err;
-	// 					res.json(resultUser);
-	// 					db.close();
-	// 				});
-	// 			}
-	// 		});
-	// 	}); 
-	// });
-	
-
 //  [ UPDATE - GET ] ROTA: Deleta só as mensagens de um usuário em especifico
 	app.get('/del-user-messages', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
@@ -573,6 +543,34 @@ app.get('/upd-status-acc', urlencodedParser, function (req, res) {
 			dbo.collection("users").deleteOne({_id: objectId}, function(err, result) {
 				if (err) throw err;
 				res.json(result);
+				db.close();
+			});
+		}); 
+	});
+
+//  [ DELETE - GET ] ROTA: inativa um usuário (Através do administrador)
+	app.get('/admin-inactive-user', urlencodedParser, function (req, res) {
+		var objectId = new require('mongodb').ObjectID(req.query._id);
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			dbo.collection("users").updateOne({_id: objectId}, {$set: {status_account: false}}, function(err, result) {
+				if (err) throw err;
+				res.json({ok: "ok"});
+				db.close();
+			});
+		}); 
+	});
+
+//  [ DELETE - GET ] ROTA: recpuera um usuário (Através do administrador)
+	app.get('/admin-active-user', urlencodedParser, function (req, res) {
+		var objectId = new require('mongodb').ObjectID(req.query._id);
+		MongoClient.connect(url, paramsM, function(err, db) {
+			if (err) throw err;
+			var dbo = db.db(dbName);
+			dbo.collection("users").updateOne({_id: objectId}, {$set: {status_account: true, reports: []}}, function(err, result) {
+				if (err) throw err;
+				res.json({ok: "ok"});
 				db.close();
 			});
 		}); 

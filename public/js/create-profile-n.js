@@ -17,6 +17,7 @@
 	let picOrder = 0;
 	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
 	let iconEdit = "<i class='fas fa-compress edit-icon'></i>";
+	let userBeforeModified = {...userInfo};
 
 	function getProfile() {
 		if(qtPicsTotal > 1){
@@ -110,6 +111,8 @@
 	});
 
 	(function(){
+		$("#btn-prof-save").prop('disabled', true);
+		$("#btn-prof-save").animate({"opacity": "0.6"}, 200);
 		getProfile();
 		configParams.history = "main-view";
 		setConfigParams(configParams);
@@ -297,10 +300,29 @@
 			});
 		}
 	}
+
+	setInterval(() => {
+		let nameSplit = $("#edit-name-input").val().split(" ");
+		nameSplit = nameSplit.filter(function(string){return string != "";});
+		let firstName = nameSplit.shift();
+		let lastName = nameSplit.join(" ");
+		if(userBeforeModified.name == firstName && userBeforeModified.lastname == lastName && userBeforeModified.work == $("#edit-work-input").val() && userBeforeModified.about == $("#edit-about-input").val()
+			&& userBeforeModified.fix_local == $("#edit-city-input").val() && userBeforeModified.gender == userInfo.gender && userBeforeModified.pics_url.main_pic == userInfo.pics_url.main_pic
+			&& userBeforeModified.pics_url.sec_pics == userInfo.pics_url.sec_pics){
+				if($("#btn-prof-save").prop('disabled')) return;
+				$("#btn-prof-save").prop('disabled', true);
+				$("#btn-prof-save").animate({"opacity": "0.6"}, 200);
+		}else{
+			if(!$("#btn-prof-save").prop('disabled')) return;
+			$("#btn-prof-save").prop('disabled', false);
+			$("#btn-prof-save").animate({"opacity": "1"}, 200);
+		}
+	}, 1000);
 	
 	$("#btn-prof-save").click(function(){
 		var nomePerfil = $("#edit-name-input").val();
 		if (nomePerfil.length < 3) return alerts.emptyNome(); 
+
 		setTimeout(function(){
 			Swal.fire({
 				title: 'SALVAR',
