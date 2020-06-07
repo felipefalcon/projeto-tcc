@@ -40,24 +40,14 @@
 			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dayFormat+dtNassFormat.getDate());
 		}
 		addAnotherInfos();
-
-		// $("#edit-about-input").focus(function(){
-		// 	$("#main-descript-div-other-user").css({"margin-bottom": "10px"});
-		// });
-
-		// $("#edit-about-input").blur(function(){
-		// 	userDescriptionUpdateDiv();
-		// });
 	}
 
 	function userDescriptionUpdateDiv(){
-		$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
-		$("#edit-about-input").prop('readonly', true);
-		$("#edit-about-input").prop('disabled', true);
-		setTimeout(function(){
-			$("#edit-about-input").prop('readonly', false);
-			$("#edit-about-input").prop('disabled', false);
-		}, 300);
+		if($(window).innerHeight() < 500){
+			$("#main-descript-div-other-user").css({"margin-bottom": "10px"});
+		}else{
+			$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
+		}
 	}
 
 	function addAnotherInfos(){
@@ -322,6 +312,7 @@
 	}
 
 	setInterval(() => {
+		userDescriptionUpdateDiv();
 		let nameSplit = $("#edit-name-input").val().split(" ");
 		let firstName = "";
 		let lastName = "";
