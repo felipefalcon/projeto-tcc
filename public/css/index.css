@@ -1022,6 +1022,10 @@
       padding-top: 5px;
   }
 
+  #events-box-div{
+	  overflow-y: scroll;
+  }
+
   .event-msg-label{
 	text-shadow: 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482, 1px 1px 2px #521482;
     height: 58px;
@@ -1134,7 +1138,15 @@
 		overflow: hidden;
 		overflow-x: auto;
 		white-space: nowrap;
-		padding-left: 120px;
+		padding-bottom: 8px;
+		scroll-behavior: smooth;
+		padding-right: 6px;
+	}
+
+	#events-tags-labels{
+		overflow: hidden;
+		overflow-x: auto;
+		white-space: nowrap;
 		padding-bottom: 8px;
 		scroll-behavior: smooth;
 		padding-right: 6px;
@@ -1143,6 +1155,19 @@
 	#events-tag-div::-webkit-scrollbar {
 		width: 13px;
 		height: 13px;
+	}
+
+	#events-dates-select{
+		float: left;
+		height: 32px;
+	}
+
+	#events-dates-select select{
+		height: 32px;
+		margin: 4px;
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+		padding-left: 8px;
 	}
 
 	#profile-img-div-chat{
@@ -1592,7 +1617,7 @@
 		height: 10px;
 	}
 
-	#empty-events, #empty-conversations, #loading-data{
+	#empty-events, #empty-conversations, #loading-data, #empty-events-filtered{
 		opacity: 0;
 		color: white;
 		font-size: 62px;
@@ -1605,11 +1630,15 @@
 		justify-content: center;
 	}
 
+	#empty-events-filtered{
+		height: calc(100vh - 172px);
+	}
+
 	#loading-data{
 		text-shadow: none;
 	}
 
-	#empty-events p, #empty-conversations p, #loading-data p{
+	#empty-events p, #empty-conversations p, #loading-data p, #empty-events-filtered p{
 		font-size: 9px;
 		letter-spacing: 1px;
 		line-height: 2px;
@@ -1618,7 +1647,7 @@
 		text-shadow: 1px 1px 0px #8441b7;
 	}
 
-	#empty-events i, #empty-conversations i{
+	#empty-events i, #empty-conversations i, #empty-events-filtered i{
 		padding-bottom: 20px;
 	}
 

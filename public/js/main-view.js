@@ -9,6 +9,7 @@
 	$("#chat-div").css("min-height", confHeight + "px");
 	$("#chat-users-div").css("padding-top", $("#logo-div").innerHeight() + "px");
 	$("#menu-bottom-prof").css("margin-bottom", $("#menu-bottom-div").innerHeight() + "px");
+	$("#events-box-div").css("max-height", confHeight + "px");
 
 	const MenuBottomHome = $("#menu-bottom-home");
 	const MenuBottomProf = $("#menu-bottom-prof");
@@ -25,6 +26,7 @@
 	let titleTab = "";
 	let filterEvent = 0;
 	let filterDistance = 25;
+	let filterEventDate = "month";
 	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
@@ -305,13 +307,20 @@
 		}else{
 			allEvents.forEach(function(data){
 				if(data.author != userInfo._id && data.status != 2 && data.status != 1){
-					let userFound = data.participants.find(function(item){return item == userInfo._id});
-					if((typeof userFound === "undefined")){
-						allEventsWithoutUser.push(data);
+					var eventoData =  moment(data.data);
+					if((filterEventDate == "today" && eventoData.format('DD-MM-YYYY').toString() == moment().format('DD-MM-YYYY').toString()) ||
+					(filterEventDate == "month" && eventoData.format('MM-YYYY').toString() == moment().format('MM-YYYY').toString()) ||
+					(filterEventDate == "year" && eventoData.format('YYYY').toString() == moment().format('YYYY').toString()) ||
+					(filterEventDate == "more")){
+						let userFound = data.participants.find(function(item){return item == userInfo._id});
+						if((typeof userFound === "undefined")){
+							allEventsWithoutUser.push(data);
+						}
 					}
+					
 				}
 			});
-			if(allEventsWithoutUser.length == 0){
+			if(allEventsWithoutUser.length == 0 && filterEventDate == "month"){
 				$("#events-tags-div").css("display", "none");
 				$("#events-box-div").empty();
 				emptyTab("#events-box-div");
@@ -319,17 +328,23 @@
 			}else{
 				$("#events-tags-div").css("display", "block");
 			}
+			
 			if(filterEvent.toString() != "0"){
 				allEventsWithoutUser = allEventsWithoutUser.filter(function(event){return event.tags.includes(filterEvent.toString())});
-				if(allEventsWithoutUser.length == 0){
-					$("#events-box-div").empty();
-					return;
-				}
 			}
+
+			if(allEventsWithoutUser.length == 0){
+				$("#events-box-div").empty().load("empty-events-filtered.html", function(){
+					$("#empty-events-filtered").animate({opacity: 1}, 300);
+				});
+				return;
+			}
+
 			eventsToDraw = allEventsWithoutUser;
 		}
 		
 		let divsCreated = []; 
+
 		eventsToDraw.forEach( function (data) {
 			let imgData = "";
 			let dateEvent = new Date(data.data);
@@ -367,7 +382,7 @@
 			}
 
 		});
-		divsCreated.push("<div style=' height: 96px'></div>");
+		divsCreated.push("<div style=' height: 56px'></div>");
 
 		if(type == 1){
 			$("#my-events-author-box-div").empty().append(divsCreated.join(""));
@@ -617,16 +632,21 @@
 		});
 	});
 
-	$("#events-tags-div").children().click(function(){
+	$("#events-tags-labels").children().click(function(){
 		let filterButton = $(this);
 		if(filterEvent.toString() == filterButton.attr('option').toString()) return;
-		$("#events-tags-div").children().css("opacity", "0.3");
+		$("#events-tags-labels").children().css("opacity", "0.3");
 		$(".events-t").animate({opacity: 0}, 200);
 		// $(".events-t").animate({opacity: 0}, 200);
 		$(".label-warning-events").animate({opacity: 0}, 200);
 		filterButton.animate({opacity: 1}, 200);
 		filterEvent = filterButton.attr('option');
-		setTimeout(makeEventsObjects, 300)
+		setTimeout(makeEventsObjects, 300);
+	});
+
+	$("#event-filter-date").change(function(){
+		filterEventDate = $(this).val();
+		setTimeout(makeEventsObjects, 300);
 	});
 
 	function emptyTab(tabSelector, tabEvents = true){

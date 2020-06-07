@@ -57,13 +57,24 @@
 		</div>
 		<div id="events-div" class="mx-auto tab-pane fade">
 			<div id="events-tags-div" style="display: none;">
-				<label option="0" class="label-tag-event" style="opacity: 1;"><span>Tudo</span></label>
-				<label option="1" class="label-tag-event"><span>Festa / Show</span></label>
-				<label option="2" class="label-tag-event"><span>Bar / Conversa</span></label>
-				<label option="3" class="label-tag-event"><span>Parque</span></label>
-				<label option="4" class="label-tag-event"><span>Encontro</span></label>
-				<label option="5" class="label-tag-event"><span>Passeio</span></label>
-				<label option="6" class="label-tag-event"><span>Outro</span></label>
+				<div id="events-dates-select">
+				<select name="event-filter-date" id="event-filter-date">
+					<option value="today">Hoje</option>
+					<option value="week">Na semana</option>
+					<option value="month" selected>No mês</option>
+					<option value="year">No ano</option>
+					<option value="more">Mais</option>
+				  </select>
+				</div>
+				<div id="events-tags-labels">
+					<label option="0" class="label-tag-event" style="opacity: 1;"><span>Tudo</span></label>
+					<label option="1" class="label-tag-event"><span>Festa / Show</span></label>
+					<label option="2" class="label-tag-event"><span>Bar / Conversa</span></label>
+					<label option="3" class="label-tag-event"><span>Parque</span></label>
+					<label option="4" class="label-tag-event"><span>Encontro</span></label>
+					<label option="5" class="label-tag-event"><span>Passeio</span></label>
+					<label option="6" class="label-tag-event"><span>Outro</span></label>
+				</div>
 			</div>
 			<div id="events-box-div" ></div>
 		</div>
