@@ -336,7 +336,7 @@
 			$("#btn-prof-save").prop('disabled', false);
 			$("#btn-prof-save").animate({"opacity": "1"}, 200);
 		}
-	}, 500);
+	}, 100);
 	
 	$("#btn-prof-save").click(function(){
 		var nomePerfil = $("#edit-name-input").val();
