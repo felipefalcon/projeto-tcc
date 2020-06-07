@@ -24,7 +24,7 @@
 	let showBoxUserEvents = false;
 	let titleTab = "";
 	let filterEvent = 0;
-	let filterDistance = 5;
+	let filterDistance = 25;
 	let exitApp = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
