@@ -392,23 +392,25 @@
 	}
 
 	function makeUsersNextObjects() {
-		let createdDivs = "";
+		let createdDivs = [];
 		allUsersInfo.forEach( function (data) {
 			if(!data.status_account && "status_account" in data) return;
 			let distance = data.location.distance;
 			if(new Number(distance) >= filterDistance || data.location.distance == "???") return;
 			if(new Number(distance) == 0) distance = 0;
 			let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
-			createdDivs += "<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
+			createdDivs.push("<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 			data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
 			"' ></i><div id='user-n-u-div-content' name='" +
 			data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
 			+"<div class='send-msg-button' name='" +
 			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
-			distance + " km</label></div></div>";
+			distance + " km</label></div></div>");
 		});
 
-		$("#next-u-users").empty().append(createdDivs);
+		createdDivs.push("<div style='float: left;width: 100%; height: 110px'></div>");
+
+		$("#next-u-users").empty().append(createdDivs.join(""));
 
 		$(".send-msg-button").click(function () {
 			var idSubject = $(this).attr('name').toString();
