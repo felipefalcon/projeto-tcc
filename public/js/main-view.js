@@ -166,7 +166,7 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.city_district + 
 			"</label></div>");
 
 			let createdDivs = "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='event-msg-label' style='margin: 25%; margin-top: 4px; margin-bottom: 0px;'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
@@ -328,7 +328,7 @@
 			}else{
 				$("#events-tags-div").css("display", "block");
 			}
-			
+
 			if(filterEvent.toString() != "0"){
 				allEventsWithoutUser = allEventsWithoutUser.filter(function(event){return event.tags.includes(filterEvent.toString())});
 			}
@@ -369,7 +369,7 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.road + " - " + data.address.house_number + 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.city_district + 
 			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
@@ -385,8 +385,10 @@
 		divsCreated.push("<div style=' height: 56px'></div>");
 
 		if(type == 1){
+			divsCreated.push("<div style=' height: 46px'></div>");
 			$("#my-events-author-box-div").empty().append(divsCreated.join(""));
 		}else if(type == 2){
+			divsCreated.push("<div style=' height: 46px'></div>");
 			$("#my-events-box-div").empty().append(divsCreated.join(""));
 		}else{
 			$("#events-box-div").empty().append(divsCreated.join(""));
