@@ -47,7 +47,8 @@
 
 		$("#edit-about-input").focusout(function(){
 			$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
-			$("#edit-about-input").blur();
+			$("#edit-about-input").prop('readonly', true);
+			$("#edit-about-input").prop('readonly', false);
 		});
 	}
 
