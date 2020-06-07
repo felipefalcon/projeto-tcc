@@ -18,6 +18,8 @@
 	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
 	let iconEdit = "<i class='fas fa-compress edit-icon'></i>";
 	let userBeforeModified = {...userInfo};
+	let nameCachedHere = [];
+	let nameAndLastNameCachedHere = [];
 
 	function getProfile() {
 		if(qtPicsTotal > 1){
@@ -38,6 +40,14 @@
 			$("#edit-age-input").val(dtNassFormat.getFullYear()+"-"+monthFormat+(dtNassFormat.getMonth()+1)+"-"+dayFormat+dtNassFormat.getDate());
 		}
 		addAnotherInfos();
+
+		$("#edit-about-input").focus(function(){
+			$("#main-descript-div-other-user").css({"margin-bottom": "6px"});
+		});
+
+		$("#edit-about-input").focusout(function(){
+			$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
+		});
 	}
 
 	function addAnotherInfos(){
@@ -303,9 +313,17 @@
 
 	setInterval(() => {
 		let nameSplit = $("#edit-name-input").val().split(" ");
-		nameSplit = nameSplit.filter(function(string){return string != "";});
-		let firstName = nameSplit.shift();
-		let lastName = nameSplit.join(" ");
+		let firstName = "";
+		let lastName = "";
+		if(nameCachedHere == nameSplit){
+			firstName = nameAndLastNameCachedHere[0];
+			lastName = nameAndLastNameCachedHere[1];
+		}else{
+			nameCachedHere = nameSplit;
+			nameSplit = nameSplit.filter(function(string){return string != "";});
+			firstName = nameSplit.shift();
+			lastName = nameSplit.join(" ");
+		}
 		if(userBeforeModified.name == firstName && userBeforeModified.lastname == lastName && userBeforeModified.work == $("#edit-work-input").val() && userBeforeModified.about == $("#edit-about-input").val()
 			&& userBeforeModified.fix_local == $("#edit-city-input").val() && userBeforeModified.gender == userInfo.gender && userBeforeModified.pics_url.main_pic == userInfo.pics_url.main_pic
 			&& userBeforeModified.pics_url.sec_pics == userInfo.pics_url.sec_pics){
