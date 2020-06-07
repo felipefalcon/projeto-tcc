@@ -41,19 +41,23 @@
 		}
 		addAnotherInfos();
 
-		$("#edit-about-input").focus(function(){
-			$("#main-descript-div-other-user").css({"margin-bottom": "10px"});
-		});
+		// $("#edit-about-input").focus(function(){
+		// 	$("#main-descript-div-other-user").css({"margin-bottom": "10px"});
+		// });
 
-		$("#edit-about-input").focusout(function(){
-			$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
-			$("#edit-about-input").prop('readonly', true);
-			$("#edit-about-input").prop('disabled', true);
-			setTimeout(function(){
-				$("#edit-about-input").prop('readonly', false);
-				$("#edit-about-input").prop('disabled', false);
-			}, 300);
-		});
+		// $("#edit-about-input").blur(function(){
+		// 	userDescriptionUpdateDiv();
+		// });
+	}
+
+	function userDescriptionUpdateDiv(){
+		$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
+		$("#edit-about-input").prop('readonly', true);
+		$("#edit-about-input").prop('disabled', true);
+		setTimeout(function(){
+			$("#edit-about-input").prop('readonly', false);
+			$("#edit-about-input").prop('disabled', false);
+		}, 300);
 	}
 
 	function addAnotherInfos(){
