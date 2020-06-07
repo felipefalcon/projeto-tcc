@@ -42,11 +42,12 @@
 		addAnotherInfos();
 
 		$("#edit-about-input").focus(function(){
-			$("#main-descript-div-other-user").css({"margin-bottom": "6px"});
+			$("#main-descript-div-other-user").css({"margin-bottom": "10px"});
 		});
 
 		$("#edit-about-input").focusout(function(){
 			$("#main-descript-div-other-user").css({"margin-bottom": "110px"});
+			$("#edit-about-input").blur();
 		});
 	}
 
