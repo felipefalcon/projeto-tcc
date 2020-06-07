@@ -17,16 +17,19 @@
 	}
 
 	$("#btn-menu-back").click(function () {
-		userInfo.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));})
+		userInfo.conversations = userInfo.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));})
 		setUserCache(userInfo);
-		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id}).done(function(data){
-			if(configParams.history == "main-view") {
-				window.location.replace("./main-view.html");
-				configParams.history = "";
-				return setConfigParams(configParams);
-			}
-			window.location.replace(document.referrer);
-		});
+		if(configParams.history == "main-view") {
+			window.location.replace("./main-view.html");
+			configParams.history = "";
+			return setConfigParams(configParams);
+		}
+		if(configParams.history2 == "view-profiles") {
+			window.location.replace("./view-profiles.html");
+			configParams.history2 = "";
+			return setConfigParams(configParams);
+		}
+		window.location.replace(document.referrer);
 	});
 
 	$("#send-message-button").click(function () {
@@ -45,7 +48,7 @@
 	});
 
 	function getNewMessages() {
-		// if(inCallGetMessages || inCallUpdMsgs) return;
+		if(!toUser.status_account && "status_account" in toUser) return;
 		inCallGetMessages = true;
 		$.get({url: nodeHost+"get-user-msgs", timeout: 3000}, { _id: userInfo._id })
 		.done(function (data) {
@@ -88,6 +91,7 @@
 			});
 			$("#chat-msgs-div").append(divsCreated.join(""));
 			indexMsg = toUserMessages.messages.length;
+			$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
 			return;
 		}else{
 			let msg = toUserMessages.messages[indexMsg];
@@ -105,6 +109,7 @@
 			}
 		}
 		indexMsg++;
+		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
 	}
 
 	$("#btn-menu-1").click(function () {
@@ -207,6 +212,10 @@
 	makeChatMessage();
 	// getNewMessages();
 	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
+	if(!toUser.status_account && "status_account" in toUser){
+		$("#profile-img-div-chat").css({"filter": "grayscale(80%)"});
+		$("#menu-bottom-div").empty().append("<p style='color: white;margin: auto;'>Não é possível enviar mensagens.<br>O usuário foi bloqueado/inativado</p>");
+	}
 
 	setInterval(function () {
 		if(!inCallGetMessages) getNewMessages(); 

@@ -183,6 +183,7 @@
 			let maxUsers = 0;
 			for(i = 0; i < allUsersInfoLength; ++i){
 				let user = allUsersInfo[i];
+				if(!user.status_account && "status_account" in user) continue;
 				if(data.participants.includes(user._id.toString())){
 					let distance = new Number(user.location.distance);
 					if(distance <= 0) distance = 0;
@@ -393,6 +394,7 @@
 	function makeUsersNextObjects() {
 		let createdDivs = "";
 		allUsersInfo.forEach( function (data) {
+			if(!data.status_account && "status_account" in data) return;
 			let distance = data.location.distance;
 			if(new Number(distance) >= filterDistance || data.location.distance == "???") return;
 			if(new Number(distance) == 0) distance = 0;
@@ -458,10 +460,12 @@
 			if(item.newmsgs > 0){
 				newMsgAlert = "><span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
+			let statusAccount = "";
+			if(!profile.status_account && "status_account" in profile) statusAccount = "filter: grayscale(80%)";
 
 			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 68px; left: 0; z-index: 9'></div>" : "";
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert + online +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
-			"'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
+			");"+statusAccount+"'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ item.messages[item.messages.length-1].text + "</label></div></div>");
 		});

@@ -64,8 +64,14 @@
 	});
 
 	$("#btn-menu-back").click(function () {
+		configParams.userOrder = undefined;
 		if(configParams.history == "next-u-main-view"){
 			window.location.replace("main-view.html");
+			configParams.history = "";
+			setConfigParams(configParams);
+			return;
+		}else if(configParams.history == "view-event"){
+			window.location.replace("view-event.html");
 			configParams.history = "";
 			setConfigParams(configParams);
 			return;
@@ -114,6 +120,9 @@
 	}
 
 	$("#send-msg-to-user").click(function () {
+		configParams.history2 = "view-profiles";
+		configParams.userOrder = userOrder;
+		setConfigParams(configParams);
 		window.location.href = "./user-conversation.html";
 	});
 
@@ -125,6 +134,19 @@
 		}
 		$("#user-information-div").animate({"filter": "blur(1px)"}, 800, function(){
 			$("#user-information-div").removeClass("blur-effect");
+			if(!toUser.status_account && "status_account" in toUser){
+				$("#main-pic-div-c").load("blocked-user.html", function(){
+					$("#empty-events").animate({opacity: 1}, 300);
+					$("#main-pic-div-c").css({"filter": "grayscale(80%)"});
+					$("#btn-change-pic").prop('disabled', true);
+					$("#send-msg-to-user").prop('disabled', true);
+				});
+			}else{
+				$("#main-pic-div-c").empty();
+				$("#main-pic-div-c").css({"filter": "grayscale(0%)"});
+				$("#btn-change-pic").prop('disabled', false);
+				$("#send-msg-to-user").prop('disabled', false);
+			}
 		});
 		$("#menu-bottom-prof-other-user").animate({"filter": "blur(0px)"}, 800, function(){
 			$("#menu-bottom-prof-other-user").removeClass("blur-effect");
@@ -156,8 +178,8 @@
 		$("#main-pic-div-c").addClass("loading-img");
 		$("#user-information-div").addClass("blur-effect");
 		$("#menu-bottom-prof-other-user").addClass("blur-effect");
-		setTimeout(function(){changeUser(1);}, 300);
-		configParams.history = "main-view";
+		setTimeout(function(){changeUser(configParams.userOrder+1 || 1);}, 300);
+		if(configParams.history != "view-event") configParams.history = "main-view";
 		setConfigParams(configParams);
 	})();
 

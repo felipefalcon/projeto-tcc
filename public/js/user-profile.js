@@ -96,8 +96,16 @@
 		}else{
 			$("#menu-bottom-prof-other-user label").remove();
 		}
+		if(!toUser.status_account && "status_account" in toUser){
+			$("#main-pic-div-c").load("blocked-user.html", function(){
+				$("#empty-events").animate({opacity: 1}, 300);
+				$("#main-pic-div-c").css({"filter": "grayscale(80%)"});
+				$("#btn-change-pic").prop('disabled', true);
+				$("#send-msg-to-user").prop('disabled', true);
+			});
+		}
 		getProfile();
-		configParams.history = "main-view";
+		if(configParams.history != "view-event") configParams.history = "main-view";
 		setConfigParams(configParams);
 	})();
 
