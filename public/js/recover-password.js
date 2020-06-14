@@ -12,17 +12,17 @@
     // Function que envia um email para o email informado no campo
     function sendEmailRecover(){
         event.preventDefault();
-        loading();
+        showLoadingCircle("#esqueci-senha");
         $.get(nodeHost + "send-email-recover", { email: $("#email-input").val()})
         .done(function( data ) {
             if(isNullOrUndefined(data)){
-                loading('hide');
+                closeLoadingCircle("#esqueci-senha");
                 alerts.errorServer();
             }else if(data.oh_no){
-                loading('hide');
+                closeLoadingCircle("#esqueci-senha");
                 alerts.emailNotFound();
             }else{
-                loading('hide');
+                closeLoadingCircle("#esqueci-senha");
                 alerts.emailSent();
             }
         });

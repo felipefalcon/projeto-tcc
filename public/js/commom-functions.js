@@ -418,22 +418,4 @@
 		cachedEvent = JSON.parse(window.sessionStorage.getItem('cachedEvent'));
 	}
 
-	// Verifica se tem usuário em cache, se não tiver, retorna ao Login e limpa as variáveis de cache
-	if(isNullOrUndefined(userInfo) && window.location.pathname != "index.html"){
-		resetUserCache();
-		resetAllUsersCache();
-		resetToUser();
-		resetAllEvents();
-		window.location.replace("index.html");
-	}
-
-	//Auto-login, verifica se há cache do Usuário se houve automaticamente Muda para Tela Principal
-	if ((window.location.pathname == "index.html" || window.location.pathname == "/") && userInfo.email != undefined) {
-		window.location.replace("main-view.html");
-		$.get(nodeHost + "get-user", { email: userInfo.email })
-		.done(function (data) {
-			if (isNullOrUndefined(data)) window.location.replace("index.html");
-		});
-	}
-
 	

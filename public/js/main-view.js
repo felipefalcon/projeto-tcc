@@ -516,7 +516,7 @@
 	function getUser(){
 		if(inCallGetUser) return;
 		inCallGetUser = true;
-		$.get(nodeHost+"get-user", { email: userInfo.email}).done(function (data) {
+		$.get(nodeHost+"get-user-logged", { _id: userInfo._id}).done(function (data) {
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {

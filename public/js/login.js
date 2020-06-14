@@ -1,9 +1,9 @@
 
 	(function () {
 		// Configurações iniciais da Tela de Login - Tamanho das DIVs
-		let h = $(window).height() / 10;
-		$("#login-div").innerHeight(h * 5.8);
-		$("#socials-div").css("height", $("#login-form-sub").css("height"));
+		// let h = $(window).height() / 10;
+		// $("#login-div").innerHeight(h * 5.8);
+		// $("#socials-div").css("height", $("#login-form-sub").css("height"));
 
 		// Variáveis de reuso e flag
 		let optionClicked = "btn-lero";
@@ -70,6 +70,7 @@
 				tempUser = data;
 				if(!data.pass_redef){
 					setUserCache(data);
+					closeLoadingCircleClear();
 					$("#logo-div-login").fadeOut(200);
 					$("#login-div").fadeOut(200, function(){
 						window.location.replace("./main-view.html");
