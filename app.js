@@ -180,7 +180,7 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			dbo.collection("users").findOne({email: req.query.email}, function(err, result) {
+			dbo.collection("users").findOne({email: req.query.email}, { projection: { email: 1 } }, function(err, result) {
 				if (err) throw err;
 				if(result){
 					return res.json({oh_no: "oh-no"});

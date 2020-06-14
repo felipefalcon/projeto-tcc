@@ -10,16 +10,16 @@
 		let fadeDelay = 300;
 
 		// Clique do botão "REDE SOCIAL"
-		$("#btn-social").click(function () {
-			if (optionClicked != "btn-lero") return;
-			optionClicked = "btn-social";
-			$("#btn-social").fadeTo(fadeDelay, 1);
-			$("#btn-lero").fadeTo(fadeDelay, 0.3);
-			$("#socials-div").css("display", "block");
-			$("#socials-div").fadeTo(fadeDelay, 1);
-			$("#login-form-sub").fadeTo(fadeDelay, 0);
-			$("#login-form-sub").css("display", "none");
-		});
+		// $("#btn-social").click(function () {
+		// 	if (optionClicked != "btn-lero") return;
+		// 	optionClicked = "btn-social";
+		// 	$("#btn-social").fadeTo(fadeDelay, 1);
+		// 	$("#btn-lero").fadeTo(fadeDelay, 0.3);
+		// 	$("#socials-div").css("display", "block");
+		// 	$("#socials-div").fadeTo(fadeDelay, 1);
+		// 	$("#login-form-sub").fadeTo(fadeDelay, 0);
+		// 	$("#login-form-sub").css("display", "none");
+		// });
 
 		// Clique do botão "CONTA LeRo"
 		$("#btn-lero").click(function () {
@@ -123,25 +123,30 @@
 			]).then((result) => {
 				if (result.value) {
 				const resultFinal = result.value;
-				if(resultFinal[0] == resultFinal[1]){
-					$.get(nodeHost+"upd-passw-w-p", {_id: tempUser._id, new_pass: hex_md5(resultFinal[0]) }).done(function (data) {
-						if (isNullOrUndefined(data)) {
-							console.log("Deu merda");
-						}else if(data.oh_no == "oh_no"){
-							alerts.passwordError();
-						}else{
-							alerts.updatePassSuccess();
-							setTimeout(function () {
-								loading();
-								setUserCache(tempUser);
-								window.location.replace("./main-view.html");
+					if(resultFinal[0] == resultFinal[1]){
+						showLoadingCircle("#login-div");
+						$.get(nodeHost+"upd-passw-w-p", {_id: tempUser._id, new_pass: hex_md5(resultFinal[0]) }).done(function (data) {
+							if (isNullOrUndefined(data)) {
+								console.log("Deu merda");
+							}else if(data.oh_no == "oh_no"){
 								closeLoadingCircle("#login-div");
-							}, 8000);
-						}
-					});
-				}else{
-					alerts.notEqualsPasswords();
-				}
+								alerts.passwordError();
+							}else{
+								closeLoadingCircle("#login-div");
+								alerts.updatePassSuccess();
+								setTimeout(function () {
+									setUserCache(tempUser);
+									closeLoadingCircleClear();
+									$("#logo-div-login").fadeOut(200);
+									$("#login-div").fadeOut(200, function(){
+										window.location.replace("./main-view.html");
+									});
+								}, 8000);
+							}
+						});
+					}else{
+						alerts.notEqualsPasswords();
+					}
 				}
 			});
 		}, 300);

@@ -12,7 +12,7 @@
 	// Function para verificar se o e-mail já possui cadastro, antes de cadastrar um novo com o mesmo
 	function verifyAccountExists() {
 		event.preventDefault();
-		if (checkBirth() == true) {
+		if (checkBirth()) {
 			alerts.errorBirth();
 			return; 
 		}
@@ -21,14 +21,14 @@
 			$("#password-c-input").focus();
 			return;
 		}
-		$("#create-account-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+		showLoadingCircle("#create-account-div");
 		$.get(nodeHost + "get-user-exist", { email: $("#email-input").val() })
 		.done(function (data) {
 			if (isNullOrUndefined(data)) return createUser();
-			$("#create-account-div").LoadingOverlay("hide");
+			closeLoadingCircle("#create-account-div");
 			alerts.userAlredyExists();
 		}).fail(function () {
-			$("#create-account-div").LoadingOverlay("hide");
+			closeLoadingCircle("#create-account-div");
 			alerts.errorServer();
 		});
 	}
@@ -44,7 +44,7 @@
 			gender: genderType,
 			password: hex_md5($("#password-input").val())
 		}).done(function () {
-			$("#create-account-div").LoadingOverlay("hide");
+			closeLoadingCircle("#create-account-div");
 			alerts.registerSuccess();
 			setTimeout(function () {
 				loginUser();
@@ -57,26 +57,27 @@
 		var data_Nascimento = new Date($("#dt-nasc-input").val()); 
 		var data_Hoje = new Date(); 
 		var anoAutorizado = data_Hoje.getFullYear() - data_Nascimento.getFullYear(); 
-		if (anoAutorizado < 16) {
-			return true; 
-		}
-		 return false; 
+		return anoAutorizado < 16 ? true : false;
 	}
 
 	// Function para logar o usuário
 	function loginUser() {
-		$("#create-account-div").LoadingOverlay("show", { background: "rgba(59, 29, 78, 0.8)", imageColor: "rgba(193, 55, 120, 0.82)", });
+		showLoadingCircle("#create-account-div");
 		$.post(nodeHost + "con-user", { email: $("#email-input").val(), password: hex_md5($("#password-input").val()) })
 		.done(function (data) {
 			if (isNullOrUndefined(data)) {
-				$("#create-account-div").LoadingOverlay("hide");
+				closeLoadingCircle("#create-account-div");
 				alerts.userNotFound();
 			} else {
 				setUserCache(data);
-				window.location.replace("./main-view.html");
+				closeLoadingCircleClear();
+				$("#logo-div").fadeOut(200);
+				$("#create-account-div").fadeOut(200, function(){
+					window.location.replace("./main-view.html");
+				});
 			}
 		}).fail(function () {
-			$("#create-account-div").LoadingOverlay("hide");
+			closeLoadingCircle("#create-account-div");
 			alerts.errorServer();
 		});
 		event.preventDefault();

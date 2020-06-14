@@ -26,7 +26,6 @@
                 alerts.emailSent();
             }
         });
-        event.preventDefault();
     }
 
     // $("#logo-div-login").css("height", confSize.windowH()*4);

@@ -22,10 +22,10 @@
 					<input type="email" name="email" id="email-input" class="general-input col-10" placeholder="E-mail" required autofocus>
 					<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Nome</span>
-					<input type="text" name="name" id="name-input" class="general-input col-10" placeholder="Nome" required>
+					<input type="text" name="name" id="name-input" class="general-input col-10" placeholder="Nome" pattern=".{3,}" title="O nome deve conter 3 ou mais caracteres" required>
 					<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Sobrenome</span>
-					<input type="text" name="lastname" id="lastname-input" class="general-input col-10" placeholder="Sobrenome" required>
+					<input type="text" name="lastname" id="lastname-input" class="general-input col-10" placeholder="Sobrenome">
 					<hr class="light-hr col-10 mx-auto">
 					<span class="title-input-text">Dt. Nascimento</span>
 					<input type="date" name="dt-nasc" id="dt-nasc-input" class="general-input col-6" style="text-align: center;" required>
@@ -54,9 +54,10 @@
 			</div>
 		</div>
 		<script async type="text/javascript" src="./js/commom-functions.js"></script>
+		<script async type="text/javascript" src="./js/loading.js"></script>
 		<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-		<script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
+		<!-- <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script> -->
 		<script async type="text/javascript" src="./js/md5.js"></script>
 		<script async type="text/javascript" src="./js/create-account.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
