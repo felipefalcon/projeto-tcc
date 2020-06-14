@@ -406,7 +406,8 @@ app.get('/upd-status-acc', urlencodedParser, function (req, res) {
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			var myquery = {email: req.query.email};
+			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
+			var myquery = {_id: objectIdUser};
 			var newvalues = {$set: 	{ location: req.query.location }};
 			dbo.collection("users").updateOne(myquery, newvalues, function(err, result) {
 				if (err) throw err;

@@ -140,13 +140,17 @@
 			.addTo(map).togglePopup();
 	}
 
-	$("#map").animate({opacity: 1}, 1000);
+	showLoadingCircle("#map");
+	setTimeout(function(){
+		closeLoadingCircle("#map");
+	}, 2000);
 
 	if(!( "show_map" in configParams)){
 		$("#set-location-btn").animate({opacity: 1}, 2000);
 
 		$("#set-location-btn").click(function(){
 			if(!addressMarker) return;
+			showLoadingCircle("body");
 			$.get("https://nominatim.openstreetmap.org/reverse?lat=" + addressMarker.lat + "&lon=" + addressMarker.lng + "&format=json").done(function (data) {	
 			var valueInput = typeof data.address.house_number == "undefined" ? '' : data.address.house_number;
 			var addressText = data.address.road;
@@ -154,10 +158,11 @@
 			addressForSave.lat = addressMarker.lat;
 			addressForSave.lng = addressMarker.lng;
 			// console.log(addressForSave);
-			if(data.address.city_district) addressText += " - " + data.address.city_district
-			if(data.address.city) addressText += "<br>" + data.address.city
-			if(data.address.state) addressText += " - " + data.address.state
+			if(data.address.city_district) addressText += " - " + data.address.city_district;
+			if(data.address.city) addressText += "<br>" + data.address.city;
+			if(data.address.state) addressText += " - " + data.address.state;
 				setTimeout(function(){
+					closeLoadingCircle("body");
 					Swal.fire({
 						title: 'CORRETO?',
 						html: "<p style='line-height: 22px'>"+addressText+"</p><label style='color: #a570df'>Confirmar número</label>",

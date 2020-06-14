@@ -365,7 +365,7 @@
 						main_pic:	userInfo.pics_url.main_pic,
 						sec_pics:	userInfo.pics_url.sec_pics
 					};
-
+					showLoadingCircle("body");
 					$.get(nodeHost+"upd-user", {info_user: newInfos}).done(function (data) {
 						if (isNullOrUndefined(data)) {
 							console.log("Deu merda");
@@ -373,6 +373,7 @@
 							setUserCache(data);
 							alerts.saveMensagem();
 						}
+						closeLoadingCircle("body");
 					});
 				}
 			});

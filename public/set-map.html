@@ -4,20 +4,19 @@
 <meta charset="utf-8" />
 <title>Escolher Local</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet' />
 <script async src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
 <script async src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css" type="text/css" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
       <link rel="stylesheet" type="text/css" href="css/index.css">
-      <script type="text/javascript" src="./js/commom-functions.js"></script>
 </head>
 <body style="margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; flex-direction: column;">
-<div id="map" style="opacity: 0;"></div>
+<div id="map"></div>
 <button id="btn-menu-back" class="btn-menu" style="left: 0; top: 12px;"><i class='fas fa-arrow-left'></i></button>
 <button id="set-location-btn" class="btn-menu col-6">CONFIRMAR</button>
 <pre id="coordinates" class="coordinates"></pre>
@@ -37,7 +36,9 @@
       }
 </style>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script async type="text/javascript" src="./js/commom-functions.js"></script>
+<script async type="text/javascript" src="./js/loading.js"></script>
 <script async src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script async type="text/javascript" src="./js/set-map.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </html>

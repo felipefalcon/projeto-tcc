@@ -1,5 +1,6 @@
 	
 	var imgLink = "";
+	let callUploadImg = false;
 	
 	$("document").ready(function () {
 		function uploadImage(elmnt){
@@ -11,7 +12,7 @@
 					alert("Arquivo muito pesado.");
 					return false;
 				}
-
+				showLoadingCircle("#form-create-profile-div");
 				$('#img-event').animate({
 					opacity: 0.1
 				}, 1000, function(){
@@ -29,6 +30,7 @@
 						$('#img-event').animate({
 							opacity: 1
 						}, 1000, function(){
+							closeLoadingCircle("#form-create-profile-div");
 							$('#img-event').removeClass("loading-img");
 							cachedEvent.img = imgLink;
 							setCachedEvent(cachedEvent);
@@ -41,6 +43,7 @@
 	
 		$('#pic-input').on("change", function() {
 			uploadImage(this);
+			callUploadImg = true;
 		});
 	
 	});
@@ -133,7 +136,7 @@
 		|| !("data" in cachedEvent) || !("horario" in cachedEvent) || !("descricao" in cachedEvent)
 		) return alerts.emptyInputs();
 
-		loading();
+		showLoadingCircleOver();
 
 		let nameService = "crt-event";
 		let paramsService = {evento: cachedEvent};
@@ -146,7 +149,6 @@
 
 		$.get(nodeHost + nameService, paramsService)
 		.done(function (data) {
-			loading('hide');
 			if (isNullOrUndefined(data)) {
 				alerts.errorServer();
 			} else {
@@ -168,6 +170,7 @@
 					}, 8000);
 				}
 			}
+			closeLoadingCircleOver();
 		});
 	}
 

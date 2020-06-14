@@ -1619,7 +1619,7 @@
 		height: 10px;
 	}
 
-	#empty-events, #empty-conversations, #loading-data, #empty-events-filtered{
+	#empty-events, #empty-conversations, #loading-data, #empty-events-filtered, #blocked-location{
 		opacity: 0;
 		color: white;
 		font-size: 62px;
@@ -1640,7 +1640,7 @@
 		text-shadow: none;
 	}
 
-	#empty-events p, #empty-conversations p, #loading-data p, #empty-events-filtered p{
+	#empty-events p, #empty-conversations p, #loading-data p, #empty-events-filtered p, #blocked-location p{
 		font-size: 9px;
 		letter-spacing: 1px;
 		line-height: 2px;
@@ -1649,7 +1649,7 @@
 		text-shadow: 1px 1px 0px #8441b7;
 	}
 
-	#empty-events i, #empty-conversations i, #empty-events-filtered i{
+	#empty-events i, #empty-conversations i, #empty-events-filtered i, #blocked-location i{
 		padding-bottom: 20px;
 	}
 

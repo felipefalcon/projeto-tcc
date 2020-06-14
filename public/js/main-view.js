@@ -17,7 +17,10 @@
 	
 	let flagInfoProfile = false;
 	let picOrder = 0;
-	let qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
+	let qtPicsTotal = 1;
+	if(typeof userInfo !== "undefined"){
+		qtPicsTotal = 1+userInfo.pics_url.sec_pics.filter(function(item){return item != "";}).length;
+	}
 	let tabActive = -1;
 	let flagUserChanged = true;
 	let cachedMessagesHere = [];
@@ -28,6 +31,7 @@
 	let filterDistance = 25;
 	let filterEventDate = "month";
 	let exitApp = false;
+	let acessLocationGranted = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
@@ -46,7 +50,7 @@
 			requesParams.lat = userInfo.location.lat;
 			requesParams.lng = userInfo.location.lng;
 		}
-		$.get("./get-users", requesParams).done(function (data) {
+		$.get(nodeHost+"get-users", requesParams).done(function (data) {
 			if (!(isNullOrUndefined(data))) {
 				setAllUsersCache(data);
 			}
@@ -59,14 +63,11 @@
 	function getAllEvents() {
 		if(inCallGetAllEvents) return;
 		inCallGetAllEvents = true;
-		$.get("./get-events").done(function (data) {
-			if (data == null || data == "undefined") {
-
-			} else {
+		$.get(nodeHost+"get-events").done(function (data) {
+			if (!isNullOrUndefined(data)) {
 				setAllEvents(data);
 				inCallGetAllEvents = false;
 			}
-			
 		}).fail(function(){
 			inCallGetAllEvents = false;
 		});
@@ -78,10 +79,42 @@
 	});
 
 	$("#btn-reload-next-u").click(function(){
-		callUpdUserLocation();
-		getAllUsersInfo();
-		makeUsersNextObjects();
+		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 	});
+
+	function hasAcessLocation(){
+		$("#next-u-div").children().css({"display": "none"});
+		navigator.geolocation.getCurrentPosition(function(){
+			acessLocationGranted = true;
+			$("#next-u-div").children().css({"display": ""});
+		}, function(){
+			acessLocationGranted = false;
+			$("#next-u-div").empty().load("blocked-location.html", function(){
+				$("#blocked-location").animate({opacity: 1}, 300);
+			});
+		});
+	}
+
+	function sucessGeoLocation(posicao) {
+		$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
+			var location = data.address;
+			location.region = data.display_name.split(",")[8];
+			location.lat = posicao.coords.latitude;
+			location.lng = posicao.coords.longitude;
+			$.get(nodeHost+"upd-user-location", {_id: userInfo._id, location: location}).done(function (data) {
+				if (isNullOrUndefined(data)) alerts.errorServer();
+				else {
+					getAllUsersInfo();
+					makeUsersNextObjects();
+				}
+			});
+		});
+
+	}
+
+	function failedGeoLocation(error) {
+		return console.log(error);
+	}
 
 	$("#change-next-u-func").click(function(){
 		$("#change-next-u-func").animate({"opacity": "1 !important"}, 200, function(){
@@ -158,7 +191,7 @@
 			imgData += "<div class='fix-users-events-div'><div class='events-t-header-next-u' style='";
 
 			if("img" in data) {
-				if(data.img != null) imgData += "background-image: url("+data.img+");";
+				if(data.img != null && data.img != "") imgData += "background-image: url("+data.img+");";
 			}
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
 			
@@ -260,14 +293,6 @@
 	}
 
 
-
-
-
-
-
-
-
-
 	function makeEventsObjects(type = 0) {
 		// console.log(allEvents);
 		if(allEvents.length == 0 || !allEvents) return;
@@ -305,8 +330,10 @@
 			}
 			eventsToDraw = allEventsWithtUser;
 		}else{
+			let qtdEventsActive = 0;
 			allEvents.forEach(function(data){
 				if(data.author != userInfo._id && data.status != 2 && data.status != 1){
+					qtdEventsActive++;
 					var eventoData =  moment(data.data);
 					if((filterEventDate == "today" && eventoData.format('DD-MM-YYYY').toString() == moment().format('DD-MM-YYYY').toString()) ||
 					(filterEventDate == "month" && eventoData.format('MM-YYYY').toString() == moment().format('MM-YYYY').toString()) ||
@@ -320,7 +347,7 @@
 					
 				}
 			});
-			if(allEventsWithoutUser.length == 0 && filterEventDate == "month"){
+			if(allEventsWithoutUser.length == 0 && qtdEventsActive == 0){
 				$("#events-tags-div").css("display", "none");
 				$("#events-box-div").empty();
 				emptyTab("#events-box-div");
@@ -361,7 +388,7 @@
 			}
 
 			if("img" in data) {
-				if(data.img != null) imgData += "background-image: url("+data.img+");";
+				if(data.img != null && data.img != "") imgData += "background-image: url("+data.img+");";
 			}
 			divsCreated.push(imgData+"' name='" + data._id + "'>");
 			
@@ -520,9 +547,6 @@
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}else {
-				// data.conversations.forEach(function(item){
-				// 	item.messages[item.messages.length-1].date = new Date($.format.date(item.messages[item.messages.length-1].date, 'ddd MMM dd yyyy HH:mm:ss'));
-				// });
 				if(JSON.stringify(userInfo) == JSON.stringify(data)) {
 					flagUserChanged = false;
 					return inCallGetUser = false;
@@ -564,21 +588,6 @@
 		if(work.length > 0) htmlInfos.push("<label class='title-label label-name-other'><i class='fas fa-address-card' style='line-height: 0;font-size:18px; color: #aa98c5;vertical-align: middle;'></i>&nbsp&nbsp"+work+"</label>");
 		if(htmlInfos.length == 0) return;
 		$("#other-label-user-info").empty().append(htmlInfos.join(""));
-	}
-
-	function deleteAccount() {
-		if (window.confirm("Tem certeza que deseja deletar sua conta?\nEsta ação é irreversível!")) {
-			$.get("./del-user", { email: userInfo.email })
-				.done(function (data) {
-					if (data == null || data == "undefined") {
-						alert("Algum erro");
-					} else {
-						alert("Sua conta foi deletada!");
-						resetUserCache();
-						window.location.replace("/");
-					}
-				});
-		}
 	}
 
 	function verifyAdminPermission() {
@@ -885,6 +894,7 @@
 			MenuBottomHome.slideUp(0);
 			MenuBottomProf.slideUp(0);
 			checkTab();
+			if(!acessLocationGranted) hasAcessLocation();
 		});
 	
 		$("#btn-menu-6").click(function(){
