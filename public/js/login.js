@@ -1,8 +1,8 @@
 
 	(function () {
 		// Configurações iniciais da Tela de Login - Tamanho das DIVs
-		//let h = $(window).height() / 10;
-		//$("#login-div").innerHeight(h * 5.8);
+		let h = $(window).height() / 10;
+		$("#login-div").innerHeight(h * 5.8);
 		$("#socials-div").css("height", $("#login-form-sub").css("height"));
 
 		// Variáveis de reuso e flag
@@ -53,16 +53,16 @@
 
 	// Function para logar o usuário
 	function loginUser() {
-		loading();
+		showLoadingCircle("#login-div");
 		$.post(nodeHost + "con-user", { email: $("#email-input").val(), password: hex_md5($("#password-input").val()) })
 		.done(function (data) {
 			if (isNullOrUndefined(data)) {
-				loading('hide');
+				closeLoadingCircle("#login-div");
 				alerts.userNotFound();
 			} else {
 				if("status_account" in data){
 					if(data.status_account == false){
-						loading('hide');
+						closeLoadingCircle("#login-div");
 						alerts.accountBlock();
 						return;
 					}
@@ -70,14 +70,17 @@
 				tempUser = data;
 				if(!data.pass_redef){
 					setUserCache(data);
-					window.location.replace("./main-view.html");
+					$("#logo-div-login").fadeOut(200);
+					$("#login-div").fadeOut(200, function(){
+						window.location.replace("./main-view.html");
+					});
 				}else{
-					loading('hide');
+					closeLoadingCircle("#login-div");
 					mandatoryRedef();
 				}
 			}
 		}).fail(function () {
-			loading('hide');
+			closeLoadingCircle("#login-div");
 			alerts.errorServer();
 		});
 		event.preventDefault();
@@ -131,7 +134,7 @@
 								loading();
 								setUserCache(tempUser);
 								window.location.replace("./main-view.html");
-								loading('hide');
+								closeLoadingCircle("#login-div");
 							}, 8000);
 						}
 					});
