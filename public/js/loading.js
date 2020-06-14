@@ -10,7 +10,7 @@
                 $("#loading-data").css("width", $(objectId).width());
                 $("#loading-data").animate({opacity: 1}, 200);
             });
-        }, 300);
+        }, 200);
     }
 
     function closeLoadingCircle(objectId){
