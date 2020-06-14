@@ -31,6 +31,8 @@
 				$("#set-interest").animate({zoom: 1.1}, 300, function(){
 					$("#set-interest").animate({zoom: 1}, 300);
 					$("#set-interest").animate({opacity: 0.7});
+					$("#get-map").after("<label id='separator-lbl' style='width: 16px;'></label>");
+					$("#btn-view-all-users-events").parent().remove();
 					$("#set-interest").empty().append("<i class='fas fa-hand-peace' style='font-size:32px;color:white'></i> <p id='text-set-interest'>BORA !</p>");
 				});
 				callService("set-desistence-event");
@@ -143,6 +145,9 @@
 			$("#set-interest").css("opacity", 1);
 			$("#set-interest").empty().append("<i class='fas fa-times' style='font-size:32px;color:white'></i><p id='text-set-interest' style='margin-left: -2px;'>DESISTO !</p>");
 			userParticipant = true;
+		}else{
+			$("#btn-view-all-users-events").parent().remove();
+			userParticipant = false;
 		}
 
 		$("#btn-view-all-users-events").click(function(){
