@@ -8,8 +8,6 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
-      <script type="text/javascript" src="./js/commom-functions.js"></script>	
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>	 -->
     </head>
     <body class="text-center">
@@ -20,7 +18,7 @@
       <button id="btn-menu-1" class="btn-menu">...</button>
       <div id="menu-1">
         <a id="show-prof-btn">Ver Perfil</a>
-        <a id="del-chat-btn" href="#">Excluir conversa</a>
+        <a id="del-chat-btn">Excluir conversa</a>
         <a id="report-user-btn">Denunciar</a>
       </div>
 		</div>
@@ -28,11 +26,14 @@
       <div id="chat-msgs-div" class="container" style="overflow: scroll;">
 
       </div>
-      <div id="menu-bottom-div" class="container mx-auto" style="height: 60px; background: none !important; position: relative !important; box-shadow: 0px 4px 12px #272626;">
+      <div id="menu-bottom-div" class="container mx-auto" style="height: 60px; box-shadow: 0px 4px 12px #272626;">
         <div id="message-send-div"><input id="message-send-input" maxlength="130" class="general-text-chat" placeholder="Digite sua mensagem..."/>
         </div><button id="send-message-button"><i class='fas fa-caret-right'></i></button>
       </div>
     </div>
+    <script async type="text/javascript" src="./js/commom-functions.js"></script>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script async type="text/javascript" src="./js/loading.js"></script>	
     <script async type="text/javascript" src="./js/jquery-dateformat.min.js"></script>
     <!-- <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
     <script async src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>

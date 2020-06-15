@@ -91,7 +91,7 @@
 			});
 			$("#chat-msgs-div").append(divsCreated.join(""));
 			indexMsg = toUserMessages.messages.length;
-			$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
+			$.get(nodeHost+"upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
 			return;
 		}else{
 			let msg = toUserMessages.messages[indexMsg];
@@ -109,7 +109,7 @@
 			}
 		}
 		indexMsg++;
-		$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
+		$.get(nodeHost+"upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
 	}
 
 	$("#btn-menu-1").click(function () {
@@ -137,13 +137,14 @@
 				width: "80%"
 			}).then(function(data){
 				if(data.value == true){
-					$.get("./del-user-messages", {_id_from: userInfo._id, _id_to: toUser._id})
+					showLoadingCircle("body");
+					$.get(nodeHost+"del-user-messages", {_id_from: userInfo._id, _id_to: toUser._id})
 					.done(function(data){
-						if (isNullOrUndefined(data)) {
-							return alert("Algum erro");
+						if (!isNullOrUndefined(data)) {	
+							setUserCache(data);
+							$("#btn-menu-back").click();
 						}
-						setUserCache(data);
-						$("#btn-menu-back").click();
+						closeLoadingCircleClear("body");
 					});
 				}
 			});
@@ -174,7 +175,7 @@
 					text: 'Selecione a razão para a denúncia',
 					input: 'select',
 					inputOptions: inputsQuestion,
-					confirmButtonText: 'ENVIAR'
+					confirmButtonText: 'OK'
 				}
 			]).then((result) => {
 				if (result.value) {
@@ -183,18 +184,22 @@
 						reason: answersVal[new Number(result.value[1])],
 						user_id: userInfo._id
 					};
+					showLoadingCircle("body");
 					$.get(nodeHost+"upd-user-reports", {_id_to: toUser._id, report: report})
 						.done(function( data ) {
+							closeLoadingCircle("body");
 							if(!isNullOrUndefined(data)){
-								Swal.fire({
-									title: 'Denúncia registrada',
-									text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
-									timer: 5000,
-									icon: 'success',
-									showConfirmButton: false,
-									allowOutsideClick: false,
-									width: "80%"
-								})
+								setTimeout(function(){
+									Swal.fire({
+										title: 'Denúncia registrada',
+										text: 'Obrigado pela sua denúcia. Ela será avaliada e assim que houver uma resposta, você receberá um email de feedback.',
+										timer: 5000,
+										icon: 'success',
+										showConfirmButton: false,
+										allowOutsideClick: false,
+										width: "80%"
+									})
+								}, 300);
 							}
 					});
 				}
@@ -207,22 +212,19 @@
 		$("#menu-1").slideUp(300);
 	});
 
-	$.get("./upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
-	setInfoToUser();
-	makeChatMessage();
-	// getNewMessages();
-	$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
-	if(!toUser.status_account && "status_account" in toUser){
-		$("#profile-img-div-chat").css({"filter": "grayscale(80%)"});
-		$("#menu-bottom-div").empty().append("<p style='color: white;margin: auto;'>Não é possível enviar mensagens.<br>O usuário foi bloqueado/inativado</p>");
-	}
+	(function(){
+		$.get(nodeHost+"upd-users-status-messages", {_id_from: userInfo._id, _id_to: toUser._id});
+		setInfoToUser();
+		makeChatMessage();
+		// getNewMessages();
+		$("#chat-msgs-div").scrollTop(parseInt(document.getElementById("chat-msgs-div").scrollHeight+520));
+		if(!toUser.status_account && "status_account" in toUser){
+			$("#profile-img-div-chat").css({"filter": "grayscale(80%)"});
+			$("#menu-bottom-div").empty().append("<p style='color: white;margin: auto;'>Não é possível enviar mensagens.<br>O usuário foi bloqueado/inativado</p>");
+		}
+	})();
 
 	setInterval(function () {
 		if(!inCallGetMessages) getNewMessages(); 
 		// makeChatMessage(); 
 	}, 200);
-
-	// setInterval(function () {
-	// 	// getNewMessages(); 
-	// 	// makeChatMessage(); 
-	// }, 50);

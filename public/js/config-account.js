@@ -27,12 +27,15 @@
 				}).then((result) => {
 					const resultFinal = result.value;
 					if(resultFinal){
+						showLoadingCircle("body");
 						$.get(nodeHost+"upd-status-acc", {_id: userInfo._id, password: hex_md5(resultFinal)}).done(function (data) {
 							if (isNullOrUndefined(data)) {
 								console.log("Deu merda");
 							}else if(data.oh_no == "oh_no"){
+								closeLoadingCircle("body");
 								alerts.passwordError();
 							}else{
+								closeLoadingCircle("body");
 								alerts.accountDeactivate();
 								setTimeout(function () {
 									resetAllUsersCache();
@@ -102,16 +105,19 @@
 					if (result.value) {
 					const resultFinal = result.value;
 					if(resultFinal[1] == resultFinal[2]){
+						showLoadingCircle("body");
 						$.get(nodeHost+"upd-passw", {_id: userInfo._id, password: hex_md5(resultFinal[0]), new_pass: hex_md5(resultFinal[1]) }).done(function (data) {
 							if (isNullOrUndefined(data)) {
 								console.log("Deu merda");
 							}else if(data.oh_no == "oh_no"){
+								closeLoadingCircle("body");
 								alerts.passwordError();
 							}else{
-								$.get(nodeHost + "get-user", { email: userInfo.email })
-								.done(function (data) {
-									if (!isNullOrUndefined(data)) setUserCache(data);
-								});
+								// $.get(nodeHost + "get-user", { email: userInfo.email })
+								// .done(function (data) {
+								// 	if (!isNullOrUndefined(data)) setUserCache(data);
+								// });
+								closeLoadingCircle("body");
 								alerts.passwordChanged();
 							}
 						});
