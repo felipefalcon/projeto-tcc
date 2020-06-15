@@ -11,6 +11,7 @@
 	let qtPicsTotal = 0;
 	let cachedAllIdUsersHere = [];
 	let cachedAllUsersHere = [];
+	let loadFirstTime = true;
 
 	function getProfile() {
 		$("#btn-change-pic p").remove();
@@ -101,9 +102,7 @@
 			removeEffects();
 			return;
 		}
-		$.get(nodeHost+"get-user-by-id", {
-			_id: cachedEvent.participants[userOrder]
-		})
+		$.get(nodeHost+"get-user-by-id", {_id: cachedEvent.participants[userOrder]})
 		.done(function( data ) {
 			cachedEvent.participants[userOrder];
 			if(isNullOrUndefined(data)){
@@ -113,9 +112,9 @@
 				cachedAllIdUsersHere.push(toUser._id);
 				cachedAllUsersHere.push(toUser);
 				qtPicsTotal = 1+toUser.pics_url.sec_pics.filter(function(item){return item != "";}).length;
-				removeEffects();
-				eventSwipe = false;
 			}
+			removeEffects();
+			eventSwipe = false;
 		});
 	}
 
@@ -151,6 +150,10 @@
 		$("#menu-bottom-prof-other-user").animate({"filter": "blur(0px)"}, 800, function(){
 			$("#menu-bottom-prof-other-user").removeClass("blur-effect");
 			getProfile();
+			if(loadFirstTime){
+				closeLoadingCircle("#main-pic-div-c");
+				loadFirstTime = false;
+			}
 		});
 	}
 
@@ -174,6 +177,7 @@
 	}
 
 	(function(){
+		showLoadingCircle("#main-pic-div-c");
 		cachedEvent.participants = cachedEvent.participants.filter(function(participant){return participant != userInfo._id;});
 		if(cachedEvent.author != userInfo._id) cachedEvent.participants.unshift(cachedEvent.author);
 		$("#main-pic-div-c").addClass("loading-img");
