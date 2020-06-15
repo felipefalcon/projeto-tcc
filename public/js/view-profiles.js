@@ -175,6 +175,7 @@
 
 	(function(){
 		cachedEvent.participants = cachedEvent.participants.filter(function(participant){return participant != userInfo._id;});
+		if(cachedEvent.author != userInfo._id) cachedEvent.participants.unshift(cachedEvent.author);
 		$("#main-pic-div-c").addClass("loading-img");
 		$("#user-information-div").addClass("blur-effect");
 		$("#menu-bottom-prof-other-user").addClass("blur-effect");
