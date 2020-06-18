@@ -13,9 +13,19 @@
 
 	function getAllUsersInfo(){
 		$.get(nodeHost+"get-users-inactivate", {_id: userInfo._id}).done(function (data) {
-			if (!(isNullOrUndefined(data))) {
+			if (!(isNullOrUndefined(data))  && data.length > 0) {
 				allUsersBlocked = data;
 				makeUsersObjects();
+				setTimeout(function(){
+					closeLoadingCircle("#users-div");
+					$("#users-div").animate({"opacity": "1"}, 500);
+				}, 500);
+			}else{
+				$("#users-div").animate({"opacity": "1"}, 500);
+				closeLoadingCircle("#users-div");
+				$("#users-div").empty().load("empty-users.html", function(){
+					$("#empty-users").animate({opacity: 1}, 300);
+				});
 			}
 		});
 	}
@@ -78,6 +88,9 @@
 			  $(this).parent().parent().toggle($(this).text().toLowerCase().indexOf(value) > -1);
 		  });
 		});
-	  });
+	});
+
+	$("#users-div").css({"opacity": "0.3"});
+	showLoadingCircle("#users-div");
 
 	getAllUsersInfo();

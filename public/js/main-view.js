@@ -218,7 +218,9 @@
 			let maxUsers = 0;
 			for(i = 0; i < allUsersInfoLength; ++i){
 				let user = allUsersInfo[i];
-				if(!user.status_account && "status_account" in user) continue;
+				if("status_account" in user){
+					if(!user.status_account) continue;
+				}
 				if(data.participants.includes(user._id.toString())){
 					let distance = new Number(user.location.distance);
 					if(distance <= 0) distance = 0;
@@ -438,7 +440,9 @@
 	function makeUsersNextObjects() {
 		let createdDivs = [];
 		allUsersInfo.forEach( function (data) {
-			if(!data.status_account && "status_account" in data) return;
+			if("status_account" in data){
+				if(!data.status_account) return;
+			}
 			let distance = data.location.distance;
 			if(new Number(distance) >= filterDistance || data.location.distance == "???") return;
 			if(new Number(distance) == 0) distance = 0;
@@ -493,7 +497,6 @@
 		
 		let divsCreated = []; 
 		usersDistincs.forEach(function(item){
-
 			let profile = getProfInAllUsersById(item._id);
 			let dateLastMsg = new Date($.format.date(item.messages[item.messages.length-1].date, 'yyyy-MMM-dd HH:mm'));
 			if(dateLastMsg.toLocaleDateString() == todayDate.toLocaleDateString()){
@@ -507,7 +510,9 @@
 				newMsgAlert = "><span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			let statusAccount = "";
-			if(!profile.status_account && "status_account" in profile) statusAccount = "filter: grayscale(80%)";
+			if("status_account" in profile){
+				if(!profile.status_account) statusAccount = "filter: grayscale(80%)";
+			}
 
 			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 8px; left: 0; z-index: 9;'></div>" : "";
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert + online +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +

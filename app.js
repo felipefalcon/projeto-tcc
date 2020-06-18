@@ -196,12 +196,12 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			let perPage = 12;
-			let page = req.query.page * perPage;
+			// let perPage = 12;
+			// let page = req.query.page * perPage;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
 			var latUser = req.query.lat || "???";
 			var lngUser = req.query.lng || "???";
-			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){
@@ -233,10 +233,10 @@
 		MongoClient.connect(url, paramsM, function(err, db) {
 			if (err) throw err;
 			var dbo = db.db(dbName);
-			let perPage = 12;
-			let page = req.query.page * perPage;
+			// let perPage = 12;
+			// let page = req.query.page * perPage;
 			var objectIdUser = new require('mongodb').ObjectID(req.query._id);
-			dbo.collection("users").find({_id: {$ne : objectIdUser}, status_account: {$ne: false}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).skip(page).limit(perPage).toArray(function(err, result) {
+			dbo.collection("users").find({_id: {$ne : objectIdUser}, status_account: {$ne: false}}, { projection: { password: 0, dt_register: 0, conversations: 0, pass_redef: 0}}).toArray(function(err, result) {
 				if (err) throw err;
 				if(result){
 					result.forEach(function(item){

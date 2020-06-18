@@ -129,7 +129,7 @@
 					text: 'A conta foi cadastrada com sucesso, aguarde para ser redirecionado.',
 					icon: 'success',
 					padding: "8px",
-					timer: 9000,
+					timer: 8000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"
@@ -182,7 +182,7 @@
 					html: 'Cadastrado com sucesso, agora todos podem ver seu evento.<br>Acesse a aba "MEUS EVENTOS" para mais informações.',
 					icon: 'success',
 					padding: "8px",
-					timer: 9000,
+					timer: 8000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"
@@ -236,7 +236,7 @@
 					text: 'A conta foi desativada, você será desconectado.',
 					icon: 'success',
 					padding: "8px",
-					timer: 9000,
+					timer: 7000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"
@@ -316,7 +316,7 @@
 					html: 'A conta selecionada foi bloqueada com sucesso.',
 					icon: 'success',
 					padding: "8px",
-					timer: 9000,
+					timer: 7000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"
@@ -330,7 +330,7 @@
 					html: 'A conta selecionada foi reativada com sucesso.',
 					icon: 'success',
 					padding: "8px",
-					timer: 9000,
+					timer: 7000,
 					showConfirmButton: false,
 					allowOutsideClick: false,
 					width: "80%"

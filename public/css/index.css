@@ -1619,7 +1619,7 @@
 		height: 10px;
 	}
 
-	#empty-events, #empty-conversations, #loading-data, #empty-events-filtered, #blocked-location{
+	#empty-events, #empty-conversations, #loading-data, #empty-events-filtered, #blocked-location, #empty-users{
 		opacity: 0;
 		color: white;
 		font-size: 62px;
@@ -1640,7 +1640,11 @@
 		text-shadow: none;
 	}
 
-	#empty-events p, #empty-conversations p, #loading-data p, #empty-events-filtered p, #blocked-location p{
+	#empty-users{
+		height: calc(100vh - 172px);
+	}
+
+	#empty-events p, #empty-conversations p, #loading-data p, #empty-events-filtered p, #blocked-location p, #empty-users p{
 		font-size: 9px;
 		letter-spacing: 1px;
 		line-height: 2px;
@@ -1649,7 +1653,7 @@
 		text-shadow: 1px 1px 0px #8441b7;
 	}
 
-	#empty-events i, #empty-conversations i, #empty-events-filtered i, #blocked-location i{
+	#empty-events i, #empty-conversations i, #empty-events-filtered i, #blocked-location i, #empty-users i{
 		padding-bottom: 20px;
 	}
 
