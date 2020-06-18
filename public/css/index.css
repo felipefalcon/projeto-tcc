@@ -1784,10 +1784,11 @@
 		height: 18px;
 		background-color: #50eab1;
 		position: absolute;
-		right: 0;
-		margin-right: 30px;
 		border-radius: 40px;
 		border: 2px solid white;
+		margin: 0;
+		padding: 0;
+		transform: translateX(58px);
 	}
 
 	.events-t-header-next-u{

@@ -126,7 +126,7 @@
 		for(var i = 1; i <= 6; ++i){
 			if($("#tag-"+i).is(':checked')) tagsArray.push(i);
 		}
-		if(tagsArray.length > 0) cachedEvent.tags = tagsArray;
+		cachedEvent.tags = tagsArray;
 		setCachedEvent(cachedEvent);
 	}
 
@@ -135,6 +135,9 @@
 		if(jQuery.isEmptyObject(cachedEvent) || !("title" in cachedEvent) || !("address" in cachedEvent)
 		|| !("data" in cachedEvent) || !("horario" in cachedEvent) || !("descricao" in cachedEvent)
 		) return alerts.emptyInputs();
+
+		if(!("tags" in cachedEvent)) return alerts.errorEventTags();
+		if(cachedEvent.tags.length == 0) return alerts.errorEventTags();
 
 		showLoadingCircleOver();
 

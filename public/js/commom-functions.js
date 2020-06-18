@@ -337,6 +337,19 @@
 				});
 			}, 600);
 		},
+		errorEventTags: function alertError(){
+			setTimeout(function(){
+				Swal.fire({
+					title: 'Atenção',
+					text: 'Adicione ao menos um tipo de evento',
+					icon: 'error',
+					padding: "8px",
+					confirmButtonText: 'OK',
+					allowOutsideClick: false,
+					width: "80%"
+				});
+			}, 600);
+		},
 	}
 
 	// Function para verificação de respostas nulas, indefinidas, whatever

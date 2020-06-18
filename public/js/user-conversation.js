@@ -12,7 +12,7 @@
 	function setInfoToUser() {
 		$("#send-to-name-label").text(toUser.name+" "+toUser.lastname.split(" ")[0]);
 		$("#profile-img-div-chat").css("background-image", "url(" + toUser.pics_url.main_pic + "");
-		let online = toUser.online == 1 ? "<div id='online-circle' style='margin-right: -6px;'></div>" : "";
+		let online = toUser.online == 1 ? "<div id='online-circle' style='margin-right: -6px; transform: translateX(28px);'></div>" : "";
 		if(online.length > 0) $("#profile-img-div-chat").append(online);
 	}
 

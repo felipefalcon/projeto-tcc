@@ -509,7 +509,7 @@
 			let statusAccount = "";
 			if(!profile.status_account && "status_account" in profile) statusAccount = "filter: grayscale(80%)";
 
-			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 68px; left: 0; z-index: 9'></div>" : "";
+			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 8px; left: 0; z-index: 9;'></div>" : "";
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert + online +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
 			");"+statusAccount+"'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
