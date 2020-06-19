@@ -74,7 +74,7 @@
 			setTimeout(function(){
 				Swal.fire({
 					title: 'LeRo',
-					text: 'Versão 0.0.4',
+					text: 'Versão 1.0.0',
 					icon: 'info',
 					padding: "8px",
 					confirmButtonText: 'OK',
