@@ -59,7 +59,11 @@
 	});
 
 	$("#btn-menu-back").click(function () {
-		if(configParams.history == "next-u-main-view"){
+		if(configParams.history2 == "user-conversation"){
+			configParams.history2 = undefined;
+			setConfigParams(configParams);
+			window.location.replace("user-conversation.html");
+		}else if(configParams.history == "next-u-main-view"){
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
@@ -67,10 +71,6 @@
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
-		}else if(configParams.show_msg_icon == false){
-			configParams.show_msg_icon = undefined;
-			setConfigParams(configParams);
-			window.location.replace("user-conversation.html");
 		}else{
 			window.location.replace("main-view.html");
 		}
