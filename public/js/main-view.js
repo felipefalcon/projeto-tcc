@@ -532,6 +532,8 @@
 			var idSubject = $(this).attr('name').toString();
 			var subject = JSON.stringify(allUsersInfo.find(function(item){return item._id == idSubject}));
 			setToUser(subject);
+			configParams.history = "main-view";
+			setConfigParams(configParams);
 			setTimeout(function () {
 				window.location.href = "./user-conversation.html";
 			}, 60);

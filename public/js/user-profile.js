@@ -67,6 +67,10 @@
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
+		}else if(configParams.show_msg_icon == false){
+			configParams.show_msg_icon = undefined;
+			setConfigParams(configParams);
+			window.location.replace("user-conversation.html");
 		}else{
 			window.location.replace("main-view.html");
 		}
