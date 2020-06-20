@@ -188,26 +188,27 @@
 		setConfigParams(configParams);
 	})();
 
-	$(function(){
-		$("body").on("swipeleft", function(){
+	var hammer = new Hammer(document);
+
+	hammer.on("panleft panright", function(ev) {
+		if(ev.type == "panleft"){
 			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
 			$("#user-information-div").addClass("blur-effect");
 			$("#menu-bottom-prof-other-user").addClass("blur-effect");
 			setTimeout(function(){changeUser(1);}, 300);
-		});
-
-		$("body").on( "swiperight", function(){
+		}
+		if(ev.type == "panright"){
 			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
 			$("#user-information-div").addClass("blur-effect");
 			$("#menu-bottom-prof-other-user").addClass("blur-effect");
 			setTimeout(function(){changeUser(-1);}, 300);
-		});
+		}
+	});
 
-	  });
-
+	  
 
 

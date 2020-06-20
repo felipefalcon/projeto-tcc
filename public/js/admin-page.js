@@ -5,11 +5,11 @@
 	});
 
 	$("#btn-menu-del-users").click(function(){
-		window.location.href = "./admin-page-block-users.html"
+		window.location.href = "./admin-page-block-users.html";
 	});
 
 	$("#btn-menu-rec-users").click(function(){
-		window.location.href = "./admin-page-recover-users.html"
+		window.location.href = "./admin-page-recover-users.html";
 	});
 
 	

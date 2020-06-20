@@ -34,8 +34,9 @@
 		if(configParams.show_map){
 			configParams.show_map = undefined;
 			setConfigParams(configParams);
+			window.location.replace("view-event.html");
 		}
-		window.location.replace(document.referrer);
+		window.location.replace("create-event.html");
 	});
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXBlZmFsY29uIiwiYSI6ImNrNHZoNHlocTN3N3MzbnE4eXpnMG5wMnUifQ.qnAXlW-__Z9B8SfszJgioA';
