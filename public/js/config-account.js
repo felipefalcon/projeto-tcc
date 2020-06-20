@@ -2,7 +2,7 @@
 	(function () {
 
 		$("#btn-menu-back").click(function () {
-			window.location.replace("/main-view.html");
+			window.location.replace("main-view.html");
 		});
 
 		$("#block-acc").click(function(){

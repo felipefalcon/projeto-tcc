@@ -529,7 +529,7 @@
 		color: white;
 		background: transparent;
 		border-radius: 30px;
-		transform: translate(-48px,55px);
+		transform: translate(-48px,37px);
 		float: right;
 		border: 6px solid #582480;
 		background: #582480;
@@ -1710,6 +1710,7 @@
 		background-color: rgba(39, 19, 81, 0.75);
 		padding: 0;
 		height: 54px;
+		left: 0;
 	}
 
 	#menu-bottom-next-u .btn-menu{
@@ -1727,7 +1728,7 @@
 	.slider {
 		-webkit-appearance: none;
 		appearance: none;
-		height: 6px;
+		height: 5px;
 		outline: none;
 		border-radius: 30px;
 		background-color: #b54082;
@@ -1743,8 +1744,8 @@
 		-webkit-appearance: none; /* Override default look */
 		appearance: none;
 		background-color: #bab3c7;
-		width: 10px; /* Set a specific slider handle width */
-		height: 25px; /* Slider handle height */
+		width: 9px; /* Set a specific slider handle width */
+		height: 20px; /* Slider handle height */
 		cursor: pointer; /* Cursor on hover */
 		border: 2px solid #b54082;
 		border-radius: 40px;
@@ -1760,7 +1761,6 @@
 	  #slider-div{
 		display: inline;
 		position: relative;
-		top: -16px;
 	  }
 
 	  #slider-div span{
@@ -1787,7 +1787,6 @@
 		width: 18px;
 		height: 18px;
 		background-color: #50eab1;
-		position: absolute;
 		border-radius: 40px;
 		border: 2px solid white;
 		margin: 0;
