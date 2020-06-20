@@ -226,12 +226,13 @@
 					if(distance <= 0) distance = 0;
 					distance = user.location.distance >= 999 ? "???" : distance+" km";
 					let online = user.online == 1 ? "<div id='online-circle' style='margin-right: 20px;'></div>" : "";
+					let msgButtonPose = user.online == 1 ? "transform: translate(-48px,37px);" : "";
 					createdDivs += "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 					user.name +" "+ user.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+user._id+
 					"' ></i><div id='user-n-u-div-content' name='" +
 					user._id + "' style='background-image: url(" + user.pics_url.main_pic + ");'>" + online
 					+"<div class='send-msg-button' name='" +
-					user._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
+					user._id + "'><i class='fas fa-comment send-msg-icon' style='"+msgButtonPose+"'></i></div></div><label id='city-district-n-u-label'>" + 
 					distance + "</label></div></div>";
 					maxUsers++;
 				}
@@ -447,12 +448,13 @@
 			if(new Number(distance) >= filterDistance || data.location.distance == "???") return;
 			if(new Number(distance) == 0) distance = 0;
 			let online = data.online == 1 ? "<div id='online-circle'></div>" : "";
+			let msgButtonPose = data.online == 1 ? "transform: translate(-48px,37px);" : "";
 			createdDivs.push("<div class='user-n-u-block'><div class='user-n-u-div'><label class='user-n-u-label'>" +
 			data.name +" "+ data.lastname.split(" ")[0] + "</label><i class='fas fa-user-circle view-prof-icon' name='"+data._id+
 			"' ></i><div id='user-n-u-div-content' name='" +
 			data._id + "' style='background-image: url(" + data.pics_url.main_pic + ");'>" + online
 			+"<div class='send-msg-button' name='" +
-			data._id + "'><i class='fas fa-comment send-msg-icon' ></i></div></div><label id='city-district-n-u-label'>" + 
+			data._id + "'><i class='fas fa-comment send-msg-icon' style='"+msgButtonPose+"'></i></div></div><label id='city-district-n-u-label'>" + 
 			distance + " km</label></div></div>");
 		});
 
@@ -608,7 +610,7 @@
 		resetConfigParams();
 		resetUserCache();
 		setTimeout(function(){
-			window.location.replace("/");
+			window.location.replace("index.html");
 		}, 500);
 	});
 
@@ -812,6 +814,7 @@
 
 		setInterval(function(){
 			getUser();
+			setStatusOnline();
 			if(tabActive == 4 && flagUserChanged) checkTab();
 		}, 1000);
 
@@ -822,7 +825,6 @@
 
 		setInterval(function(){
 			getServerDate();
-			setStatusOnline();
 		}, 60000);
 
 		let initTabs = setInterval(function(){
