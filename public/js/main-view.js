@@ -32,6 +32,8 @@
 	let filterEventDate = "month";
 	let exitApp = false;
 	let acessLocationGranted = false;
+	let inCallLocation = false;
+	let inCallSetStatusOnline = false;
 
 	// Para verificar se o serviço ainda está sendo chamado
 	let inCallGetUser = false;
@@ -79,6 +81,8 @@
 	});
 
 	$("#btn-reload-next-u").click(function(){
+		if(inCallLocation) return;
+		inCallLocation = true;
 		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 	});
 
@@ -104,15 +108,16 @@
 			$.get(nodeHost+"upd-user-location", {_id: userInfo._id, location: location}).done(function (data) {
 				if (isNullOrUndefined(data)) alerts.errorServer();
 				else {
+					inCallLocation = false;
 					getAllUsersInfo();
-					makeUsersNextObjects();
+					if(!showBoxUserEvents) makeUsersNextObjects();
 				}
 			});
 		});
-
 	}
 
 	function failedGeoLocation(error) {
+		inCallLocation = false;
 		return console.log(error);
 	}
 
@@ -123,10 +128,7 @@
 			$("#next-u-func-2").animate({opacity: 0}, 200);
 
 			showBoxUserEvents = !showBoxUserEvents;
-			// $("#my-events-box-div").empty();
-			// $("#my-events-author-box-div").empty();
 			let titleTabHere = "PESSOAS DE INTERESSE";
-			let option = 1;
 			$("#change-next-u-func i").removeClass();
 			if(showBoxUserEvents){
 				$("#change-next-u-func i").addClass("fas fa-map-marker-alt");
@@ -139,8 +141,6 @@
 				$("#next-u-func-2").css("display", "none");
 				$("#next-u-func-1").css("display", "inline");
 				$("#next-u-func-1").animate({opacity: 1}, 200);
-				// $("#my-events-box-div").css("display", "block");
-				// $("#btn-subscript").val("CRIAÇÕES");
 				titleTabHere = "PESSOAS PRÓXIMAS"
 				option = 2;
 				makeUsersNextObjects();
@@ -199,7 +199,7 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.city_district + 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + (data.address.city_district || data.address.city) + 
 			"</label></div>");
 
 			let createdDivs = "<div class='user-n-u-block-events'><div class='user-n-u-div'><label class='event-msg-label' style='margin: 25%; margin-top: 4px; margin-bottom: 0px;'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
@@ -399,7 +399,7 @@
 			let monthEvent = new Number(dateEvent.getMonth())+1;
 			if(dayEvent < 10) dayEvent = "0" + dayEvent;
 			if(monthEvent < 10) monthEvent = "0" + monthEvent;
-			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + data.address.city_district + 
+			divsCreated.push("<label class='user-d-u-label event-user-label'>" + data.title + " - " + (data.address.city_district || data.address.city) + 
 			"</label><label class='event-msg-label'><p style='line-height: 0px;font-size: 8px; margin-bottom: 15px; color: rgba(255, 255, 255, 0.8);'>" 
 			+ dateEvent.getFullYear() 
 			+ "</p><p style='line-height: 10px; font-size: 22px; margin-bottom: 8px;'>" + dayEvent + "/" + monthEvent + "</p>"
@@ -517,8 +517,8 @@
 			}
 
 			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 8px; left: 0; z-index: 9;'></div>" : "";
-			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert + online +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
-			");"+statusAccount+"'></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
+			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
+			");"+statusAccount+"'>"+online+"</div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
 			+ item.messages[item.messages.length-1].text + "</label></div></div>");
 		});
@@ -730,10 +730,13 @@
 	});
 
 	function setStatusOnline(){
+		if(inCallSetStatusOnline) return;
+		inCallSetStatusOnline = true;
 		$.get(nodeHost+"upd-user-status", {_id: userInfo._id}).done(function (data) {
 			if (isNullOrUndefined(data)) {
 				console.log("Deu merda");
 			}
+			inCallSetStatusOnline = false;
 		});
 	}
 
@@ -814,13 +817,13 @@
 
 		setInterval(function(){
 			getUser();
-			setStatusOnline();
 			if(tabActive == 4 && flagUserChanged) checkTab();
 		}, 1000);
 
 		setInterval(function(){
 			if(flagUserChanged) getAllUsersInfo();
 			getAllEvents();
+			setStatusOnline();
 		}, 10003);
 
 		setInterval(function(){
