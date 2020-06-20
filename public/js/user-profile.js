@@ -63,8 +63,13 @@
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
+		}else if(configParams.history == "main-view"){
+			configParams.history = "";
+			setConfigParams(configParams);
+			window.location.replace("main-view.html");
+		}else{
+			window.location.replace("main-view.html");
 		}
-		window.location.replace(document.referrer);
 	});
 
 	$("#send-msg-to-user").click(function () {

@@ -20,16 +20,20 @@
 		userInfo.conversations = userInfo.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));})
 		setUserCache(userInfo);
 		if(configParams.history == "main-view") {
-			window.location.replace("./main-view.html");
 			configParams.history = "";
-			return setConfigParams(configParams);
+			setConfigParams(configParams);
+			window.location.replace("main-view.html");
 		}
 		if(configParams.history2 == "view-profiles") {
-			window.location.replace("./view-profiles.html");
 			configParams.history2 = "";
-			return setConfigParams(configParams);
+			setConfigParams(configParams);
+			window.location.replace("view-profiles.html");
 		}
-		window.location.replace(document.referrer);
+		if(configParams.history == "user-profile") {
+			configParams.history = "";
+			setConfigParams(configParams);
+			window.location.replace("user-profile.html");
+		}
 	});
 
 	$("#send-message-button").click(function () {
