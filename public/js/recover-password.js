@@ -2,7 +2,7 @@
     (function () {
         // Botão de voltar a tela anterior e dar foco no input por código mesmo (não usei autofocus)
         $("#btn-menu-back").click(function () {
-            window.location.replace("/");
+            window.location.replace("index.html");
         });
 
         $("#email-input").focus();

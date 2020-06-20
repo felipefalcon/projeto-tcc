@@ -4,7 +4,7 @@
 		$("#create-account-div").css("height", $(window).innerHeight() - 60 + "px");
 
 		$("#btn-menu-back").click(function () {
-			window.location.replace("/");
+			window.location.replace("index.html");
 		});
 
 	})();

@@ -1,5 +1,5 @@
 	// Variável do host onde estão os serviços node (Mudando aqui, muda de todos os arquivos)
-	const nodeHost = "./";
+	const nodeHost = "https://tcc-lero.herokuapp.com/";
 
 	// Função para pegar hora do servidor - Dispositivos as vezes tem horário diferente
 	let todayDate = new Date();
