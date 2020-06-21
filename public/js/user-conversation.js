@@ -17,7 +17,9 @@
 	}
 
 	$("#btn-menu-back").click(function () {
+		userInfo.conversations[userInfo.conversations.findIndex(function(user){ return user._id == toUser._id;})].newmsgs = 0;
 		userInfo.conversations = userInfo.conversations.sort(function(item, item2){return (new Date(item2.messages[item2.messages.length-1].date))-(new Date(item.messages[item.messages.length-1].date));})
+		
 		setUserCache(userInfo);
 		if(configParams.history2 == "view-profiles") {
 			configParams.history2 = "";

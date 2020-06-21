@@ -511,9 +511,9 @@
 				dateLastMsg = dateLastMsg.toLocaleDateString();
 			}
 
-			let newMsgAlert = "style='opacity: 0.8'>";
+			let newMsgAlert = "style='opacity: 0'>";
 			if(item.newmsgs > 0){
-				newMsgAlert = "><span class='new-msg'><i class='fas fa-exclamation'></i></span>";
+				newMsgAlert += "<span class='new-msg'><i class='fas fa-exclamation'></i></span>";
 			}
 			let statusAccount = "";
 			if("status_account" in profile){
@@ -544,8 +544,8 @@
 		});
 
 		$(".users-t-chat").each(function(){
-			console.log($(this).children());
-			// $(this).animate({opacity: 1}, 200);
+			if($(this).children().attr('class') == "new-msg") $(this).animate({opacity: 1}, 200);
+			else $(this).animate({opacity: 0.8}, 200);
 		});
 
 	}

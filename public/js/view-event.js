@@ -1,6 +1,7 @@
 
 	let userParticipant = false;
 	let userAuthor = false;
+	let inCallService = false;
 
 	$("#btn-menu-back").click(function () {
 		window.sessionStorage.removeItem('cachedEvent');
@@ -14,6 +15,7 @@
 	});
 
 	$("#set-interest").click(function(){
+		if(inCallService) return;
 		setInterest();
 	});
 
@@ -80,6 +82,7 @@
 	}
 
 	function callService(serviceName){
+		inCallService = true;
 		$.get(nodeHost+serviceName, {
 			_id: 	cachedEvent._id,
 			user_id: userInfo._id
@@ -92,6 +95,7 @@
 				loadCachedEvent();
 				// $("#main-body-div").LoadingOverlay('hide');
 			}
+			inCallService = false;
 		});
 	}
 	

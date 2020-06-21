@@ -667,9 +667,6 @@ app.get('/upd-status-acc', urlencodedParser, function (req, res) {
 			var newInsert = {$push: 	{ participants: req.query.user_id }};
 			dbo.collection("events").findOneAndUpdate({_id: eventId}, newInsert, {upsert: true, returnOriginal: false}, function(err, result) {
 				if (err) throw err;
-				if(result.value.participants){
-
-				}
 				res.json(result.value); 
 				db.close();
 			});
