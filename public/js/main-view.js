@@ -858,11 +858,16 @@
 				}
 			}
 			if(allEvents){
-				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
+				if(allEvents.length > 0){
+					if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
+						$("#btn-menu-6").click();
+						clearInterval(initTabs);
+					}else if(configParams.tab == "your-events-tab"){
+						$("#btn-menu-7").click();
+						clearInterval(initTabs);
+					}
+				}else if(!inCallGetAllEvents){
 					$("#btn-menu-6").click();
-					clearInterval(initTabs);
-				}else if(configParams.tab == "your-events-tab"){
-					$("#btn-menu-7").click();
 					clearInterval(initTabs);
 				}
 			}

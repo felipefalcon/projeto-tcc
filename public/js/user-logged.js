@@ -30,7 +30,13 @@
             window.location.replace("main-view.html");
             $.get(nodeHost + "get-user-logged", { _id: userInfo._id })
             .done(function (data) {
-                if (isNullOrUndefined(data)) window.location.replace("index.html");
+                if (isNullOrUndefined(data)) {
+                    resetUserCache();
+                    resetAllUsersCache();
+                    resetToUser();
+                    resetAllEvents();
+                    window.location.replace("index.html");
+                }
                 else setUserCache(data);
             });
         }
@@ -49,7 +55,13 @@
             window.location.replace("main-view.html");
             $.get(nodeHost + "get-user-logged", { _id: userInfo._id })
             .done(function (data) {
-                if (isNullOrUndefined(data)) window.location.replace("index.html");
+                if (isNullOrUndefined(data)) {
+                    resetUserCache();
+                    resetAllUsersCache();
+                    resetToUser();
+                    resetAllEvents();
+                    window.location.replace("index.html");
+                }
                 else setUserCache(data);
             });
         }
