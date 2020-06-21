@@ -257,13 +257,9 @@
 			$(this).css("height", heightEventsDiv[i]+"px");
 		});
 
-		$(".user-n-u-block-events").each(function(){
-			$(this).animate({opacity: 1}, 300);
+		$(".user-n-u-block-events").each(function(i){
+			$(this).animate({opacity: 1}, 300+i);
 		});
-
-		// $(".events-t").each(function(){
-		// 	$(this).animate({opacity: 1}, 200);
-		// });
 
 		$(".btn-view-ev").click(function () {
 			setCachedEvent(getEventInAllEventsById($(this).attr('name')));
@@ -484,8 +480,8 @@
 			}, 60);
 		});
 
-		$(".user-n-u-block").each(function(){
-			$(this).animate({opacity: 1}, 300);
+		$(".user-n-u-block").each(function(i){
+			$(this).animate({opacity: 1}, 300+i);
 		});
 	}
 
@@ -520,7 +516,7 @@
 				if(!profile.status_account) statusAccount = "filter: grayscale(80%)";
 			}
 
-			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; margin-left: 8px; left: 0; z-index: 9;'></div>" : "";
+			let online = profile.online == 1 ? "<div id='online-circle' style='margin-top: 2px; left: 0; z-index: 9;'></div>" : "";
 			divsCreated.push("<div class='users-t-chat' name='" + item._id + "'"+ newMsgAlert +"<div id='profile-img-div' style='background-image: url(" + profile.pics_url.main_pic +
 			");"+statusAccount+"'>"+online+"</div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>" + profile.name + " " + profile.lastname.split(" ")[0] +
 			"<span class='chat-date-label'>"+ dateLastMsg +"</span></label><label class='user-d-u-label chat-msg-label'>" 
@@ -753,11 +749,15 @@
 
 	function titleTopTable(){
 		let titleTabHere = "";
-		if(tabActive == 4) titleTabHere = "CONVERSAS";
-		if(tabActive == 3) titleTabHere = "MEUS EVENTOS";
-		if(tabActive == 2) titleTabHere = "EVENTOS";
-		if(tabActive == 1) titleTabHere = "PESSOAS PRÓXIMAS";
-		if(titleTab == titleTabHere) return;
+		if(tabActive == 4){
+			titleTabHere = "CONVERSAS";
+		}else if(tabActive == 3){
+			titleTabHere = "MEUS EVENTOS";
+		}else if(tabActive == 2){
+			titleTabHere = "EVENTOS";
+		}else if(tabActive == 1) {
+			titleTabHere = "PESSOAS PRÓXIMAS";
+		}else if(titleTab == titleTabHere) return;
 		titleTab = titleTabHere;
 		$("#title-tab-top").text(titleTab);
 	}
@@ -792,14 +792,16 @@
 	function checkTab(){
 		titleTopTable();
 		clearAnotherTabs();
-		switch(tabActive){
-			case 4:  	makeChatObjects(); break;
-			case 3:		makeEventsObjects(1); break;
-			case 2: 	makeEventsObjects(); break;
-			case 1: 	makeUsersNextObjects(); break;
-			case 0: 	getProfile(); break;
-			default: 	break;
-		}
+		setTimeout(function(){
+			switch(tabActive){
+				case 4:  	makeChatObjects(); break;
+				case 3:		makeEventsObjects(1); break;
+				case 2: 	makeEventsObjects(); break;
+				case 1: 	makeUsersNextObjects(); break;
+				case 0: 	getProfile(); break;
+				default: 	break;
+			}
+		}, 100);
 	}
 
 	(function(){
@@ -832,7 +834,7 @@
 		}, 1000);
 
 		setInterval(function(){
-			if(flagUserChanged) getAllUsersInfo();
+			getAllUsersInfo();
 			getAllEvents();
 			setStatusOnline();
 		}, 10003);

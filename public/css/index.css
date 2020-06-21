@@ -1728,7 +1728,7 @@
 	.slider {
 		-webkit-appearance: none;
 		appearance: none;
-		height: 5px;
+		height: 4px;
 		outline: none;
 		border-radius: 30px;
 		background-color: #b54082;
@@ -1769,6 +1769,8 @@
 		left: 50%;
 		font-weight: bolder;
 		transform: translateX(-50%);
+		font-size: 14px;
+		padding-top: 4px;
 	}
 
 	#next-u-func-1{
