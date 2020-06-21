@@ -42,7 +42,7 @@
 			text: $("#message-send-input").val(),
 		};
 		$("#message-send-input").val("");
-		$.get("./upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message });
+		$.get(nodeHost+"upd-users-messages", { _id_from: userInfo._id, _id_to: toUser._id, message: message });
 		let divsCreated = [];
 		divsCreated.push("<div class='message-p message-p-send' style='opacity: 0.6; border-bottom-right-radius: 0px; margin-left: 8px; background-color: #ffeafe;'><p class='chat-sub-p'>Enviando . . .</p><p class='chat-msg-p' style='color: #706589;'>" +
 		message.text.toString() + "</p></div>");

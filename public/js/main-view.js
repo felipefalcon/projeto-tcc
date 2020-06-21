@@ -543,6 +543,11 @@
 			}, 60);
 		});
 
+		$(".users-t-chat").each(function(){
+			console.log($(this).children());
+			// $(this).animate({opacity: 1}, 200);
+		});
+
 	}
 
 	function getProfInAllUsersById(id){
@@ -799,13 +804,13 @@
 
 	(function(){
 		getServerDate();
-		setStatusOnline();
 		MenuBottomHome.slideUp(1);
 		MenuBottomProf.slideUp(1);
 		MenuBottomNextU.slideUp(1);
 		getAllEvents();
-		getQtNoReadMsgs();
 		getAllUsersInfo();
+		setStatusOnline();
+		getQtNoReadMsgs();
 		verifyAdminPermission();
 
 		$("#btn-menu-1").click(function () {
@@ -852,7 +857,7 @@
 					clearInterval(initTabs);
 				}
 			}
-			if(allEvents && !inCallGetAllEvents){
+			if(allEvents){
 				if(configParams.tab == "main-tab" || JSON.stringify(configParams) == "{}"){
 					$("#btn-menu-6").click();
 					clearInterval(initTabs);
@@ -861,7 +866,7 @@
 					clearInterval(initTabs);
 				}
 			}
-		}, 50);
+		}, 0);
 
 		$("#btn-menu-7").click(function(){
 			if(tabActive == 3) return;

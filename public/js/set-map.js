@@ -31,12 +31,13 @@
 	}
 
 	$("#btn-menu-back").click(function () {
-		if(configParams.show_map){
+		if(configParams.show_map == true){
 			configParams.show_map = undefined;
 			setConfigParams(configParams);
 			window.location.replace("view-event.html");
+		}else{
+			window.location.replace("create-event.html");
 		}
-		window.location.replace("create-event.html");
 	});
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXBlZmFsY29uIiwiYSI6ImNrNHZoNHlocTN3N3MzbnE4eXpnMG5wMnUifQ.qnAXlW-__Z9B8SfszJgioA';
