@@ -25,13 +25,11 @@
 			configParams.history2 = undefined;
 			setConfigParams(configParams);
 			window.location.replace("view-profiles.html");
-		}
-		if(configParams.history == "main-view") {
+		}else if(configParams.history == "main-view") {
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
-		}
-		if(configParams.history == "user-profile") {
+		}else if(configParams.history == "user-profile") {
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("user-profile.html");

@@ -66,7 +66,7 @@
 
 	$("#btn-menu-back").click(function () {
 		configParams.userOrder = undefined;
-		if(configParams.history == "next-u-main-view"){
+		if(configParams.history == "next-u-main-view" || configParams.history == "main-view"){
 			window.location.replace("main-view.html");
 			configParams.history = "";
 			setConfigParams(configParams);
@@ -188,10 +188,16 @@
 		setConfigParams(configParams);
 	})();
 
-	var hammer = new Hammer(document);
+	var hammer = new Hammer(document.getElementById("main-div"));
 
-	hammer.on("panleft panright", function(ev) {
-		if(ev.type == "panleft"){
+	hammer.get('swipe').set({
+		direction: Hammer.DIRECTION_ALL,
+		threshold: 10, 
+		velocity:0.1
+	  });
+
+	hammer.on("swipeleft swiperight", function(ev) {
+		if(ev.type == "swipeleft"){
 			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
@@ -199,7 +205,7 @@
 			$("#menu-bottom-prof-other-user").addClass("blur-effect");
 			setTimeout(function(){changeUser(1);}, 300);
 		}
-		if(ev.type == "panright"){
+		if(ev.type == "swiperight"){
 			if(eventSwipe || cachedEvent.participants.length == 1) return;
 			eventSwipe = true;
 			$("#main-pic-div-c").addClass("loading-img");
@@ -208,7 +214,4 @@
 			setTimeout(function(){changeUser(-1);}, 300);
 		}
 	});
-
-	  
-
 
