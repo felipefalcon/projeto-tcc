@@ -75,13 +75,17 @@
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("main-view.html");
+		}else if(configParams.history == "user-profile"){
+			configParams.history = "";
+			setConfigParams(configParams);
+			window.location.replace("main-view.html");
 		}else{
 			window.location.replace("main-view.html");
 		}
 	});
 
 	$("#send-msg-to-user").click(function () {
-		configParams.history == "user-profile";
+		configParams.history = "user-profile";
 		setConfigParams(configParams);
 		window.location.href = "./user-conversation.html";
 	});
@@ -117,7 +121,7 @@
 			});
 		}
 		getProfile();
-		if(configParams.history != "view-event") configParams.history = "main-view";
+		if(configParams.history != "view-event" && configParams.history != "user-profile") configParams.history = "main-view";
 		setConfigParams(configParams);
 	})();
 
