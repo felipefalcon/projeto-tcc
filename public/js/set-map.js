@@ -181,7 +181,7 @@
 							//console.log(addressForSave);
 							cachedEvent.address = addressForSave;
 							setCachedEvent(cachedEvent);
-							window.location.replace(document.referrer);
+							window.location.replace("create-event.html");
 						}
 					});
 				}, 600);
