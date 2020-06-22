@@ -22,7 +22,7 @@
 		
 		setUserCache(userInfo);
 		if(configParams.history2 == "view-profiles") {
-			configParams.history2 = "";
+			configParams.history2 = undefined;
 			setConfigParams(configParams);
 			window.location.replace("view-profiles.html");
 		}
@@ -124,7 +124,11 @@
 
 	$("#show-prof-btn").click(function () {
 		configParams.show_msg_icon = false;
-		configParams.history2 = "user-conversation";
+		if(configParams.history2){
+			configParams.history3 = "user-conversation";
+		}else{
+			configParams.history2 = "user-conversation";
+		}
 		setConfigParams(configParams);
 		window.location.href = "./user-profile.html";
 	});

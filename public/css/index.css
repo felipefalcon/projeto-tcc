@@ -938,6 +938,10 @@
 		padding-top: 6px;
 	}
 
+	#menu-bottom-home, #menu-bottom-next-u, #menu-bottom-prof{
+		display: none;
+	}
+
 	/* INPUT RADIO EDIT */
 
 	/* The container */

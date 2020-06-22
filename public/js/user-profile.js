@@ -59,7 +59,11 @@
 	});
 
 	$("#btn-menu-back").click(function () {
-		if(configParams.history2 == "user-conversation"){
+		if(configParams.history3 == "user-conversation"){
+			configParams.history3 = undefined;
+			setConfigParams(configParams);
+			window.location.replace("user-conversation.html");
+		}else if(configParams.history2 == "user-conversation"){
 			configParams.history2 = undefined;
 			setConfigParams(configParams);
 			window.location.replace("user-conversation.html");

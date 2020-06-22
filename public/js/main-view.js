@@ -87,10 +87,12 @@
 	});
 
 	function hasAcessLocation(){
-		$("#next-u-div").children().css({"display": "none"});
+		$("#next-u-div").css({"display": "none"});
 		navigator.geolocation.getCurrentPosition(function(){
 			acessLocationGranted = true;
-			$("#next-u-div").children().css({"display": ""});
+			$("#next-u-div").css({"opacity": "0"});
+			$("#next-u-div").css({"display": ""});
+			$("#next-u-div").animate({opacity: 1}, 600);
 		}, function(){
 			acessLocationGranted = false;
 			$("#next-u-div").empty().load("blocked-location.html", function(){
@@ -577,9 +579,6 @@
 	function getProfile() {
 		// getUser();
 		$("#profile-content-div").prepend("<div id='user-information-div' class='container'> <div id='name-label-user-info'> <label class='title-label' id='label-user-name'></label> </div> <label class='title-label' id='label-user-age'>?</label> <div id='other-label-user-info'> </div> </div> <div id='main-pic-div-c'></div> <div id='main-descript-div'></div>");
-		if(qtPicsTotal > 1){
-			$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
-		}
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(userInfo.gender == "M"){
 			gender = "<i class='fas fa-mars' style='line-height: 0;font-size:26px;color:#7a3bce;text-shadow: 1px 2px 1px #00a1ff; vertical-align: sub;'></i>";
@@ -587,9 +586,13 @@
 		$("#label-user-name").html(gender+"&nbsp&nbsp<p style='display: contents; line-height: 25px;'>"+userInfo.name+" "+userInfo.lastname+"</p>");
 		$("#label-user-age").html("<span style='position: relative; top: -3px;'>"+userInfo.age + "</span><p style='line-height: 0px; font-size: 10px; margin: 0; position: relative; top: -4px;'>anos</p>");
 		$("#main-descript-div").text(userInfo.about);
-		addAnotherInfos();
 		$('#main-pic-div-c').css("background-image", "url(" + userInfo.pics_url.main_pic + ")");
-		$("#main-pic-div-c").animate({opacity: 1}, 300);
+		$("#main-pic-div-c").animate({opacity: 1}, 300, function(){
+			if(qtPicsTotal > 1){
+				$("#btn-change-pic").append("<p style='font-size: 12px;'><label id='act-pic'>1</label>&nbsp/&nbsp<label id='qt-pics'>"+qtPicsTotal+"</label></p>");
+			}
+			addAnotherInfos();
+		});
 	}
 
 	function addAnotherInfos(){
@@ -777,7 +780,7 @@
 			$("#next-u-func-1").css("display", "inline");
 			$("#next-u-func-1").animate({opacity: 1}, 200);
 		}
-		if(tabActive != 4)	$("#chat-users-div").empty()
+		if(tabActive != 4)	$("#chat-users-div").empty();
 		if(tabActive != 0)  $("#profile-content-div").empty();
 		if(tabActive != 3) {
 			$("#my-events-author-box-div").empty();
@@ -801,14 +804,14 @@
 				case 0: 	getProfile(); break;
 				default: 	break;
 			}
-		}, 100);
+		}, 200);
 	}
 
 	(function(){
 		getServerDate();
-		MenuBottomHome.slideUp(1);
-		MenuBottomProf.slideUp(1);
-		MenuBottomNextU.slideUp(1);
+		// MenuBottomHome.slideUp(1);
+		// MenuBottomProf.slideUp(1);
+		// MenuBottomNextU.slideUp(1);
 		getAllEvents();
 		getAllUsersInfo();
 		setStatusOnline();
@@ -885,7 +888,7 @@
 				MenuBottomHome.slideDown(300);
 				MenuBottomNextU.slideUp(0);
 				MenuBottomProf.slideUp(0);
-			}, 100);
+			}, 200);
 		});
 	
 		$("#btn-menu-8").click(function(){
@@ -918,10 +921,12 @@
 			tabActive = 1;
 			configParams.tab = "next-u-tab";
 			setConfigParams(configParams);
-			MenuBottomNextU.slideDown(300);
-			MenuBottomHome.slideUp(0);
-			MenuBottomProf.slideUp(0);
 			checkTab();
+			setTimeout(function(){
+				MenuBottomNextU.slideDown(300);
+				MenuBottomHome.slideUp(0);
+				MenuBottomProf.slideUp(0);
+			}, 200);
 			if(!acessLocationGranted) hasAcessLocation();
 		});
 	
