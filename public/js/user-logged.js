@@ -66,5 +66,25 @@
             });
         }
 
+        function resetUserCache() {
+            window.localStorage.setItem('userInfo', '{}');
+            userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+        }
+    
+        function resetAllUsersCache() {
+            window.localStorage.setItem('allUsersInfo', '{}');
+            allUsersInfo = JSON.parse(window.localStorage.getItem('AllUsersInfo'));
+        }
+    
+        function resetToUser() {
+            window.localStorage.setItem('toUser', '{}');
+            toUser = JSON.parse(window.localStorage.getItem('toUser'));
+        }
+    
+        function resetAllEvents() {
+            window.localStorage.setItem('allEvents', '[]');
+            allEvents = JSON.parse(window.localStorage.getItem('allEvents'));
+        }
+
     })();
     
