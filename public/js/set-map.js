@@ -145,7 +145,7 @@
 	showLoadingCircle("#map");
 	setTimeout(function(){
 		closeLoadingCircle("#map");
-	}, 2000);
+	}, 1000);
 
 	if(!( "show_map" in configParams)){
 		$("#set-location-btn").animate({opacity: 1}, 2000);

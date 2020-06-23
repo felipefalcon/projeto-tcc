@@ -9,8 +9,8 @@
 		-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
 		-webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
 		-webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-		/* font-family: JosefinFont, sans-serif !important; */
-		font-family: 'Josefin Sans', sans-serif !important;
+		font-family: JosefinFont, sans-serif !important;
+		/* font-family: 'Josefin Sans', sans-serif !important; */
 		/* font-size:12px; */
 		background: linear-gradient(180deg, rgba(155,99,171,1) 0%, rgba(129,56,163,1) 17%, rgba(78,31,119,1) 36%, rgba(59,25,103,1) 54%, rgba(39,19,81,1) 80%);
 		margin:0px;
