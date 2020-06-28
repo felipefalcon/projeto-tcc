@@ -33,6 +33,10 @@
 			configParams.history = "";
 			setConfigParams(configParams);
 			window.location.replace("user-profile.html");
+		}else{
+			configParams.history = "";
+			setConfigParams(configParams);
+			window.location.replace("main-view.html");
 		}
 	});
 
