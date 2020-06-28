@@ -1,4 +1,4 @@
-	
+	let hasPermissionLocation = false;
 	$("document").ready(function () {
 		if(configParams.show_map) {
 			$("#set-location-btn").remove();
@@ -11,10 +11,20 @@
 			};
 			return sucessGeoLocation(posicao);
 		}
-		navigator.geolocation.getCurrentPosition(sucessGeoLocation, function(){});
+		navigator.geolocation.getCurrentPosition(sucessGeoLocation, function(){
+			let posicao = {
+				coords: {
+					longitude: -46.59538560726344,
+					latitude:  -23.683100361888776
+				}
+			};
+			sucessGeoLocation(posicao);
+		});
 	});
 
 	function sucessGeoLocation(posicao) {
+		hasPermissionLocation = true;
+		closeLoadingCircle("#map");
 		setTimeout(function(){
 			marker.setLngLat([posicao.coords.longitude, posicao.coords.latitude]);
 			addressMarker = {lng: posicao.coords.longitude, lat: posicao.coords.latitude};
@@ -144,7 +154,7 @@
 
 	showLoadingCircle("#map");
 	setTimeout(function(){
-		closeLoadingCircle("#map");
+		if(hasPermissionLocation) closeLoadingCircle("#map");
 	}, 1000);
 
 	if(!( "show_map" in configParams)){
