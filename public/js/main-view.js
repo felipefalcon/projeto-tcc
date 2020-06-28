@@ -83,18 +83,18 @@
 	$("#btn-reload-next-u").click(function(){
 		if(inCallLocation) return;
 		inCallLocation = true;
-		showLoadingCircle("#next-u-users");
 		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 	});
 
 	function hasAcessLocation(){
-		$("#next-u-div").css({"display": "none"});
+		// $("#next-u-div").css({"display": "none"});
 		navigator.geolocation.getCurrentPosition(function(posicao){
-			acessLocationGranted = true;
-			$("#next-u-div").css({"opacity": "0"});
+			// $("#next-u-div").css({"opacity": "0"});
 			setTimeout(function(){
-				$("#next-u-div").css({"display": ""});
-				$("#next-u-div").animate({opacity: 1}, 600);
+				// $("#next-u-div").css({"display": ""});
+				// $("#next-u-div").animate({opacity: 1}, 600);
+				acessLocationGranted = true;
+				if($("#next-u-users").children().length == 0) sucessGeoLocation(posicao);
 			}, 100);
 		}, function(){
 			acessLocationGranted = false;
@@ -105,6 +105,7 @@
 	}
 
 	function sucessGeoLocation(posicao) {
+		showLoadingCircle("#next-u-users");
 		$.get("https://nominatim.openstreetmap.org/reverse?lat=" + posicao.coords.latitude + "&lon=" + posicao.coords.longitude + "&format=json").done(function (data) {
 			var location = data.address;
 			location.region = data.display_name.split(",")[8];
@@ -115,7 +116,10 @@
 				else {
 					inCallLocation = false;
 					getAllUsersInfo();
-					if(!showBoxUserEvents) makeUsersNextObjects();
+					if(!showBoxUserEvents) {
+						closeLoadingCircle("#next-u-users");
+						makeUsersNextObjects();
+					}
 				}
 			});
 		});
@@ -123,6 +127,10 @@
 
 	function failedGeoLocation(error) {
 		inCallLocation = false;
+		closeLoadingCircle("#next-u-users");
+		$("#next-u-div").empty().load("blocked-location.html", function(){
+			$("#blocked-location").animate({opacity: 1}, 300);
+		});
 		return console.log(error);
 	}
 
@@ -442,7 +450,6 @@
 	}
 
 	function makeUsersNextObjects() {
-		closeLoadingCircle("#next-u-users");
 		if(allUsersInfo.length <= 0 || !acessLocationGranted) return;
 		let createdDivs = [];
 		allUsersInfo.forEach( function (data) {
@@ -489,8 +496,8 @@
 			}, 60);
 		});
 
-		$(".user-n-u-block").each(function(i){
-			$(this).animate({opacity: 1}, 300+i);
+		$(".user-n-u-block").each(function(){
+			$(this).animate({opacity: 1}, 300);
 		});
 	}
 
@@ -927,13 +934,13 @@
 			tabActive = 1;
 			configParams.tab = "next-u-tab";
 			setConfigParams(configParams);
+			if(!acessLocationGranted) hasAcessLocation();
 			checkTab();
 			setTimeout(function(){
 				MenuBottomNextU.slideDown(300);
 				MenuBottomHome.slideUp(0);
 				MenuBottomProf.slideUp(0);
 			}, 200);
-			if(!acessLocationGranted) hasAcessLocation();
 		});
 	
 		$("#btn-menu-6").click(function(){
