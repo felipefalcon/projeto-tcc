@@ -34,12 +34,27 @@
 		return allUsersBlocked.find(function(item){return item._id === id;});
 	}
 
+	function calcAgeOfUser(dtNasc){
+		if(typeof dtNasc == "undefined") return "?";
+		let dtNow = new Date();
+		let age = dtNow.getFullYear()-dtNasc.getFullYear();
+		if(dtNow.getMonth() <= dtNasc.getMonth()){
+			age--;
+		}else if(dtNow.getDate() <= dtNasc.getDate()){
+			age--;
+		}
+		if(age > 99 || age < 0) age = "?";
+		return age || "?";
+	}
+
 	function makeUsersObjects(){
 		let divsCreated = []; 
 		allUsersBlocked.forEach(function(data){
+			let gendertext = data.gender == "M" ? "Masculino" : "Feminino";
+			let age = calcAgeOfUser(new Date(data.dt_nasc));
 				divsCreated.push("<div class='users-t' name='"+data._id+"'><div id='profile-img-div' name='"+data._id+
 				"' style='background-image: url("+data.pics_url.main_pic+");' ></div><div class='profile-info-div'><label class='user-d-u-label chat-user-label'>"+data.name+
-				" "+data.lastname+"</label><label class='user-d-u-label chat-msg-label' style='height: 28px;'>"+data.age+" anos - "+data.gender+
+				" "+data.lastname+"</label><label class='user-d-u-label chat-msg-label' style='height: 28px;'>"+age+" anos - "+gendertext+
 				"</label><label class='user-d-u-label' style='text-shadow: none; color: #897ea2;'>"+data.email+"</label></div></div>");
 		});
 
