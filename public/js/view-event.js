@@ -90,10 +90,15 @@
 			if(isNullOrUndefined(data)){
 				alerts.errorServer();
 			}else{
-				if(serviceName == "del-event") return $("#btn-menu-back").click();
+				if(serviceName == "del-event") {
+					allEvents = allEvents.filter(function(event){
+						return event._id != cachedEvent._id;
+					});
+					setAllEvents(allEvents);
+					return $("#btn-menu-back").click();
+				}
 				setCachedEvent(data);
 				loadCachedEvent();
-				// $("#main-body-div").LoadingOverlay('hide');
 			}
 			inCallService = false;
 		});

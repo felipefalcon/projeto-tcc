@@ -83,16 +83,19 @@
 	$("#btn-reload-next-u").click(function(){
 		if(inCallLocation) return;
 		inCallLocation = true;
+		showLoadingCircle("#next-u-users");
 		navigator.geolocation.getCurrentPosition(sucessGeoLocation, failedGeoLocation);
 	});
 
 	function hasAcessLocation(){
 		$("#next-u-div").css({"display": "none"});
-		navigator.geolocation.getCurrentPosition(function(){
+		navigator.geolocation.getCurrentPosition(function(posicao){
 			acessLocationGranted = true;
 			$("#next-u-div").css({"opacity": "0"});
-			$("#next-u-div").css({"display": ""});
-			$("#next-u-div").animate({opacity: 1}, 600);
+			setTimeout(function(){
+				$("#next-u-div").css({"display": ""});
+				$("#next-u-div").animate({opacity: 1}, 600);
+			}, 100);
 		}, function(){
 			acessLocationGranted = false;
 			$("#next-u-div").empty().load("blocked-location.html", function(){
@@ -439,6 +442,8 @@
 	}
 
 	function makeUsersNextObjects() {
+		closeLoadingCircle("#next-u-users");
+		if(allUsersInfo.length <= 0 || !acessLocationGranted) return;
 		let createdDivs = [];
 		allUsersInfo.forEach( function (data) {
 			if("status_account" in data){
@@ -457,6 +462,8 @@
 			data._id + "'><i class='fas fa-comment send-msg-icon' style='"+msgButtonPose+"'></i></div></div><label id='city-district-n-u-label'>" + 
 			distance + " km</label></div></div>");
 		});
+
+		if(createdDivs.length <= 0) return;
 
 		createdDivs.push("<div style='float: left;width: 100%; height: 110px'></div>");
 
@@ -577,7 +584,6 @@
 	}
 
 	function getProfile() {
-		// getUser();
 		$("#profile-content-div").prepend("<div id='user-information-div' class='container'> <div id='name-label-user-info'> <label class='title-label' id='label-user-name'></label> </div> <label class='title-label' id='label-user-age'>?</label> <div id='other-label-user-info'> </div> </div> <div id='main-pic-div-c'></div> <div id='main-descript-div'></div>");
 		let gender = "<i class='fas fa-venus' style='line-height: 0;font-size:25px;color:#ce3bc2;text-shadow: 1px 2px 1px #ad3030; vertical-align: sub;'></i>";
 		if(userInfo.gender == "M"){
@@ -804,7 +810,7 @@
 				case 0: 	getProfile(); break;
 				default: 	break;
 			}
-		}, 200);
+		}, 150);
 	}
 
 	(function(){
@@ -844,7 +850,7 @@
 
 		setInterval(function(){
 			getServerDate();
-		}, 60000);
+		}, 60003);
 
 		let initTabs = setInterval(function(){
 			if(userInfo){
