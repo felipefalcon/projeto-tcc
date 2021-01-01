@@ -1,7 +1,6 @@
 <img src="https://i.imgur.com/TTBX7wK.png" align="center">
 
-# PROJETO - TCC - LERO
-
+## PROJETO - TCC - LERO
 ## Instruções iniciais:
 
 - Baixar e instalar o git em: https://git-scm.com/downloads
