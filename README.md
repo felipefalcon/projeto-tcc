@@ -1,4 +1,6 @@
-# PROJETO - TCC
+<img src="https://i.imgur.com/TTBX7wK.png" align="center">
+
+# PROJETO - TCC - LERO
 
 ## Instruções iniciais:
 
