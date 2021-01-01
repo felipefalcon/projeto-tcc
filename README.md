@@ -15,7 +15,7 @@
 
 <br/>
 
-## Instruções para Download e teste
+## Instruções para Download e Testes
 
 - Pelo terminal do git entre na pasta que você criará o projeto e clone este projeto com o git clone:
 > git clone git@github.com:felipefalcon/projeto-tcc.git
